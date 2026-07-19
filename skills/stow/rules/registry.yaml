@@ -31,12 +31,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: approved-word-lookup
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-001.md
   - id: STOW-WRD-002
@@ -65,12 +67,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: pos-matches-dictionary
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-002.md
   - id: STOW-WRD-003
@@ -99,12 +103,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: approved-sense-only
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-003.md
   - id: STOW-WRD-004
@@ -133,12 +139,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: approved-inflection-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-004.md
   - id: STOW-WRD-005
@@ -168,12 +176,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural or descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: technical-noun-category-membership
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-005.md
   - id: STOW-WRD-006
@@ -202,12 +212,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: technical-noun-context-check
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-006.md
   - id: STOW-WRD-007
@@ -236,12 +248,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: no-technical-noun-as-verb
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-007.md
   - id: STOW-WRD-008
@@ -270,12 +284,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: company-term-preferred
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-008.md
   - id: STOW-WRD-009
@@ -304,12 +320,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: technical-noun-max-3-words
       limit: 3
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-009.md
   - id: STOW-WRD-010
@@ -338,12 +356,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: no-slang-or-jargon-noun
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-010.md
   - id: STOW-WRD-011
@@ -372,12 +392,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: consistent-term-per-referent
       limit:
       autofix: false
+      status: planned
     conflicts:
       - rule: STOW-PRO-007
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
@@ -409,12 +431,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural or descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: technical-verb-category-membership
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-012.md
   - id: STOW-WRD-013
@@ -443,12 +467,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: no-technical-verb-as-noun
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/words/stow-wrd-013.md
   - id: STOW-WRD-014
@@ -477,12 +503,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: american-english-spelling
       limit:
       autofix: false
+      status: planned
     conflicts:
       - rule: STOW-PRO-021
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
@@ -513,12 +541,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: multiword-noun-max-3-words
       limit: 3
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/multiword-nouns/stow-mwn-001.md
   - id: STOW-MWN-002
@@ -547,12 +577,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: long-technical-noun-shorten-or-hyphenate
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/multiword-nouns/stow-mwn-002.md
   - id: STOW-VRB-001
@@ -581,12 +613,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: approved-verb-form-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-001.md
   - id: STOW-VRB-002
@@ -615,12 +649,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: approved-tense-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-002.md
   - id: STOW-VRB-003
@@ -649,12 +685,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: participle-as-adjective-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-003.md
   - id: STOW-VRB-004
@@ -683,12 +721,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: no-auxiliary-complex-construction
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-004.md
   - id: STOW-VRB-005
@@ -717,12 +757,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: ing-only-as-technical-noun
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-005.md
   - id: STOW-VRB-006
@@ -751,12 +793,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: active-voice-required-unless-agentless-descriptive
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-006.md
   - id: STOW-VRB-007
@@ -785,12 +829,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: prefer-verb-over-nominalization
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/verbs/stow-vrb-007.md
   - id: STOW-SEN-001
@@ -819,12 +865,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: sentence-clarity-heuristic
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/sentences/stow-sen-001.md
   - id: STOW-SEN-002
@@ -853,12 +901,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: no-contractions-no-word-omission
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/sentences/stow-sen-002.md
   - id: STOW-SEN-003
@@ -887,12 +937,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: vertical-list-formatting
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/sentences/stow-sen-003.md
   - id: STOW-SEN-004
@@ -921,12 +973,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: approved-connectors-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/sentences/stow-sen-004.md
   - id: STOW-SEN-005
@@ -955,12 +1009,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: article-and-demonstrative-usage
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/sentences/stow-sen-005.md
   - id: STOW-PRC-001
@@ -990,12 +1046,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural or safety instructions.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: procedural-sentence-max-20-words
       limit: 20
       autofix: false
+      status: callable
     conflicts:
       - rule: STOW-PRO-007
         resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
@@ -1026,12 +1084,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: one-instruction-per-sentence
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/procedures/stow-prc-002.md
   - id: STOW-PRC-003
@@ -1061,12 +1121,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural or safety instructions.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: imperative-mood
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/procedures/stow-prc-003.md
   - id: STOW-PRC-004
@@ -1095,12 +1157,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: condition-first-comma-separator
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/procedures/stow-prc-004.md
   - id: STOW-PRC-005
@@ -1129,12 +1193,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: note-no-imperative-no-limit-max-25-words
       limit: 25
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/procedures/stow-prc-005.md
   - id: STOW-DSC-001
@@ -1163,12 +1229,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: gradual-info-one-subject-per-sentence
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/descriptions/stow-dsc-001.md
   - id: STOW-DSC-002
@@ -1197,12 +1265,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: keyword-cohesion
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/descriptions/stow-dsc-002.md
   - id: STOW-DSC-003
@@ -1231,12 +1301,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: descriptive-sentence-max-25-words
       limit: 25
       autofix: false
+      status: callable
     conflicts:
       - rule: STOW-PRO-007
         resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
@@ -1267,12 +1339,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: paragraph-topic-grouping
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/descriptions/stow-dsc-004.md
   - id: STOW-DSC-005
@@ -1301,12 +1375,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: one-topic-per-paragraph
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/descriptions/stow-dsc-005.md
   - id: STOW-DSC-006
@@ -1335,12 +1411,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: paragraph-max-6-sentences
       limit: 6
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/descriptions/stow-dsc-006.md
   - id: STOW-SAF-001
@@ -1369,12 +1447,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+      always_on_for_prose: false
     precedence: system
     enforcement:
       kind: semantic-review
       validator: safety-risk-level-label
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/safety/stow-saf-001.md
   - id: STOW-SAF-002
@@ -1403,12 +1483,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+      always_on_for_prose: false
     precedence: system
     enforcement:
       kind: parser
       validator: safety-starts-with-command-or-condition
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/safety/stow-saf-002.md
   - id: STOW-SAF-003
@@ -1437,12 +1519,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+      always_on_for_prose: false
     precedence: system
     enforcement:
       kind: semantic-review
       validator: safety-states-consequence
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/safety/stow-saf-003.md
   - id: STOW-PCT-001
@@ -1471,12 +1555,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: no-semicolon
       limit:
       autofix: false
+      status: callable
     conflicts:
       - rule: STOW-PRO-001
         resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
@@ -1507,12 +1593,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: hyphenate-related-words
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/punctuation/stow-pct-002.md
   - id: STOW-PCT-003
@@ -1541,12 +1629,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: parentheses-approved-use-only
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/punctuation/stow-pct-003.md
   - id: STOW-PCT-004
@@ -1575,12 +1665,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: colon-as-sentence-boundary-in-list
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/punctuation/stow-pct-004.md
   - id: STOW-PCT-005
@@ -1609,12 +1701,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: parenthetical-counts-as-one-word
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/punctuation/stow-pct-005.md
   - id: STOW-PCT-006
@@ -1643,12 +1737,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: word-count-token-rules
       limit:
       autofix: false
+      status: planned
     conflicts:
       - rule: STOW-PRO-021
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
@@ -1679,12 +1775,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: hyphenated-group-counts-as-one-word
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/punctuation/stow-pct-007.md
   - id: STOW-STY-001
@@ -1713,12 +1811,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: rewrite-construction-preserve-meaning
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/style/stow-sty-001.md
   - id: STOW-STY-002
@@ -1747,12 +1847,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: restricted-meaning-and-pos-check
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/style/stow-sty-002.md
   - id: STOW-STY-003
@@ -1781,12 +1883,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: no-phrasal-verbs
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/style/stow-sty-003.md
   - id: STOW-STY-004
@@ -1815,12 +1919,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: consistent-wording-for-recurring-content
       limit:
       autofix: false
+      status: planned
     conflicts:
       - rule: STOW-PRO-007
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
@@ -1851,12 +1957,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: retain-that-conjunction
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-001.md
   - id: STOW-GEN-002
@@ -1885,12 +1993,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: with-ambiguity-check
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-002.md
   - id: STOW-GEN-003
@@ -1919,12 +2029,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: parser
       validator: approved-and-unambiguous-pronoun
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-003.md
   - id: STOW-GEN-004
@@ -1953,12 +2065,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: this-referent-clarity
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-004.md
   - id: STOW-GEN-005
@@ -1987,12 +2101,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: semantic-review
       validator: false-friend-check
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/general/stow-gen-005.md
   - id: STOW-GEN-006
@@ -2021,12 +2137,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: no-latin-abbreviations
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/general/stow-gen-006.md
   - id: STOW-GEN-007
@@ -2055,12 +2173,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: deterministic
       validator: gender-neutral-language
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-007.md
   - id: STOW-GEN-008
@@ -2089,12 +2209,14 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
+      always_on_for_prose: false
     precedence: profile
     enforcement:
       kind: heuristic
       validator: possessive-correctness
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/general/stow-gen-008.md
   - id: STOW-ACT-001
@@ -2123,12 +2245,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: lead-with-action
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-001.md
   - id: STOW-ACT-002
@@ -2157,12 +2281,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: numbered-multistep
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-002.md
   - id: STOW-ACT-003
@@ -2191,12 +2317,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-003.md
   - id: STOW-ACT-004
@@ -2225,12 +2353,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-inline-tangents
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-004.md
   - id: STOW-ACT-005
@@ -2259,12 +2389,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-005.md
   - id: STOW-ACT-006
@@ -2293,12 +2425,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts:
       - rule: STOW-PRO-002
         resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
@@ -2329,12 +2463,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: surface-outcomes
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-007.md
   - id: STOW-ACT-008
@@ -2363,12 +2499,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-alarm-openers
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-008.md
   - id: STOW-ACT-009
@@ -2397,12 +2535,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: list-max-5-items
       limit: 5
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-009.md
   - id: STOW-ACT-010
@@ -2431,12 +2571,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-preamble-or-signoff
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-010.md
   - id: STOW-ACT-011
@@ -2465,12 +2607,14 @@ records:
     activation:
       kind: always-user-facing
       predicate: The response is user-facing.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: no-action-tables
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/action-shaping/stow-act-011.md
   - id: STOW-PRO-001
@@ -2499,12 +2643,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-em-dash
       limit:
       autofix: false
+      status: callable
     conflicts:
       - rule: STOW-PCT-001
         resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
@@ -2535,12 +2681,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts:
       - rule: STOW-ACT-006
         resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
@@ -2571,12 +2719,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains section headings.
+      always_on_for_prose: false
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: no-heading-parentheticals
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-003.md
   - id: STOW-PRO-004
@@ -2605,12 +2755,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-intensifiers
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-004.md
   - id: STOW-PRO-005
@@ -2639,12 +2791,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-005.md
   - id: STOW-PRO-006
@@ -2673,12 +2827,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-006.md
   - id: STOW-PRO-007
@@ -2707,12 +2863,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: vary-section-structure
       limit:
       autofix: false
+      status: planned
     conflicts:
       - rule: STOW-PRC-001
         resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
@@ -2749,12 +2907,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-reference-narration
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-008.md
   - id: STOW-PRO-009
@@ -2783,12 +2943,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-009.md
   - id: STOW-PRO-010
@@ -2817,12 +2979,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: no-scare-quotes
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-010.md
   - id: STOW-PRO-011
@@ -2851,12 +3015,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-filler-phrases
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-011.md
   - id: STOW-PRO-012
@@ -2885,12 +3051,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-whether-youre-opener
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-012.md
   - id: STOW-PRO-013
@@ -2919,12 +3087,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-013.md
   - id: STOW-PRO-014
@@ -2953,12 +3123,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-synthetic-enthusiasm
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-014.md
   - id: STOW-PRO-015
@@ -2987,12 +3159,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-weasel-words
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-015.md
   - id: STOW-PRO-016
@@ -3021,12 +3195,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains section headings.
+      always_on_for_prose: false
     precedence: presentation
     enforcement:
       kind: heuristic
       validator: concrete-headings
       limit:
       autofix: false
+      status: planned
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-016.md
   - id: STOW-PRO-017
@@ -3055,12 +3231,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-017.md
   - id: STOW-PRO-018
@@ -3089,12 +3267,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-018.md
   - id: STOW-PRO-019
@@ -3123,12 +3303,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-019.md
   - id: STOW-PRO-020
@@ -3157,12 +3339,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-ai-transitions
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-020.md
   - id: STOW-PRO-021
@@ -3191,12 +3375,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-ai-verbs
       limit:
       autofix: false
+      status: callable
     conflicts:
       - rule: STOW-PCT-006
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
@@ -3229,12 +3415,14 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: deterministic
       validator: no-academic-tells
       limit:
       autofix: false
+      status: callable
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-022.md
   - id: STOW-PRO-023
@@ -3263,12 +3451,14 @@ records:
     activation:
       kind: conditional
       predicate: The response quotes an external source.
+      always_on_for_prose: false
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-023.md
   - id: STOW-PRO-024
@@ -3297,11 +3487,21 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
+      always_on_for_prose: true
     precedence: presentation
     enforcement:
       kind: semantic-review
       validator:
       limit:
       autofix: false
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/stow-pro-024.md
+contracts:
+  meta_contract_total: 5
+  catalog:
+    - id: output-contract
+    - id: handoff
+    - id: task-packet
+    - id: evidence-record
+    - id: state

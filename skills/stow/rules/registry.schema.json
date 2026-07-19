@@ -4,7 +4,7 @@
   "title": "STOW rule registry (index)",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "generated_counts", "records"],
+  "required": ["schema_version", "generated_counts", "records", "contracts"],
   "properties": {
     "schema_version": {"const": 1},
     "generated_counts": {
@@ -20,6 +20,32 @@
       "minItems": 96,
       "maxItems": 96,
       "items": {"$ref": "#/$defs/record"}
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["meta_contract_total", "catalog"],
+      "properties": {
+        "meta_contract_total": {"const": 5},
+        "catalog": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id"],
+            "properties": {
+              "id": {
+                "enum": [
+                  "output-contract", "handoff", "task-packet",
+                  "evidence-record", "state"
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {
@@ -85,10 +111,11 @@
         "activation": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "predicate"],
+          "required": ["kind", "predicate", "always_on_for_prose"],
           "properties": {
             "kind": {"enum": ["conditional", "always-user-facing"]},
-            "predicate": {"type": "string", "minLength": 1}
+            "predicate": {"type": "string", "minLength": 1},
+            "always_on_for_prose": {"type": "boolean"}
           }
         },
         "precedence": {
@@ -100,12 +127,13 @@
         "enforcement": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "validator", "limit", "autofix"],
+          "required": ["kind", "validator", "limit", "autofix", "status"],
           "properties": {
             "kind": {"enum": ["deterministic", "parser", "heuristic", "semantic-review"]},
             "validator": {"type": ["string", "null"]},
             "limit": {"type": ["integer", "null"]},
-            "autofix": {"const": false}
+            "autofix": {"const": false},
+            "status": {"enum": ["callable", "review-fallback", "planned"]}
           }
         },
         "conflicts": {

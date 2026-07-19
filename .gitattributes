@@ -1,0 +1,2 @@
+# Packaged skill files are normalised to LF in the repository and the artifact.
+skills/stow/** text eol=lf

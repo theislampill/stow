@@ -1,0 +1,1 @@
+17. **No fabricated case studies or scenarios.** Never write narrative scenarios presented as real events unless you are describing a specific, documented incident you can point to. Do not invent outcomes, actions, or stories.

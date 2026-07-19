@@ -1,0 +1,3307 @@
+# STOW rule registry INDEX (P2). schema_version 1; 96 primary records.
+# baseline_text fields are VERBATIM source statements (protected content).
+# All other fields are STOW-authored and source-name-free.
+schema_version: 1
+generated_counts:
+  primary_total: 96
+records:
+  - id: STOW-WRD-001
+    ordinal: '1.1'
+    record_class: primary
+    category: words
+    title: Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use words that are:"
+      baseline_text_sha256: 2ddc138d5b35d3a8ea52e5e892facbf57dd5444af78ee664f7738ddf3caaf981
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: approved-word-lookup
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-001.md
+  - id: STOW-WRD-002
+    ordinal: '1.2'
+    record_class: primary
+    category: words
+    title: Use each approved word only in its dictionary-specified part of speech.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use approved words from the dictionary only as the specified part of speech."
+      baseline_text_sha256: 743ad21ee9560d8571132639ee29d4d2b187893a365f709a4177a2f658ab55b0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: pos-matches-dictionary
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-002.md
+  - id: STOW-WRD-003
+    ordinal: '1.3'
+    record_class: primary
+    category: words
+    title: Use approved words only with their dictionary-approved, often restricted, meanings.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use approved words only with their approved meanings."
+      baseline_text_sha256: 8abe2be1e9f858244495a762ffcc02c7a973d64020e39ad7eb7f38d90c2b29dd
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: approved-sense-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-003.md
+  - id: STOW-WRD-004
+    ordinal: '1.4'
+    record_class: primary
+    category: words
+    title: Use only the verb and adjective forms the dictionary lists for that word.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use only the approved forms of verbs and adjectives."
+      baseline_text_sha256: 80120f4d32ce3ea876e0c8c45794f93875558420ff650c6aefc0a93321d449c0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: approved-inflection-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-004.md
+  - id: STOW-WRD-005
+    ordinal: '1.5'
+    record_class: primary
+    category: words
+    title: Admit non-dictionary words when they fit one of the technical-noun categories.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "You can use words that you can include in a technical noun category."
+      baseline_text_sha256: e205b3698cbbcf2e9fce7c56635feda7dddfd839bf7819f7213c908b8783367e
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural or descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: technical-noun-category-membership
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-005.md
+  - id: STOW-WRD-006
+    ordinal: '1.6'
+    record_class: primary
+    category: words
+    title: Allow an unapproved word only when it is part of a technical noun.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use a word that is not approved in the dictionary, only when it is a technical noun or part of a technical noun."
+      baseline_text_sha256: fcc66d10295b0dd29822eaad6f4d3d02e04a86334eb6f667ac82ef9a73f36d5d
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: technical-noun-context-check
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-006.md
+  - id: STOW-WRD-007
+    ordinal: '1.7'
+    record_class: primary
+    category: words
+    title: Do not use a technical noun as a verb; keep it a noun or adjectival modifier.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not use words that are technical nouns as verbs."
+      baseline_text_sha256: bfbf8dbd12a094bd184e952e6db1ae2b69a64ee4c0bb5459d048053cb305741d
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: no-technical-noun-as-verb
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-007.md
+  - id: STOW-WRD-008
+    ordinal: '1.8'
+    record_class: primary
+    category: words
+    title: Prefer the technical noun already approved by your company, industry, or subject field.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use technical nouns that are approved in your company, industry, or subject field."
+      baseline_text_sha256: cd9089b9c66d7101112ea25ba41d3ab8c0bdb8b438dfda82887f94bda2a5dcb3
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: company-term-preferred
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-008.md
+  - id: STOW-WRD-009
+    ordinal: '1.9'
+    record_class: primary
+    category: words
+    title: When coining a technical noun, keep it short and easy to understand.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When you must select a technical noun, use one which is short and easy to understand."
+      baseline_text_sha256: fce3c67a7a65cd891021b8ee5d5aa67032c338c7bfd26a1f636c7feed392eb41
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: technical-noun-max-3-words
+      limit: 3
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-009.md
+  - id: STOW-WRD-010
+    ordinal: '1.10'
+    record_class: primary
+    category: words
+    title: Do not use regional, slang, or jargon words as technical nouns.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not use regional, slang, or jargon words as technical nouns."
+      baseline_text_sha256: a05a886100ac69cd3ecfac7c79adbc09d36ac7218c87947504d02b45090ffd68
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: no-slang-or-jargon-noun
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-010.md
+  - id: STOW-WRD-011
+    ordinal: '1.11'
+    record_class: primary
+    category: words
+    title: Use one technical noun consistently for one item; do not switch synonyms mid-text.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not use different technical nouns for the same item."
+      baseline_text_sha256: 60c0e7a65e74bba82b411eaea0aaff3ef68d3ae8249cb0ff2c61eecde76c1195
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: consistent-term-per-referent
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-007
+        resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
+    corpus_ref: corpus/words/stow-wrd-011.md
+  - id: STOW-WRD-012
+    ordinal: '1.12'
+    record_class: primary
+    category: words
+    title: Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one exists.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "You can use verbs that you can include in a technical verb category."
+      baseline_text_sha256: 40531580afdc03d751e662646f9e9ca7fa706045d91a9cd556b2369bdcec06d7
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural or descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: technical-verb-category-membership
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-012.md
+  - id: STOW-WRD-013
+    ordinal: '1.13'
+    record_class: primary
+    category: words
+    title: Do not nominalize a technical verb; its past participle may act as an adjective.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not use technical verbs as nouns."
+      baseline_text_sha256: 246392ad86a26017edb3b7f2a6a29e5b3a2d7c96efb8ecbff08607a19d0381e3
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: no-technical-verb-as-noun
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/words/stow-wrd-013.md
+  - id: STOW-WRD-014
+    ordinal: '1.14'
+    record_class: primary
+    category: words
+    title: Use American English spelling unless another official directive overrides; do not change quoted-text spelling.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use American English spelling unless other official directives tell you differently."
+      baseline_text_sha256: f0180bc7bd63b77b60b6935176fc61308fa1ebc65c999114ba859b4dd3e72ece
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: american-english-spelling
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-021
+        resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
+    corpus_ref: corpus/words/stow-wrd-014.md
+  - id: STOW-MWN-001
+    ordinal: '2.1'
+    record_class: primary
+    category: multiword-nouns
+    title: Keep multi-word nouns to a maximum of three words.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write multi-word nouns of no more than three words."
+      baseline_text_sha256: f3f84e98fc6e0b06a498d60f3c0a92efa3877e8f62a8bdf762299b24524e9b5d
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: multiword-noun-max-3-words
+      limit: 3
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/multiword-nouns/stow-mwn-001.md
+  - id: STOW-MWN-002
+    ordinal: '2.2'
+    record_class: primary
+    category: multiword-nouns
+    title: For a technical noun longer than three words, write it in full first, then shorten or hyphenate.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When a technical noun has more than three words, write it in full. Then, you can use one of these methods to make the technical noun clear:"
+      baseline_text_sha256: 969f126888878f5800c730103d63140a04b6f2ab018aa09c423cf8b5d318a271
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: long-technical-noun-shorten-or-hyphenate
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/multiword-nouns/stow-mwn-002.md
+  - id: STOW-VRB-001
+    ordinal: '3.1'
+    record_class: primary
+    category: verbs
+    title: Use only the verb forms the dictionary provides for each approved verb.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use only the verb forms that are given in the dictionary."
+      baseline_text_sha256: 31dd4aa8a03a7c2a54daac0790daa50120d2f7bfa488265522e81bfcf59f749d
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: approved-verb-form-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-001.md
+  - id: STOW-VRB-002
+    ordinal: '3.2'
+    record_class: primary
+    category: verbs
+    title: Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use only these verb forms and tenses of verbs:"
+      baseline_text_sha256: f2c401216e743bd10b884d2e8d87302c76e3e1ff792c4049195cf8b4416228a1
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: approved-tense-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-002.md
+  - id: STOW-VRB-003
+    ordinal: '3.3'
+    record_class: primary
+    category: verbs
+    title: Use the past participle only as an adjective, and only if it is in the dictionary.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use the past participle form as an adjective."
+      baseline_text_sha256: ba6aa40154d2660c742a5e17f7dcb13019ad61f3c2e165bb91ecc196f7f073d5
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: participle-as-adjective-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-003.md
+  - id: STOW-VRB-004
+    ordinal: '3.4'
+    record_class: primary
+    category: verbs
+    title: Do not use auxiliary verbs to build perfect, progressive, or passive complex constructions.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not use auxiliary verbs to make complex verb constructions."
+      baseline_text_sha256: c6c2a37c7c46e4d264b3f5f01dd1be1a790f9bc878adf28b6a2345738501d947
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: no-auxiliary-complex-construction
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-004.md
+  - id: STOW-VRB-005
+    ordinal: '3.5'
+    record_class: primary
+    category: verbs
+    title: Use an -ing word only as a technical noun or as a modifier inside a technical noun.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use the “-ing” form of a verb only as a technical noun or as a modifier in a technical noun."
+      baseline_text_sha256: dc23f4891e09645042a735ed684c5f693680f054e3a33c524e02768b92332bdb
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: ing-only-as-technical-noun
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-005.md
+  - id: STOW-VRB-006
+    ordinal: '3.6'
+    record_class: primary
+    category: verbs
+    title: Use active voice; passive is allowed only in descriptive writing when the agent is unknown.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use the active voice. In descriptive writing, you can use the passive voice only if the agent is unknown."
+      baseline_text_sha256: 3431f7922964928f4d0bbe89380d1bdac5d49cec9f7048aa0669d26288bbb599
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: active-voice-required-unless-agentless-descriptive
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-006.md
+  - id: STOW-VRB-007
+    ordinal: '3.7'
+    record_class: primary
+    category: verbs
+    title: Describe an action with an approved verb, not a nominalization or other part of speech.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use an approved verb to describe an action, not a noun or other parts of speech."
+      baseline_text_sha256: 6912ddddbe06432de6c9fbb6b70f567738f57f761fa842b9349b7d46757c60d4
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: prefer-verb-over-nominalization
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/verbs/stow-vrb-007.md
+  - id: STOW-SEN-001
+    ordinal: '4.1'
+    record_class: primary
+    category: sentences
+    title: Write short, clear, concrete sentences suited to procedures or descriptions.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write short and clear sentences."
+      baseline_text_sha256: 46e2129bdd1bee561bb809ce28cbac543e3774a81e0c44f646bd9c442dd3c06f
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: sentence-clarity-heuristic
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/sentences/stow-sen-001.md
+  - id: STOW-SEN-002
+    ordinal: '4.2'
+    record_class: primary
+    category: sentences
+    title: Do not omit words or use contractions; write every word in full.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Do not omit words or use contractions to make your sentences shorter."
+      baseline_text_sha256: 84a670e767779166aa438fa360119b5c5f19036b282c24162c99dbc019fc98ec
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: no-contractions-no-word-omission
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/sentences/stow-sen-002.md
+  - id: STOW-SEN-003
+    ordinal: '4.3'
+    record_class: primary
+    category: sentences
+    title: Break complex text into a vertical list with the prescribed layout.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use a vertical list for complex text."
+      baseline_text_sha256: 8ef02e0365e8b75b6219c19349aa2b25172fef0da48081d3a3a86f0ce3e9d075
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: vertical-list-formatting
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/sentences/stow-sen-003.md
+  - id: STOW-SEN-004
+    ordinal: '4.4'
+    record_class: primary
+    category: sentences
+    title: Use approved connecting words and phrases to link related sentences.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use connecting words and connecting phrases to connect sentences that contain related topics."
+      baseline_text_sha256: 94a5c35729b061d3e39bf938e2329aca34c549eb17ad064ba1213cfaa52656a2
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: approved-connectors-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/sentences/stow-sen-004.md
+  - id: STOW-SEN-005
+    ordinal: '4.5'
+    record_class: primary
+    category: sentences
+    title: Use articles and demonstratives before nouns where grammatically correct.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When applicable, use an article (the, a, an) or a demonstrative adjective (this, these) before a noun or a multi-word noun."
+      baseline_text_sha256: 1b89813c7a947265a808bb339df7acafd77beb13e49700c2313d0f7069822157
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: article-and-demonstrative-usage
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/sentences/stow-sen-005.md
+  - id: STOW-PRC-001
+    ordinal: '5.1'
+    record_class: primary
+    category: procedures
+    title: Limit each procedural sentence to a maximum of twenty words.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write short sentences. Use a maximum of 20 words in each sentence."
+      baseline_text_sha256: 6c7c4837ec48254d2a4e18b04f71d93f385e55cc6cc3e7b7a1ee5f695ba25c3f
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+        - safety-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural or safety instructions.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: procedural-sentence-max-20-words
+      limit: 20
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-007
+        resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
+    corpus_ref: corpus/procedures/stow-prc-001.md
+  - id: STOW-PRC-002
+    ordinal: '5.2'
+    record_class: primary
+    category: procedures
+    title: Write only one instruction per sentence unless actions occur at the same time.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write only one instruction in each sentence unless two or more actions occur at the same time."
+      baseline_text_sha256: f2f6ce39c47bf13c27492304ac387dbf324d8da9cecc7272f383137c8645da80
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: one-instruction-per-sentence
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/procedures/stow-prc-002.md
+  - id: STOW-PRC-003
+    ordinal: '5.3'
+    record_class: primary
+    category: procedures
+    title: Write instructions in the imperative command form.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write instructions in the imperative (command) form."
+      baseline_text_sha256: aba1cb8aa9a8f7f8446cf9e2ff162d27bbad22217f3f17e4b6e3f41c4a7d28f1
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+        - safety-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural or safety instructions.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: imperative-mood
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/procedures/stow-prc-003.md
+  - id: STOW-PRC-004
+    ordinal: '5.4'
+    record_class: primary
+    category: procedures
+    title: State a required condition first and separate it from the command with a comma.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When there is a condition that the reader must know about first, start the instruction with a descriptive statement. Then, divide that descriptive statement from the command with a comma."
+      baseline_text_sha256: 33e52b7fe001089244214dd93259557176ad906bddc3d767cc2a9f655202664e
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: condition-first-comma-separator
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/procedures/stow-prc-004.md
+  - id: STOW-PRC-005
+    ordinal: '5.5'
+    record_class: primary
+    category: procedures
+    title: Notes give information only, with a maximum of twenty-five words per sentence.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write notes only to give information, not instructions."
+      baseline_text_sha256: af308c142150b00af9f643c89db1df1092776a2191ac2bed344a03f4e6b196fd
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - procedural-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: note-no-imperative-no-limit-max-25-words
+      limit: 25
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/procedures/stow-prc-005.md
+  - id: STOW-DSC-001
+    ordinal: '6.1'
+    record_class: primary
+    category: descriptions
+    title: Introduce information gradually, one subject per sentence.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Give information gradually."
+      baseline_text_sha256: 4d7a1fedfc34d37d5dc4a9e5a409c28a57c1ff69e4f687237092710b8d632f04
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: gradual-info-one-subject-per-sentence
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/descriptions/stow-dsc-001.md
+  - id: STOW-DSC-002
+    ordinal: '6.2'
+    record_class: primary
+    category: descriptions
+    title: Use consistent key words and phrases to give the text a logical structure.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use key words and key phrases to give your text a logical structure."
+      baseline_text_sha256: 95824d3d25495c170536b8376afac585758988f3babfd8ef3d6c55fa1328cb43
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: keyword-cohesion
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/descriptions/stow-dsc-002.md
+  - id: STOW-DSC-003
+    ordinal: '6.3'
+    record_class: primary
+    category: descriptions
+    title: Limit each descriptive sentence to a maximum of twenty-five words.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Write short sentences. Use a maximum of 25 words in each sentence."
+      baseline_text_sha256: 19751fafcc0c1165c36decaafb639f8f3850705aa095ec7217578be9592607c0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: descriptive-sentence-max-25-words
+      limit: 25
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-007
+        resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
+    corpus_ref: corpus/descriptions/stow-dsc-003.md
+  - id: STOW-DSC-004
+    ordinal: '6.4'
+    record_class: primary
+    category: descriptions
+    title: Group related information into paragraphs, each led by a topic sentence.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use paragraphs to show related information."
+      baseline_text_sha256: a4bcf3982810f3c76bbb1e0502341fefd08de3d2f1b5e40a3e2c1ea38bc25b40
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: paragraph-topic-grouping
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/descriptions/stow-dsc-004.md
+  - id: STOW-DSC-005
+    ordinal: '6.5'
+    record_class: primary
+    category: descriptions
+    title: Give each paragraph exactly one topic.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Make sure that each paragraph has only one topic."
+      baseline_text_sha256: 0a22200913bfc79fe74418f43b376335f3aa3173c8d8e7411cb825a476e3f9e2
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: one-topic-per-paragraph
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/descriptions/stow-dsc-005.md
+  - id: STOW-DSC-006
+    ordinal: '6.6'
+    record_class: primary
+    category: descriptions
+    title: Keep every paragraph to a maximum of six sentences.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Make sure that no paragraph has more than six sentences."
+      baseline_text_sha256: 1a6d083a7f04460d4d7f9630b1578edd463c9a531a7bdc1c2f379417fe9923eb
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - descriptive-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: paragraph-max-6-sentences
+      limit: 6
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/descriptions/stow-dsc-006.md
+  - id: STOW-SAF-001
+    ordinal: '7.1'
+    record_class: primary
+    category: safety
+    title: Label each safety instruction with a word that identifies the level of risk.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use an applicable word (for example, “warning” or “caution”) to identify the level of risk."
+      baseline_text_sha256: 7b5db6c6fbeeaeedd2c88012253a27e4dcb43db44b1a0255a8216a9ed03983c4
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - safety-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+    precedence: system
+    enforcement:
+      kind: semantic-review
+      validator: safety-risk-level-label
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/safety/stow-saf-001.md
+  - id: STOW-SAF-002
+    ordinal: '7.2'
+    record_class: primary
+    category: safety
+    title: Begin a safety instruction with a clear, accurate command or condition.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Start a safety instruction with a clear and accurate command or condition."
+      baseline_text_sha256: 9aebafbcff3954f915474d4380bca4271c293fcc876f3d0f6f29a9fda5ec92ca
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - safety-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+    precedence: system
+    enforcement:
+      kind: parser
+      validator: safety-starts-with-command-or-condition
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/safety/stow-saf-002.md
+  - id: STOW-SAF-003
+    ordinal: '7.3'
+    record_class: primary
+    category: safety
+    title: State the risk or the possible result of not obeying the safety instruction.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Give an explanation to show the risk or possible result."
+      baseline_text_sha256: ba3f8858b30dff3e22df1c95abeb442662b23a98a233f9cd76d6264415a9621a
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - safety-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains a safety instruction, warning, caution, or hazard notice.
+    precedence: system
+    enforcement:
+      kind: semantic-review
+      validator: safety-states-consequence
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/safety/stow-saf-003.md
+  - id: STOW-PCT-001
+    ordinal: '8.1'
+    record_class: primary
+    category: punctuation
+    title: Do not use the semicolon; write two separate sentences instead.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "You can use all standard English punctuation marks but not the semicolon (;)."
+      baseline_text_sha256: 024a4d04817cc0d8f24c3f7370054600fcdbd682e6c7500a435a59766a98b491
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: no-semicolon
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-001
+        resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
+    corpus_ref: corpus/punctuation/stow-pct-001.md
+  - id: STOW-PCT-002
+    ordinal: '8.2'
+    record_class: primary
+    category: punctuation
+    title: Use hyphens to join words that are directly related.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use hyphens (-) to connect words that are directly related."
+      baseline_text_sha256: b52ec0af790e8126b0d57c0b1fa974f673e7b109ee06e0292ceb2d0523e3f168
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: hyphenate-related-words
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/punctuation/stow-pct-002.md
+  - id: STOW-PCT-003
+    ordinal: '8.3'
+    record_class: primary
+    category: punctuation
+    title: Use parentheses only for the approved purposes.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "You can use parentheses:"
+      baseline_text_sha256: ca1147e7581fd15e1b67c18a3f1314f56c89d8a8203b3fdd951a0fa3f1773975
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: parentheses-approved-use-only
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/punctuation/stow-pct-003.md
+  - id: STOW-PCT-004
+    ordinal: '8.4'
+    record_class: primary
+    category: punctuation
+    title: In a vertical list, a colon counts as a period for word count and ends a sentence.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "In a vertical list, a colon (:) has the same effect on word count as a period and shows the end of a sentence."
+      baseline_text_sha256: 68049d595dd2b155766f4688ba3ad650a2b1cf0f4159e83b0040e5e8ba9abc90
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: colon-as-sentence-boundary-in-list
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/punctuation/stow-pct-004.md
+  - id: STOW-PCT-005
+    ordinal: '8.5'
+    record_class: primary
+    category: punctuation
+    title: Parenthetical text counts as one word in the host sentence.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When you put text in parentheses, it counts as one word in that sentence."
+      baseline_text_sha256: 0d919f875b828a1c482de27b76dfee2fb575b8fc2bf4a748c27c818829a52464
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: parenthetical-counts-as-one-word
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/punctuation/stow-pct-005.md
+  - id: STOW-PCT-006
+    ordinal: '8.6'
+    record_class: primary
+    category: punctuation
+    title: Count numbers, identifiers, quoted text, titles, and proper nouns each as one word.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Count each of these elements as one word:"
+      baseline_text_sha256: f472b1f7ccf758da445649ba5930f22196b818f23dd49e6c19e311c0e9973c13
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: word-count-token-rules
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-021
+        resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
+    corpus_ref: corpus/punctuation/stow-pct-006.md
+  - id: STOW-PCT-007
+    ordinal: '8.7'
+    record_class: primary
+    category: punctuation
+    title: A hyphenated group of words counts as one word.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Hyphenated words count as one word."
+      baseline_text_sha256: 661c47c5309609892d3e87918382995f3711de25d9a0abd8f18e2ff372c5c016
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: hyphenated-group-counts-as-one-word
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/punctuation/stow-pct-007.md
+  - id: STOW-STY-001
+    ordinal: '9.1'
+    record_class: primary
+    category: style
+    title: When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use a different sentence construction to write a sentence when a word-for-word replacement is not sufficient."
+      baseline_text_sha256: cc16c46c7bb92418e29a689648f4bff704396ac1b179b973488414da89f49a43
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: rewrite-construction-preserve-meaning
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/style/stow-sty-001.md
+  - id: STOW-STY-002
+    ordinal: '9.2'
+    record_class: primary
+    category: style
+    title: Use each approved word with its correct restricted meaning and part of speech.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Use each approved word correctly."
+      baseline_text_sha256: 1e7a2a3952f365fbab617a8f85df05fe193f32c469c5a9b7b35300076c9d60c3
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: restricted-meaning-and-pos-check
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/style/stow-sty-002.md
+  - id: STOW-STY-003
+    ordinal: '9.3'
+    record_class: primary
+    category: style
+    title: Do not combine approved words into unlisted phrasal verbs.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When you use two words together, do not make phrasal verbs."
+      baseline_text_sha256: 88878f077ada162ea93ff4d625741b51198d640ccd5436cb172bdd941fc8b4a7
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: no-phrasal-verbs
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/style/stow-sty-003.md
+  - id: STOW-STY-004
+    ordinal: '9.4'
+    record_class: primary
+    category: style
+    title: 'Use a consistent style: reuse the same terminology and wording for recurring content.'
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "When you select terminology or wording, always use a consistent style."
+      baseline_text_sha256: 23a27f93d556d7659786c3fcd3de2119527bd3f130cde748c7cfc0de9c7a9ac5
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: consistent-wording-for-recurring-content
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-007
+        resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
+    corpus_ref: corpus/style/stow-sty-004.md
+  - id: STOW-GEN-001
+    ordinal: GR-1
+    record_class: primary
+    category: general
+    title: Prefer keeping the conjunction that to mark the clause boundary.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "The conjunction “that”"
+      baseline_text_sha256: ebdf45551bb7f4aaada84b09016fc541f787c6709ad3935210c908edcd1613cb
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: retain-that-conjunction
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-001.md
+  - id: STOW-GEN-002
+    ordinal: GR-2
+    record_class: primary
+    category: general
+    title: Check the preposition with for ambiguity and rewrite when unclear.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "The preposition “with”"
+      baseline_text_sha256: 056617346572ab81eb53abc5945bd1790a659751376697405a87b6ca2943c2c0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: with-ambiguity-check
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-002.md
+  - id: STOW-GEN-003
+    ordinal: GR-3
+    record_class: primary
+    category: general
+    title: Use only approved pronouns; replace an ambiguous pronoun with its noun.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "How to use pronouns"
+      baseline_text_sha256: aa7e788877138bdb890b3b97554e633e86a7885f477102c8956a36eb13b3532b
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: parser
+      validator: approved-and-unambiguous-pronoun
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-003.md
+  - id: STOW-GEN-004
+    ordinal: GR-4
+    record_class: primary
+    category: general
+    title: Make sure the pronoun this has an unambiguous referent.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "The pronoun “this”"
+      baseline_text_sha256: 80950924a0305a6554f6849d95f7b25ef216c84181c156c3baf7e744d7a4c947
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: this-referent-clarity
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-004.md
+  - id: STOW-GEN-005
+    ordinal: GR-5
+    record_class: primary
+    category: general
+    title: Avoid false friends; confirm the English meaning of the word.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "False friends"
+      baseline_text_sha256: f010096b25356f889ae69a37673b74c2a22843b155aed3bb168bd3fa22c049cd
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: semantic-review
+      validator: false-friend-check
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-005.md
+  - id: STOW-GEN-006
+    ordinal: GR-6
+    record_class: primary
+    category: general
+    title: Avoid Latin abbreviations; use English words instead.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Latin abbreviations"
+      baseline_text_sha256: 173127d2d6cfa82d17feaf681e91ceafd30a19585cbdb673b4e80043ba62c521
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: no-latin-abbreviations
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-006.md
+  - id: STOW-GEN-007
+    ordinal: GR-7
+    record_class: primary
+    category: general
+    title: Use gender-neutral, inclusive language.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Inclusive language"
+      baseline_text_sha256: 6183139001c90805e74b62cb18b895bab10982e4ef0a2c3a9b8b6f3c54fddca0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: deterministic
+      validator: gender-neutral-language
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-007.md
+  - id: STOW-GEN-008
+    ordinal: GR-8
+    record_class: primary
+    category: general
+    title: Use the possessive correctly; if unsure, avoid it.
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Possessive form"
+      baseline_text_sha256: e32c5dd0ab50177daef3197119aa2787a244b6e47557bca02668baad7e123cfe
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: A controlled-technical writing profile is active and the response contains prose.
+    precedence: profile
+    enforcement:
+      kind: heuristic
+      validator: possessive-correctness
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/general/stow-gen-008.md
+  - id: STOW-ACT-001
+    ordinal: '1'
+    record_class: primary
+    category: action-shaping
+    title: Action-first response opening
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Lead with the next action"
+      baseline_text_sha256: f4f41c337b55628ed4d3550202eba7170d03b40eab9d1e6509004e6fa7b4cee5
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: lead-with-action
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-001.md
+  - id: STOW-ACT-002
+    ordinal: '2'
+    record_class: primary
+    category: action-shaping
+    title: Numbered steps for multi-step work
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Number multi-step tasks"
+      baseline_text_sha256: 2f6f96764f4466d9544211b3eca04ae842a4dc2738f0728c92bd4a89cef029b3
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: numbered-multistep
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-002.md
+  - id: STOW-ACT-003
+    ordinal: '3'
+    record_class: primary
+    category: action-shaping
+    title: Close with a single concrete next step
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "End with one concrete next action"
+      baseline_text_sha256: 475290e085b1ba3a2ae96dee85d29000c31c33d4b48a0e6044a619308afd73b5
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-003.md
+  - id: STOW-ACT-004
+    ordinal: '4'
+    record_class: primary
+    category: action-shaping
+    title: Defer secondary issues
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Suppress tangents"
+      baseline_text_sha256: 164e0d7fd73868f82120c582ce6381916eda9c75772ef34b009c1b2c4509e59c
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-inline-tangents
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-004.md
+  - id: STOW-ACT-005
+    ordinal: '5'
+    record_class: primary
+    category: action-shaping
+    title: Restate progress each turn
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Restate state every turn"
+      baseline_text_sha256: e1e1aaf5b16059ea8be2fff6e00713a0bf1830fb740b4b40807c5083b9412bdd
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-005.md
+  - id: STOW-ACT-006
+    ordinal: '6'
+    record_class: primary
+    category: action-shaping
+    title: Concrete effort estimates
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Give specific time estimates"
+      baseline_text_sha256: 792a21fe08fd2353cf2232ae8a074014a769fcbe84204fb0e143de87c80f0218
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRO-002
+        resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
+    corpus_ref: corpus/action-shaping/stow-act-006.md
+  - id: STOW-ACT-007
+    ordinal: '7'
+    record_class: primary
+    category: action-shaping
+    title: Surface completed outcomes
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Make completed work visible"
+      baseline_text_sha256: 8e96bcf6d0b14a0aa13e4ce4391a8d5416d5db0e1729687e109e5e9068fa18ed
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: surface-outcomes
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-007.md
+  - id: STOW-ACT-008
+    ordinal: '8'
+    record_class: primary
+    category: action-shaping
+    title: Neutral error reporting
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Matter-of-fact tone for errors"
+      baseline_text_sha256: f05904907451ea68ad0f9a22590d976b21ba1b4b539066e63a4bffe58f36b0da
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-alarm-openers
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-008.md
+  - id: STOW-ACT-009
+    ordinal: '9'
+    record_class: primary
+    category: action-shaping
+    title: Bound action lists to five items
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "Cap lists at 5 items"
+      baseline_text_sha256: 37df4ddf4b6cd0de86abbd35fe184c79707eb1596e57d2f17147621dab3435f0
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: list-max-5-items
+      limit: 5
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-009.md
+  - id: STOW-ACT-010
+    ordinal: '10'
+    record_class: primary
+    category: action-shaping
+    title: No preamble, recap, or sign-off
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "No preamble, no recap, no closing pleasantries"
+      baseline_text_sha256: f451bab0103cf76eaa6c6739906cfef13ad051520a92613c78d8e0333c445507
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-preamble-or-signoff
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-010.md
+  - id: STOW-ACT-011
+    ordinal: '11'
+    record_class: primary
+    category: action-shaping
+    title: Lists, not tables, for action sequences
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "No tables for actions"
+      baseline_text_sha256: 0af0ec8c30cb30f3320c7cf2d00ca13c0a65e9b11d0941eaadbe99996e20c7bf
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - user-facing-output
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: always-user-facing
+      predicate: The response is user-facing.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: no-action-tables
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/action-shaping/stow-act-011.md
+  - id: STOW-PRO-001
+    ordinal: '1'
+    record_class: primary
+    category: prose-integrity
+    title: Ban the em dash
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No emdashes.** The character is banned. Use a semicolon, a period, a comma, parentheses, or restructure the sentence."
+      baseline_text_sha256: b6686d63fabcc765fc5df37ec05b16d2dce686a9bb9a281325ef1f1165d4559b
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-em-dash
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PCT-001
+        resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
+    corpus_ref: corpus/prose-integrity/stow-pro-001.md
+  - id: STOW-PRO-002
+    ordinal: '2'
+    record_class: primary
+    category: prose-integrity
+    title: Require attributable numbers
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No unsourced statistics.** Every number must be real and attributable. If you cannot point to where it comes from, do not write it. A made-up figure is worse than no figure."
+      baseline_text_sha256: 62b03a8a11effbdb2dd0d547ec96cfdba3e86991fc9413944bf18362cd9e8ead
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-ACT-006
+        resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
+    corpus_ref: corpus/prose-integrity/stow-pro-002.md
+  - id: STOW-PRO-003
+    ordinal: '3'
+    record_class: primary
+    category: prose-integrity
+    title: No parentheticals in headings
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No parenthetical clarifications in headings.** Trust the reader."
+      baseline_text_sha256: b3320f2785d568a87d9364cd7064faa6f3db421846426cd4c1327d924e594d36
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains section headings.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: no-heading-parentheticals
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-003.md
+  - id: STOW-PRO-004
+    ordinal: '4'
+    record_class: primary
+    category: prose-integrity
+    title: No empty intensifiers
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No intensifiers.** \"Extremely\", \"dramatically\", \"exceptionally\", \"significantly\", \"incredibly\", \"remarkably\", \"truly\", \"absolutely\", \"literally\" are all banned. Prove it with a fact or cut the word."
+      baseline_text_sha256: e1e6deedebd5dae8db13fc615ef0d6401a35bc1f4ac429156d1edd649753df35
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-intensifiers
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-004.md
+  - id: STOW-PRO-005
+    ordinal: '5'
+    record_class: primary
+    category: prose-integrity
+    title: End claims on a concrete detail
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No hollow statements.** Every claim must end with a concrete, verifiable detail. If it cannot, delete the sentence."
+      baseline_text_sha256: a72c4f3e5c25c52625b72fc167859526b25fa71e49e5aa7de30e4571b1ceae95
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-005.md
+  - id: STOW-PRO-006
+    ordinal: '6'
+    record_class: primary
+    category: prose-integrity
+    title: No repeated points
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No repeated talking points.** Say it once. Duplicates are padding."
+      baseline_text_sha256: 2433a24676f16386e9145d47c4043aac37aa2e115232c958c8b2ecb14ed506c1
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-006.md
+  - id: STOW-PRO-007
+    ordinal: '7'
+    record_class: primary
+    category: prose-integrity
+    title: Vary structure
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**Vary structure.** Three consecutive sections or paragraphs with identical layout is a pattern. Break it."
+      baseline_text_sha256: 45077582b0fb411cfa9d24f47379496923b037dbe5d780f384efa808d8af4b55
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: vary-section-structure
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PRC-001
+        resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
+      - rule: STOW-DSC-003
+        resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
+      - rule: STOW-STY-004
+        resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
+      - rule: STOW-WRD-011
+        resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
+    corpus_ref: corpus/prose-integrity/stow-pro-007.md
+  - id: STOW-PRO-008
+    ordinal: '8'
+    record_class: primary
+    category: prose-integrity
+    title: Reference without narrating
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**Reference without narrating the reference.** Do not write \"as discussed above\" or \"as we will see.\" Make the connection and move on."
+      baseline_text_sha256: 578a353f44dc89ab496192f0c66e266731313795936efa75ad4aa11241d95e99
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-reference-narration
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-008.md
+  - id: STOW-PRO-009
+    ordinal: '9'
+    record_class: primary
+    category: prose-integrity
+    title: No urgency without a reason
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No performative urgency without a reason.** \"Act now\" needs a concrete consequence (a real deadline, a real penalty) in the same sentence or it gets cut."
+      baseline_text_sha256: 6d083d242bc134c83662ceca6d8871623e630af8fa9d659edcc4da3db66f456f
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-009.md
+  - id: STOW-PRO-010
+    ordinal: '10'
+    record_class: primary
+    category: prose-integrity
+    title: No scare quotes on ordinary words
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No scare quotes on normal words.** Use quotation marks only for actual quotations from a named source."
+      baseline_text_sha256: 7ea20d3be0af3954494e645893e3ab3398ff71121ec7fb2ad33cd3c5485891b3
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: no-scare-quotes
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-010.md
+  - id: STOW-PRO-011
+    ordinal: '11'
+    record_class: primary
+    category: prose-integrity
+    title: No filler phrases
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No filler phrases.** Banned: \"In today's world\", \"It's important to note\", \"When it comes to\", \"At the end of the day\", \"In the realm of\", \"It goes without saying\", \"This is where X comes in\", \"Look no further\", \"Our team of experts.\""
+      baseline_text_sha256: e8905a447cbb0a500e86bb16fa769cb98aac84f75dbf4639d1f9a8baaa3a1412
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-filler-phrases
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-011.md
+  - id: STOW-PRO-012
+    ordinal: '12'
+    record_class: primary
+    category: prose-integrity
+    title: Ban the whether-you-are opener
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**Never start a sentence with \"Whether you're.\"**"
+      baseline_text_sha256: 3be2eee9fccf6bf42b3dfbefdbcf6503ad104cd57b892fbe89c049b4032c11f6
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-whether-youre-opener
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-012.md
+  - id: STOW-PRO-013
+    ordinal: '13'
+    record_class: primary
+    category: prose-integrity
+    title: Write like a researcher
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**Write like a researcher, not a copywriter.** Direct, specific, well-grounded. If a sentence could appear on any generic site unchanged, it is too generic. Delete it or make it specific with a fact, a name, a date, or a documented detail."
+      baseline_text_sha256: 5a6e94f436beb5b6d23e6f67ba92c397ae2d80c7e23e198b91d6dff8c7baba7a
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-013.md
+  - id: STOW-PRO-014
+    ordinal: '14'
+    record_class: primary
+    category: prose-integrity
+    title: No synthetic enthusiasm
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No synthetic enthusiasm.** Do not add exclamation marks or cheerleading. State the facts. The evidence carries the weight."
+      baseline_text_sha256: 20c42acda7c7934063fa604ebe8e90c1bfd288e764620f80ec3db8b9f0b0e0ac
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-synthetic-enthusiasm
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-014.md
+  - id: STOW-PRO-015
+    ordinal: '15'
+    record_class: primary
+    category: prose-integrity
+    title: No weasel words
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No weasel words.** \"Helps ensure\", \"may be able to\", \"can potentially\"; either it does or it does not. Commit or cut."
+      baseline_text_sha256: 295d1058a81d5f84b136c1eed42c1ee1493fb5bff0a593099ff75d650c26cc50
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-weasel-words
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-015.md
+  - id: STOW-PRO-016
+    ordinal: '16'
+    record_class: primary
+    category: prose-integrity
+    title: Concrete, descriptive headings
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No narrative, dramatic, or AI-generic headings.** Headings must be concrete and descriptive. Do not use narrative framing (\"The Right to Repair Trap\"), thriller-style mystery (\"The Hidden Cost of Serialization\"), clickbait structure (\"Why Apple Destroys Your Right to Repair\"), or vague analytical headings (\"Broader pattern\", \"Broader implications\", \"Wider context\", \"Larger trend\", \"Industry-wide impact\"). A heading describes what the section contains, not what it means. Name the subject, not the abstraction."
+      baseline_text_sha256: 9ba17da234514cb893e8b180d3a63980081a47261044801f3de0a9c98ffbaf8e
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains section headings.
+    precedence: presentation
+    enforcement:
+      kind: heuristic
+      validator: concrete-headings
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-016.md
+  - id: STOW-PRO-017
+    ordinal: '17'
+    record_class: primary
+    category: prose-integrity
+    title: No fabricated scenarios
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No fabricated case studies or scenarios.** Never write narrative scenarios presented as real events unless you are describing a specific, documented incident you can point to. Do not invent outcomes, actions, or stories."
+      baseline_text_sha256: a1c63df0c21bbef4d3d6431b6f32e3a902d6fb04b51acdea591120e234ff864e
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-017.md
+  - id: STOW-PRO-018
+    ordinal: '18'
+    record_class: primary
+    category: prose-integrity
+    title: No fabricated history
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No fabricated history or milestones.** Do not invent dates for events, launches, founding, or milestones. Every date and event must be real."
+      baseline_text_sha256: 16108132b063b633c740d572de7c56b8f3aa49ad92dfe3ae51ab34c88760428c
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-018.md
+  - id: STOW-PRO-019
+    ordinal: '19'
+    record_class: primary
+    category: prose-integrity
+    title: No fabricated attributions
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No fabricated attributions.** Never claim a person, organization, or company said something unless it is real and verifiable. Writing \"Senator X stated...\" or \"the company argued...\" without a real source is a fabrication and a defamation risk. Every attributed quote or position must trace to a real document, transcript, public statement, or report. Do not assume what someone's position is based on their party, role, or reputation."
+      baseline_text_sha256: 56d3aa85d3be9e969ce48bf8169b2ebce3bed1b490d697648faad306b910bc1d
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-019.md
+  - id: STOW-PRO-020
+    ordinal: '20'
+    record_class: primary
+    category: prose-integrity
+    title: No AI transition phrases
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No AI transition phrases.** Banned: \"Furthermore\", \"Moreover\", \"Notwithstanding\", \"That being said\", \"At its core\", \"In essence\", \"It is worth noting that\", \"In the landscape of\", \"To put it simply.\" Use plain connectors: also, and, but, however, still."
+      baseline_text_sha256: 91947e4d87fe51bb8f7293a305d9c6a94ef05fdb76348348c72fe3bc357fde23
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-ai-transitions
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-020.md
+  - id: STOW-PRO-021
+    ordinal: '21'
+    record_class: primary
+    category: prose-integrity
+    title: No AI verbs
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No AI verbs.** Banned: delve, leverage, utilize, facilitate, foster, bolster, underscore, unveil, navigate (metaphorical), streamline, endeavour, ascertain, elucidate. Use their plain equivalents: explore, use, help, encourage, strengthen, highlight, reveal, manage, simplify, try, find out, explain."
+      baseline_text_sha256: 2442d655931e9bce817e62df4dd63126371a5ed84422e4db516827cc128ad413
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-ai-verbs
+      limit:
+      autofix: false
+    conflicts:
+      - rule: STOW-PCT-006
+        resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
+      - rule: STOW-WRD-014
+        resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
+    corpus_ref: corpus/prose-integrity/stow-pro-021.md
+  - id: STOW-PRO-022
+    ordinal: '22'
+    record_class: primary
+    category: prose-integrity
+    title: No academic AI tells
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No academic AI tells.** Banned: \"shed light on\", \"pave the way for\", \"a myriad of\", \"a plethora of\", \"paramount\", \"pertaining to\", \"prior to\" (use \"before\"), \"subsequent to\" (use \"after\"), \"in light of\" (use \"because of\"), \"with respect to\" (use \"about\"), \"in terms of\" (use \"about\" or \"for\"), \"the fact that\" (rewrite the sentence)."
+      baseline_text_sha256: e026b7c91be11c11962170cc2d803ee3cd5edeeade25dda0de8398404131f97f
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: deterministic
+      validator: no-academic-tells
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-022.md
+  - id: STOW-PRO-023
+    ordinal: '23'
+    record_class: primary
+    category: prose-integrity
+    title: Quote sources accurately
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**Quote sources accurately, and set off the long ones.** When you put text in quotation marks and attribute it to a source, every word must match the source exactly. Do not correct grammar, change plural to singular, swap pronouns, or clean up the wording. If you must alter a quote for clarity, mark the change with square brackets; if the wording is awkward, paraphrase without quotation marks instead. Name the speaker and the medium when you introduce a quote. Keep short quotes run-in inside the sentence. Set off a long quotation (more than about fifteen words) as its own indented block, introduced by a one-sentence attribution clause, so the source's voice is visually distinct from yours."
+      baseline_text_sha256: 415dbe17866d42424594e0248436d5801749966e5a2da0a56b62687c975c6539
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response quotes an external source.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-023.md
+  - id: STOW-PRO-024
+    ordinal: '24'
+    record_class: primary
+    category: prose-integrity
+    title: No research-process narration
+    wording:
+      baseline_kind: verbatim
+      baseline_text: "**No research-process narration.** Report the facts you can support and silently omit what you cannot. Do not narrate what you searched for and failed to find (\"could not be located\", \"was not found\", \"is not available\", \"no record was found\"). Do not attach an \"as of [date]\" qualifier to your own inability to find something. Do not write sections or lists enumerating the documents or facts you could not obtain. Do not add meta-commentary about how the text was put together. If a fact cannot be supported, delete it. Do not tell the reader you looked."
+      baseline_text_sha256: 4e4032829752a17ef3a1f807395981fa27d04ca05816f4609abbad020665abe2
+      active_version: verbatim-baseline
+      rewrite_status: deferred
+      candidates: []
+      replacement_gate: comparative-proof-required
+    retention: retained
+    maturity: provisional
+    scope:
+      include:
+        - all-prose
+      exclude:
+        - code
+        - structured-data
+        - quoted-text
+        - identifiers
+    activation:
+      kind: conditional
+      predicate: The response contains prose sentences outside code, quoted text, and structured data.
+    precedence: presentation
+    enforcement:
+      kind: semantic-review
+      validator:
+      limit:
+      autofix: false
+    conflicts: []
+    corpus_ref: corpus/prose-integrity/stow-pro-024.md

@@ -1,0 +1,1 @@
+4. **No intensifiers.** "Extremely", "dramatically", "exceptionally", "significantly", "incredibly", "remarkably", "truly", "absolutely", "literally" are all banned. Prove it with a fact or cut the word.

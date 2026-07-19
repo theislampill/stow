@@ -1,0 +1,12 @@
+{
+  "name": "stow-marketplace",
+  "owner": {
+    "name": "theislampill"
+  },
+  "plugins": [
+    {
+      "name": "stow",
+      "source": "."
+    }
+  ]
+}

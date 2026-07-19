@@ -1,0 +1,1 @@
+22. **No academic AI tells.** Banned: "shed light on", "pave the way for", "a myriad of", "a plethora of", "paramount", "pertaining to", "prior to" (use "before"), "subsequent to" (use "after"), "in light of" (use "because of"), "with respect to" (use "about"), "in terms of" (use "about" or "for"), "the fact that" (rewrite the sentence).

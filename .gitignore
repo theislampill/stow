@@ -1,0 +1,6 @@
+# Generic caches only. Source-specific ignore rules live in the UNCOMMITTED
+# .git/info/exclude, never here.
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/*.tmp

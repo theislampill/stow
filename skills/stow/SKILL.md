@@ -35,6 +35,7 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 ## 4. User-facing output
 
 - Result first. Cut preamble, filler, enthusiasm, and closers.
+- Open per the request mode: answer or result first for informational asks, next bounded action first for actionable tasks, raw artifact only when raw output is requested (router table in the always-on checks).
 - Progressive disclosure: the essential answer first, supporting detail on demand.
 - Keep actions bounded and visible; externalize state instead of holding it silently.
 - Report errors as cause -> effect -> correction.
@@ -49,10 +50,11 @@ Load a reference only when its predicate is true.
 - JSONL -> references/format-jsonl.md
 - YAML -> references/format-yaml.md
 - Markdown with embedded literals -> references/format-markdown.md
-- executable procedure -> references/procedures.md
+- executable procedure -> references/procedures.md; its controlled rules bind under the controlled-technical-guided profile (rules/profiles.json)
 - system description -> references/descriptions.md
 - hazard or damage risk -> references/safety-instructions.md
-- controlled-technical profile requested -> references/controlled-technical-writing.md
+- technical explanation, architecture description, plan, audit, runbook, or state record -> references/technical-clarity.md, the technical-clarity profile
+- controlled-technical-guided profile active or requested (alias: controlled-technical) -> references/controlled-technical-writing.md
 - mixed prose and literals -> references/protected-regions.md
 - conformance claim -> references/conformance.md
 - action-shaping deep guidance -> references/action-shaping.md

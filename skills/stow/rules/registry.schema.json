@@ -115,7 +115,9 @@
           "properties": {
             "kind": {"enum": ["conditional", "always-user-facing"]},
             "predicate": {"type": "string", "minLength": 1},
-            "always_on_for_prose": {"type": "boolean"}
+            "always_on_for_prose": {"type": "boolean"},
+            "applicability": {"type": "string", "minLength": 1},
+            "exception": {"type": "string", "minLength": 1}
           }
         },
         "precedence": {

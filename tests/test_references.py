@@ -65,6 +65,8 @@ NATIVE_ARCH_REFS = frozenset({
     "format-jsonl.md",
     "format-yaml.md",
     "format-markdown.md",
+    # Profile architecture description; carries no rule content of its own.
+    "technical-clarity.md",
 })
 
 # The exact greppable kernel line that forbids eager reference/corpus loading.

@@ -32,9 +32,15 @@ ALWAYS_ON = os.path.join(SKILL_DIR, "references", "always-on.md")
 REGISTRY = os.path.join(SKILL_DIR, "rules", "registry.yaml")
 GEN = os.path.join(REPO, "tools", "gen_always_on.py")
 
-ALWAYS_ON_TOKEN_CAP = 900
+# Measured budgets (o200k_base). The composition-hardening pass carries each
+# always-on check's rule id, applicability condition, and principal exception
+# into the module, plus the request-mode router -- a deliberate, measured cost:
+# a bare context-free title misapplies its rule (a closing-step demand on
+# completed work, an estimate demand with no defensible range). Raised from
+# 900/2200 with that justification; the kernel ceiling is unchanged.
+ALWAYS_ON_TOKEN_CAP = 1400
 KERNEL_TOKEN_CEILING = 1500
-ORDINARY_TURN_CAP = 2200  # kernel + always-on must stay bounded
+ORDINARY_TURN_CAP = 2400  # kernel + always-on must stay bounded
 
 KERNEL_ALONE_LINE = (
     "Do not read every reference or corpus module. "
@@ -149,3 +155,83 @@ def test_kernel_does_not_inline_corpus():
     kernel = _read(KERNEL)
     assert not re.search(r"corpus/[\w./-]+\.md", kernel), \
         "kernel inlines a concrete corpus module path"
+
+
+# --------------------------------------------------------------------------- #
+# 6. operational qualifiers survive generation; the router exists
+# --------------------------------------------------------------------------- #
+
+def test_every_registry_qualifier_appears_in_the_module():
+    """A rule whose registry record carries an applicability condition or an
+    exception must not appear in the operational module as a bare title.
+    Parametrized from the registry, so a future qualifier cannot silently
+    drop out of the generated form."""
+    text = _read(ALWAYS_ON)
+    qualified = [r for r in _always_on_records()
+                 if (r["activation"].get("applicability")
+                     or r["activation"].get("exception"))]
+    assert qualified, "no always-on record carries an operational qualifier"
+    for record in qualified:
+        applicability = record["activation"].get("applicability")
+        exception = record["activation"].get("exception")
+        if applicability:
+            assert applicability in text, (
+                "%s applicability lost from always-on.md" % record["id"])
+        if exception:
+            assert exception in text, (
+                "%s exception lost from always-on.md" % record["id"])
+
+
+def test_the_known_condition_bearing_rules_carry_qualifiers():
+    """The flagship qualifier-loss set from the composition audit: these
+    records MUST have a non-empty applicability or exception in the registry.
+    Removing the field is a regression even if generation stays faithful."""
+    required = {
+        "STOW-ACT-001", "STOW-ACT-003", "STOW-ACT-004", "STOW-ACT-005",
+        "STOW-ACT-006", "STOW-ACT-007", "STOW-PRO-001", "STOW-PRO-002",
+        "STOW-PRO-004", "STOW-PRO-005", "STOW-PRO-007", "STOW-PRO-013",
+        "STOW-PRO-017", "STOW-PRO-019", "STOW-PRO-024",
+    }
+    by_id = {r["id"]: r for r in _always_on_records()}
+    for rule_id in sorted(required):
+        activation = by_id[rule_id]["activation"]
+        assert activation.get("applicability") or activation.get("exception"), (
+            "%s lost its operational qualifier fields" % rule_id)
+
+
+def test_bullets_carry_short_rule_ids():
+    text = _read(ALWAYS_ON)
+    for record in _always_on_records():
+        short_id = record["id"].replace("STOW-", "", 1)
+        assert re.search(r"^- %s " % re.escape(short_id), text, re.M), (
+            "%s bullet does not lead with its id" % record["id"])
+
+
+def test_request_mode_router_is_present_and_complete():
+    text = _read(ALWAYS_ON)
+    assert "## Request-mode router" in text
+    for mode in ("informational question", "explanation", "actionable task",
+                 "requested artifact", "raw artifact", "progress update",
+                 "error report", "completed work", "open work"):
+        assert re.search(r"^  %s:" % re.escape(mode), text, re.M), (
+            "router misses the %r mode" % mode)
+
+
+def test_router_rows_are_not_check_bullets():
+    """Router rows must never inflate the check count."""
+    text = _read(ALWAYS_ON)
+    router = text.split("## Request-mode router", 1)[1].split("##", 1)[0]
+    assert not any(ln.startswith("- ") for ln in router.splitlines())
+
+
+def test_header_carries_the_accuracy_override():
+    head = _read(ALWAYS_ON).split("##", 1)[0]
+    for token in ("yield to safety", "justified uncertainty",
+                  "material limitation or failed verification",
+                  "clearly labeled hypothetical", "conflicts.yaml"):
+        assert token in head, "always-on header lost %r" % token
+
+
+def test_no_em_dash_in_the_generated_module():
+    """The module that carries the no-em-dash check must not use one."""
+    assert u"—" not in _read(ALWAYS_ON)

@@ -29,6 +29,32 @@ HEADER = (
     "quotations, identifiers, and paths -- are excluded: apply none of these inside\n"
     "them. For the full statement, definitions, qualifications, and worked examples\n"
     "of any check, load its corpus module.\n"
+    "\n"
+    "These checks yield to safety, the output contract, and factual accuracy: keep\n"
+    "justified uncertainty, disclose a material limitation or failed verification\n"
+    "in one clause, and honor a requested, clearly labeled hypothetical. Cross-rule\n"
+    "collisions resolve per rules/conflicts.yaml. Open the turn per the\n"
+    "request-mode router below.\n"
+)
+
+# Request-mode router: what leads the response, by request intent. Lines are
+# indented (not list bullets) so the bullet-count selector below stays exact.
+# A raw-artifact turn never loads this file (the kernel excludes protected
+# regions); its row is kept so the router reads complete on its own.
+ROUTER = (
+    "## Request-mode router\n"
+    "\n"
+    "Open with what the request type demands:\n"
+    "\n"
+    "  informational question: the answer or result first\n"
+    "  explanation: the thesis first\n"
+    "  actionable task: the next bounded action first\n"
+    "  requested artifact: the artifact itself first\n"
+    "  raw artifact: the raw artifact only, no wrapper, no prose checks\n"
+    "  progress update: current state and completed results first\n"
+    "  error report: cause, then effect, then correction\n"
+    "  completed work: the result; invent no next action\n"
+    "  open work: one concrete next action may close the turn\n"
 )
 
 
@@ -42,16 +68,35 @@ def _records():
     return on
 
 
+def _bullet(record):
+    """One operational check: short id, title, applicability, exception,
+    corpus pointer. The qualifier fields are STOW-authored registry fields
+    (activation.applicability / activation.exception); a rule whose source
+    carries a condition must not appear here as a bare title."""
+    short_id = record["id"].replace("STOW-", "", 1)
+    activation = record.get("activation") or {}
+    line = "- %s %s" % (short_id, record["title"].strip())
+    clauses = []
+    if activation.get("applicability"):
+        clauses.append("when: %s" % activation["applicability"])
+    if activation.get("exception"):
+        clauses.append("except: %s" % activation["exception"])
+    if clauses:
+        line += " -- " + "; ".join(clauses)
+    line += "  (see %s)" % record["corpus_ref"]
+    return line
+
+
 def build():
     on = _records()
     action = [r for r in on if r["id"].startswith("STOW-ACT-")]
     prose = [r for r in on if r["id"].startswith("STOW-PRO-")]
-    parts = [HEADER, ""]
+    parts = [HEADER, ROUTER, ""]
     for heading, group in (("## Action shaping", action), ("## Prose integrity", prose)):
         parts.append(heading)
         parts.append("")
         for r in group:
-            parts.append("- %s  (see %s)" % (r["title"].strip(), r["corpus_ref"]))
+            parts.append(_bullet(r))
         parts.append("")
     return "\n".join(parts).rstrip("\n") + "\n", len(action), len(prose)
 

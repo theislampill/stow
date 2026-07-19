@@ -44,6 +44,7 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 
 Load a reference only when its predicate is true.
 
+- ANY user-facing prose turn -> references/always-on.md — the operational always-on checks. Excluded inside protected regions: a raw JSON, JSONL, YAML, or code artifact loads none of them.
 - raw JSON -> references/format-json.md
 - JSONL -> references/format-jsonl.md
 - YAML -> references/format-yaml.md
@@ -58,6 +59,7 @@ Load a reference only when its predicate is true.
 - prose-integrity deep guidance -> references/prose-integrity.md
 - precedence or region question -> references/activation-and-precedence.md
 - user-facing shaping question -> references/user-facing-output.md
+- meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
 - rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
 
 ## 6. Final validation gate

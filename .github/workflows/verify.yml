@@ -25,6 +25,12 @@ jobs:
   verify:
     runs-on: ubuntu-latest
 
+    env:
+      # One explicit cache location for the tokenizer, shared by the warm step
+      # and the test suite. Never silently populated: only the named warm step
+      # below may download into it.
+      TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/tiktoken-cache
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -38,6 +44,23 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ruamel.yaml tiktoken pytest jsonschema
+
+      # The measurement tool never downloads: with a warm cache it uses exact
+      # o200k_base counts; with a cold one it uses the deterministic
+      # conservative estimator (ceilings still enforced, band checks skip with
+      # a stated reason). This named, restore-cached step is the ONLY place a
+      # tokenizer download can happen, and a failure here is tolerated inside
+      # the step body because the estimator covers every gate.
+      - name: Restore the tokenizer cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/tiktoken-cache
+          key: tiktoken-o200k-base-v1
+
+      - name: Warm the tokenizer cache (optional; estimator covers a miss)
+        run: |
+          python -c "import tiktoken; tiktoken.get_encoding('o200k_base')" \
+            || echo "tokenizer cache warm failed; the estimator covers the ceilings"
 
       # Full suite. Every gate below is also covered here, but each is repeated
       # as its own step so a failure names the property that broke instead of

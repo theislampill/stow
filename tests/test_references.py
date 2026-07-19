@@ -21,11 +21,11 @@ The registry is read with ruamel ``YAML(typ="safe")``. Gates enforced:
   6. The kernel stays within its token budget (tiktoken ``o200k_base``).
 """
 
+import importlib.util
 import os
 import re
 
 import pytest
-import tiktoken
 from ruamel.yaml import YAML
 
 # --------------------------------------------------------------------------- #
@@ -253,7 +253,13 @@ def test_skill_inlines_no_concrete_corpus_path():
 # --------------------------------------------------------------------------- #
 
 def test_skill_within_token_budget():
-    encoder = tiktoken.get_encoding("o200k_base")
-    tokens = len(encoder.encode(SKILL_TEXT))
+    """Ceiling holds in both measurement modes: the estimate over-counts, so
+    an estimate-mode pass implies a real-token pass."""
+    spec = importlib.util.spec_from_file_location(
+        "measure_context_for_references",
+        os.path.join(REPO, "tools", "measure_context.py"))
+    measure_context = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(measure_context)
+    tokens = measure_context.count_tokens(SKILL_TEXT)
     assert tokens <= SKILL_TOKEN_CEILING, \
         "SKILL.md is %d tokens, over the %d ceiling" % (tokens, SKILL_TOKEN_CEILING)

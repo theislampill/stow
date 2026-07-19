@@ -16,12 +16,12 @@ is no model-invocation harness here, so they prove the kernel *instructs* the lo
 and the module is complete -- not that a live model performed it.
 """
 
+import importlib.util
 import os
 import re
 import subprocess
 import sys
 
-import tiktoken
 from ruamel.yaml import YAML
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -32,15 +32,35 @@ ALWAYS_ON = os.path.join(SKILL_DIR, "references", "always-on.md")
 REGISTRY = os.path.join(SKILL_DIR, "rules", "registry.yaml")
 GEN = os.path.join(REPO, "tools", "gen_always_on.py")
 
+
+def _load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+measure_context = _load_module(
+    "measure_context_for_always_on",
+    os.path.join(REPO, "tools", "measure_context.py"))
+
 # Measured budgets (o200k_base). The composition-hardening pass carries each
 # always-on check's rule id, applicability condition, and principal exception
 # into the module, plus the request-mode router -- a deliberate, measured cost:
 # a bare context-free title misapplies its rule (a closing-step demand on
 # completed work, an estimate demand with no defensible range). Raised from
 # 900/2200 with that justification; the kernel ceiling is unchanged.
-ALWAYS_ON_TOKEN_CAP = 1400
-KERNEL_TOKEN_CEILING = 1500
-ORDINARY_TURN_CAP = 2400  # kernel + always-on must stay bounded
+#
+# Mode-aware caps: the REAL caps bind when the tokenizer cache is available;
+# the EST caps bind under the deterministic chars/3.5 fallback, which
+# over-counts (measured 8-38% on shipped files), so each EST cap is the REAL
+# cap scaled for that headroom. Ceilings are enforced in BOTH modes.
+_ENCODER = measure_context.get_encoder()
+_TOKENIZER_MODE = _ENCODER is not None
+
+ALWAYS_ON_TOKEN_CAP = 1400 if _TOKENIZER_MODE else 1750
+KERNEL_TOKEN_CEILING = 1500  # holds in both modes (kernel is small and dense)
+ORDINARY_TURN_CAP = 2400 if _TOKENIZER_MODE else 3100
 
 KERNEL_ALONE_LINE = (
     "Do not read every reference or corpus module. "
@@ -54,7 +74,7 @@ def _read(path):
 
 
 def _tokens(text):
-    return len(tiktoken.get_encoding("o200k_base").encode(text))
+    return measure_context.count_tokens(text, _ENCODER)
 
 
 def _always_on_records():

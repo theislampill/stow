@@ -213,10 +213,17 @@ def test_measure_over_ceiling_exits_nonzero():
 
 
 def test_measure_in_band_exits_zero():
+    if measure_context.get_encoder() is None:
+        pytest.skip("the in-band fixture sits near the ceiling once the "
+                    "conservative estimator over-counts it; exact-tokenizer "
+                    "check only")
     assert measure_context.main([fixture("context", "in_band.md")]) == 0
 
 
 def test_measure_in_band_is_within_target_band():
+    if measure_context.get_encoder() is None:
+        pytest.skip("band checks need the exact tokenizer; offline estimate "
+                    "mode enforces ceilings only")
     tokens, _chars = measure_context.measure_file(fixture("context", "in_band.md"))
     assert measure_context.band_status(tokens) == "WITHIN BAND"
 

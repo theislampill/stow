@@ -14,11 +14,15 @@ are advisory and never change the exit status.
 
 Two CLI modes:
     ``--format {json,jsonl,yaml} FILE``  structural validation (below).
-    ``--schema <id> FILE``               validate a JSON/YAML instance against
-        the named JSON-Schema-2020-12 document in ``skills/stow/schemas/`` and
-        apply the cross-field post-checks that JSON Schema alone cannot express
-        (a declared sha256 must match a recomputed hash; a ``status: done`` entry
-        must carry an evidence pointer; a decision supersession must not dangle).
+    ``--schema <id> FILE``               validate an instance against the named
+        JSON-Schema-2020-12 document in ``skills/stow/schemas/`` and apply the
+        cross-field post-checks that JSON Schema alone cannot express (a
+        declared sha256 must match a recomputed hash; a ``status`` of ``done``
+        or ``passed`` must carry an evidence pointer; a decision supersession
+        must not dangle). A ``.md`` instance is the single fenced yaml/json
+        block inside the document; a ``.jsonl`` instance is a stream validated
+        per line; an evidence-record FILE may wrap its records as
+        ``{records: [...]}`` and validates per record.
 
 JSON contract
     Exactly one JSON value. Rejects a leading BOM (U+FEFF), the non-finite
@@ -308,9 +312,41 @@ def schema_path(schema_id):
     return os.path.join(SCHEMA_DIR, schema_id + ".schema.json")
 
 
+def _extract_fenced_block(text):
+    """Return (info, body) of the single fenced yaml/json block in a Markdown
+    document. String-based on purpose (no regex): the packaged validator keeps
+    its import set fixed. Exactly one yaml/json fence is required; zero or
+    several is an error, so the command can never silently validate the wrong
+    block."""
+    candidates = []
+    lines = text.split("\n")
+    index = 0
+    while index < len(lines):
+        stripped = lines[index].strip()
+        if stripped.startswith("```"):
+            info = stripped[3:].strip().lower()
+            body = []
+            index += 1
+            while index < len(lines) and not lines[index].strip().startswith("```"):
+                body.append(lines[index])
+                index += 1
+            if info in ("yaml", "json"):
+                candidates.append((info, "\n".join(body)))
+        index += 1
+    if not candidates:
+        raise ValueError(
+            "no fenced yaml/json block found in the Markdown document")
+    if len(candidates) > 1:
+        raise ValueError(
+            "expected exactly one fenced yaml/json block, found %d"
+            % len(candidates))
+    return candidates[0]
+
+
 def _parse_instance(text, path):
     """Parse a schema instance to plain Python. JSON for ``.json``/``.jsonl``,
-    YAML for ``.yaml``/``.yml``, else try strict JSON then YAML."""
+    YAML for ``.yaml``/``.yml``, the single fenced yaml/json block for ``.md``,
+    else try strict JSON then YAML."""
     if text.startswith(BOM):
         text = text[len(BOM):]
     lower = (path or "").lower()
@@ -318,6 +354,11 @@ def _parse_instance(text, path):
         return _loads_strict(text)
     if lower.endswith(".yaml") or lower.endswith(".yml"):
         return _new_yaml().load(io.StringIO(text))
+    if lower.endswith(".md") or lower.endswith(".markdown"):
+        info, body = _extract_fenced_block(text)
+        if info == "json":
+            return _loads_strict(body)
+        return _new_yaml().load(io.StringIO(body))
     try:
         return _loads_strict(text)
     except ValueError:
@@ -370,18 +411,20 @@ def check_sha256(instance):
 
 
 def check_status_evidence(instance):
-    """POST-CHECK: any ``status: done`` entry must carry an evidence pointer.
+    """POST-CHECK: a ``status`` of ``done`` or ``passed`` needs evidence.
 
-    Applies to a state gate marked done and to a returned task packet with
-    ``status == "done"``; both must expose a non-empty ``evidence`` array or
-    ``evidence_ref``.
+    Applies to a state gate marked done or passed and to a returned task packet
+    with ``status == "done"``; each must expose a non-empty ``evidence`` array
+    or ``evidence_ref``. ``done`` and ``passed`` differ only in what completed
+    (work vs a check); both are terminal claims and both need a pointer.
     """
     errors = []
     for mapping in _iter_mappings(instance):
-        if mapping.get("status") == "done" and not _has_evidence_pointer(mapping):
+        status = mapping.get("status")
+        if status in ("done", "passed") and not _has_evidence_pointer(mapping):
             errors.append(
-                "status 'done' carries no evidence pointer (need non-empty "
-                "'evidence' or 'evidence_ref')")
+                "status %r carries no evidence pointer (need non-empty "
+                "'evidence' or 'evidence_ref')" % status)
     return errors
 
 
@@ -446,13 +489,37 @@ def validate_schema(schema_id, text, instance_path=None):
         return Result(False, ["schema %r is not valid draft 2020-12: %s"
                               % (schema_id, exc.message)])
 
+    validator = jsonschema.Draft202012Validator(schema)
+
+    # A .jsonl instance is a STREAM: parse and validate every line
+    # independently against the schema (e.g. --schema event stream.jsonl).
+    if (instance_path or "").lower().endswith(".jsonl"):
+        return _validate_schema_lines(validator, text)
+
     try:
         instance = _parse_instance(text, instance_path)
     except Exception as exc:  # noqa: BLE001 - surface any parse failure as an error
         return Result(False, ["instance parse error: %s" % exc])
 
+    # Wrapper contract: an evidence-record FILE may carry {records: [...]}.
+    # The schema targets one record; the wrapper validates per record, and the
+    # post-checks run per record too.
+    if (schema_id == "evidence-record" and isinstance(instance, dict)
+            and set(instance) == {"records"}
+            and isinstance(instance["records"], list)):
+        errors = []
+        for position, record in enumerate(instance["records"]):
+            for err in sorted(validator.iter_errors(record),
+                              key=lambda e: list(e.absolute_path)):
+                loc = "/".join(str(p) for p in err.absolute_path) or "<root>"
+                errors.append("record %d: schema %s: %s"
+                              % (position, loc, err.message))
+            for check in POST_CHECKS:
+                errors.extend("record %d: %s" % (position, e)
+                              for e in check(record))
+        return Result(len(errors) == 0, errors, data={"instance": instance})
+
     errors = []
-    validator = jsonschema.Draft202012Validator(schema)
     for err in sorted(validator.iter_errors(instance),
                       key=lambda e: list(e.absolute_path)):
         loc = "/".join(str(p) for p in err.absolute_path) or "<root>"
@@ -462,6 +529,34 @@ def validate_schema(schema_id, text, instance_path=None):
         errors.extend(check(instance))
 
     return Result(len(errors) == 0, errors, data={"instance": instance})
+
+
+def _validate_schema_lines(validator, text):
+    """Validate every non-empty JSONL line as an independent schema instance."""
+    if text.startswith(BOM):
+        text = text[len(BOM):]
+    errors = []
+    count = 0
+    for lineno, raw_line in enumerate(text.split("\n"), start=1):
+        line = raw_line.rstrip("\r")
+        if line.strip() == "":
+            continue
+        count += 1
+        try:
+            instance = _loads_strict(line)
+        except ValueError as exc:
+            errors.append("line %d: JSON parse error: %s" % (lineno, exc))
+            continue
+        for err in sorted(validator.iter_errors(instance),
+                          key=lambda e: list(e.absolute_path)):
+            loc = "/".join(str(p) for p in err.absolute_path) or "<root>"
+            errors.append("line %d: schema %s: %s" % (lineno, loc, err.message))
+        for check in POST_CHECKS:
+            errors.extend("line %d: %s" % (lineno, e)
+                          for e in check(instance))
+    if count == 0:
+        errors.append("no JSONL records found")
+    return Result(len(errors) == 0, errors, data={"line_count": count})
 
 
 # --------------------------------------------------------------------------- #

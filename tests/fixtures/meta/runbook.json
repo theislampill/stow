@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "profile": "controlled-technical-guided",
+  "runbook_id": "RB-fixture",
+  "preconditions": [
+    "the working tree is clean"
+  ],
+  "steps": [
+    {
+      "n": 1,
+      "action": "run the check",
+      "verify": "exit code is zero",
+      "rollback": "none",
+      "risk": "none"
+    },
+    {
+      "n": 2,
+      "action": "apply the change",
+      "verify": "the follow-up check passes",
+      "rollback": "revert the change",
+      "risk": "medium",
+      "consequence": "a bad apply requires the rollback step"
+    }
+  ],
+  "success_check": "both steps verified"
+}

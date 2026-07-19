@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "ts": "2026-07-19T14:00:00Z",
+  "actor": "orchestrator",
+  "type": "phase_start",
+  "phase": "P-fixture",
+  "goal": "prove the event schema accepts a well-formed line"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "profile": "technical-clarity",
+  "plan_id": "PLAN-fixture",
+  "tasks": [
+    {
+      "id": "T-one",
+      "phase": "P0",
+      "depends_on": [],
+      "acceptance": "the fixture validates against the plan schema",
+      "method": "schema",
+      "gate": "G-fixture"
+    }
+  ],
+  "phases": [
+    {
+      "id": "P0",
+      "terminal_state": "fixture-validated"
+    }
+  ]
+}

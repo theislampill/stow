@@ -42,10 +42,12 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## Validation contract
 
-Validate the artifact against its declared contract:
+Validate the runbook document (its fenced step-list block) against the runbook
+schema; when a runbook travels between harnesses inside an envelope, the
+envelope validates separately as an output contract:
 
 ```
-python skills/stow/runtime/validate.py --schema output-contract <file>
+python skills/stow/runtime/validate.py --schema runbook templates/RUNBOOK.md
 ```
 
 The load-bearing rules: each step is imperative and singular; every step that can

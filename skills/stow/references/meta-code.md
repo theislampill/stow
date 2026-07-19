@@ -107,7 +107,17 @@ It loads `skills/stow/schemas/<id>.schema.json`, checks the artifact against it,
 and reports `VALID`/`INVALID` in the validator's existing result shape. Cross-field
 rules a schema alone cannot state — a status-to-evidence match, an integrity-hash
 match, a dangling supersession — run as deterministic post-checks in the same
-mode. A machine-readable event stream is line-checked first with
-`--format jsonl`, then each line against its event shape. Validate the artifact,
-then confirm the cold-reader rule by hand: nothing it names may depend on
-un-carried prior state.
+mode. A Markdown artifact validates through its single fenced yaml/json block; a
+`.jsonl` event stream validates per line against `--schema event`; an
+evidence-record file may wrap its records as `{records: [...]}` and validates
+per record. Versioning is additive-only within `schema_version` 1, and status
+vocabularies accept an `x-` prefix escape for harness-specific states. Validate
+the artifact, then confirm the cold-reader rule by hand: nothing it names may
+depend on un-carried prior state.
+
+Profile binding: meta-code artifacts bind to the `technical-clarity` profile by
+default; an artifact that is an executable procedure or a safety instruction
+promotes to `controlled-technical-guided` (see `rules/profiles.json` and
+`references/technical-clarity.md`). `templates/event-stream.jsonl` is a worked
+example like every other template; JSONL cannot carry a comment, so this note is
+its example label.

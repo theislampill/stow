@@ -15,25 +15,27 @@ decision id.
 
 ## Gate ledger
 
-| Gate | State | Evidence |
+| Gate | Status | Evidence |
 |---|---|---|
-| Meta schemas + validator mode | done | `validate.py --schema` runs all five schemas clean |
+| Meta schemas + validator mode | done | `validate.py --schema` runs the shipped schemas clean |
 | Meta templates | done | `tests/test_meta_templates.py` passes |
-| Kernel activation wiring | in-progress | predicates being added to SKILL.md section 5 |
-| Contract catalog + leak gates | planned | `meta_contract_total` to record; gates green over new files |
+| Kernel activation wiring | active | predicates being added to SKILL.md section 5 |
+| Contract catalog + leak gates | pending | `meta_contract_total` to record; gates green over new files |
 
 ## Decisions
 
-- MD-1 Contracts register outside the primary count — decided.
-- MD-2 Each Markdown template embeds one schema-valid block — decided.
+- MD-1 Contracts register outside the primary count — accepted.
+- MD-2 Each Markdown template embeds one schema-valid block — accepted.
 - MD-3 Superseded by MD-4 — statements-only templates rejected.
-- MD-4 Every template is a filled worked example, not a skeleton — decided.
+- MD-4 Every template is a filled worked example, not a skeleton — accepted.
 
 ## Andons
 
 - A-1 Handoff `next_action` carried two imperatives — resolved (split to one).
 
 ```yaml
+schema_version: 1
+profile: technical-clarity
 run_id: meta-code-build-20260719
 updated_ts: "2026-07-19T15:20:00Z"
 history_append_only: true
@@ -43,31 +45,30 @@ current:
   next_action: add eight meta-code activation predicates to SKILL.md section 5
 gates:
   - id: G-schemas
-    state: done
-    evidence_ref: {type: command, value: "python skills/stow/runtime/validate.py --schema state skills/stow/templates/STATE.md"}
+    status: done
+    evidence_ref: "command: python skills/stow/runtime/validate.py --schema state skills/stow/templates/STATE.md"
   - id: G-templates
-    state: done
-    evidence_ref: {type: command, value: "python -m pytest tests/test_meta_templates.py -q"}
+    status: done
+    evidence_ref: "command: python -m pytest tests/test_meta_templates.py -q"
   - id: G-kernel-wiring
-    state: in-progress
-    evidence_ref: {type: file-line, value: "skills/stow/SKILL.md:45-61"}
+    status: active
+    evidence_ref: "file-line: skills/stow/SKILL.md section 5"
   - id: G-catalog-and-leak
-    state: planned
-    evidence_ref: {type: command, value: "python tools/check_provenance_leak.py --local skills/stow/templates"}
+    status: pending
 decisions:
   - id: MD-1
-    status: decided
+    status: accepted
   - id: MD-2
-    status: decided
+    status: accepted
   - id: MD-3
     status: superseded
     superseded_by: MD-4
   - id: MD-4
-    status: decided
+    status: accepted
     supersedes: [MD-3]
 andons:
   - id: A-1
     class: contract-violation
-    state: resolved
+    status: resolved
     resolution: handoff next_action reduced to a single imperative
 ```

@@ -32,9 +32,10 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Schema.** `schemas/state.schema.json`. Required fields include `run_id`,
   `updated_ts`, `current` (a `{head, phase, next_action}`), `gates[]` (each a
-  `{id, state, evidence_ref}`), `decisions[]` (each with an `id` and optional
-  `supersedes[]` / `superseded_by` links), `andons[]`, and a
-  `history_append_only` flag.
+  `{id, status}` with an `evidence_ref` string), `decisions[]` (each with an
+  `id`, a `status`, and optional `supersedes[]` / `superseded_by` links), and a
+  `history_append_only` flag; `andons[]` is optional. Status vocabularies are
+  closed cores with an `x-` prefix escape for harness-specific states.
 - **Template.** `templates/STATE.md` — a valid instance carrying a gate ledger, a
   decision list with supersession links, and a current-state block.
 

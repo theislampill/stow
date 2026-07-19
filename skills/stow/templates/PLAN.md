@@ -26,6 +26,8 @@ Add one activation predicate per reference; record `meta_contract_total` outside
 the primary count of 96.
 
 ```yaml
+schema_version: 1
+profile: technical-clarity
 plan_id: PLAN-metacode
 tasks:
   - id: T-schemas

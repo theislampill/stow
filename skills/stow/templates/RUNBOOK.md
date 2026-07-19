@@ -40,6 +40,8 @@ pass over the extracted artifact.
   rebuild; do not rewrite history.
 
 ```yaml
+schema_version: 1
+profile: controlled-technical-guided
 runbook_id: RB-rebuild-republish
 preconditions:
   - clean working tree

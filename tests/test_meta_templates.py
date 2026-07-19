@@ -31,11 +31,20 @@ MD_TEMPLATES = ("HANDOFF.md", "PLAN.md", "AUDIT.md", "RUNBOOK.md", "STATE.md")
 DATA_TEMPLATES = ("task-packet.yaml", "event-stream.jsonl")
 ALL_TEMPLATES = MD_TEMPLATES + DATA_TEMPLATES
 
-# The closed event-type vocabulary the event-stream contract admits.
-EVENT_TYPES = {
-    "phase_start", "tool_call", "gate_pass", "gate_fail", "andon_raise",
-    "andon_resolve", "decision", "note", "phase_done",
-}
+# The closed event-type core vocabulary, single-sourced from the shipped event
+# schema (the anyOf's enum branch; the x- escape branch admits extensions).
+def _event_types_from_schema():
+    import json as _json
+    path = os.path.join(REPO, "skills", "stow", "schemas", "event.schema.json")
+    with open(path, encoding="utf-8") as fh:
+        schema = _json.load(fh)
+    for branch in schema["properties"]["type"]["anyOf"]:
+        if "enum" in branch:
+            return set(branch["enum"])
+    raise AssertionError("event schema carries no enum branch for 'type'")
+
+
+EVENT_TYPES = _event_types_from_schema()
 
 _FENCE_RE = re.compile(r"```yaml\n(.*?)\n```", re.DOTALL)
 
@@ -93,13 +102,16 @@ def test_task_packet_read_only_forbids_write_scope():
 
 
 def test_task_packet_done_status_covers_every_acceptance():
+    """Schema-legal coverage matching: each evidence item names the acceptance
+    id it satisfies via its ``for`` field (the schema forbids restating the
+    predicate on evidence items)."""
     packet = _load_yaml(_read("task-packet.yaml"))
     if packet.get("status") == "done":
         assert packet["evidence"], "status==done requires non-empty evidence"
-        predicates = {a["predicate"] for a in packet["acceptance"]}
-        covered = {e["predicate"] for e in packet["evidence"]}
-        assert predicates <= covered, \
-            "acceptance predicates without evidence: %s" % (predicates - covered)
+        acceptance_ids = {a["id"] for a in packet["acceptance"]}
+        covered = {e["for"] for e in packet["evidence"]}
+        assert acceptance_ids <= covered, \
+            "acceptance ids without evidence: %s" % (acceptance_ids - covered)
 
 
 # --------------------------------------------------------------------------- #
@@ -194,3 +206,43 @@ def test_audit_verified_finding_has_failure_scenario():
         if rec["kind"] == "finding" and rec.get("verified") is True:
             assert rec.get("failure_scenario", "").strip() != "", \
                 "verified finding %s needs a failure_scenario" % rec["record_id"]
+
+
+# --------------------------------------------------------------------------- #
+# Every template validates against its schema through the REAL runtime CLI.
+# This is the drift gate the layer originally lacked: a template block whose
+# shape diverges from its contract fails here, not in a reader's hands.
+# --------------------------------------------------------------------------- #
+
+import subprocess
+import sys
+
+RUNTIME_VALIDATE = os.path.join(
+    REPO, "skills", "stow", "runtime", "validate.py")
+
+TEMPLATE_CONTRACTS = [
+    ("handoff", "HANDOFF.md"),
+    ("state", "STATE.md"),
+    ("evidence-record", "AUDIT.md"),
+    ("plan", "PLAN.md"),
+    ("runbook", "RUNBOOK.md"),
+    ("task-packet", "task-packet.yaml"),
+    ("event", "event-stream.jsonl"),
+]
+
+
+def test_every_template_has_a_contract_row():
+    assert {name for _sid, name in TEMPLATE_CONTRACTS} == set(ALL_TEMPLATES)
+
+
+@pytest.mark.parametrize("schema_id,name", TEMPLATE_CONTRACTS,
+                         ids=[n for _s, n in TEMPLATE_CONTRACTS])
+def test_template_validates_against_its_schema(schema_id, name):
+    proc = subprocess.run(
+        [sys.executable, RUNTIME_VALIDATE, "--schema", schema_id,
+         os.path.join(TEMPLATES, name)],
+        capture_output=True, text=True, cwd=REPO)
+    assert proc.returncode == 0, (
+        "%s does not validate against %s:\n%s%s"
+        % (name, schema_id, proc.stdout, proc.stderr))
+    assert "VALID" in proc.stdout

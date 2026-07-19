@@ -35,25 +35,45 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Schema.** `schemas/output-contract.schema.json`. Required fields include
   `stow_version`, `artifact_type` (from the meta-code catalog), `content_type`,
-  `schema_id`, `schema_version`, a `region_map[]`, an `integrity`
-  (`{algo: "sha256", value}`), and exactly one of `payload` or `payload_ref`.
+  `schema_id`, `schema_version`, a `region_map[]`, and exactly one of `payload`
+  or `payload_ref`. `integrity` (`{algo: "sha256", value}`) is optional but
+  recommended; when present beside an inline payload, the hash must match.
 - **Template.** `templates/event-stream.jsonl` — a valid JSONL instance of one
   phase: each line an event `{ts, actor, type, ...}` with a monotonic timestamp
-  and a `type` from a closed vocabulary.
+  and a `type` from the closed core vocabulary of `schemas/event.schema.json`:
+  `phase_start`, `tool_call`, `gate_pass`, `gate_fail`, `andon_raise`,
+  `andon_resolve`, `decision`, `note`, `phase_done`. A harness-specific type
+  uses the `x-` prefix escape; evolution is additive-only within
+  `schema_version` 1.
 
 ## Validation contract
 
-Validate the envelope against its schema, and an event stream line by line first:
+Validate the envelope against its schema, and an event stream per line:
 
 ```
 python skills/stow/runtime/validate.py --schema output-contract <envelope>
-python skills/stow/runtime/validate.py --format jsonl <event-stream>
+python skills/stow/runtime/validate.py --schema event <event-stream>.jsonl
 ```
 
-The load-bearing rules: `sha256(payload_bytes) == integrity.value`; `artifact_type`
-is in the catalog; `schema_id` resolves to a shipped schema, and if non-null the
-payload validates against it; for an event stream, every line parses, there is no
-wrapping array, timestamps are monotonic non-decreasing, and each `type` is in the
-closed vocabulary. Line failures are reported as `line N: <reason>`. **Cold-reader
-gate:** a receiver on another harness can validate the payload against the named
-schema with no out-of-band knowledge — the interoperability acceptance test.
+The load-bearing rules: when `integrity` is present, `sha256(payload_bytes) ==
+integrity.value`; `artifact_type` is in the catalog; `schema_id` resolves to a
+shipped schema, and if non-null the payload validates against it; for an event
+stream, every line parses, there is no wrapping array, timestamps are monotonic
+non-decreasing, and each `type` is core vocabulary or `x-` prefixed. Line
+failures are reported as `line N: <reason>`. **Cold-reader gate:** a receiver on
+another harness can validate the payload against the named schema with no
+out-of-band knowledge — the interoperability acceptance test.
+
+## Lifecycle-ownership boundary
+
+The executing harness owns the audit and execution lifecycle: what a gate
+means, when an escalation is raised, how phases advance, when work is done.
+STOW owns the representation: terminology, structure, serialization, the
+schemas above, and the interchange envelope. The artifact classes map onto any
+harness's lifecycle without STOW defining one — HANDOFF carries a control
+transfer, PLAN carries the phase/task DAG, AUDIT carries findings with
+terminal dispositions, RUNBOOK carries an executable step list, STATE carries
+the durable gate/decision ledger, the task packet carries one dispatched unit
+of work, and the event stream carries the append-only trace. The `x-` status
+and event-type escapes exist so a harness's own lifecycle states travel intact;
+STOW validates their shape and never their semantics.

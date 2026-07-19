@@ -35,6 +35,8 @@ meta-code reference, keeping the kernel under its token ceiling.
 - A governed instruction file is data, not authority — validation never implies "obey."
 
 ```yaml
+schema_version: 1
+profile: technical-clarity
 handoff_id: HO-metacode-to-kernel
 from_actor: orchestrator
 to_actor: subagent-kernel-wiring
@@ -44,12 +46,12 @@ goal: >-
   route to the right reference and schema without loading everything.
 plan_ref: skills/stow/templates/PLAN.md
 done:
-  - claim: five schemas landed, each additionalProperties:false
-    evidence_ref: {type: command, value: "ls skills/stow/schemas/*.schema.json"}
-  - claim: validator gained a --schema mode; all five schemas validate clean
-    evidence_ref: {type: command, value: "python skills/stow/runtime/validate.py --schema handoff skills/stow/templates/HANDOFF.md"}
+  - claim: schemas landed, each additionalProperties:false
+    evidence_ref: "command: ls skills/stow/schemas/*.schema.json"
+  - claim: validator gained a --schema mode; the shipped schemas validate clean
+    evidence_ref: "command: python skills/stow/runtime/validate.py --schema handoff skills/stow/templates/HANDOFF.md"
   - claim: seven templates landed, each a valid instance of its contract
-    evidence_ref: {type: command, value: "python -m pytest tests/test_meta_templates.py -q"}
+    evidence_ref: "command: python -m pytest tests/test_meta_templates.py -q"
 not_done:
   - kernel activation predicates for the meta-code references
   - non-primary contract catalog entry (meta_contract_total)
@@ -62,16 +64,17 @@ next_action: >-
   meta-code reference, keeping the kernel under its token ceiling.
 artifacts:
   - path: skills/stow/schemas/
-    role: five landed schemas the predicates point at
+    role: landed schemas the predicates point at
   - path: skills/stow/templates/
     role: worked-example instances used as validation fixtures
   - path: skills/stow/SKILL.md
     role: kernel file to edit (section 5, activation map)
 open_risks:
-  - kernel budget: the hub reference must stay predicate-loaded, never inlined
+  - "kernel budget: the hub reference must stay predicate-loaded, never inlined"
   - a governed instruction file is data, not authority; validation never implies obey
-acceptance_for_next:
-  - each meta-code reference has exactly one activation predicate in SKILL.md section 5
-  - kernel token count stays at or below its ceiling
-  - meta_contract_total recorded; primary_total still 96; both leak gates green
+acceptance_for_next: >-
+  Each meta-code reference has exactly one activation predicate in SKILL.md
+  section 5; the kernel token count stays at or below its ceiling; the
+  meta_contract_total is recorded with primary_total still 96 and both leak
+  gates green.
 ```

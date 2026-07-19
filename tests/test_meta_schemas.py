@@ -30,12 +30,18 @@ VALIDATE_PATH = os.path.join(RUNTIME, "validate.py")
 SCHEMA_DIR = os.path.join(REPO, "skills", "stow", "schemas")
 META_FIX = os.path.join(HERE, "fixtures", "meta")
 
+# The five interchange meta-contracts (the registry catalog) plus the three
+# validator schemas (event, plan, runbook) that do NOT join the catalog:
+# meta_contract_total stays 5.
 SCHEMA_IDS = [
     "output-contract",
     "handoff",
     "task-packet",
     "evidence-record",
     "state",
+    "event",
+    "plan",
+    "runbook",
 ]
 
 
@@ -120,6 +126,9 @@ _SCHEMA_BREAKERS = {
     "task-packet": lambda o: o.pop("acceptance"),
     "evidence-record": lambda o: o.pop("kind"),
     "state": lambda o: o.__setitem__("history_append_only", False),
+    "event": lambda o: o.pop("type"),
+    "plan": lambda o: o.pop("tasks"),
+    "runbook": lambda o: o.pop("success_check"),
 }
 
 

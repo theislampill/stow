@@ -44,10 +44,12 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## Validation contract
 
-Validate each task and its acceptance block against the schema:
+Validate the plan document (its fenced task-DAG block) against the plan schema;
+a task dispatched FROM the plan validates separately as a task packet:
 
 ```
-python skills/stow/runtime/validate.py --schema task-packet <file>
+python skills/stow/runtime/validate.py --schema plan templates/PLAN.md
+python skills/stow/runtime/validate.py --schema task-packet <packet-file>
 ```
 
 The load-bearing rules: every task has an `id`, an `acceptance`, and a gate;

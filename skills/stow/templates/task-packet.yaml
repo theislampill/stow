@@ -4,6 +4,8 @@
 # Cold-reader rule: every field a fresh subagent needs is carried here; nothing
 # depends on transcript state the packet does not itself state.
 
+schema_version: 1
+profile: technical-clarity
 packet_id: TP-references-activation-audit
 parent_id: null
 goal: >-
@@ -30,13 +32,16 @@ expected_output:
   schema_id: null
 
 acceptance:
-  - predicate: every *.md under skills/stow/references/ appears in SKILL.md section 5
+  - id: AC-1
+    predicate: every *.md under skills/stow/references/ appears in SKILL.md section 5
     method: parse
     expected: zero orphan reference files
-  - predicate: every predicate in SKILL.md section 5 resolves to an existing file
+  - id: AC-2
+    predicate: every predicate in SKILL.md section 5 resolves to an existing file
     method: parse
     expected: zero dangling predicates
-  - predicate: the reference-file count is reported to stdout
+  - id: AC-3
+    predicate: the reference-file count is reported to stdout
     method: command
     expected: one integer printed
 
@@ -46,16 +51,13 @@ done_definition: >-
 
 # ---- Return block (the subagent fills this in on completion) ------------------
 # status ∈ {done, blocked, failed, partial}. When status == done, evidence is
-# non-empty and every acceptance predicate has a matching evidence entry.
+# non-empty and every acceptance id has a matching evidence entry (for: AC-n).
 result_ref: runs/meta/references-activation-audit.md
 status: done
 evidence:
-  - predicate: every *.md under skills/stow/references/ appears in SKILL.md section 5
-    locator: {type: command, value: "grep -n 'references/' skills/stow/SKILL.md"}
-    result: zero orphan reference files
-  - predicate: every predicate in SKILL.md section 5 resolves to an existing file
-    locator: {type: file-line, value: "skills/stow/SKILL.md:45-61"}
-    result: zero dangling predicates
-  - predicate: the reference-file count is reported to stdout
-    locator: {type: command, value: "ls skills/stow/references/*.md | wc -l"}
-    result: integer count printed
+  - for: AC-1
+    locator: "command: grep -n 'references/' skills/stow/SKILL.md"
+  - for: AC-2
+    locator: "file-line: skills/stow/SKILL.md section 5"
+  - for: AC-3
+    locator: "command: ls skills/stow/references/*.md | wc -l"

@@ -48,6 +48,15 @@ import os
 import re
 import sys
 
+# The profile resolver is a packaged sibling module, not a dependency. When
+# this file is run as a script its directory is already first on sys.path;
+# when it is loaded by path (importlib) the directory may not be, so it is
+# inserted explicitly before the sibling import.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+import profiles
+
 
 # --------------------------------------------------------------------------- #
 # Advisory
@@ -593,8 +602,13 @@ def check_hedging(text, tables):
     return out
 
 
-def check_punctuation(text, profile=None):
-    """(b) PUNCTUATION / STRUCTURE."""
+def check_punctuation(text, profile_record):
+    """(b) PUNCTUATION / STRUCTURE.
+
+    ``profile_record`` is a resolved profile record; each profile-gated check
+    asks the resolver whether it is active. The em-dash and scare-quote checks
+    are always-on and never gated.
+    """
     protected = mask_protected(text)
     prose = mask_prose(text)
     out = []
@@ -603,21 +617,21 @@ def check_punctuation(text, profile=None):
         _EM_DASH_RE, protected, "em-dash", "STOW-PRO-001",
         "em-dash (U+2014); consider a comma, colon, parentheses, or a rewrite"))
 
-    # The semicolon ban belongs to the controlled-technical profile, so it is
-    # only reported when that profile is active.
-    if profile == CONTROLLED_TECHNICAL:
+    if profiles.check_active("semicolon", profile_record):
         out.extend(_scan(
             _SEMICOLON_RE, prose, "semicolon", "STOW-PCT-001",
             "semicolon; write two separate sentences instead"))
 
-    out.extend(_scan(
-        _LATIN_RE, mask_latin(text), "latin-abbreviation", "STOW-GEN-006",
-        "Latin abbreviation %r; use the English words"))
+    if profiles.check_active("latin-abbreviation", profile_record):
+        out.extend(_scan(
+            _LATIN_RE, mask_latin(text), "latin-abbreviation", "STOW-GEN-006",
+            "Latin abbreviation %r; use the English words"))
 
-    out.extend(_scan(
-        _CONTRACTION_RE, prose, "contraction", "STOW-SEN-002",
-        "contraction %r; write both words in full "
-        "(partial check: the omitted-word half of this rule is not mechanized)"))
+    if profiles.check_active("contraction", profile_record):
+        out.extend(_scan(
+            _CONTRACTION_RE, prose, "contraction", "STOW-SEN-002",
+            "contraction %r; write both words in full "
+            "(partial check: the omitted-word half of this rule is not mechanized)"))
 
     for lineno, line in enumerate(protected.split("\n"), start=1):
         for match in _SCARE_QUOTE_RE.finditer(line):
@@ -629,11 +643,24 @@ def check_punctuation(text, profile=None):
     return out
 
 
-def check_lengths(text):
-    """(c) LENGTH CAPS, each applied only to its own region."""
+def check_lengths(text, profile_record, exhaustive_lists_ok=False):
+    """(c) LENGTH CAPS, each applied only to its own region.
+
+    The two sentence caps are profile-gated. The five-item list cap is
+    always-on but yields to an explicit exhaustive-list permission (a list
+    the output contract requires to be complete is never trimmed to fit).
+    """
     masked = mask_protected(text)
     out = []
+    caps_active = {
+        "procedural": profiles.check_active(
+            "procedural-sentence-length", profile_record),
+        "descriptive": profiles.check_active(
+            "descriptive-sentence-length", profile_record),
+    }
     for unit in _units(masked):
+        if not caps_active[unit.region]:
+            continue
         limit = (PROCEDURAL_MAX_WORDS if unit.region == "procedural"
                  else DESCRIPTIVE_MAX_WORDS)
         rule_id = ("STOW-PRC-001" if unit.region == "procedural"
@@ -646,6 +673,9 @@ def check_lengths(text):
                     lineno, 1, rule, rule_id=rule_id,
                     message="%s sentence runs %d words (cap %d); split it"
                             % (unit.region, words, limit)))
+
+    if exhaustive_lists_ok:
+        return out
 
     run = 0
     indent = None
@@ -672,19 +702,35 @@ def check_lengths(text):
 # Entry point
 # --------------------------------------------------------------------------- #
 
-def lint(text, profile=None, tables=None, banned_lists_path=None):
-    """Return the list of :class:`Advisory` for ``text`` (never raises).
+# File extensions treated as structured artifacts: prose checks do not apply.
+STRUCTURED_EXTENSIONS = (".json", ".jsonl", ".yaml", ".yml")
 
-    ``profile`` gates the profile-scoped checks; pass ``"controlled-technical"``
-    to include them. ``tables`` overrides the runtime-loaded term tables.
+
+def lint(text, profile=None, tables=None, banned_lists_path=None,
+         artifact_type=None, exhaustive_lists_ok=False):
+    """Return the list of :class:`Advisory` for ``text``.
+
+    ``profile`` is a profile id or alias from ``rules/profiles.json``; ``None``
+    resolves to the default profile. Profile-gated checks run only where their
+    owning profile activates them. ``artifact_type`` of ``"structured"`` or
+    ``"raw"`` suppresses every prose check (structured data is a protected
+    region; use validate.py on it). ``exhaustive_lists_ok`` suppresses the
+    list-length advisory for contract-required exhaustive lists.
+
+    Raises :class:`profiles.ProfileError` on an unknown or locked profile —
+    profile identity is a contract input, not a finding.
     """
+    if artifact_type in ("structured", "raw"):
+        return []
+    profile_record = profiles.resolve(profile)
     if tables is None:
         tables = load_banned_lists(banned_lists_path)
     advisories = []
-    advisories.extend(check_punctuation(text, profile=profile))
+    advisories.extend(check_punctuation(text, profile_record))
     advisories.extend(check_lexical(text, tables))
     advisories.extend(check_hedging(text, tables))
-    advisories.extend(check_lengths(text))
+    advisories.extend(check_lengths(
+        text, profile_record, exhaustive_lists_ok=exhaustive_lists_ok))
     advisories.sort(key=lambda a: (a.line, a.col, a.rule))
     return advisories
 
@@ -693,16 +739,44 @@ def lint(text, profile=None, tables=None, banned_lists_path=None):
 # CLI
 # --------------------------------------------------------------------------- #
 
+def _profile_choices():
+    data = profiles.load_profiles()
+    names = []
+    for record in data["profiles"]:
+        names.append(record["id"])
+        names.extend(record.get("aliases", []))
+    return names
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        description="Report (never fail on) advisory prose patterns. Exit 0 always.")
+        description="Report (never fail on) advisory prose patterns. "
+                    "Findings never change the exit code; only an invalid "
+                    "invocation (unknown or locked profile) exits nonzero.")
     parser.add_argument("file", help="path to the prose file to lint")
-    parser.add_argument("--profile", choices=[CONTROLLED_TECHNICAL], default=None,
-                        help="activate the profile-scoped checks")
+    parser.add_argument("--profile", choices=_profile_choices(), default=None,
+                        help="profile id or alias from rules/profiles.json "
+                             "(default: stow-default)")
+    parser.add_argument("--artifact-type",
+                        choices=["prose", "structured", "raw"], default=None,
+                        help="override artifact detection; 'prose' forces "
+                             "prose checks on a structured-looking file")
+    parser.add_argument("--exhaustive-list-ok", action="store_true",
+                        help="the output contract requires a complete list; "
+                             "suppress the list-length advisory")
     parser.add_argument("--banned-lists", default=None,
                         help="override the path to the term tables")
     parser.add_argument("--format", choices=["text", "json"], default="text")
     args = parser.parse_args(argv)
+
+    try:
+        profile_record = profiles.resolve(args.profile)
+    except profiles.LockedProfileError as exc:
+        print("lint_prose: %s" % exc, file=sys.stderr)
+        return 2
+    except profiles.UnknownProfileError as exc:
+        print("lint_prose: %s" % exc, file=sys.stderr)
+        return 2
 
     try:
         with open(args.file, "rb") as handle:
@@ -712,28 +786,56 @@ def main(argv=None):
         print("lint_prose: cannot read %s: %s" % (args.file, exc))
         return 0
 
+    artifact_type = args.artifact_type
+    note = None
+    if artifact_type is None and args.file.lower().endswith(STRUCTURED_EXTENSIONS):
+        artifact_type = "structured"
+    if artifact_type in ("structured", "raw"):
+        try:
+            json.loads(text)
+            parse_state = "parses as JSON"
+        except ValueError:
+            parse_state = ("structured extension but does not parse as JSON; "
+                           "pass --artifact-type prose to lint it as prose")
+        note = ("structured artifact (%s): prose checks do not apply; "
+                "use validate.py" % parse_state)
+
     advisories = lint(text, profile=args.profile,
-                      banned_lists_path=args.banned_lists)
+                      banned_lists_path=args.banned_lists,
+                      artifact_type=artifact_type,
+                      exhaustive_lists_ok=args.exhaustive_list_ok)
 
     if args.format == "json":
         print(json.dumps({
             "tool": "lint_prose",
             "file": args.file,
             "report_only": True,
+            "profile": profile_record["id"],
+            "profile_source": "cli" if args.profile else "default",
+            "guidance_active": profile_record.get("guidance_rules", []),
+            "artifact_type": artifact_type or "prose",
+            "note": note,
             "findings": [a.as_dict() for a in advisories],
         }, indent=2, sort_keys=True))
         return 0
 
+    if note:
+        print("lint_prose: %s: %s" % (args.file, note))
+        return 0
     if not advisories:
-        print("lint_prose: no advisories for %s" % args.file)
+        print("lint_prose: no advisories for %s (profile %s)"
+              % (args.file, profile_record["id"]))
     else:
-        print("lint_prose: %d advisory(ies) for %s (report only, exit 0)"
-              % (len(advisories), args.file))
+        print("lint_prose: %d advisory(ies) for %s (profile %s; report only, "
+              "exit 0)" % (len(advisories), args.file, profile_record["id"]))
         for adv in advisories:
             print("  %d:%d [%s] %s%s: %s"
                   % (adv.line, adv.col, adv.rule,
                      adv.rule_id + " " if adv.rule_id else "",
                      adv.severity, adv.message))
+    if profile_record.get("guidance_rules"):
+        print("lint_prose: guidance-active (review-level, no mechanical "
+              "check): %s" % ", ".join(profile_record["guidance_rules"]))
     return 0
 
 

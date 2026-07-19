@@ -216,6 +216,9 @@ def test_every_runtime_module_runs_import_closed(installed):
         "lint_prose.py": (
             [installed.path("stow", "SKILL.md")],
             0, "lint_prose"),
+        "profiles.py": (
+            ["resolve", "controlled-technical"],
+            0, "controlled-technical-guided"),
     }
 
     for module in modules:

@@ -51,7 +51,7 @@ ARTIFACT_NAME = "STOW.skill"
 
 # Only these runtime modules are packaged; everything else under runtime/ is
 # dropped (the shipped runtime surface is a fixed, auditable allowlist).
-RUNTIME_ALLOW = frozenset({"validate.py", "lint_prose.py"})
+RUNTIME_ALLOW = frozenset({"validate.py", "lint_prose.py", "profiles.py"})
 
 # Deterministic ZIP entry metadata.
 ZIP_DATE_TIME = (1980, 1, 1, 0, 0, 0)   # the DOS/ZIP epoch -- no wall-clock time

@@ -30,6 +30,9 @@ BANNED_LISTS = os.path.join(
 STDLIB_ONLY = {
     "argparse", "bisect", "json", "os", "re", "sys", "io", "collections",
     "textwrap", "unicodedata", "string", "itertools", "functools",
+    # 'profiles' is the packaged sibling resolver module that ships beside
+    # lint_prose.py in the artifact -- a shipped surface, not a dependency.
+    "profiles",
 }
 
 
@@ -212,38 +215,83 @@ def test_overlapping_terms_report_once():
 # (b) PUNCTUATION / STRUCTURE -- RED-first
 # --------------------------------------------------------------------------- #
 
+# (rule, fixture, rule_id, profile-needed-to-fire). The em-dash and scare-quote
+# checks are always-on; the Latin-abbreviation and contraction checks belong to
+# the controlled-technical-guided profile and fire only under it.
 PUNCT_CASES = [
-    ("em-dash",            u"The cache is cold — restart it.",       "STOW-PRO-001"),
-    ("latin-abbreviation", "Flush the caches, e.g. the write cache.", "STOW-GEN-006"),
-    ("contraction",        "The cache isn't warm yet.",              "STOW-SEN-002"),
-    ("scare-quote",        'The so-called "smart" cache failed.',    "STOW-PRO-010"),
+    ("em-dash",            u"The cache is cold — restart it.",       "STOW-PRO-001", None),
+    ("latin-abbreviation", "Flush the caches, e.g. the write cache.", "STOW-GEN-006", CT),
+    ("contraction",        "The cache isn't warm yet.",              "STOW-SEN-002", CT),
+    ("scare-quote",        'The so-called "smart" cache failed.',    "STOW-PRO-010", None),
 ]
 
 
-@pytest.mark.parametrize("rule,text,rule_id", PUNCT_CASES)
-def test_punctuation_check_is_red_on_its_fixture(rule, text, rule_id):
-    found = hits(text, rule)
+@pytest.mark.parametrize("rule,text,rule_id,profile", PUNCT_CASES)
+def test_punctuation_check_is_red_on_its_fixture(rule, text, rule_id, profile):
+    found = hits(text, rule, profile=profile)
     assert found, "%s not flagged in %r" % (rule, text)
     assert {a.rule_id for a in found} == {rule_id}
     assert all(a.severity == "advisory" for a in found)
 
 
-@pytest.mark.parametrize("rule,text,rule_id", PUNCT_CASES)
+@pytest.mark.parametrize("rule,text,rule_id,profile", PUNCT_CASES)
 @pytest.mark.parametrize("mask", sorted(MASKS))
-def test_punctuation_check_is_masked_inside_protected_regions(rule, text, rule_id, mask):
-    assert_clean(MASKS[mask].format(text), rule)
+def test_punctuation_check_is_masked_inside_protected_regions(
+        rule, text, rule_id, profile, mask):
+    assert_clean(MASKS[mask].format(text), rule, profile=profile)
+
+
+# --- profile gating: every profile-scoped check, both directions ------------- #
+
+GATED_PUNCT_CASES = [
+    ("latin-abbreviation", "Flush the caches, e.g. the write cache."),
+    ("contraction",        "The cache isn't warm yet."),
+]
+
+
+@pytest.mark.parametrize("rule,text", GATED_PUNCT_CASES)
+@pytest.mark.parametrize("profile", [None, "stow-default", "technical-clarity"])
+def test_gated_punctuation_is_silent_outside_the_controlled_profile(
+        rule, text, profile):
+    assert_clean(text, rule, profile=profile)
+
+
+@pytest.mark.parametrize("rule,text", GATED_PUNCT_CASES)
+@pytest.mark.parametrize("profile", [CT, "controlled-technical-guided"])
+def test_gated_punctuation_fires_under_the_controlled_profile(rule, text, profile):
+    assert_flags(text, rule, profile=profile)
+
+
+def test_em_dash_fires_under_every_profile():
+    text = u"The cache is cold — restart it."
+    for profile in (None, "stow-default", "technical-clarity",
+                    "controlled-technical-guided", CT):
+        assert_flags(text, "em-dash", profile=profile)
+
+
+def test_technical_clarity_findings_match_stow_default():
+    """technical-clarity adds guidance, not mechanical checks: identical
+    findings to the default profile on the same input."""
+    text = DIRTY
+    default = [(a.line, a.col, a.rule) for a in
+               lint_prose.lint(text, profile="stow-default", tables=TABLES)]
+    clarity = [(a.line, a.col, a.rule) for a in
+               lint_prose.lint(text, profile="technical-clarity", tables=TABLES)]
+    assert default == clarity
 
 
 def test_latin_abbreviation_survives_the_identifier_mask():
     """'e.g.' is shaped like a dotted identifier. It must still be seen in prose
     while a real dotted name in a code span stays protected."""
-    assert_flags("Flush the caches, i.e. every write cache.", "latin-abbreviation")
-    assert_clean("Call `module.submodule.etc` on startup.", "latin-abbreviation")
+    assert_flags("Flush the caches, i.e. every write cache.",
+                 "latin-abbreviation", profile=CT)
+    assert_clean("Call `module.submodule.etc` on startup.",
+                 "latin-abbreviation", profile=CT)
 
 
 def test_possessive_s_is_not_reported_as_a_contraction():
-    assert_clean("The controller's cache is cold.", "contraction")
-    assert_flags("The controller's cache: it's cold.", "contraction")
+    assert_clean("The controller's cache is cold.", "contraction", profile=CT)
+    assert_flags("The controller's cache: it's cold.", "contraction", profile=CT)
 
 
 def test_scare_quote_ignores_a_real_quotation():
@@ -278,19 +326,29 @@ def _sentence(n, prefix=""):
     return prefix + " ".join(["word"] * n) + "."
 
 
+def test_sentence_caps_are_silent_outside_the_controlled_profile():
+    """Both word caps belong to the controlled-technical-guided profile."""
+    for profile in (None, "stow-default", "technical-clarity"):
+        assert_clean(_sentence(26), "descriptive-sentence-length", profile=profile)
+        assert_clean("- " + _sentence(21), "procedural-sentence-length",
+                     profile=profile)
+
+
 def test_descriptive_sentence_cap_is_25_words():
-    assert_clean(_sentence(25), "descriptive-sentence-length")
-    assert_flags(_sentence(26), "descriptive-sentence-length")
-    found = hits(_sentence(26), "descriptive-sentence-length")
+    assert_clean(_sentence(25), "descriptive-sentence-length", profile=CT)
+    assert_flags(_sentence(26), "descriptive-sentence-length", profile=CT)
+    found = hits(_sentence(26), "descriptive-sentence-length", profile=CT)
     assert found[0].rule_id == "STOW-DSC-003"
     assert "26 words" in found[0].message
 
 
 def test_procedural_sentence_cap_is_20_words_and_applies_to_list_items():
     body = " ".join(["word"] * 21) + "."
-    assert_flags("- " + body, "procedural-sentence-length")
-    assert hits("- " + body, "procedural-sentence-length")[0].rule_id == "STOW-PRC-001"
-    assert_clean("- " + " ".join(["word"] * 20) + ".", "procedural-sentence-length")
+    assert_flags("- " + body, "procedural-sentence-length", profile=CT)
+    assert hits("- " + body, "procedural-sentence-length",
+                profile=CT)[0].rule_id == "STOW-PRC-001"
+    assert_clean("- " + " ".join(["word"] * 20) + ".",
+                 "procedural-sentence-length", profile=CT)
 
 
 def test_the_two_caps_do_not_leak_across_regions():
@@ -298,16 +356,16 @@ def test_the_two_caps_do_not_leak_across_regions():
     cap must not be applied to a list item, nor the procedural cap to a
     paragraph."""
     body = " ".join(["word"] * 21) + "."
-    assert rules("- " + body) & {"procedural-sentence-length",
-                                 "descriptive-sentence-length"} == \
+    assert rules("- " + body, profile=CT) & {"procedural-sentence-length",
+                                             "descriptive-sentence-length"} == \
         {"procedural-sentence-length"}
-    assert rules(body) & {"procedural-sentence-length",
-                          "descriptive-sentence-length"} == set()
+    assert rules(body, profile=CT) & {"procedural-sentence-length",
+                                      "descriptive-sentence-length"} == set()
 
 
 def test_numbered_steps_count_as_the_procedural_region():
     assert_flags("1. " + " ".join(["word"] * 21) + ".",
-                 "procedural-sentence-length")
+                 "procedural-sentence-length", profile=CT)
 
 
 def test_word_count_token_rules():
@@ -321,14 +379,15 @@ def test_word_count_token_rules():
 
 def test_headings_and_table_rows_are_never_measured():
     long_tail = " ".join(["word"] * 40)
-    assert_clean("# " + long_tail, "descriptive-sentence-length")
-    assert_clean("| " + long_tail + " | b |", "descriptive-sentence-length")
+    assert_clean("# " + long_tail, "descriptive-sentence-length", profile=CT)
+    assert_clean("| " + long_tail + " | b |", "descriptive-sentence-length",
+                 profile=CT)
 
 
 def test_length_caps_ignore_fenced_code():
     fenced = "```\n%s\n```\n" % _sentence(40)
-    assert_clean(fenced, "descriptive-sentence-length")
-    assert_clean(fenced, "procedural-sentence-length")
+    assert_clean(fenced, "descriptive-sentence-length", profile=CT)
+    assert_clean(fenced, "procedural-sentence-length", profile=CT)
 
 
 def test_list_cap_is_five_items():
@@ -351,6 +410,25 @@ def test_list_cap_resets_between_separate_lists():
 def test_list_cap_ignores_a_fenced_block_that_looks_like_a_list():
     fenced = "```\n%s```\n" % "".join("- item %d\n" % i for i in range(9))
     assert_clean(fenced, "list-length")
+
+
+def test_exhaustive_list_permission_suppresses_the_list_cap_only():
+    """A contract-required exhaustive list is never trimmed to fit the cap;
+    every other check keeps running."""
+    six = "".join("- item %d\n" % i for i in range(6))
+    assert_flags(six, "list-length")
+    assert_clean(six, "list-length", exhaustive_lists_ok=True)
+    dirty = six + "\nFurthermore, the cache is cold.\n"
+    assert_flags(dirty, "ai-transition", exhaustive_lists_ok=True)
+
+
+def test_structured_artifact_type_suppresses_every_prose_check():
+    raw = '{"note": "Furthermore, we leverage it; e.g. etc."}'
+    assert lint_prose.lint(raw, tables=TABLES, artifact_type="structured") == []
+    assert lint_prose.lint(raw, tables=TABLES, artifact_type="raw") == []
+    # The same content as prose IS flagged (the accidental quote-mask keeps the
+    # inner string safe, but nothing suppresses checks outside it).
+    assert lint_prose.lint("Furthermore, we leverage it.", tables=TABLES) != []
 
 
 # --------------------------------------------------------------------------- #
@@ -429,6 +507,50 @@ def test_cli_exit_code_is_zero_on_undecodable_bytes(tmp_path):
     path = tmp_path / "binary.md"
     path.write_bytes(b"\xff\xfe\x00 Furthermore \xc3\x28")
     assert lint_prose.main([str(path)]) == 0
+
+
+def test_cli_rejects_the_locked_strict_profile_by_name(tmp_path, capsys):
+    path = tmp_path / "clean.md"
+    path.write_text("Stop the host writes.\n", encoding="utf-8")
+    rc = lint_prose.main([str(path), "--profile", "controlled-technical-strict"])
+    assert rc == 2
+    err = capsys.readouterr().err
+    assert "locked" in err
+    assert "controlled-technical-strict" in err
+
+
+def test_cli_accepts_the_deprecated_alias_and_resolves_it(tmp_path, capsys):
+    path = tmp_path / "dirty.md"
+    path.write_text("The cache isn't warm yet.\n", encoding="utf-8")
+    assert lint_prose.main(
+        [str(path), "--profile", "controlled-technical", "--format", "json"]) == 0
+    import json as _json
+    payload = _json.loads(capsys.readouterr().out)
+    assert payload["profile"] == "controlled-technical-guided"
+    assert any(f["rule"] == "contraction" for f in payload["findings"])
+
+
+def test_cli_structured_extension_suppresses_prose_checks(tmp_path, capsys):
+    path = tmp_path / "raw.json"
+    path.write_text(
+        u'{"note": "Furthermore, we leverage it — robust; e.g. etc."}',
+        encoding="utf-8")
+    assert lint_prose.main([str(path), "--format", "json"]) == 0
+    import json as _json
+    payload = _json.loads(capsys.readouterr().out)
+    assert payload["findings"] == []
+    assert payload["artifact_type"] == "structured"
+    assert "prose checks do not apply" in payload["note"]
+
+
+def test_cli_artifact_type_prose_overrides_the_extension_sniff(tmp_path, capsys):
+    path = tmp_path / "notes.json"
+    path.write_text(u"The cache is cold — restart it.\n", encoding="utf-8")
+    assert lint_prose.main(
+        [str(path), "--artifact-type", "prose", "--format", "json"]) == 0
+    import json as _json
+    payload = _json.loads(capsys.readouterr().out)
+    assert any(f["rule"] == "em-dash" for f in payload["findings"])
 
 
 def test_cli_exit_code_is_zero_when_the_term_table_is_missing(tmp_path):

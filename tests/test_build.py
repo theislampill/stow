@@ -35,7 +35,8 @@ FIX = os.path.join(HERE, "fixtures")
 PATTERNS_PATH = os.path.abspath(os.path.join(REPO, os.pardir, "leak-patterns-private.yaml"))
 
 TOP = "stow"
-RUNTIME_ALLOW = {"stow/runtime/validate.py", "stow/runtime/lint_prose.py"}
+RUNTIME_ALLOW = {"stow/runtime/validate.py", "stow/runtime/lint_prose.py",
+                 "stow/runtime/profiles.py"}
 HARD_CEILING = 1500
 
 # Surfaces that must never appear inside the shipped artifact.
@@ -233,7 +234,7 @@ def test_runtime_modules_are_import_closed(built):
     modules = sorted(
         os.path.join(runtime_dir, f)
         for f in os.listdir(runtime_dir) if f.endswith(".py"))
-    assert len(modules) == 2
+    assert len(modules) == 3
 
     for module_path in modules:
         proc = _run_import_closure(module_path)

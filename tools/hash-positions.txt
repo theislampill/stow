@@ -1,0 +1,18 @@
+# hash-positions.txt
+# Content-hash positions that are EXEMPT from the generic 64-hex leak heuristic.
+# A 64-hex value found at one of these positions is a legitimate content hash of a
+# STOW-authored artifact, not a leaked source-file hash. The value is still checked
+# for exact equality against known source-file hashes (full mode), so a source hash
+# planted in one of these positions is still caught.
+#
+# One position spec per line. Syntax:
+#   <key>                       key (leaf) allowed on ANY file
+#   <file>:<key-glob>           key (leaf, '*' = wildcard) allowed on a matching file
+#   <file-glob>                 whole file is a single hash (e.g. a sidecar)
+# Blank lines and lines beginning with '#' are ignored.
+# This file is source-name-free by construction.
+
+wording.baseline_text_sha256
+corpus_manifest.yaml:*.corpus_exact_sha256
+manifest.json:*_sha256
+*.sha256

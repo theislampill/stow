@@ -10,6 +10,8 @@ hashes), that:
   * every manifest required_substring is present, and example-bearing modules
     carry at least one approved and one non-approved example marker,
   * the banned-lists module still contains every categorized term (by count),
+  * all 14 detection-reference sections are represented in the prose-integrity
+    corpus (section-level completeness, checked against a fixed heading list),
   * the secondary action-shaping modules exist and are non-empty,
   * each module matches its drift-lock sha256 in the manifest,
   * the provenance anti-leak gate finds nothing in corpus/** or the manifest,
@@ -17,8 +19,11 @@ hashes), that:
     corpus passes (GREEN).
 
 No source-project name appears in this file. Example markers and distinctive
-phrases are read from the manifest (a Tier-3, source-name-gate-exempt surface),
-never hard-coded here.
+phrases are read from the manifest (a Tier-3, source-name-gate-exempt surface).
+The one deliberate exception is the fixed list of 14 detection-reference section
+titles used by the section-level completeness check: they are topic headings
+(not source names), pinned here on purpose so that section coverage is proven
+independently of the manifest (non-circular).
 """
 
 import hashlib
@@ -72,8 +77,10 @@ def read_module(corpus_ref):
 
 
 def extract_banned_terms(text):
-    """First cell of every data table row plus every top-level '- ' bullet.
-    Independent re-implementation used to recount the banned-lists module."""
+    """First cell of every data table row, every top-level '- ' bullet, and each
+    comma-separated term on a '**Label ...:** a, b, c' marker line (the hedging
+    marker word-lists). Independent re-implementation used to recount the
+    banned-lists module."""
     lines = text.split("\n")
     terms = []
     for i, ln in enumerate(lines):
@@ -91,6 +98,11 @@ def extract_banned_terms(text):
             terms.append(first)
         elif s.startswith("- "):
             terms.append(s[2:].strip())
+        elif s.startswith("**") and ": " in s:
+            for part in s.split(": ", 1)[1].split(", "):
+                part = part.strip()
+                if part:
+                    terms.append(part)
     return terms
 
 
@@ -185,6 +197,59 @@ def test_banned_lists_contains_every_categorized_term():
     ntext = normalize(text)
     for t in terms:
         assert normalize(t) in ntext, "banned term missing from module: %r" % t
+
+
+# --------------------------------------------------------------------------- #
+# Detection-reference section-level completeness (non-circular).
+#
+# The AI-writing detection reference these prose-integrity modules are vendored
+# from is organized into 14 top-level sections. This list is fixed here on
+# purpose -- it is NOT derived from the manifest or the registry -- so the check
+# fails if any section is dropped from the corpus even when the manifest stays
+# internally self-consistent. Each entry is a topic heading, not a source name.
+# --------------------------------------------------------------------------- #
+
+DETECTION_REFERENCE_SECTIONS = [
+    "Em Dashes: The Primary AI Tell",
+    "Overused Verbs",
+    "Overused Adjectives",
+    "Overused Transitions and Connectors",
+    "Phrases That Signal AI Writing",
+    "Filler Words and Empty Intensifiers",
+    "Heading Anti-Patterns",
+    "Academic-Specific AI Tells",
+    "Hallucinated Markup Artifacts",
+    "Hedging and Epistemic Modality Overload",
+    "Structural and Statistical Patterns",
+    "Model-Family-Specific Tells",
+    "False Positive Prevention",
+    "How to Self-Check",
+]
+
+
+def _prose_integrity_corpus_text():
+    """Normalized concatenation of every prose-integrity corpus module on disk."""
+    root = os.path.join(CORPUS_ROOT, PROSE_CATEGORY)
+    blobs = []
+    for base, _dirs, files in os.walk(root):
+        for f in files:
+            if f.endswith(".md"):
+                with open(os.path.join(base, f), encoding="utf-8") as fh:
+                    blobs.append(normalize(fh.read()))
+    return "\n\n".join(blobs)
+
+
+def test_every_detection_reference_section_is_represented():
+    # Fixed at 14 distinct sections; each must appear as an actual H2 heading in
+    # some prose-integrity module. Independent of the manifest, so a dropped
+    # section fails here even if the manifest is self-consistent.
+    assert len(DETECTION_REFERENCE_SECTIONS) == 14
+    assert len(set(DETECTION_REFERENCE_SECTIONS)) == 14
+    corpus_text = _prose_integrity_corpus_text()
+    missing = [h for h in DETECTION_REFERENCE_SECTIONS
+               if ("## " + h) not in corpus_text]
+    assert missing == [], \
+        "detection-reference sections absent from prose-integrity corpus: %r" % missing
 
 
 # --------------------------------------------------------------------------- #

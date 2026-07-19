@@ -118,6 +118,12 @@ modules:
     - "Tables are for reference data only (comparisons, specs, look"
     - "Bad: a table with \"Step | Action\" rows for a task sequence."
     - "Good: a numbered list where each step is its own line."
+  corpus/action-shaping/worked-example.md:
+    corpus_exact_sha256: e4d1cc5c3735c71d1cc02bfc6ead33f81cea5b5d1aaa0a223aa22ba63262e5a8
+    example_bearing: false
+    required_substrings:
+    - "**Prompt:** \"Help me write a short email declining a meeting"
+    - "**Open with the subject line and first sentence, then fill i"
   corpus/descriptions/stow-dsc-001.md:
     corpus_exact_sha256: 10d4a9cb5f6d3be12879c5b4eb97f7d9941d248efb612e25b2bc19337e596480
     example_bearing: true
@@ -305,9 +311,9 @@ modules:
     - "**STE:** (6) Make sure that the avionics ventilation system continues to operate correctly."
     - "**Non-STE:** B. Measure the leakage from the outlet port."
   corpus/prose-integrity/banned-lists.md:
-    corpus_exact_sha256: 66927a0950091bafd433abc725421fa97cbba5e21f49107d850777a91623fa45
+    corpus_exact_sha256: 8c04706b4f7fe43eba0483ec8deb57362ea449dd7ab93f925c3da1ed99b23cc3
     example_bearing: false
-    banned_term_count: 117
+    banned_term_count: 145
     banned_terms:
     - "delve (into)"
     - "leverage"
@@ -417,6 +423,34 @@ modules:
     - "ultimately"
     - "undoubtedly"
     - "very"
+    - "shed light on"
+    - "pave the way for"
+    - "a myriad of"
+    - "a plethora of"
+    - "paramount"
+    - "pertaining to"
+    - "prior to"
+    - "subsequent to"
+    - "in light of"
+    - "with respect to"
+    - "in terms of"
+    - "the fact that"
+    - "may"
+    - "might"
+    - "could"
+    - "potentially"
+    - "I think"
+    - "I believe"
+    - "it seems"
+    - "it appears"
+    - "probably"
+    - "generally"
+    - "usually"
+    - "arguably"
+    - "likely"
+    - "unclear"
+    - "remains to be seen"
+    - "further research is needed"
     - "**Per-paragraph:** More than 3 hedging instances in a single paragraph warrants scrutiny"
     - "**Per-1000-words:** More than 8 hedging markers per 1,000 words in declarative sections (Background, History, Timeline) indicates AI generation. These sections state established facts."
     - "**Appropriate hedging:** Sections discussing pending legislation, ongoing litigation, or genuinely disputed facts should hedge. Do not flag hedging in those contexts."
@@ -429,6 +463,51 @@ modules:
     required_substrings:
     - "AI-generated content frequently uses narrative, dramatic, or"
     - "Humans hedge contextually, grounding uncertainty in specific"
+  corpus/prose-integrity/detection-self-check.md:
+    corpus_exact_sha256: beb3055fdde92c412f14eeb30fc8881628452c9ae35e4e8b053a8bb97e6d7d20
+    example_bearing: false
+    required_substrings:
+    - "10. Check if your introduction, body, and conclusion have di"
+    - "9. Search for hallucinated markup: `oaicite`, `contentRefere"
+  corpus/prose-integrity/em-dash-guidance.md:
+    corpus_exact_sha256: 649b959a499525dbd6a5356dee60c102c9ed316ece75c71b43ed9fe0331f77a6
+    example_bearing: false
+    required_substrings:
+    - "Em dashes are longer than hyphens (-) and are used for empha"
+    - "**The em dash (—) has become one of the most reliable marker"
+  corpus/prose-integrity/false-positive-precision.md:
+    corpus_exact_sha256: f6b6aaa7172d9b593386b0878fb112f758660792285d8d5b8a0096f76e61c187
+    example_bearing: false
+    required_substrings:
+    - "If a banned word appears immediately adjacent to specific na"
+    - "These words require bigram context checking. Only flag metap"
+  corpus/prose-integrity/markup-artifacts.md:
+    corpus_exact_sha256: 3653c5021f7c10a37dd291200c810b92f9f34dd9311666efc05456bae9adbeb8
+    example_bearing: false
+    required_substrings:
+    - "When AI generates wikitext, it sometimes hallucinates citati"
+    - "Any occurrence of these strings in wikitext means the text w"
+  corpus/prose-integrity/model-family-tells.md:
+    corpus_exact_sha256: e1f9f4570e09ec38e9d99ce27842df81f2ad221e89861c02e283d47fbb9a2dc7
+    example_bearing: false
+    required_substrings:
+    - "Different AI model families produce distinct stylistic finge"
+  corpus/prose-integrity/root-cause-differentiation.md:
+    corpus_exact_sha256: c7fc245b98bf191b53c5cde2344a90e4b736a8fcd01c6406f44a2a07ce20a853
+    example_bearing: true
+    approved_example: "- RIGHT: \"2020+ Leaf models shipped with 4G/LTE telematics units connected to a newer cloud platform, replacing the 2G/3G units in earlier models. Those vehicles use the MyNISSAN app, which talks to a different backend.\""
+    nonapproved_example: "- WRONG: \"2020+ Leaf models are unaffected and use the MyNISSAN app instead.\""
+    required_substrings:
+    - "Whenever you say A differs from B, name the part, the versio"
+    - "When you contrast two things, name the concrete difference t"
+    - "- RIGHT: \"2020+ Leaf models shipped with 4G/LTE telematics units connected to a newer cloud platform, replacing the 2G/3G units in earlier models. Those vehicles use the MyNISSAN app, which talks to a different backend.\""
+    - "- WRONG: \"2020+ Leaf models are unaffected and use the MyNISSAN app instead.\""
+  corpus/prose-integrity/self-check-pass.md:
+    corpus_exact_sha256: 6ed240e6270809f5bf879bf4ac8207113fe52a3c9750302205dfd496b708ebb3
+    example_bearing: false
+    required_substrings:
+    - "Run this pass on every piece of prose before you hand it bac"
+    - "3. Scan for banned adjectives and intensifiers (robust, comp"
   corpus/prose-integrity/stow-pro-001.md:
     corpus_exact_sha256: f1cded7967db456a5175813d400bb01b468a9cce50a7834a6b6c0696c2880fd4
     example_bearing: false
@@ -549,6 +628,22 @@ modules:
     example_bearing: false
     required_substrings:
     - "24. **No research-process narration.** Report the facts you"
+  corpus/prose-integrity/structural-statistical.md:
+    corpus_exact_sha256: cb00b29a4ec432fac02cdaabbc5fa4131351cc41a7e74069dd4d2d52fe09995e
+    example_bearing: false
+    required_substrings:
+    - "AI aims for visual symmetry. Paragraphs tend toward identica"
+    - "AI maintains flat stylistic consistency from introduction th"
+  corpus/prose-integrity/worked-examples.md:
+    corpus_exact_sha256: 3b24df906fe6ce4a1240f67547a4fe975b3c2fe9472f50f6d24220289feba64b
+    example_bearing: true
+    approved_example: "- RIGHT: \"The policy affected millions of devices. The company reversed it in December 2017.\""
+    nonapproved_example: "- WRONG: \"The policy -- which affected millions -- was later reversed.\""
+    required_substrings:
+    - "Three sections built from the same template read as machine"
+    - "\"Significantly\", \"dramatically\", \"extremely\" and their kin a"
+    - "- RIGHT: \"The policy affected millions of devices. The company reversed it in December 2017.\""
+    - "- WRONG: \"The policy -- which affected millions -- was later reversed.\""
   corpus/punctuation/stow-pct-001.md:
     corpus_exact_sha256: 5c68b5bcbdc4a2af61a26eac64077bbe244a24a803fec07aa3bc1e0918478ae8
     example_bearing: true

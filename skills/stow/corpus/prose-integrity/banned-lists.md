@@ -155,6 +155,23 @@ These words often add nothing to meaning. Remove them or find specific alternati
 - ultimately
 - undoubtedly
 - very
+## Academic-Specific AI Tells
+
+| Avoid | Use Instead |
+|-------|-------------|
+| shed light on | clarify, explain, reveal |
+| pave the way for | enable, allow, make possible |
+| a myriad of | many, numerous, various |
+| a plethora of | many, numerous, several |
+| paramount | very important, essential, critical |
+| pertaining to | about, regarding, concerning |
+| prior to | before |
+| subsequent to | after |
+| in light of | because of, given, considering |
+| with respect to | about, regarding, for |
+| in terms of | regarding, for, about |
+| the fact that | that (or rewrite sentence) |
+
 ## Hedging and Epistemic Modality Overload
 
 AI models hedge 4-7x more than human writers (ACL 2024 study, 12,000 technical documents). Because models are trained to avoid stating hallucinations as facts, they default to blanket hedging even for established facts.

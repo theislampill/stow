@@ -1,0 +1,9 @@
+bundles:
+  small:
+    - in_band.md
+  both:
+    - in_band.md
+    - over_ceiling.md
+  with_missing:
+    - in_band.md
+    - does_not_exist.md

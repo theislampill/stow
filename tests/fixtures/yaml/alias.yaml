@@ -1,0 +1,3 @@
+base: &anchor
+  x: 1
+ref: *anchor

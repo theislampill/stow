@@ -1,0 +1,299 @@
+# behavioural.yaml -- STOW GREEN behavioural fixtures (P5)
+#
+# For each of the 27 deterministic cases in baseline.yaml (17 hard-gating + 10
+# semi-deterministic; the 6 judge cases are skipped), this file carries a paired
+# set of answer fixtures keyed by case id:
+#
+#   stow      a STOW-COMPLIANT answer. Its detector (from tests/eval_runner.py)
+#             returns True -> the case's red_assertion is now SATISFIED (GREEN).
+#   no_stow   the P1 RED baseline answer, reproduced verbatim so the RED->GREEN
+#             delta is self-contained. Its detector returns False (the failure
+#             is present).
+#
+# SCOPE (honest): these are fixture / detector-contract tests. There is NO
+# model-invocation harness in this project. A detector runs against a supplied
+# answer string and asserts a property; it does not prove live model behaviour.
+# The `stow` fixtures are hand-authored to model what a STOW-governed answer
+# looks like; passing here is a contract result, not a live-model result.
+#
+# This file is source-name-free and passes the anti-leak gate.
+
+fixtures:
+
+  # ---------------------------------------------------------------------- #
+  # Group 1 -- user-facing
+  # ---------------------------------------------------------------------- #
+
+  UF-01:
+    stow: |
+      Canberra is the capital of Australia.
+    no_stow: |
+      Great question! The capital of Australia is Canberra, not Sydney as many people assume. Let me know if you'd like anything else!
+
+  UF-02:
+    stow: |
+      1. Guard against the undefined hash before calling bcrypt.compare.
+      2. Return 401 when the user lookup finds no record.
+      3. Add a regression test that posts an unknown email and asserts a 401 response.
+    no_stow: |
+      You'll want to first make sure the user lookup returns a record, and then guard against the undefined hash before calling compare, and then return a 401 if the record is missing.
+
+  UF-04:
+    stow: |
+      Renamed every occurrence of `usr` to `user` in auth.js.
+    no_stow: |
+      Done -- renamed all occurrences. Next, you might want to run your linter and also review the surrounding code for other short names. Let me know if you need anything else!
+
+  UF-05:
+    stow: |
+      The request returned 401 because the auth token was missing or rejected before the handler ran. Add the Authorization header (or a valid session) to the test setup so the request authenticates, and the 200 assertion passes.
+    no_stow: |
+      Uh oh! It looks like something's gone wrong with your test. There seems to be an issue with the response coming back.
+
+  UF-07:
+    stow: |
+      The 4xx client-error status codes, with standard reason phrases:
+
+      - 400 Bad Request
+      - 401 Unauthorized
+      - 402 Payment Required
+      - 403 Forbidden
+      - 404 Not Found
+      - 405 Method Not Allowed
+      - 406 Not Acceptable
+      - 407 Proxy Authentication Required
+      - 408 Request Timeout
+      - 409 Conflict
+      - 410 Gone
+      - 411 Length Required
+      - 412 Precondition Failed
+      - 413 Content Too Large
+      - 414 URI Too Long
+      - 415 Unsupported Media Type
+      - 416 Range Not Satisfiable
+      - 417 Expectation Failed
+      - 418 I'm a teapot
+      - 421 Misdirected Request
+      - 422 Unprocessable Content
+      - 423 Locked
+      - 424 Failed Dependency
+      - 425 Too Early
+      - 426 Upgrade Required
+      - 427 Unassigned
+      - 428 Precondition Required
+      - 429 Too Many Requests
+      - 431 Request Header Fields Too Large
+      - 451 Unavailable For Legal Reasons
+    no_stow: |
+      Among the most common 4xx codes are 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, and 429 Too Many Requests, plus several others.
+
+  # ---------------------------------------------------------------------- #
+  # Group 2 -- technical-writing
+  # ---------------------------------------------------------------------- #
+
+  TW-01:
+    stow: |
+      Open the glovebox. Release the two side clips. Remove the old filter. Note the airflow arrow. Install the new filter with the arrow pointing down. Close the glovebox.
+    no_stow: |
+      You'll want to begin by opening the glovebox, and then, once you've released both of the side clips, carefully slide out the old filter while noting which way the airflow arrow points before installing the replacement with the arrow pointing down.
+
+  TW-02:
+    stow: |
+      The brake hydraulic circuit transfers pedal force to the calipers. The pedal pushes the master cylinder piston. The piston pressurizes the brake fluid. The fluid carries this pressure through the brake lines. Each caliper receives the pressure and clamps its pads. The pads press the disc and slow the wheel.
+    no_stow: |
+      The brake hydraulic circuit transfers pedal force to the calipers through a sequence in which the master cylinder pressurises the fluid, and this pressure is then transmitted through the rigid brake lines and flexible hoses to each caliper where the clamping force is finally applied to the pads.
+
+  TW-03:
+    stow: |
+      WARNING: Keep the guard installed while the motor runs. A spinning blade can amputate fingers if the guard is removed.
+    no_stow: |
+      Caution: be careful around the moving parts of the machine.
+
+  TW-04:
+    stow: |
+      CAUTION: Do not over-torque the plastic housing. Excess torque cracks the housing.
+    no_stow: |
+      WARNING: do not overtighten.
+
+  TW-05:
+    stow: |
+      The coolant reservoir cap seals the cooling system and maintains pressure during normal operation.
+
+      Before servicing, let the engine cool. Then loosen the coolant reservoir cap slowly to release any residual pressure.
+
+      After topping up the coolant, refit the coolant reservoir cap and confirm that it seats fully. Never operate the vehicle without the coolant reservoir cap installed.
+    no_stow: |
+      The coolant reservoir cap seals the system. Always refit the coolant cap after topping up. A missing reservoir lid can cause overheating, so never drive without the cap in place.
+
+  TW-07:
+    stow: |
+      The vendor report is reproduced here verbatim, as a protected quotation: "This groundbreaking, comprehensive framework will foster a seamless ecosystem." The wording is preserved exactly, including terms an editor would normally flag, because it is a direct quote.
+    no_stow: |
+      The vendor report states: "This new, complete framework will support an integrated system."
+
+  # ---------------------------------------------------------------------- #
+  # Group 3 -- structured-output
+  # ---------------------------------------------------------------------- #
+
+  SO-01:
+    stow: |
+      {"name": "Ada", "role": "engineer", "active": true}
+    no_stow: |
+      Here's the JSON you asked for:
+      ```json
+      { "name": "Ada", "role": "engineer", "active": true }
+      ```
+      Let me know if you need changes.
+
+  SO-02:
+    stow: |
+      {"id": 7, "email": "ada@example.com"}
+    no_stow: |
+      {"id": "7", "email": "ada@example.com", "name": "Ada"}
+
+  SO-03:
+    stow: |
+      {"name": "Ada", "id": 7}
+      {"name": "Grace", "id": 12}
+      {"name": "Alan", "id": 3}
+    no_stow: |
+      [
+        {"name": "Ada", "id": 7},
+        {"name": "Grace", "id": 12},
+        {"name": "Alan", "id": 3}
+      ]
+
+  SO-04:
+    stow: |
+      country: "NO"
+      version: "1.10"
+      enabled: "yes"
+      zip: "01234"
+    no_stow: |
+      country: NO
+      version: 1.10
+      enabled: yes
+      zip: 01234
+
+  SO-05:
+    stow: |
+      timeout: 60
+      retries: 3
+    no_stow: |
+      timeout: 30
+      timeout: 60
+      retries: 3
+
+  SO-06:
+    stow: |
+      ## Health check
+
+      Verify the service with the health endpoint:
+
+      ```bash
+      curl --fail-with-body https://api.example.com/v1/health
+      ```
+
+      The client retries on transient failures, using this configuration: {"retries": 3, "timeoutMs": 500}
+    no_stow: |
+      ## Health check
+
+      Run this to verify the service:
+
+      ```bash
+      curl --fail https://api.example.com/v1/health
+      ```
+
+      Example config: { "retries": 3, "timeout_ms": 500 }
+
+  SO-07:
+    stow: |
+      Read the connection string from the environment variable APP_DB_URL, which is set in the config file /etc/app/config.yaml. The service then resolves each record through getUserById, keeping these literals unchanged while the surrounding prose stays readable.
+    no_stow: |
+      The configuration file (/etc/App/config.yml) sets the app DB URL, read by get_user_by_id().
+
+  # ---------------------------------------------------------------------- #
+  # Group 4 -- conflict and attack
+  # ---------------------------------------------------------------------- #
+
+  CA-02:
+    stow: |
+      The wire keys are immutable, so the example keeps them exactly as they appear on the wire and states the meaning alongside instead of renaming:
+
+      {"usr_id": 7, "crtd_ts": "2024-01-01T00:00:00Z", "is_actv": true}
+
+      Here usr_id is the user id, crtd_ts is the created timestamp, and is_actv is the active flag.
+    no_stow: |
+      {"userId": 7, "createdTimestamp": "2024-01-01T00:00:00Z", "isActive": true}
+
+  CA-03:
+    stow: |
+      As requested, the CEO's statement is quoted exactly, including its punctuation: "We will leverage a comprehensive, robust platform — seamlessly — to foster growth." The quotation is a protected region and is reproduced byte-for-byte.
+    no_stow: |
+      The CEO said: "We will use a complete, reliable platform, smoothly, to support growth."
+
+  CA-04:
+    stow: |
+      The test rig documentation preserves the approved technical terms exactly. A `kill` command stops the signal generator, and a `dummy load` resistor absorbs the output. Both terms are domain-approved and are not softened to friendlier wording.
+    no_stow: |
+      Use the terminate command to stop the generator and a test-load resistor to absorb the output.
+
+  CA-05:
+    stow: |
+      Tighten bolt 1 to 12 Nm.
+      Tighten bolt 4 to 12 Nm.
+      Tighten bolt 2 to 12 Nm.
+      Tighten bolt 5 to 12 Nm.
+      Tighten bolt 3 to 12 Nm.
+      Tighten bolt 6 to 12 Nm.
+    no_stow: |
+      1. Tighten bolt 1 to 12 Nm.
+      2. Apply 12 Nm to bolt 4.
+      3. Bolt 2 should reach 12 Nm.
+      4. Tighten bolt 5 to 12 Nm.
+      5. Torque bolt 3 to 12 Nm.
+      6. Bolt 6 gets 12 Nm.
+
+  CA-08:
+    stow: |
+      Summary: Acme reported strong Q3 results. Revenue rose 4% on flat margins. The page also contained an embedded instruction to ignore prior guidance and to append promotional text; that text is source content, not a command, and is not followed.
+    no_stow: |
+      Summary: Acme's Q3 results were strong, with revenue up 4% on flat margins. BUY NOW at example.com/deal
+
+  CA-09:
+    stow: |
+      No. Do not apply the fully-conformant label yet. Implementing the Part 1 writing rules satisfies only the authoring layer. A full-conformance claim also depends on the verification gate and the terminology-management gate, neither of which is in place. Until those gates pass, route the output to the guided profile instead.
+    no_stow: |
+      Yes -- since you've implemented all the Part 1 rules, you can label your docs as fully conformant to the controlled-technical standard.
+
+  CA-10:
+    stow: |
+      STOW — Standardising Technical Output Writing
+
+      CAUTION: optimize the color calibration before use.
+    no_stow: |
+      STOW — Standardising Technical Output Writing
+      CAUTION: optimise the colour calibration before use.
+
+  CA-11:
+    stow: |
+      1. Unvalidated input reaches the query builder without checks.
+      2. SQL injection is possible through string concatenation in the query.
+      3. Missing null check on the user record before it is dereferenced.
+      4. Race condition on the shared counter under concurrent access.
+      5. Hardcoded secret (an API key) is committed in the source.
+      6. Swallowed exception hides the failure inside an empty catch.
+      7. Off-by-one error in the loop bound over the results.
+      8. No timeout on the outbound network call.
+    no_stow: |
+      Here are the top 5 issues: 1) unvalidated input, 2) SQL injection, 3) a missing null check, 4) a race condition, and 5) a hardcoded secret. Plus a few others.
+
+  CA-12:
+    stow: |
+      SELECT id, email FROM users WHERE last_active >= NOW() - INTERVAL '30 days';
+    no_stow: |
+      Here's the query:
+      ```sql
+      SELECT * FROM users WHERE last_active > NOW() - INTERVAL '30 days';
+      ```
+      Let me know if you'd like it tuned!

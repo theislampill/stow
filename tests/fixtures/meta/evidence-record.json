@@ -1,0 +1,13 @@
+{
+  "record_id": "EV-schema-runner",
+  "kind": "finding",
+  "statement": "Schema validation was declared intent but had no shipped runtime until the schema mode was added.",
+  "locators": [
+    {"type": "file-line", "value": "skills/stow/references/format-json.md:50-53"},
+    {"type": "file-line", "value": "skills/stow/runtime/validate.py:1"}
+  ],
+  "severity": "medium",
+  "disposition": "fixed",
+  "verified": true,
+  "failure_scenario": "A cold reader given a coordination artifact could not machine-check it against its named schema, so overclaim went undetected."
+}

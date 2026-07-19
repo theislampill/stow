@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stow.local/schemas/state.schema.json",
+  "$comment": "Durable externalized state of a long-running multi-session effort so any session resumes without re-deriving, with terminal gate states and non-dangling decision supersession.",
+  "title": "STOW state / continuity record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "updated_ts",
+    "current",
+    "gates",
+    "decisions",
+    "andons",
+    "history_append_only"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "updated_ts": {"type": "string", "minLength": 1},
+    "current": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["head", "phase", "next_action"],
+      "properties": {
+        "head": {"type": "string", "minLength": 1},
+        "phase": {"type": "string", "minLength": 1},
+        "next_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/gate"}
+    },
+    "decisions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/decision"}
+    },
+    "andons": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/andon"}
+    },
+    "history_append_only": {"const": true}
+  },
+  "$defs": {
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "status": {
+          "enum": ["pending", "active", "done", "passed", "failed", "blocked", "deferred"]
+        },
+        "evidence_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["open", "accepted", "rejected", "superseded"]},
+        "supersedes": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "superseded_by": {"type": "string", "minLength": 1}
+      }
+    },
+    "andon": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "class", "status"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "class": {"type": "string", "minLength": 1},
+        "status": {"enum": ["raised", "resolved"]},
+        "resolution": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "run_id": "stow-bootstrap",
+  "updated_ts": "2026-07-19T15:00:00Z",
+  "current": {
+    "head": "main",
+    "phase": "P2B-corpus",
+    "next_action": "Author the corpus modules and wire the verbatim gate."
+  },
+  "gates": [
+    {
+      "id": "G-registry",
+      "status": "done",
+      "evidence_ref": "tests/test_registry.py"
+    },
+    {
+      "id": "G-corpus",
+      "status": "active"
+    },
+    {
+      "id": "G-build",
+      "status": "pending"
+    }
+  ],
+  "decisions": [
+    {"id": "OD-3", "status": "superseded", "superseded_by": "OD-8"},
+    {"id": "OD-8", "status": "accepted", "supersedes": ["OD-3"]},
+    {"id": "OD-11", "status": "accepted"}
+  ],
+  "andons": [
+    {
+      "id": "AN-1",
+      "class": "provenance",
+      "status": "resolved",
+      "resolution": "Leak gate wired over all authored surfaces."
+    }
+  ],
+  "history_append_only": true
+}

@@ -1,0 +1,38 @@
+{
+  "packet_id": "TP-inventory-001",
+  "parent_id": "HO-P2-to-P2B",
+  "goal": "Enumerate the controlled-technical rule inventory with locators.",
+  "inputs": [
+    {"ref": "skills/stow/rules/registry.yaml", "role": "rule-source"}
+  ],
+  "permissions": {
+    "read_only": true,
+    "write_scope": [],
+    "forbidden": ["commit", "push"]
+  },
+  "expected_output": {
+    "content_type": "application/json",
+    "schema_id": "evidence-record"
+  },
+  "acceptance": [
+    {
+      "id": "AC-1",
+      "predicate": "Every controlled-technical rule is enumerated with a locator.",
+      "method": "command",
+      "expected": "count matches the registry index"
+    },
+    {
+      "id": "AC-2",
+      "predicate": "No source name appears in the returned inventory.",
+      "method": "command",
+      "expected": "leak gate passes"
+    }
+  ],
+  "done_definition": "Inventory returned, both acceptance criteria met with evidence.",
+  "result_ref": "tests/fixtures/meta/handoff.json",
+  "status": "done",
+  "evidence": [
+    {"for": "AC-1", "locator": "skills/stow/references/rule-index.md"},
+    {"for": "AC-2", "locator": "tools/check_provenance_leak.py"}
+  ]
+}

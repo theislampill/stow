@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
-"""Deterministic structured-output validators for JSON, JSONL, and YAML.
+"""Deterministic structured-output validators for JSON, JSONL, and YAML, plus a
+named-schema mode for the meta-code coordination artifacts.
 
 This module is PACKAGED into the shipped skill. It is import-closed: it imports
-only the Python standard library and ``ruamel.yaml``. It never imports from a
-repository tool, the repo root, or any sibling module, so it runs unchanged from
-inside an extracted artifact where only the artifact is on ``sys.path``.
+only the Python standard library, ``ruamel.yaml``, and ``jsonschema``. It never
+imports from a repository tool, the repo root, or any sibling module, so it runs
+unchanged from inside an extracted artifact where only the artifact is on
+``sys.path``.
 
 Each validator returns a :class:`Result`. The command line interface exits 0
 when a file is valid and nonzero (with a clear message) when it is not. Warnings
 are advisory and never change the exit status.
+
+Two CLI modes:
+    ``--format {json,jsonl,yaml} FILE``  structural validation (below).
+    ``--schema <id> FILE``               validate a JSON/YAML instance against
+        the named JSON-Schema-2020-12 document in ``skills/stow/schemas/`` and
+        apply the cross-field post-checks that JSON Schema alone cannot express
+        (a declared sha256 must match a recomputed hash; a ``status: done`` entry
+        must carry an evidence pointer; a decision supersession must not dangle).
 
 JSON contract
     Exactly one JSON value. Rejects a leading BOM (U+FEFF), the non-finite
@@ -32,11 +42,14 @@ YAML contract
 """
 
 import argparse
+import hashlib
 import io
 import json
 import math
+import os
 import sys
 
+import jsonschema
 from ruamel.yaml import YAML
 from ruamel.yaml.nodes import MappingNode, ScalarNode, SequenceNode
 
@@ -274,6 +287,184 @@ def validate_yaml(text):
 
 
 # --------------------------------------------------------------------------- #
+# Named-schema mode (meta-code coordination artifacts)
+# --------------------------------------------------------------------------- #
+
+# Sibling directory of this runtime, resolved relative to the module so it works
+# unchanged inside the extracted artifact (``.../stow/schemas``).
+SCHEMA_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "schemas"))
+
+# A schema id is a bare filename stem: letters, digits, and hyphens only. This
+# forbids path traversal (no ``/`` ``\`` ``.`` ``..``) when resolving the file.
+_SCHEMA_ID_OK = frozenset(
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
+
+
+def schema_path(schema_id):
+    """Absolute path of the named schema, or None if the id is malformed."""
+    if not schema_id or any(ch not in _SCHEMA_ID_OK for ch in schema_id):
+        return None
+    return os.path.join(SCHEMA_DIR, schema_id + ".schema.json")
+
+
+def _parse_instance(text, path):
+    """Parse a schema instance to plain Python. JSON for ``.json``/``.jsonl``,
+    YAML for ``.yaml``/``.yml``, else try strict JSON then YAML."""
+    if text.startswith(BOM):
+        text = text[len(BOM):]
+    lower = (path or "").lower()
+    if lower.endswith(".json") or lower.endswith(".jsonl"):
+        return _loads_strict(text)
+    if lower.endswith(".yaml") or lower.endswith(".yml"):
+        return _new_yaml().load(io.StringIO(text))
+    try:
+        return _loads_strict(text)
+    except ValueError:
+        return _new_yaml().load(io.StringIO(text))
+
+
+def _iter_mappings(node):
+    """Yield every dict found anywhere in a parsed instance (self + descendants)."""
+    if isinstance(node, dict):
+        yield node
+        for value in node.values():
+            yield from _iter_mappings(value)
+    elif isinstance(node, list):
+        for item in node:
+            yield from _iter_mappings(item)
+
+
+def _has_evidence_pointer(mapping):
+    """True when a mapping carries a non-empty evidence pointer."""
+    ev = mapping.get("evidence")
+    if isinstance(ev, list) and len(ev) > 0:
+        return True
+    ref = mapping.get("evidence_ref")
+    return isinstance(ref, str) and ref.strip() != ""
+
+
+def check_sha256(instance):
+    """POST-CHECK: a declared sha256 must match a recomputed hash.
+
+    Fires on any mapping that carries an ``integrity`` block (``{algo: sha256,
+    value}``) alongside an inline string ``payload``: the recomputed
+    ``sha256(payload.encode('utf-8'))`` must equal ``integrity.value``. A payload
+    referenced by ``payload_ref`` is out of band and not recomputed here.
+    """
+    errors = []
+    for mapping in _iter_mappings(instance):
+        integrity = mapping.get("integrity")
+        payload = mapping.get("payload")
+        if not isinstance(integrity, dict) or integrity.get("algo") != "sha256":
+            continue
+        if not isinstance(payload, str):
+            continue
+        declared = integrity.get("value")
+        actual = hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        if declared != actual:
+            errors.append(
+                "integrity mismatch: declared sha256 %r != recomputed %r"
+                % (declared, actual))
+    return errors
+
+
+def check_status_evidence(instance):
+    """POST-CHECK: any ``status: done`` entry must carry an evidence pointer.
+
+    Applies to a state gate marked done and to a returned task packet with
+    ``status == "done"``; both must expose a non-empty ``evidence`` array or
+    ``evidence_ref``.
+    """
+    errors = []
+    for mapping in _iter_mappings(instance):
+        if mapping.get("status") == "done" and not _has_evidence_pointer(mapping):
+            errors.append(
+                "status 'done' carries no evidence pointer (need non-empty "
+                "'evidence' or 'evidence_ref')")
+    return errors
+
+
+def check_supersession(instance):
+    """POST-CHECK: a decision supersession must not dangle.
+
+    Every id under a ``decisions[].supersedes`` list and every
+    ``decisions[].superseded_by`` must resolve to an existing decision id within
+    the same ``decisions`` list.
+    """
+    errors = []
+    for mapping in _iter_mappings(instance):
+        decisions = mapping.get("decisions")
+        if not isinstance(decisions, list):
+            continue
+        known = {d["id"] for d in decisions
+                 if isinstance(d, dict) and isinstance(d.get("id"), str)}
+        for decision in decisions:
+            if not isinstance(decision, dict):
+                continue
+            refs = []
+            supersedes = decision.get("supersedes")
+            if isinstance(supersedes, list):
+                refs.extend(r for r in supersedes if isinstance(r, str))
+            superseded_by = decision.get("superseded_by")
+            if isinstance(superseded_by, str):
+                refs.append(superseded_by)
+            for ref in refs:
+                if ref not in known:
+                    errors.append(
+                        "dangling supersession: decision %r references unknown "
+                        "decision id %r" % (decision.get("id"), ref))
+    return errors
+
+
+POST_CHECKS = (check_sha256, check_status_evidence, check_supersession)
+
+
+def validate_schema(schema_id, text, instance_path=None):
+    """Validate an instance against a named schema plus the cross-field checks."""
+    path = schema_path(schema_id)
+    if path is None:
+        return Result(False, ["malformed schema id: %r" % (schema_id,)])
+    if not os.path.isfile(path):
+        available = []
+        if os.path.isdir(SCHEMA_DIR):
+            available = sorted(
+                n[:-len(".schema.json")] for n in os.listdir(SCHEMA_DIR)
+                if n.endswith(".schema.json"))
+        return Result(False, ["unknown schema id %r (available: %s)"
+                              % (schema_id, ", ".join(available) or "none")])
+
+    try:
+        with open(path, encoding="utf-8") as handle:
+            schema = json.load(handle)
+    except (OSError, ValueError) as exc:
+        return Result(False, ["cannot load schema %r: %s" % (schema_id, exc)])
+
+    try:
+        jsonschema.Draft202012Validator.check_schema(schema)
+    except jsonschema.exceptions.SchemaError as exc:
+        return Result(False, ["schema %r is not valid draft 2020-12: %s"
+                              % (schema_id, exc.message)])
+
+    try:
+        instance = _parse_instance(text, instance_path)
+    except Exception as exc:  # noqa: BLE001 - surface any parse failure as an error
+        return Result(False, ["instance parse error: %s" % exc])
+
+    errors = []
+    validator = jsonschema.Draft202012Validator(schema)
+    for err in sorted(validator.iter_errors(instance),
+                      key=lambda e: list(e.absolute_path)):
+        loc = "/".join(str(p) for p in err.absolute_path) or "<root>"
+        errors.append("schema %s: %s" % (loc, err.message))
+
+    for check in POST_CHECKS:
+        errors.extend(check(instance))
+
+    return Result(len(errors) == 0, errors, data={"instance": instance})
+
+
+# --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 
@@ -286,37 +477,47 @@ VALIDATORS = {
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        description="Validate a structured-output file (JSON, JSONL, or YAML).")
-    parser.add_argument("--format", required=True, choices=sorted(VALIDATORS),
-                        help="the structured format to validate against")
+        description="Validate a structured-output file: --format for JSON/JSONL/"
+                    "YAML structure, or --schema for a named meta-code schema.")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--format", choices=sorted(VALIDATORS),
+                      help="the structured format to validate against")
+    mode.add_argument("--schema",
+                      help="the meta-code schema id in skills/stow/schemas/ "
+                           "(e.g. handoff, state, task-packet)")
     parser.add_argument("file", help="path to the file to validate")
     args = parser.parse_args(argv)
+
+    label = args.format if args.format else "schema:%s" % args.schema
 
     try:
         with open(args.file, "rb") as handle:
             raw = handle.read()
     except OSError as exc:
-        print("INVALID (%s): cannot read %s: %s" % (args.format, args.file, exc),
+        print("INVALID (%s): cannot read %s: %s" % (label, args.file, exc),
               file=sys.stderr)
         return 2
 
     try:
         text = raw.decode("utf-8")
     except UnicodeDecodeError as exc:
-        print("INVALID (%s): %s is not valid UTF-8: %s" % (args.format, args.file, exc),
+        print("INVALID (%s): %s is not valid UTF-8: %s" % (label, args.file, exc),
               file=sys.stderr)
         return 2
 
-    result = VALIDATORS[args.format](text)
+    if args.schema:
+        result = validate_schema(args.schema, text, args.file)
+    else:
+        result = VALIDATORS[args.format](text)
 
     for warning in result.warnings:
         print("WARN: %s" % warning)
 
     if result.ok:
-        print("VALID (%s): %s" % (args.format, args.file))
+        print("VALID (%s): %s" % (label, args.file))
         return 0
 
-    print("INVALID (%s): %s" % (args.format, args.file), file=sys.stderr)
+    print("INVALID (%s): %s" % (label, args.file), file=sys.stderr)
     for error in result.errors:
         print("  %s" % error, file=sys.stderr)
     return 1

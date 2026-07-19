@@ -1,0 +1,61 @@
+# STOW task-packet — worked example, and a valid instance of task-packet.schema.json.
+# A task-packet is the machine-readable payload an orchestrator dispatches to a
+# subagent and the subagent returns. Raw YAML region: no prose wrapper, no fence.
+# Cold-reader rule: every field a fresh subagent needs is carried here; nothing
+# depends on transcript state the packet does not itself state.
+
+packet_id: TP-references-activation-audit
+parent_id: null
+goal: >-
+  Confirm every reference file under skills/stow/references/ is named by an
+  activation predicate in SKILL.md section 5, and report any orphan or dangling
+  predicate.
+
+inputs:
+  - ref: skills/stow/SKILL.md
+    role: activation-map source (section 5, "Reference activation map")
+  - ref: skills/stow/references/
+    role: directory whose *.md members must each be predicated
+
+permissions:
+  read_only: true
+  write_scope: []
+  forbidden:
+    - edit any repository file
+    - git commit
+    - git push
+
+expected_output:
+  content_type: application/yaml
+  schema_id: null
+
+acceptance:
+  - predicate: every *.md under skills/stow/references/ appears in SKILL.md section 5
+    method: parse
+    expected: zero orphan reference files
+  - predicate: every predicate in SKILL.md section 5 resolves to an existing file
+    method: parse
+    expected: zero dangling predicates
+  - predicate: the reference-file count is reported to stdout
+    method: command
+    expected: one integer printed
+
+done_definition: >-
+  Both parse checks pass with zero orphans and zero dangling predicates, and the
+  reference-file count is printed with a resolvable command locator.
+
+# ---- Return block (the subagent fills this in on completion) ------------------
+# status ∈ {done, blocked, failed, partial}. When status == done, evidence is
+# non-empty and every acceptance predicate has a matching evidence entry.
+result_ref: runs/meta/references-activation-audit.md
+status: done
+evidence:
+  - predicate: every *.md under skills/stow/references/ appears in SKILL.md section 5
+    locator: {type: command, value: "grep -n 'references/' skills/stow/SKILL.md"}
+    result: zero orphan reference files
+  - predicate: every predicate in SKILL.md section 5 resolves to an existing file
+    locator: {type: file-line, value: "skills/stow/SKILL.md:45-61"}
+    result: zero dangling predicates
+  - predicate: the reference-file count is reported to stdout
+    locator: {type: command, value: "ls skills/stow/references/*.md | wc -l"}
+    result: integer count printed

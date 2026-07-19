@@ -1,0 +1,35 @@
+{
+  "handoff_id": "HO-P2-to-P2B",
+  "from_actor": "orchestrator",
+  "to_actor": "corpus-builder-subagent",
+  "created_ts": "2026-07-19T14:30:00Z",
+  "goal": "Complete the rule layer, then build the protected content corpus.",
+  "plan_ref": "PLAN.md#phases",
+  "done": [
+    {
+      "claim": "Rule registry populated and schema-valid.",
+      "evidence_ref": "skills/stow/rules/registry.yaml"
+    },
+    {
+      "claim": "Registry count invariant holds.",
+      "evidence_ref": "tests/test_registry.py::test_primary_total"
+    }
+  ],
+  "not_done": [
+    "Corpus modules are not yet authored.",
+    "Verbatim corpus gate is not yet wired."
+  ],
+  "constraints": [
+    "Committed surfaces stay source-name-free.",
+    "The primary registry count is invariant."
+  ],
+  "next_action": "Author the corpus modules and wire the verbatim gate.",
+  "artifacts": [
+    {"path": "skills/stow/rules/registry.yaml", "role": "rule-index"},
+    {"path": "PLAN.md", "role": "plan"}
+  ],
+  "open_risks": [
+    "Corpus provenance must not leak into committed files."
+  ],
+  "acceptance_for_next": "Every corpus module is byte-exact and passes the gate."
+}

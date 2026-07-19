@@ -1,0 +1,12 @@
+{
+  "stow_version": "0.2",
+  "artifact_type": "handoff",
+  "content_type": "text/markdown",
+  "schema_id": "handoff",
+  "schema_version": 1,
+  "region_map": [
+    {"region": "goal", "type": "prose", "protected": false},
+    {"region": "artifact-paths", "type": "identifier", "protected": true}
+  ],
+  "payload_ref": "tests/fixtures/meta/handoff.json"
+}

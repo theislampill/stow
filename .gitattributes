@@ -1,2 +1,5 @@
 # Packaged skill files are normalised to LF in the repository and the artifact.
 skills/stow/** text eol=lf
+
+# Tier-3 corpus is byte-exact verbatim source material: never whitespace-"fixed".
+skills/stow/corpus/** -whitespace

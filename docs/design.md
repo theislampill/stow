@@ -112,3 +112,120 @@ literal) -- and the private-pattern-dependent unit tests skip themselves there
 source-hash comparison are verified **locally before every push**, not in CI. The
 weak CI run catches the generic shapes; the strong local run is the authoritative
 gate and must be green before pushing.
+
+## Context budgets and load paths
+
+STOW is built so that the cost of a turn tracks what the turn actually needs. The
+kernel is the only surface that is always resident; everything else is pulled in
+on demand. The figures below are token measurements taken with
+`tools/measure_context.py` (tokenizer `o200k_base`); other models tokenize
+differently, so treat them as a calibrated proxy and leave headroom.
+
+| Load path | Budget (tokens) | What is resident |
+| --- | --- | --- |
+| Kernel alone | 891 | `SKILL.md` only |
+| Ordinary prose turn | 1627 | kernel + `references/always-on.md` |
+| Raw JSON artifact | 2752 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Deep corpus (one module) | 1967 | kernel + the routed corpus module |
+| Procedure profile | 5323 | kernel + procedure authoring surfaces |
+| Procedure + safety | 6068 | the procedure profile + `references/safety-instructions.md` |
+
+The intended load path for each:
+
+- **Kernel alone.** The routing surface. It carries activation cues and pointers,
+  not rule text, and sits under the 1500-token hard ceiling with room to spare.
+- **Ordinary prose turn.** Any user-facing prose turn additionally loads the
+  generated always-on reference, which is the full set of operational checks that
+  apply to every such turn. This is the common case, and it is deliberately the
+  second-cheapest path.
+- **Raw JSON artifact.** A structured-output turn loads the format reference and
+  the protected-regions reference and **no prose checks at all**. This is the
+  point of splitting always-on out of the kernel: a machine-readable artifact
+  never pays for prose guidance it must not apply. Zero prose checks are resident
+  on this path.
+- **Deep corpus.** When a specific rule needs its full text, worked examples, or
+  baseline, exactly one corpus module is routed in on top of the kernel. Corpus
+  material is never resident by default.
+- **Procedure / procedure + safety.** The most expensive paths. Procedure
+  authoring pulls in the procedure and action-shaping surfaces; safety-critical
+  procedure authoring adds the safety reference on top. Even the heaviest path
+  stays well inside a normal working context.
+
+Two caveats on these numbers. First, they are single-tokenizer measurements, not
+a contract. Second, the kernel and always-on figures are regenerated and checked
+mechanically (`tools/gen_always_on.py --check`), whereas the composite profile
+figures are point measurements of a load path, not a gated invariant -- if the
+underlying references grow, the composite figures drift until someone re-measures.
+
+## Enforcement reality
+
+The rule registry carries two adjacent fields that are easy to conflate, so the
+distinction is stated plainly here.
+
+- **`enforcement.kind` is the *intended* mechanism.** It records how a rule
+  *would* be enforced by a mechanical checker: what class of check applies, what
+  it would key on. It is a design declaration.
+- **`enforcement.status` is the *shipped* truth.** It records what actually runs
+  today. At the time of writing the split is **1 callable**, **66 planned**, and
+  **29 review-fallback**.
+
+Read together: the overwhelming majority of rules are *not* mechanically enforced
+in this release. One rule has a callable checker. The bulk are planned -- the
+mechanism is specified but not implemented. The remainder fall back to model
+review, which is judgement, not verification.
+
+The prose linters are **advisory / report-only**. `runtime/lint_prose.py` reports
+findings and exits zero by design; it is wired into CI as a smoke invocation, not
+as a gate. Nothing in this repository fails a build because prose violated a
+style rule. Where a prose property genuinely must hold, it is enforced by a real
+test (see `tests/test_count_leak.py`), not by the linter.
+
+This is a deliberate v0.1 position, not an oversight: shipping a checker that
+silently under-detects is worse than declaring the gap. `enforcement.status` is
+the field to trust, and `tests/test_enforcement_status.py` keeps it honest.
+
+## End-to-end reality
+
+What is actually proven here, and what is not:
+
+**Proven.** The install property is a real, gated, model-free end-to-end check.
+`tests/test_install_smoke.py` builds the artifact, extracts it to a throwaway
+directory, and drives the shipped runtime from the extracted tree with the
+repository root off `sys.path` -- asserting extract shape, byte fidelity, import
+closure, and validator accept/reject behaviour from the installed location. It
+runs in CI as a hard gate. A package that would not work on a fresh install fails
+the build.
+
+**Unproven.** There is **no live-model harness in this repository.** Nothing here
+executes a model against the shipped skill. Two properties therefore remain
+**unverified claims, and are stated as such rather than asserted**:
+
+- **Auto-selection** -- that a model presented with a given task will actually
+  activate STOW, and will route to the correct reference or corpus module. The
+  activation cues are authored and their *structure* is tested; their *effect* on
+  a live model is not.
+- **Live reference-loading behaviour** -- that the load paths described above are
+  the paths a model actually takes at runtime. The budgets are measured over the
+  file set each path *should* pull in; that the model pulls in exactly that set is
+  not observed anywhere in this suite.
+
+The behavioural and adversarial eval files in `tests/evals/` are authored
+expectations and fixtures. They pin intended behaviour and catch regressions in
+the authored material. They are not evidence that a live model behaves that way.
+Closing this gap requires a model-in-the-loop harness, which is roadmap.
+
+## Cross-harness scope
+
+The interoperability claim is scoped to what actually ships. The **meta-code
+surface** -- `skills/stow/schemas/*.schema.json`, `skills/stow/templates/*`, the
+meta-code reference set, and `runtime/validate.py --schema <id>` -- is concrete,
+committed, and tested. Any agent or harness that can read a JSON Schema and a
+template can consume it, and the validator is a standalone script with no
+dependency on this repository's layout. That much is real.
+
+**Broader multi-harness interop is roadmap, not shipped.** Nothing here has been
+exercised against a second harness. Claims beyond "the artefacts are portable and
+the validator runs standalone" -- negotiated handoffs, cross-harness state
+continuity, live agent-to-agent exchange -- describe an intended direction. The
+templates for those flows exist and validate against their schemas; the flows
+themselves are untested across harnesses.

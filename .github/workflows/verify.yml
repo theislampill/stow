@@ -39,16 +39,36 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruamel.yaml tiktoken pytest jsonschema
 
+      # Full suite. Every gate below is also covered here, but each is repeated
+      # as its own step so a failure names the property that broke instead of
+      # surfacing as one opaque pytest failure.
       - name: Unit tests
         run: python -m pytest tests/ -q
 
       - name: Rule index is current
         run: python tools/gen_rule_index.py --check
 
+      - name: Always-on reference is current
+        run: python tools/gen_always_on.py --check
+
       # Weak / CI-backstop mode only -- see the LEAK-ENFORCEMENT NOTE at the top.
       # No `--local`; scans the whole tracked tree with generic heuristics.
       - name: Anti-leak gate (weak / CI backstop)
         run: python tools/check_provenance_leak.py
+
+      # Prose surfaces must not leak the rule-set partition as bare counts.
+      - name: Count-leak / doc-lint gate
+        run: python -m pytest tests/test_count_leak.py -q
+
+      # REAL gate: builds the artifact, extracts it to a throwaway directory and
+      # drives the shipped runtime from there with the repo root off sys.path.
+      - name: Install-smoke gate
+        run: python -m pytest tests/test_install_smoke.py -q
+
+      # Asserts this workflow still references every gate above by name, so a
+      # gate deleted from CI fails the build instead of silently disappearing.
+      - name: CI workflow references every required gate
+        run: python -m pytest tests/test_doc_lint.py -q
 
       - name: Structured-output validators
         run: |

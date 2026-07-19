@@ -24,10 +24,11 @@ non-determinism is pinned:
 
 Alongside the archive the builder writes ``dist/STOW.skill.sha256`` (a
 ``sha256sum``-style line) and ``dist/manifest.json`` (the archived entry list
-plus the Python / zlib / platform versions the build ran under).
+plus the product version from the plugin manifest; no build-environment
+strings, so the manifest is reproducible across hosts).
 
-The ``runtime/`` subtree ships an ALLOWLIST -- exactly ``validate.py`` and
-``lint_prose.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
+The ``runtime/`` subtree ships an ALLOWLIST -- exactly ``validate.py``,
+``lint_prose.py``, and ``profiles.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
 incidental files never enter the archive.
 """
 
@@ -36,9 +37,7 @@ import hashlib
 import io
 import json
 import os
-import platform
 import sys
-import zlib
 import zipfile
 
 # --------------------------------------------------------------------------- #
@@ -124,7 +123,7 @@ def collect_entries(root):
 
             rel = filename if not rel_dir else rel_dir + "/" + filename
 
-            # Runtime allowlist: only the two sanctioned modules ship.
+            # Runtime allowlist: only the sanctioned modules ship.
             top_segment = rel.split("/", 1)[0]
             if top_segment == "runtime" and filename not in RUNTIME_ALLOW:
                 continue
@@ -173,21 +172,30 @@ def build_archive_bytes(root):
 # Output writing
 # --------------------------------------------------------------------------- #
 
-def _manifest(entries, digest):
+def _product_version(root):
+    """The product version, read from the plugin manifest -- the single
+    committed version constant."""
+    path = os.path.join(root, ".claude-plugin", "plugin.json")
+    with open(path, encoding="utf-8") as handle:
+        return json.load(handle)["version"]
+
+
+def _manifest(entries, digest, root):
     # The hash key is named ``artifact_sha256`` (not a bare ``sha256``) so it
     # matches the ``manifest.json:*_sha256`` content-hash position exemption in
     # the anti-leak gate: this digest is the STOW artifact's own hash, not a
     # leaked source-file hash.
+    #
+    # No build-environment block: environment strings differ across hosts and
+    # would make the manifest non-reproducible (and disclose the build host).
+    # The archive bytes are already environment-independent; the manifest must
+    # be too, so the committed-artifact freshness gate can compare it.
     return {
         "artifact": ARTIFACT_NAME,
         "artifact_sha256": digest,
+        "version": _product_version(root),
         "entry_count": len(entries),
         "entries": entries,
-        "versions": {
-            "python": platform.python_version(),
-            "zlib": zlib.ZLIB_VERSION,
-            "platform": platform.platform(),
-        },
     }
 
 
@@ -215,7 +223,7 @@ def build(root=None, out_dir=None):
         handle.write("%s  %s\n" % (digest, ARTIFACT_NAME))
 
     with open(manifest_path, "w", encoding="utf-8", newline="\n") as handle:
-        json.dump(_manifest(entries, digest), handle,
+        json.dump(_manifest(entries, digest, root), handle,
                   indent=2, sort_keys=True, ensure_ascii=False)
         handle.write("\n")
 

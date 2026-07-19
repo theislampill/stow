@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "21788e8837746daa49b061d6eda44a5e071ab5d17d1b8c5e6ec8037d4496deca",
+  "artifact_sha256": "f675e0ab61e7922673d6510ccce77d2f171b17ea9f961e54ad7bf364580c8ada",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping/gates.md",
@@ -135,14 +135,21 @@
     "stow/references/rule-index.md",
     "stow/references/runbooks.md",
     "stow/references/safety-instructions.md",
+    "stow/references/technical-clarity.md",
     "stow/references/user-facing-output.md",
+    "stow/rules/conflicts.yaml",
+    "stow/rules/profiles.json",
     "stow/rules/registry.schema.json",
     "stow/rules/registry.yaml",
     "stow/runtime/lint_prose.py",
+    "stow/runtime/profiles.py",
     "stow/runtime/validate.py",
+    "stow/schemas/event.schema.json",
     "stow/schemas/evidence-record.schema.json",
     "stow/schemas/handoff.schema.json",
     "stow/schemas/output-contract.schema.json",
+    "stow/schemas/plan.schema.json",
+    "stow/schemas/runbook.schema.json",
     "stow/schemas/state.schema.json",
     "stow/schemas/task-packet.schema.json",
     "stow/templates/AUDIT.md",
@@ -153,10 +160,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 150,
-  "versions": {
-    "platform": "Windows-10-10.0.26200-SP0",
-    "python": "3.11.9",
-    "zlib": "1.3.1"
-  }
+  "entry_count": 157,
+  "version": "0.3.0"
 }

@@ -17,6 +17,7 @@ the artifact's own digest, computed at run time (never a literal).
 """
 
 import importlib.util
+import json
 import os
 import subprocess
 import sys
@@ -129,8 +130,13 @@ def test_sidecar_and_manifest_report_the_archive_digest(built):
     assert manifest["artifact_sha256"] == built.digest
     assert manifest["entry_count"] == len(built.names)
     assert set(manifest["entries"]) == set(built.names)
-    for key in ("python", "zlib", "platform"):
-        assert manifest["versions"][key]
+    # The manifest carries the product version (single source: plugin.json)
+    # and NO build-environment strings, so it reproduces across hosts.
+    with open(os.path.join(REPO, ".claude-plugin", "plugin.json"),
+              encoding="utf-8") as fh:
+        plugin_version = json.load(fh)["version"]
+    assert manifest["version"] == plugin_version
+    assert "versions" not in manifest
 
 
 # --------------------------------------------------------------------------- #

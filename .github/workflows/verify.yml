@@ -117,3 +117,12 @@ jobs:
             # Report-only linter; always exits 0.
             python skills/stow/runtime/lint_prose.py tests/fixtures/prose/em_dash_in_prose.md
           fi
+
+      # The test run must leave the checkout byte-identical: no tracked file
+      # modified, nothing generated into tracked paths. Untracked leftovers are
+      # covered by .gitignore plus the junk-scan test above.
+      - name: Working tree is clean after the run
+        run: |
+          git diff --exit-code
+          git status --porcelain
+          test -z "$(git status --porcelain)"

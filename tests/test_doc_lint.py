@@ -152,3 +152,49 @@ def test_referenced_test_files_exist():
 def test_referenced_tools_exist():
     for name in ("gen_rule_index.py", "gen_always_on.py", "check_provenance_leak.py"):
         assert os.path.isfile(os.path.join(REPO, "tools", name)), "missing tools/%s" % name
+
+
+# --------------------------------------------------------------------------- #
+# Capability-count freshness: the documented callable count derives from the
+# runtime. The docs went stale once by hand-transcribing a superseded split;
+# this pins the published phrase to len(IMPLEMENTED_VALIDATORS) itself.
+# --------------------------------------------------------------------------- #
+
+import importlib.util
+
+_SPELLED = {
+    10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen",
+    15: "Fifteen", 16: "Sixteen", 17: "Seventeen", 18: "Eighteen",
+    19: "Nineteen", 20: "Twenty",
+}
+
+
+def _implemented_validator_count():
+    path = os.path.join(REPO, "skills", "stow", "runtime", "lint_prose.py")
+    spec = importlib.util.spec_from_file_location("lint_prose_for_doc_lint", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return len(module.IMPLEMENTED_VALIDATORS)
+
+
+def test_readme_callable_claim_matches_the_runtime():
+    count = _implemented_validator_count()
+    spelled = _SPELLED[count]
+    with open(os.path.join(REPO, "README.md"), encoding="utf-8") as fh:
+        readme = fh.read()
+    phrase = "%s rules have callable validators" % spelled
+    assert phrase in readme, (
+        "README callable-count phrase is stale: expected %r "
+        "(len(IMPLEMENTED_VALIDATORS) == %d)" % (phrase, count))
+    assert "Exactly one rule has a callable validator" not in readme
+
+
+def test_design_callable_claim_matches_the_runtime():
+    count = _implemented_validator_count()
+    spelled = _SPELLED[count].lower()
+    with open(os.path.join(REPO, "docs", "design.md"), encoding="utf-8") as fh:
+        design = fh.read()
+    assert ("%s rules are callable" % spelled) in design, (
+        "design.md callable-count phrase is stale (runtime has %d)" % count)
+    assert "1 callable" not in design
+    assert "One rule has a callable checker" not in design

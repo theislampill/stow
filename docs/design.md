@@ -14,6 +14,12 @@
 | Platform | Windows-10-10.0.26200-SP0 |
 | git `core.autocrlf` | false |
 
+tiktoken additionally pulls `requests` and `regex` transitively, and on Python
+3.11 `jsonschema` pulls `referencing` and `typing_extensions`. The shipped
+runtime needs only `ruamel.yaml` and `jsonschema` (for `validate.py`);
+`lint_prose.py` and `profiles.py` are standard-library only, and tiktoken never
+ships.
+
 Packaged skill files are pinned to LF via `.gitattributes` (`skills/stow/** text
 eol=lf`) so line endings stay stable regardless of a contributor's autocrlf
 setting.
@@ -123,12 +129,18 @@ differently, so treat them as a calibrated proxy and leave headroom.
 
 | Load path | Budget (tokens) | What is resident |
 | --- | --- | --- |
-| Kernel alone | 891 | `SKILL.md` only |
-| Ordinary prose turn | 1627 | kernel + `references/always-on.md` |
-| Raw JSON artifact | 2752 | kernel + `references/format-json.md` + `references/protected-regions.md` |
-| Deep corpus (one module) | 1967 | kernel + the routed corpus module |
-| Procedure profile | 5323 | kernel + procedure authoring surfaces |
-| Procedure + safety | 6068 | the procedure profile + `references/safety-instructions.md` |
+| Kernel alone | 993 | `SKILL.md` only |
+| Ordinary prose turn | 2325 | kernel + `references/always-on.md` (ids, conditions, exceptions, and the request-mode router included -- a deliberate, measured cost over the bare-title form it replaced) |
+| Technical-clarity turn | 2827 | the ordinary turn + `references/technical-clarity.md` |
+| Raw JSON artifact | 2854 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Deep corpus (one module) | ~1100 | kernel + the routed corpus module (varies by module) |
+| Procedure load path | 6021 | the ordinary turn + procedure authoring surfaces |
+| Procedure + safety | 6766 | the procedure load path + `references/safety-instructions.md` |
+
+These figures are point-in-time measurements; regenerate them with
+`tools/measure_context.py` after any kernel, always-on, or reference change.
+The test suite pins the kernel ceiling and the always-on and ordinary-turn caps
+in both measurement modes (exact tokenizer and conservative estimate).
 
 The intended load path for each:
 
@@ -166,13 +178,19 @@ distinction is stated plainly here.
   *would* be enforced by a mechanical checker: what class of check applies, what
   it would key on. It is a design declaration.
 - **`enforcement.status` is the *shipped* truth.** It records what actually runs
-  today. At the time of writing the split is **1 callable**, **66 planned**, and
-  **29 review-fallback**.
+  today: **fourteen rules are callable**; the bulk of the remainder are planned,
+  and the rest fall back to model review. The exact callable set is derived
+  bidirectionally from the runtime's own `IMPLEMENTED_VALIDATORS` constant by
+  `tests/test_enforcement_status.py`, so the registry can neither overclaim nor
+  underclaim a validator.
 
-Read together: the overwhelming majority of rules are *not* mechanically enforced
-in this release. One rule has a callable checker. The bulk are planned -- the
-mechanism is specified but not implemented. The remainder fall back to model
-review, which is judgement, not verification.
+Read together: the majority of rules are *not* mechanically enforced in this
+release. Fourteen rules have callable checkers, and each callable checker runs
+only where its owning rule is active: the profile resolver gates the
+controlled-family checks (semicolon, contraction, Latin abbreviations, the two
+sentence caps) behind `controlled-technical-guided`, exactly as the registry's
+activation predicates declare. The planned rules have a specified mechanism that
+is not implemented. Review-fallback is judgement, not verification.
 
 The prose linters are **advisory / report-only**. `runtime/lint_prose.py` reports
 findings and exits zero by design; it is wired into CI as a smoke invocation, not
@@ -229,3 +247,53 @@ the validator runs standalone" -- negotiated handoffs, cross-harness state
 continuity, live agent-to-agent exchange -- describe an intended direction. The
 templates for those flows exist and validate against their schemas; the flows
 themselves are untested across harnesses.
+
+## Profile resolution
+
+One shipped data file, `skills/stow/rules/profiles.json`, declares every
+profile: id, aliases, lock state, auto-activation contexts, the registry
+selector for its included rules, its review-level guidance rules, and the map
+of profile-gated lint checks. One shipped module, `runtime/profiles.py`,
+resolves names (alias-aware, lock-refusing) and answers "does this check run
+under this profile". Every consumer -- the linter, the generators, the kernel's
+activation map, and the tests -- reads the same declaration, which ends the
+earlier state where profile semantics were re-encoded independently across a
+dozen surfaces and the runtime honored the gate for only one of the four
+profile-band checks it implemented.
+
+The activation contract the resolver enforces: the always-on families
+(action-shaping and unconditional prose-integrity) govern every editable prose
+turn under every profile; the controlled-technical families bind only under
+`controlled-technical-guided`; `technical-clarity` adds review-level guidance
+without changing the mechanical check set; `controlled-technical-strict` is
+locked and refuses resolution. A drift test asserts the resolver's
+controlled-family selector matches the set of registry records whose activation
+predicate names the controlled profile, and a scope-fidelity test proves each
+gated callable check silent outside its owning profile on a tripping fixture.
+
+## Conflict registry
+
+`skills/stow/rules/conflicts.yaml` is the machine-readable record of every
+cross-rule collision: participants, an observable activation predicate, the
+winning band, the losing behavior, the permitted substitute, deterministic vs
+semantic-review resolution, and paired conforming/violating fixtures. The eight
+pairs already declared inside `registry.yaml` are imported with their
+resolutions verbatim (a test asserts string equality both directions and that
+the enrichment never extends a registry resolution); the composition pairs
+added by the hardening pass are canonical in the conflict registry itself.
+`docs/rule-conflicts.md` is generated from it by `tools/gen_rule_conflicts.py`
+and drift-checked in CI.
+
+## Context measurement method
+
+`tools/measure_context.py` records its measurement method in every output and
+never performs a network request. When the `o200k_base` encoding is already in
+a local tiktoken cache directory it reports exact counts; otherwise it falls
+back to a deterministic conservative estimate, `ceil(chars / 3.5)`, which
+over-counted every shipped file it was calibrated on (by 8-38%), so a hard
+ceiling that passes in estimate mode also holds in exact tokens. Band-style
+targets (two-sided) are evaluated only in exact mode; the offline gates in
+`tests/test_offline_measurement.py` prove the fallback's determinism and prove
+a fully offline run completes with the ceilings still enforced. CI restores a
+named tokenizer cache and warms it in a single clearly named step whose failure
+is tolerated because the estimator covers every gate.

@@ -56,7 +56,7 @@ Run the validator that shipped inside the artifact, from the installed path:
 python ~/.claude/skills/stow/runtime/validate.py --format json some-file.json
 ```
 
-A clean install prints `VALID (json): some-file.json` and exits 0. The runtime imports only the Python standard library plus its bundled dependencies, so it runs from the extracted tree with no repository on the import path.
+A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository, so it runs from the extracted tree with nothing else on the import path. `lint_prose.py` and `profiles.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
 
 ## Two-minute quick start
 
@@ -151,27 +151,33 @@ An exhaustive list is delivered exhaustively. "A few others" is a dropped requir
 
 Always-on is an *invocation* policy, not a load-everything policy.
 
-- The **kernel** (`skills/stow/SKILL.md`) loads on every turn. Measured footprint: **891 tokens**.
-- Any user-facing **prose** turn additionally routes to `skills/stow/references/always-on.md`, the operational checks distilled from the always-on rule families. An ordinary prose turn therefore costs **1627 tokens** in total.
+- The **kernel** (`skills/stow/SKILL.md`) loads on every turn.
+- Any user-facing **prose** turn additionally routes to `skills/stow/references/always-on.md`, the operational checks distilled from the always-on rule families. Each check carries its rule id, its applicability condition, and its principal exception, so a conditional rule is never presented as an unconditional imperative. The module opens with a **request-mode router**: an informational question leads with the answer, an actionable task with the next bounded action, completed work with the result and no invented follow-up, a raw artifact with the raw artifact alone.
 - **Raw JSON, JSONL, YAML, and code artifacts load none of the always-on checks.** Protected regions are excluded by construction, so a raw artifact turn stays at kernel cost.
 - Every other reference loads only when its named predicate is true. A YAML contract pulls the YAML reference and nothing else. A rule audit pulls the rule index and the one cited corpus module.
 
-Token counts are measured with a single tokenizer (`python tools/measure_context.py skills/stow/SKILL.md`); other models tokenize differently, so leave headroom. The kernel is held under a hard ceiling of 1500 tokens by that tool.
+Measure the current footprints with `python tools/measure_context.py skills/stow/SKILL.md` (and any other file); the tool records its measurement method in the output. With a locally cached tokenizer it reports exact `o200k_base` counts; without one it reports a deterministic conservative estimate and never downloads anything. The kernel is held under a hard ceiling of 1500 tokens in both modes, and the test suite pins the kernel, always-on, and combined ordinary-turn budgets. Other models tokenize differently, so leave headroom.
 
 ## Profiles
 
+Profiles are declared in one shipped data file, `skills/stow/rules/profiles.json`, and resolved by one shipped module, `runtime/profiles.py`. The kernel's activation map, the prose linter, the generators, and the tests all consume the same declaration, so a profile cannot mean different things on different surfaces.
+
 | Profile | Status | What it does |
 |---|---|---|
-| `stow-default` | Active by default | Always-on integrity and user-facing output governance. No dictionary dependency. |
-| `technical-clarity` | Available | Adds sentence-shape and terminology discipline for technical prose without invoking the controlled-technical rule families. |
-| `controlled-technical-guided` | Available on request | Applies the controlled-technical writing rules as *guidance*. Structural and mechanical checks run; dictionary-dependent checks are reported as unavailable. |
-| `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing standard. Not shipped and **must never be claimed**. |
+| `stow-default` | Active by default for editable prose | Always-on integrity and user-facing output governance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
+| `technical-clarity` | Auto-active for technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; meta-code artifacts bind here; the linter tags its output with the profile and the guidance rules. See `references/technical-clarity.md`. |
+| `controlled-technical-guided` | Auto-active for executable procedures and safety instructions, or on request (alias: `controlled-technical`) | Applies the controlled-technical rule families as *guidance*: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. Dictionary-dependent checks are reported as unavailable. |
+| `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing standard. Not shipped and **must never be claimed**. Selecting it on the linter exits with an error naming the lock. |
+
+When more than one profile matches, the declared auto-precedence decides: `controlled-technical-guided` over `technical-clarity` over `stow-default`. Punctuation across profiles: the em dash is banned in editable prose under every profile; the semicolon and contractions are permitted (never required) under `stow-default` and `technical-clarity` and prohibited under `controlled-technical-guided`, where the substitute for either banned character is a period, comma, colon, or two sentences.
 
 The strict profile is locked because the inputs it needs (the controlled dictionary, the approved terminology set, the official directives, and the full validation suite) are out of scope for this release. STOW therefore reports *guided, partial* alignment and names which checks ran and which did not. Any statement that output fully conforms to the controlled-technical writing standard is an overclaim the conformance reference explicitly forbids. See `skills/stow/references/conformance.md`.
 
+Cross-rule collisions (a banned character's substitute, a cap against a contract-required exhaustive list, hedging against justified uncertainty, and the rest) are declared in `skills/stow/rules/conflicts.yaml`, each with a winner, the losing behavior, the permitted substitute, and fixtures; `docs/rule-conflicts.md` is generated from it.
+
 ## Meta-code
 
-The meta-code layer governs artifacts one actor writes to another about the work. Five schemas ship under `skills/stow/schemas/`:
+The meta-code layer governs artifacts one actor writes to another about the work. Eight schema files ship under `skills/stow/schemas/`; the first five are the interchange meta-contracts recorded in the registry catalog, and the last three are validator schemas for the remaining template classes:
 
 | Schema id | Artifact |
 |---|---|
@@ -180,8 +186,11 @@ The meta-code layer governs artifacts one actor writes to another about the work
 | `task-packet` | Machine-readable payload dispatched to and returned by a subagent |
 | `evidence-record` | Claim plus resolvable locator |
 | `state` | Durable continuity record |
+| `event` | One event-stream line (validated per line over a `.jsonl` stream) |
+| `plan` | Implementation-plan task DAG |
+| `runbook` | Operator step list with verify/rollback per step |
 
-Seven authoring templates ship under `skills/stow/templates/`: `HANDOFF.md`, `PLAN.md`, `AUDIT.md`, `RUNBOOK.md`, `STATE.md`, `task-packet.yaml`, and `event-stream.jsonl`.
+Seven authoring templates ship under `skills/stow/templates/`: `HANDOFF.md`, `PLAN.md`, `AUDIT.md`, `RUNBOOK.md`, `STATE.md`, `task-packet.yaml`, and `event-stream.jsonl`. **Every template validates against its schema through the shipped validator**, and the test suite enforces that property, so the worked examples cannot drift from their contracts. Instances carry an optional `schema_version` (currently 1; evolution is additive-only within a version) and an optional `profile` binding; meta-code artifacts bind to `technical-clarity`, and an executable procedure or safety instruction promotes to `controlled-technical-guided`. Status vocabularies are closed cores with an `x-` prefix escape, because the executing harness owns lifecycle semantics and STOW owns only the representation.
 
 ### Use cases
 
@@ -202,9 +211,9 @@ python skills/stow/runtime/validate.py --schema handoff tests/fixtures/meta/hand
 VALID (schema:handoff): tests/fixtures/meta/handoff.json
 ```
 
-The `--schema` id is the bare filename stem of a file in `skills/stow/schemas/` (`handoff`, `state`, `task-packet`, `evidence-record`, `output-contract`). Path separators and dots are rejected, so the id cannot traverse out of the schema directory. Instances may be JSON or YAML; the parser is chosen from the file extension.
+The `--schema` id is the bare filename stem of a file in `skills/stow/schemas/`. Path separators and dots are rejected, so the id cannot traverse out of the schema directory. Instances may be JSON, YAML, a Markdown document (its single fenced yaml/json block is the instance), or a `.jsonl` stream (validated per line, e.g. `--schema event`). An evidence-record file may wrap several records as `{records: [...]}` and validates per record.
 
-Working instances of all five schemas live in `tests/fixtures/meta/`. Use them as the reference shape when authoring your own.
+Working instances of every schema live in `tests/fixtures/meta/`, and the shipped templates themselves are validated instances. Use either as the reference shape when authoring your own.
 
 ## Structured output contracts
 
@@ -217,8 +226,8 @@ Working instances of all five schemas live in `tests/fixtures/meta/`. Use them a
 **JSONL.** One complete value per line, one line per record, no blank lines, no fence.
 
 ```
-{"ts": "2026-07-19T14:30:00Z", "event": "phase_start", "phase": "build"}
-{"ts": "2026-07-19T14:41:12Z", "event": "phase_end", "phase": "build", "status": "ok"}
+{"ts": "2026-07-19T14:30:00Z", "actor": "orchestrator", "type": "phase_start", "phase": "build"}
+{"ts": "2026-07-19T14:41:12Z", "actor": "orchestrator", "type": "phase_done", "phase": "build", "result": "ok"}
 ```
 
 **YAML.** Duplicate keys are rejected, including keys that differ in spelling but resolve to the same scalar (`0x10` and `16`, `1` and `1.0`). Custom tags and aliases are flagged. Scalars that look like numbers or booleans coerce unless quoted.
@@ -246,11 +255,13 @@ python skills/stow/runtime/validate.py --schema <schema-id> <file>
 
 Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2` the file could not be read or is not valid UTF-8. Warnings print to stdout and do not change the exit code.
 
-**`runtime/lint_prose.py`** is advisory and report-only. It always exits 0.
+**`runtime/lint_prose.py`** is advisory and report-only. Findings never change the exit code; only an invalid invocation (an unknown or locked profile) exits nonzero.
 
 ```
-python skills/stow/runtime/lint_prose.py <file>
+python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw] [--exhaustive-list-ok]
 ```
+
+`--profile` takes any id or alias from `rules/profiles.json` (default `stow-default`); the profile decides which checks run, exactly as the registry declares — the semicolon, contraction, Latin-abbreviation, and sentence-length checks fire only under `controlled-technical-guided`. A file with a structured extension (`.json`, `.jsonl`, `.yaml`, `.yml`) is treated as a structured artifact and receives **no prose findings** (use `validate.py` on it; `--artifact-type prose` overrides the sniff for a prose file with a data extension). `--exhaustive-list-ok` records the contract's permission for a complete list and suppresses the list-length advisory. The output names the resolved profile and any review-level guidance rules it activates.
 
 Before it scans anything it **masks** protected regions (fenced blocks, inline code spans, block quotes, and anything shaped like a URL, path, or identifier), replacing them with spaces so positions are preserved and their contents are never flagged. Only the remaining prose is scanned. The masking contract is the load-bearing behavior; the advisory set itself is deliberately small.
 
@@ -283,6 +294,7 @@ Every rule lives in `skills/stow/rules/registry.yaml`, which indexes 96 primary 
 ```
 python tools/gen_rule_index.py
 python tools/gen_always_on.py
+python tools/gen_rule_conflicts.py
 ```
 
 4. Verify nothing drifted, in this repository, before pushing:
@@ -302,16 +314,17 @@ python -m pytest tests/ -q
 Read this section before you rely on STOW for anything load-bearing.
 
 - **Prose linters are advisory and report-only.** `lint_prose.py` always exits 0. Nothing in the toolchain mechanically blocks prose that violates a prose rule. The structured-output validator is the only hard gate.
-- **Most registry rules are not callable.** Each record declares an enforcement status. Exactly one rule has a callable validator today. The large majority are either *review-fallback* (a model applies them by reading them) or *planned* (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
+- **Most registry rules are not callable.** Each record declares an enforcement status. Fourteen rules have callable validators today. The large majority are either *review-fallback* (a model applies them by reading them) or *planned* (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
+- **Lexical advisories ignore a requested register.** When a user explicitly asks for a casual or creative voice, that request governs the register (it is part of the output contract), but the linter's lexical advisories still fire on the result; advisories never override the contract band. See `CFL-015` in the conflict registry.
 - **There is no live-model conformance harness.** Every behavioral claim in this document rests on **structural contracts** (schema validation, registry invariants, generated-surface drift checks, install smoke) and **fixture contracts** (detector cases with known-good and known-bad inputs). No test drives a live model and grades its output. Treat the before-and-after examples as the specified contract, not as measured model behavior.
 - **The strict profile is locked** and must never be claimed. See Profiles above.
 - **The full anti-leak gate runs locally, not in CI.** The strong mode needs a private pattern file that is deliberately not committed. Continuous integration runs a weaker heuristic backstop. The authoritative gate is `python tools/check_provenance_leak.py --local`, and it must be green before pushing.
-- **The checked-in `dist/STOW.skill` may lag the tree.** Rebuild before installing if you want the artifact to match the current source.
+- **The checked-in `dist/STOW.skill` is machine-checked against the tree.** A test rebuilds the artifact and fails when the committed archive, checksum sidecar, or manifest differs from a fresh build, so a stale committed artifact cannot pass the suite.
 
 ## Roadmap
 
 - Promote review-fallback rules to callable validators, starting with the ones whose checks are purely structural.
-- Add a live-model evaluation harness so behavioral claims rest on measured output rather than fixtures alone.
+- Add a repeatable live-model evaluation suite (host-native, with a with/without-skill comparison arm) so behavioral claims rest on measured output rather than fixtures alone.
 - Import the controlled dictionary and the approved terminology set, which is the precondition for unlocking the strict profile.
 - Run the governed comparative rewrite phase for rule wording.
 - Widen the meta-code schema catalog as new coordination artifact classes prove out.
@@ -328,7 +341,7 @@ Read this section before you rely on STOW for anything load-bearing.
 
 **STOW edited my source code.** It should not. Code is a protected literal that passes through unchanged. If a code region was altered, that is a precedence violation worth reporting, not intended behavior.
 
-**A generated file keeps coming back changed.** `references/rule-index.md` and `references/always-on.md` are generated from the registry. Edit the registry and regenerate; do not hand-edit either file.
+**A generated file keeps coming back changed.** `references/rule-index.md` and `references/always-on.md` are generated from the registry, and `docs/rule-conflicts.md` from the conflict registry. Edit the source and regenerate; do not hand-edit a generated file.
 
 ## Repository layout
 

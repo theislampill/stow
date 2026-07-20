@@ -52,12 +52,30 @@ def load_prompts():
         return YAML(typ="safe").load(fh)
 
 
+def _seed_plugin(scratch):
+    """Build a temp plugin home INSIDE the scratch cwd from the packaged
+    artifact, so every skill file sits within the run's own sandbox and the
+    documented validate-repair loop is actually executable. This also makes
+    the evaluation exercise the shipped bytes, not the working tree."""
+    import zipfile
+    plugin_root = os.path.join(scratch, "stow-plugin")
+    skills_dir = os.path.join(plugin_root, "skills")
+    os.makedirs(skills_dir)
+    with zipfile.ZipFile(os.path.join(REPO, "dist", "STOW.skill")) as archive:
+        archive.extractall(skills_dir)
+    manifest_dir = os.path.join(plugin_root, ".claude-plugin")
+    os.makedirs(manifest_dir)
+    shutil.copy(os.path.join(REPO, ".claude-plugin", "plugin.json"),
+                os.path.join(manifest_dir, "plugin.json"))
+    return plugin_root
+
+
 def run_one(case_id, prompt, arm, rep, model, out_dir, plugin_dir):
     scratch = tempfile.mkdtemp(prefix="ab-%s-%s-%d-" % (case_id, arm, rep))
     cmd = [_claude_exe(), "--model", model, "-p", prompt,
            "--output-format", "stream-json", "--verbose"]
     if arm == "stow":
-        cmd[1:1] = ["--plugin-dir", plugin_dir]
+        cmd[1:1] = ["--plugin-dir", _seed_plugin(scratch)]
     base = os.path.join(out_dir, "%s.%s.r%d" % (case_id, arm, rep))
     with io.open(base + ".jsonl", "w", encoding="utf-8", newline="\n") as out, \
          io.open(base + ".err", "w", encoding="utf-8", newline="\n") as err:

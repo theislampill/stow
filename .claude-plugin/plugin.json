@@ -1,6 +1,6 @@
 {
   "name": "stow",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Writing-discipline skill that governs every response: obeys the exact output contract, keeps literals byte-for-byte exact, validates structured regions, holds terminology steady, and shapes clear prose with no fabricated detail.",
   "author": {
     "name": "theislampill"

@@ -7,6 +7,24 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.3.2] - 2026-07-20
+
+Corpus topology consolidation and rule-usability governance.
+
+### Changed
+
+- Consolidated the per-rule corpus files into twenty anchored modules. Every
+  rule keeps its exact wording and is addressable by a stable heading anchor;
+  the kernel documents how to read one section from a module. All embedded
+  corpus citations were migrated and are now resolution-checked.
+- Added a machine-readable routing map validated against the kernel activation
+  map, an artifact-class governance map binding every packaged file to its
+  required checks, and a packaged rule lookup helper
+  (runtime/query_rules.py, optional acceleration; plain file reads remain the
+  contract).
+- The registry now carries grep-seekable sentinel lines so one record can be
+  located without ingesting the whole file.
+
 ## [0.3.1] - 2026-07-20
 
 Public identity normalization and rule-catalog completion.

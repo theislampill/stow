@@ -11,8 +11,9 @@ derivation markers: distinctive source-file basenames, source URLs, source-file
 content hashes, uppercase licensing-verdict tokens, and the private marker
 literal.
 
-Gate 2 -- the source-name gate -- runs over STOW-authored surfaces only and
-looks for source project / organisation / person names.
+Gate 2 -- the source-name gate -- runs over EVERY file as well and looks for
+source project / organisation / person names. No surface is exempt: the
+public tree is fully STOW-native.
 
 ALL pattern data is loaded at runtime from an UNCOMMITTED private file that
 lives in the parent workspace (one level above the repository root). This module
@@ -53,10 +54,9 @@ HEX64_RE = re.compile(r"(?<![0-9a-fA-F])[0-9a-fA-F]{64}(?![0-9a-fA-F])")
 # Matches the private marker literal without itself containing that literal.
 PRIVATE_MARKER_RE = re.compile(r"provenance[-_]private")
 
-# A single line that opens or continues a protected baseline field.
-BASELINE_KEY_RE = re.compile(r'^\s*baseline_[A-Za-z0-9_]*\s*:')
-BASELINE_BLOCK_RE = re.compile(r'^(\s*)baseline_[A-Za-z0-9_]*\s*:\s*[|>][+-]?\s*(#.*)?$')
-BASELINE_INLINE_RE = re.compile(r'["\'{,]\s*baseline_[A-Za-z0-9_]*\s*[:=]')
+# (The former Gate-2 baseline/corpus exemptions were removed: the public tree
+# is fully STOW-native, so the source-name gate scans every line of every
+# file. Only Gate 1's typed content-hash positions remain exempted, below.)
 
 SKILL_PREFIXES = ("skills/stow/", "stow/")
 
@@ -213,26 +213,8 @@ def _strip_skill_prefix(norm_path):
     return norm_path
 
 
-CORPUS_SEGMENT_RE = re.compile(r"(^|/)corpus/")
-
-
-def is_corpus_path(path):
-    """Content surface where source-derived text is allowed (Gate 2 exempt).
-
-    The ``corpus/`` directory exists only under the skill root, so a
-    ``corpus/`` path segment identifies it unambiguously. Matching the segment
-    (rather than a leading skill prefix) keeps the exemption correct no matter
-    how the path is expressed -- repo-relative ``skills/stow/corpus/x``,
-    ``./skills/stow/corpus/x``, an absolute path, or the extracted artifact's
-    ``<tmp>/stow/corpus/x``. ``corpus_manifest.yaml`` is matched by basename.
-    """
-    norm_path = _norm(path)
-    if CORPUS_SEGMENT_RE.search(norm_path):
-        return True
-    base = norm_path.rsplit("/", 1)[-1]
-    if base == "corpus_manifest.yaml":
-        return True
-    return False
+# (is_corpus_path was removed with the Gate-2 exemptions: no path class is
+# treated differently by the source-name gate anymore.)
 
 
 # --------------------------------------------------------------------------- #
@@ -251,30 +233,16 @@ class Finding:
 
 
 def scan_file(path, content, patterns, full_mode, hash_specs):
-    """Return a list of Finding for one (path, content). Empty list == clean."""
+    """Return a list of Finding for one (path, content). Empty list == clean.
+
+    Gate 2 applies to EVERY line of EVERY file: the public tree is fully
+    STOW-native, so no surface -- corpus, registry, manifest, or otherwise --
+    is exempt from the source-name gate. (The content-hash position exemption
+    below is Gate 1's and unrelated.)
+    """
     findings = []
-    corpus = is_corpus_path(path)
-    in_baseline_block = False
-    baseline_indent = -1
 
     for lineno, line in enumerate(content.splitlines(), start=1):
-        # ---- Gate 2 line-level baseline-field exemption bookkeeping ----------
-        indent = len(line) - len(line.lstrip())
-        gate2_line_exempt = False
-        if in_baseline_block:
-            if line.strip() == "" or indent > baseline_indent:
-                gate2_line_exempt = True
-            else:
-                in_baseline_block = False
-        if not gate2_line_exempt:
-            if BASELINE_KEY_RE.match(line):
-                gate2_line_exempt = True
-                if BASELINE_BLOCK_RE.match(line):
-                    in_baseline_block = True
-                    baseline_indent = indent
-            elif BASELINE_INLINE_RE.search(line):
-                gate2_line_exempt = True
-
         # ---- Gate 1: private marker literal (generic, both modes) ------------
         if PRIVATE_MARKER_RE.search(line):
             findings.append(Finding(path, lineno, "gate1", "private marker literal"))
@@ -304,8 +272,8 @@ def scan_file(path, content, patterns, full_mode, hash_specs):
                 if rex.search(line):
                     findings.append(Finding(path, lineno, "gate1", "private marker literal"))
 
-        # ---- Gate 2: source names (STOW-authored surfaces only) ----------- #
-        if full_mode and not corpus and not gate2_line_exempt:
+        # ---- Gate 2: source names (every file, no exemptions) -------------- #
+        if full_mode:
             for rex in patterns.word_res:
                 if rex.search(line):
                     findings.append(Finding(path, lineno, "gate2", "source name"))

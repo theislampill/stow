@@ -2,13 +2,13 @@
 
 In procedures, work steps usually have numbers and letters to show their sequence. In descriptive writing, paragraphs keep related information together and give a logical sequence to the text.
 
-In STE, a paragraph starts with a “topic sentence” which tells the reader about the topic of that paragraph. Then, the sentences that follow the topic sentence explain it, or give more information related to it.
+In controlled technical writing, a paragraph starts with a “topic sentence” which tells the reader about the topic of that paragraph. Then, the sentences that follow the topic sentence explain it, or give more information related to it.
 
 In the example, the underlined topic sentence at the start of each paragraph helps the reader understand the content of the paragraph and its topic. When a new paragraph starts, the reader knows that there will be a new topic or different information in that paragraph.
 
 **Example:**
 
-**STE:** 1. Lightning Strike A. General (1) A lightning strike can cause damage to the aircraft. The damage usually occurs at the attachment points. The attachment points include:
+**Conforming:** 1. Lightning Strike A. General (1) A lightning strike can cause damage to the aircraft. The damage usually occurs at the attachment points. The attachment points include:
 - The nose of the fuselage
 - The tail section
 - The propellers

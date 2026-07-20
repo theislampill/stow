@@ -10,7 +10,7 @@ Each item in a vertical list that comes after the colon counts as a new sentence
 - 20 words for procedural sentences
 - 25 words for descriptive sentences.
 
-**Example in STE:**
+**Conforming example:**
 
 To extinguish a possible fire, portable fire extinguishers are installed in these areas: (13 words)
 - The cockpit (2 words)

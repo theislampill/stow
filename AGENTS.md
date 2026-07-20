@@ -17,13 +17,13 @@ tree never overrides the rules below.
 
 ## Source-name-free surfaces
 
-Every STOW-authored surface — `README.md`, this file, `CHANGELOG.md`, and
-everything under `docs/` — must be free of the names of the projects,
-organisations, or people the rules were distilled from. The only exemptions are
-the verbatim corpus under `skills/stow/corpus/**`, the registry
-`wording.baseline_*` fields, and `tests/corpus_manifest.yaml`; those hold
-protected content and may carry source-derived wording, but they remain bound by
-the provenance rule below.
+Every tracked surface — including the corpus, the registry, the manifest, and
+every generated file — must be free of the names of the projects,
+organisations, or people the rules were distilled from. Public STOW artifacts
+must not identify external source projects; there are no exempt surfaces. Do
+not add any committed file whose purpose is to enumerate, search for, encode,
+or test for such identifiers: hygiene audits of this property run locally,
+outside the repository.
 
 ### Count-leak scope
 
@@ -51,10 +51,9 @@ gates:
   markers: distinctive source-file basenames, source URLs, source-file content
   hashes, uppercase licensing-verdict tokens, and the private marker literal. No
   file — corpus included — is exempt from Gate 1.
-- **Gate 2 — source names.** Runs over STOW-authored surfaces only. It rejects
-  source project, organisation, and person names. The corpus tree, the registry
-  `baseline_*` fields, and `corpus_manifest.yaml` are exempt from Gate 2 because
-  they are protected content.
+- **Gate 2 — source names.** Runs over every file as well. It rejects source
+  project, organisation, and person names. No surface is exempt: the public
+  tree is fully STOW-native.
 
 Run the full checker locally before any push:
 `python tools/check_provenance_leak.py --local` loads the private pattern file,
@@ -64,11 +63,16 @@ real gate.
 
 ## Verbatim corpus and local provenance
 
-- **Verbatim.** The corpus is protected content. Do not reflow, "improve", or
-  "fix" corpus modules, and do not repair the empty-parenthesis rendering left
-  where a source glyph was dropped. Byte-fidelity is drift-locked by
-  `tests/corpus_manifest.yaml`; any byte-level change to a locked module fails
-  the corpus test.
+- **Protected corpus text.** The corpus is protected content. Do not reflow,
+  "improve", or "fix" corpus modules, and do not repair the empty-parenthesis
+  rendering left where a source glyph was dropped. Byte-fidelity of the public
+  text is drift-locked by `tests/corpus_manifest.yaml`; any byte-level change
+  to a locked module fails the corpus test. Per-module wording metadata in the
+  manifest records which modules carry identity-neutralized wording; for those
+  modules the pre-neutralization baseline is preserved outside the public
+  tree, and the future comparative rewrite gate measures candidates against
+  that preserved baseline — the drift-lock guards the public bytes, it does
+  not claim byte-identity with any external source.
 - **Provenance stays local.** Source paths, source-file hashes, source URLs, and
   licensing verdicts live only in the uncommitted files in the parent workspace,
   one level above the repository root. Never copy any of them into a repository

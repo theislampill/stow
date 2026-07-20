@@ -6,19 +6,19 @@ In procedures, give short and clear instructions directly to the reader (imperat
 
 **Example:**
 
-**Non-STE:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away.
+**Non-conforming:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away.
 
-**STE:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13).
+**Conforming:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13).
 
 In a descriptive text, make sure that each sentence has only one topic (subject or idea) and does not contain the imperative form. Then, in the sentences that follow, gradually give information about that topic.
 
 **Example:**
 
-**Non-STE:** The side stay assembly has two folding toggles hinged together and attached with hinges between the main gear strut and the side stay bracket.
+**Non-conforming:** The side stay assembly has two folding toggles hinged together and attached with hinges between the main gear strut and the side stay bracket.
 
 (This sentence contains more than one topic. To make this information clearer, you can write a new sentence for each topic.)
 
-**STE:** The side stay assembly has two folding toggles. The folding toggles are attached together with hinges. These folding toggles are also attached with hinges between the main gear strut and the side stay bracket.
+**Conforming:** The side stay assembly has two folding toggles. The folding toggles are attached together with hinges. These folding toggles are also attached with hinges between the main gear strut and the side stay bracket.
 
 (The new text has three sentences, and each sentence has its topic. Refer to the underlined text for the specified subjects in each sentence.)
 

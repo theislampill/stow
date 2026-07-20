@@ -1,6 +1,6 @@
 > **Rule 3.6 — Use the active voice. In descriptive writing, you can use the passive voice only if the agent is unknown.**
 
-Technical texts consist of procedural writing and descriptive writing. When you write in STE, always use the active voice. In descriptive writing, the passive voice is permitted only when the agent (the person or thing that does the action) is unknown.
+Technical texts consist of procedural writing and descriptive writing. When you write in controlled technical writing, always use the active voice. In descriptive writing, the passive voice is permitted only when the agent (the person or thing that does the action) is unknown.
 
 What is active voice?
 
@@ -54,15 +54,13 @@ To change a sentence from the passive voice to the active voice, you can use one
 
 Method 1
 
-When the sentence gives the agent (usually the object of the preposition “by”), put the agent at the start of the sentence. Then, use the agent as the subject. The subject must always be the noun that does the action in the sentence, as shown in the diagram that follows:
-
-![Immagine che contiene testo, diagramma, schermata, linea Descrizione generata automaticamente](<ASD-STE100_ISSUE9_images/imageFile77.png>)
+When the sentence gives the agent (usually the object of the preposition “by”), put the agent at the start of the sentence. Then, use the agent as the subject. The subject must always be the noun that does the action in the sentence.
 
 Example:
 
-**Non-STE:** The circuits are connected by a switching relay. (Passive)
+**Non-conforming:** The circuits are connected by a switching relay. (Passive)
 
-**STE:** A switching relay connects the circuits. (Active)
+**Conforming:** A switching relay connects the circuits. (Active)
 
 Method 2
 
@@ -70,9 +68,9 @@ Change an infinitive verb to an active verb.
 
 **Example:**
 
-**Non-STE:** These values are used by the computer to calculate the energy consumption. (Passive)
+**Non-conforming:** These values are used by the computer to calculate the energy consumption. (Passive)
 
-**STE:** The computer calculates the energy consumption from these values. (Active)
+**Conforming:** The computer calculates the energy consumption from these values. (Active)
 
 The construction “are used by” gives no important information here. Thus, you can use the verb “calculate” to write the sentence in the active voice.
 
@@ -82,13 +80,13 @@ In procedural writing, change the verb to the imperative (“command”) form.
 
 **Examples:**
 
-**Non-STE:** The test can be continued by the operator. (Passive)
+**Non-conforming:** The test can be continued by the operator. (Passive)
 
-**STE:** Continue the test. (Active)
+**Conforming:** Continue the test. (Active)
 
-**Non-STE:** Oil and grease are to be removed with a degreasing agent. (Passive)
+**Non-conforming:** Oil and grease are to be removed with a degreasing agent. (Passive)
 
-**STE:** Remove oil and grease with a degreasing agent. (Active)
+**Conforming:** Remove oil and grease with a degreasing agent. (Active)
 
 Method 4
 
@@ -96,42 +94,42 @@ When the agent (the person or thing that does the action) is not given in the se
 
 **Examples:**
 
-**Non-STE:** On the ground, the valve can be opened with the override handle. (Passive)
+**Non-conforming:** On the ground, the valve can be opened with the override handle. (Passive)
 
-**STE:** On the ground, you can open the valve with the override handle. (Active)
+**Conforming:** On the ground, you can open the valve with the override handle. (Active)
 
-**Non-STE:** Additives are not used in this type of fuel. (Passive)
+**Non-conforming:** Additives are not used in this type of fuel. (Passive)
 
-**STE:** We do not use additives in this type of fuel. (Active)
+**Conforming:** We do not use additives in this type of fuel. (Active)
 
 or
 
-**STE:** This type of fuel does not contain additives.
+**Conforming:** This type of fuel does not contain additives.
 
 When you find complex sentences in the passive voice that include auxiliary verbs, decide if you want to write a procedural sentence or a descriptive sentence.
 
 Examples:
 
-**Non-STE:** The volume control can be adjusted.
+**Non-conforming:** The volume control can be adjusted.
 
-**STE:** Adjust the volume control. (Procedural sentence)
+**Conforming:** Adjust the volume control. (Procedural sentence)
 
-**STE:** You can adjust the volume control. (Descriptive sentence)
+**Conforming:** You can adjust the volume control. (Descriptive sentence)
 
-**Non-STE:** The oil temperature must be adjusted before the start of the test.
+**Non-conforming:** The oil temperature must be adjusted before the start of the test.
 
-**STE:** Before you start the test, adjust the oil temperature. (Procedural sentence)
+**Conforming:** Before you start the test, adjust the oil temperature. (Procedural sentence)
 
-**STE:** Before the start of the test, the operator must adjust the oil temperature. (Descriptive sentence)
+**Conforming:** Before the start of the test, the operator must adjust the oil temperature. (Descriptive sentence)
 
-**Non-STE:** The valve will be adjusted during the test.
+**Non-conforming:** The valve will be adjusted during the test.
 
-**STE:** During the test, adjust the valve. (Procedural sentence)
+**Conforming:** During the test, adjust the valve. (Procedural sentence)
 
-**STE:** NOTE: You will adjust the valve during the test. (Descriptive sentence)
+**Conforming:** NOTE: You will adjust the valve during the test. (Descriptive sentence)
 
-**Non-STE:** The component is to be installed before you do the test.
+**Non-conforming:** The component is to be installed before you do the test.
 
-**STE:** Before you do the test, install the component. (Procedural sentence)
+**Conforming:** Before you do the test, install the component. (Procedural sentence)
 
-**STE:** Before the test, the operator must install the component. (Descriptive sentence)
+**Conforming:** Before the test, the operator must install the component. (Descriptive sentence)

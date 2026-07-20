@@ -41,10 +41,9 @@ Two gates:
   at one of the allowed positions is exempt from the generic 64-hex heuristic but
   is still compared for exact equality against the known source hashes, so a
   planted source hash is caught anywhere.
-- **Gate 2 (name gate)** runs over authored surfaces only and flags source
-  project, organisation, and person names. Corpus surfaces, the registry baseline
-  fields, and the corpus manifest are exempt, because those legitimately quote
-  derived content.
+- **Gate 2 (name gate)** runs over every file as well and flags source
+  project, organisation, and person names. No surface is exempt: the public
+  tree, including the corpus and the manifest, is fully STOW-native.
 
 Modes:
 
@@ -92,17 +91,28 @@ contains such a glyph therefore still matches its baseline and its manifest
 glyph. Do not "repair" an empty-parenthesis rendering in a corpus module; the
 byte-exact source is intentional and the drift-lock protects it.
 
-### What "verbatim" means in practice
+### What the drift-lock guarantees
 
-Verbatim (Tier-3) matching is enforced **modulo trailing-whitespace stripping and
-LF normalisation**: baseline text and its corpus module are compared after each
-line is right-stripped and the text is split on `\n` (the shared `normalize()` in
-`tests/test_corpus.py`, mirrored by the drift-lock hash). This is a safety margin
-against editor- and platform-induced noise (stray trailing spaces, CRLF), not a
-license to reflow content. On the **real material this normalisation is a measured
-no-op**: the committed corpus already uses LF (pinned by `.gitattributes`) and
-carries no trailing whitespace, so stripping it changes nothing and the raw bytes
-are what ship.
+Tier-3 matching is enforced **modulo trailing-whitespace stripping and LF
+normalisation**: baseline text and its corpus module are compared after each
+line is right-stripped and the text is split on `\n` (the shared `normalize()`
+in `tests/test_corpus.py`, mirrored by the drift-lock hash). This is a safety
+margin against editor- and platform-induced noise (stray trailing spaces,
+CRLF), not a license to reflow content. On the real material this
+normalisation is a measured no-op: the committed corpus already uses LF
+(pinned by `.gitattributes`) and carries no trailing whitespace, so stripping
+it changes nothing and the shipped bytes are what the lock covers.
+
+What the lock claims, precisely: the PUBLIC corpus text is internally
+consistent, hash-locked, and complete against the registry. Per-module wording
+metadata in the manifest records which modules carry identity-neutralized
+wording (retained guidance whose identifying wording was normalized to keep
+the public package fully STOW-native, with meaning, scope, thresholds,
+examples, and safety force preserved). For those modules the pre-normalization
+baseline is preserved outside the public tree, and the governed comparative
+rewrite gate still measures any future candidate against that preserved
+baseline. The public tests gate public consistency and hashes; they make no
+claim of byte-identity with any external source.
 
 ### CI-vs-local leak-enforcement residual
 

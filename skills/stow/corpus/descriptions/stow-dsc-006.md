@@ -4,7 +4,7 @@ Paragraphs divide a text into logical units and help keep the reader's attention
 
 **Example:**
 
-**STE:** Description of the fuel manifold (refer to figure 10001) The fuel manifold (1) has these primary parts:
+**Conforming:** Description of the fuel manifold (refer to figure 10001) The fuel manifold (1) has these primary parts:
 - Two motorized fuel shut-off valves (referred to in this manual as a “shut-off valve”)
 - A pressure transducer (2)
 - Three fittings (10), (13) and (15). (one paragraph, 1 sentence) The shut-off valve operates in the valve body (21). The valve body (21) has:

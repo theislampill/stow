@@ -1,6 +1,6 @@
 > **GR-2 — The preposition “with”**
 
-In STE, the preposition “with” has three approved meanings. It is a function word that shows “association or relationship,” “help or sharing,” or “a means or instrument.” In some sentences, this word can cause ambiguity. For example, the sentence: “Install the panel with the green fasteners” can have different meanings:
+In controlled technical writing, the preposition “with” has three approved meanings. It is a function word that shows “association or relationship,” “help or sharing,” or “a means or instrument.” In some sentences, this word can cause ambiguity. For example, the sentence: “Install the panel with the green fasteners” can have different meanings:
 
 - Install the panel that has green fasteners.
 - Install the panel together with the green fasteners.
@@ -30,4 +30,4 @@ When you want to use a different sentence construction to replace the word “wi
 
 **WRITE:** Seal the opening with tool TS9867.
 
-This sentence is clear because it gives the tool number. In STE, you must give the primary action verb which is “seal” and not “use.”
+This sentence is clear because it gives the tool number. In controlled technical writing, you must give the primary action verb which is “seal” and not “use.”

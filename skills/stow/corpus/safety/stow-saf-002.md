@@ -2,7 +2,7 @@
 
 Start a safety instruction with a clear and accurate command or condition. Your reader must know how to prevent accidents and keep a high level of safety.
 
-**Examples in STE:  (Refer to the underlined command.)**
+**Conforming examples:  (Refer to the underlined command.)**
 
 **WARNING:** DO NOT SWALLOW THE SOLVENT. ALWAYS MAKE SURE THAT YOU KNOW THE SAFETY PRECAUTIONS AND FIRST AID INSTRUCTIONS FOR SOLVENTS. SOLVENTS ARE POISONOUS AND CAN CAUSE INJURY OR DEATH.
 
@@ -10,7 +10,7 @@ Start a safety instruction with a clear and accurate command or condition. Your 
 
 If your reader must know about a condition before the start of a procedure or work step, give this condition first.
 
-**Examples in STE:  (Refer to the underlined condition.)**
+**Conforming examples:  (Refer to the underlined condition.)**
 
 **WARNING:** WHILE YOU USE THE SPRAY PAINT, POINT THE SPRAY AWAY FROM YOUR FACE. THE SPRAY PAINT CAN CAUSE INJURY TO YOUR EYES.
 

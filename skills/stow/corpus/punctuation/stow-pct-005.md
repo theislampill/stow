@@ -2,7 +2,7 @@
 
 When you count words for sentence length, text in parentheses counts as one word of that sentence. But the words that you put between parentheses also make a new sentence. Thus, count them in that different sentence.
 
-**Example in STE:**
+**Conforming example:**
 
 Make sure that the EMER pushbutton switch is released (the EMER legend is off).
 
@@ -10,7 +10,7 @@ Make sure that the EMER pushbutton switch is released (the EMER legend is off).
 
 If there is an identifier in parentheses (a number, a letter, or an alphanumeric identifier), this identifier counts as one word in the sentence. Abbreviations in parentheses also count as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Remove the safety pin (10). (5 words)
 

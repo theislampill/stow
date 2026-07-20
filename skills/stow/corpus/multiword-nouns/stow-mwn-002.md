@@ -8,7 +8,7 @@ Method 1 - Shorter form of technical nouns
 
 If a long technical noun comes from an official document (for example, an engineering drawing or an illustrated parts catalog), write it in full the first time that it occurs in the text. Then, if it is possible, explain the technical noun and in the remaining text of your document, use a shorter form or an approved abbreviation.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Before you do this procedure, engage the ramp service door safety connector pin (the pin that holds the ramp service door, referred to in this procedure as the “safety connector pin”).
 
@@ -40,7 +40,7 @@ Method 2 - Hyphens (-) between the words that you use as one unit
 
 A hyphen is a punctuation mark that connects words or parts of words. You can use hyphens between words to show how related words operate as one unit. This method will make the multi-word nouns that you use agree with rule 2.1. Hyphenated words always count as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Make sure that the cutoff-switch power connection is safe. (3 words)
 
@@ -54,9 +54,9 @@ Do not use hyphens to make groups of more than three words. If you use hyphens f
 
 **Example:**
 
-**Non-STE:** Move the main-gear-door-retraction-winch handle. (2 words, but not correct)
+**Non-conforming:** Move the main-gear-door-retraction-winch handle. (2 words, but not correct)
 
-**STE:** Move the main-gear-door retraction-winch handle. (3 words)
+**Conforming:** Move the main-gear-door retraction-winch handle. (3 words)
 
 If an approved technical noun includes three words or less (for example “poppet valve assembly” and “diaphragm assembly”), it is not necessary to use hyphens.
 

@@ -32,18 +32,18 @@ To keep multi-word nouns short, you can use prepositions (for example, “of,”
 
 **Examples:**
 
-**Non-STE:** Runway light connection resistance calibration. (5 words)
+**Non-conforming:** Runway light connection resistance calibration. (5 words)
 
-**STE:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)
+**Conforming:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)
 
-**Non-STE:** Install the forward turbine overheat thermocouple terminal tags. (6 words)
+**Non-conforming:** Install the forward turbine overheat thermocouple terminal tags. (6 words)
 
-**STE:** Install the terminal tags on the forward overheat thermocouple of the turbine. (2 words and 3 words)
+**Conforming:** Install the terminal tags on the forward overheat thermocouple of the turbine. (2 words and 3 words)
 
-**Non-STE:** Remove the engine transmission housing attachment bolts. (5 words)
+**Non-conforming:** Remove the engine transmission housing attachment bolts. (5 words)
 
-**STE:** Remove the bolts that attach the transmission housing to the engine. (1 word, 1 word, 2 words, and 1 word)
+**Conforming:** Remove the bolts that attach the transmission housing to the engine. (1 word, 1 word, 2 words, and 1 word)
 
-**Non-STE:** Adjust to obtain door operating rod alignment with the attachment point. (4 words)
+**Non-conforming:** Adjust to obtain door operating rod alignment with the attachment point. (4 words)
 
-**STE:** Adjust the door operating rod until it aligns with the attachment point. (3 words and 1 word)
+**Conforming:** Adjust the door operating rod until it aligns with the attachment point. (3 words and 1 word)

@@ -4,12 +4,12 @@ A technical verb is a verb term that refers to a specified concept or process an
 
 The dictionary does not include technical verbs because there are too many, and each subject field uses different technical verbs for their texts.
 
-You can find many of these technical verbs in your company glossary or terminology database. STE gives you a list of categories, with examples, to help you:
+You can find many of these technical verbs in your company glossary or terminology database. This rule set gives you a list of categories, with examples, to help you:
 
 - Select technical verbs to put in your company glossary or terminology database.
 - Use technical verbs correctly.
 
-Technical verbs must obey the same rules as other approved verbs in STE. Refer to section 3.
+Technical verbs must obey the same rules as other approved verbs in the controlled language. Refer to section 3.
 
 You can use technical verbs in procedural and descriptive texts if you can include them in one or more of these four categories.
 
@@ -97,15 +97,15 @@ If there is an approved verb in the dictionary that accurately gives the instruc
 
 Examples:
 
-**Non-STE:** If you detect broken wires, repair them.
+**Non-conforming:** If you detect broken wires, repair them.
 
 (“Detect” is not approved and cannot be a technical verb in this context.)
 
-**STE:** If you find broken wires, repair them.
+**Conforming:** If you find broken wires, repair them.
 
 But you can write:
 
-**STE:** The security scanner detects metal objects.
+**Conforming:** The security scanner detects metal objects.
 
 (“Detect” is the correct technical verb in this context.)
 
@@ -113,9 +113,9 @@ If you must use technical verbs, use only technical verbs that are correct in yo
 
 **Example:**
 
-**Non-STE:** Machine the hole until it has a diameter of 8.00 +/- 0.003 mm.
+**Non-conforming:** Machine the hole until it has a diameter of 8.00 +/- 0.003 mm.
 
-**STE:** Ream the hole until it has a diameter of 8.00 +/- 0.003 mm.
+**Conforming:** Ream the hole until it has a diameter of 8.00 +/- 0.003 mm.
 
 Do not use a technical verb if it is not necessary. If it is possible, use a verb that is approved in the dictionary and an applicable technical noun.
 
@@ -123,21 +123,21 @@ Examples:
 
 “Clamp” is a technical noun, category 1, official parts information. Do not use “clamp” as a technical verb.
 
-**Non-STE:** Clamp the cable in position.
+**Non-conforming:** Clamp the cable in position.
 
-**STE:** Put clamps on the cable to hold it in position.
+**Conforming:** Put clamps on the cable to hold it in position.
 
 “Grease” is a technical noun, category 4, materials, consumables, and unwanted material. Do not use “grease” as a technical verb.
 
-**Non-STE:** Grease the fasteners.
+**Non-conforming:** Grease the fasteners.
 
-**STE:** Apply grease to the fasteners.
+**Conforming:** Apply grease to the fasteners.
 
 “Wire” is a technical noun, category 1, official parts information. Do not use “wire” as a technical verb.
 
-**Non-STE:** Wire the cable to the structure.
+**Non-conforming:** Wire the cable to the structure.
 
-**STE:** Attach the cable to the structure with wire.
+**Conforming:** Attach the cable to the structure with wire.
 
 Words that are not approved but that can be technical verbs
 
@@ -145,22 +145,22 @@ The dictionary includes some words that, although not approved, can be technical
 
 **Examples:**
 
-**STE:** Enter your password.
+**Conforming:** Enter your password.
 
 (“Enter” is a technical verb, category 2 a), computer processes and applications, input and output processes.)
 
-**Non-STE:** Do not enter the engine test area without approval.
+**Non-conforming:** Do not enter the engine test area without approval.
 
 (“Enter” is not permitted when it is in a different context.)
 
-**STE:** Do not go into the engine test area without approval.
+**Conforming:** Do not go into the engine test area without approval.
 
-**STE:** If the tower does not respond, use a different channel.
+**Conforming:** If the tower does not respond, use a different channel.
 
 (“Respond” is a technical verb, category 3 d), instructions and information for applicable subject fields, navigation.)
 
-**Non-STE:** If the instrument fails to respond, do a test.
+**Non-conforming:** If the instrument fails to respond, do a test.
 
 (“Respond” is not permitted when it is in a different context.)
 
-**STE:** If the instrument does not operate correctly, do a test.
+**Conforming:** If the instrument does not operate correctly, do a test.

@@ -6,8 +6,8 @@ In descriptive writing, the maximum sentence length is 25 words. This is because
 
 **Examples:**
 
-**STE:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)
+**Conforming:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)
 
-**Non-STE:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)
+**Non-conforming:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)
 
-**STE:** A smartphone is a cellular telephone that has an integrated computer and many other functions. (15 words) It includes an operating system and an internet browser, and it can also operate software applications. (16 words)
+**Conforming:** A smartphone is a cellular telephone that has an integrated computer and many other functions. (15 words) It includes an operating system and an internet browser, and it can also operate software applications. (16 words)

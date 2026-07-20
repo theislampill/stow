@@ -277,11 +277,11 @@ def test_source_name_planted_in_resolution_fails_gate():
 
 
 @_leak
-def test_baseline_field_is_exempt_from_source_name_gate():
-    """A baseline_text carrying a source-like token stays clean (baseline_* is
-    the protected, exempt surface), proving the exemption is real."""
+def test_baseline_field_is_not_exempt_from_source_name_gate():
+    """The registry is fully STOW-native: a source-like token planted into a
+    baseline_text field is caught like anywhere else (no exempt surfaces)."""
     patterns = MOD.Patterns(_PATTERN_DATA)
     hash_specs = MOD.load_hash_positions(HASH_POS)
     word_token = patterns.word_tokens[0]
     line = '      baseline_text: "Use the %s dictionary as written."\n' % word_token
-    assert MOD.scan_file(REGISTRY_REL, line, patterns, True, hash_specs) == []
+    assert MOD.scan_file(REGISTRY_REL, line, patterns, True, hash_specs) != []

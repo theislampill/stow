@@ -4,19 +4,19 @@ If there are too many instructions in a sentence, the sentence is not easy to re
 
 **Examples:**
 
-**STE:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF.
+**Conforming:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF.
 
 (Two work steps)
 
-**Non-STE:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch.
+**Non-conforming:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch.
 
-**STE:** A. Set the TEST switch to the middle position. B. Release the SHORT-CIRCUIT TEST switch.
+**Conforming:** A. Set the TEST switch to the middle position. B. Release the SHORT-CIRCUIT TEST switch.
 
 (The original sentence is divided into two different work steps because the two actions do not occur at the same time.)
 
 You can write more than one instruction in a sentence when two actions occur at the same time.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Hold the panel in its open position and install the fastener.
 
@@ -31,7 +31,7 @@ You can write more than one sentence in a work step:
 - When actions occur at the same time
 - When a result occurs immediately after an action.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Make sure that the locking torque of each of the four bolts (6) is a minimum of 0.30 Nm. Then, torque each of the four bolts (6) to 4.20 Nm.
 

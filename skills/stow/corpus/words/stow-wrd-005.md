@@ -4,7 +4,7 @@ A technical noun is a noun term that refers to a specified concept and is applic
 
 The dictionary does not include technical nouns because there are too many, and each subject field uses different technical nouns for their texts.
 
-You can find many of these technical nouns in your company glossary or terminology database. STE gives you a list of categories, with examples, to help you:
+You can find many of these technical nouns in your company glossary or terminology database. This rule set gives you a list of categories, with examples, to help you:
 
 - Select technical nouns to put in your company glossary or terminology database.
 - Use technical nouns correctly.
@@ -113,7 +113,7 @@ Terms that refer to colors that identify color-related properties, or show color
 
 beige, black, cyan blue, dark brown, gray, green, magenta, light green, orange, red, white, yellow
 
-Colors are adjectives, but STE identifies them as technical nouns. Comparative and superlative forms of colors (for example, blacker, the reddest) are not permitted in STE.
+Colors are adjectives, but this rule set identifies them as technical nouns. Comparative and superlative forms of colors (for example, blacker, the reddest) are not permitted in controlled technical writing.
 
 18. Damage terms
 

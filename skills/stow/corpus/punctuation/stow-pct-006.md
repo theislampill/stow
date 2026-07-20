@@ -11,7 +11,7 @@ When you count words for sentence length, count each of these as one word:
 
 1. Numbers
 
-**Examples in STE:**
+**Conforming examples:**
 
 Do steps 13 thru 16 a minimum of three times. (10 words)
 
@@ -27,7 +27,7 @@ Do not count numbers that identify paragraphs or work steps. These numbers are u
 
 Units of measurement usually follow their related number (for example, 10 mA). When you write a number together with its unit of measurement, count them as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Make sure that the temperature in the room is 10 °C. (10 words)
 
@@ -45,7 +45,7 @@ The resistance must be 10 ohms. (5 words)
 
 In technical texts, you can use abbreviations (also acronyms and initialisms) to make sentences shorter and easier to read. But these abbreviations only help the reader if the reader knows their meanings. Each abbreviation counts as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 The maintenance team does a test of this system each day at 10 a.m. (13 words)
 
@@ -63,7 +63,7 @@ For remote access, use the VPN. (6 words)
 
 An alphanumeric identifier is a combination of letters and numbers that identifies something. Each alphanumeric identifier counts as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Examine the No. 1 bearing installation. (5 words)
 
@@ -77,7 +77,7 @@ Tag circuit breaker 36L7. (4 words)
 
 Quoted text is usually given in quotation marks (“...”) Words between quotation marks count as one word in a sentence. In some sentences, or parts of the document, uppercase letters or differences in font can also show quoted text. Such text also counts as one word.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Touch the “Service Overview” arrow to select the function page. (9 words)
 
@@ -89,7 +89,7 @@ Release the SHORT-CIRCUIT TEST switch. (4 words)
 
 C = (A - B) - 0.063 mm (1 word)
 
-(In STE, a formula is quoted text and counts as one word.)
+(In controlled technical writing, a formula is quoted text and counts as one word.)
 
 6. Titles, headings, and text on placards and labels
 
@@ -99,7 +99,7 @@ In some texts, there are words or groups of words that you cannot change. These 
 - Text on placards (for example, a warning notice in a work area or public place)
 - Text on labels (for example, warning and caution labels that are attached to objects).
 
-**Examples in STE:**
+**Conforming examples:**
 
 Before you start a repair, refer to the Structural Repair Manual for the applicable safety procedures and precautions. (16 words)
 
@@ -115,15 +115,15 @@ Refer to Requirements after Job Completion for the applicable procedures. (7 wor
 
 This procedure is for the inspection of SSI No. 57-21-16, “Outer wing bottom skin lower surface spanwise skin joints at stringer 13 and stringer 20 between Rib 12 and Rib 27 excluding areas covered by flap track fairings 3, 4, and 5.” (9 words)
 
-(“This procedure is for the inspection of” has 7 words. “SSI No. 57-21-16” is the reference number of the Structurally Significant Item (SSI) and counts as one word. The subsequent text given in quotation marks is the title of the SSI. It is not in STE, and it is not possible to change it. Thus, this text counts as one word. As a result, the full sentence has a total of 9 words.)
+(“This procedure is for the inspection of” has 7 words. “SSI No. 57-21-16” is the reference number of the Structurally Significant Item (SSI) and counts as one word. The subsequent text given in quotation marks is the title of the SSI. It is not in controlled technical writing, and it is not possible to change it. Thus, this text counts as one word. As a result, the full sentence has a total of 9 words.)
 
 “Interior hazards exist to such a degree that interior operations may be conducted only after full examination, and with extreme caution.” (1 word)
 
-(The text given in quotation marks is not in STE. It comes from a placard, and it is not possible to change it. It counts as one word.)
+(The text given in quotation marks is not in the controlled language. It comes from a placard, and it is not possible to change it. It counts as one word.)
 
 “FRAGILE - Please handle with care.” (1 word)
 
-(The text given in quotation marks is not in STE. It comes from a label on shipping containers, and it is not possible to change it. It counts as one word.)
+(The text given in quotation marks is not in the controlled language. It comes from a label on shipping containers, and it is not possible to change it. It counts as one word.)
 
 7. Proper nouns of individuals, groups, organizations, and geopolitical entities.
 
@@ -133,19 +133,19 @@ There are groups of words that you cannot change because they identify:
 - Groups or organizations (for example, World Health Organization)
 - Geopolitical entities (for example, Republic of Ireland).
 
-- 1. You must change the grammatical structure of the sentence to use the alternative that you selected. Usually, the STE examples show you how to do this.
+- 1. You must change the grammatical structure of the sentence to use the alternative that you selected. Usually, the conforming examples show you how to do this.
 
 - 2. The word-for-word replacement of the word that is not approved gives a meaningless result.
 
 - 3. The approved alternative that you find changes the meaning of the sentence.
 - 4. The word that you must replace is not in the dictionary.
 
-**Examples in STE:**
+**Conforming examples:**
 
 The first president of the United States of America was George Washington. (8 words)
 
 (“United States of America” is the proper noun of a geopolitical entity and counts as one word. “George Washington” is a proper noun of an individual and counts as one word.)
 
-The owner of STE is the Aerospace, Security and Defence Industries Association of Europe. (7 words)
+The standard is maintained by the International Association of Machine Manufacturers. (7 words)
 
-(“Aerospace, Security and Defence Industries Association of Europe” is the proper noun of an organization and counts as one word.)
+(“International Association of Machine Manufacturers” is the proper noun of an organization and counts as one word.)

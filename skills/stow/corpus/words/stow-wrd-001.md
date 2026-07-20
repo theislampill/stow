@@ -3,7 +3,7 @@
 > - Technical nouns
 > - Technical verbs
 
-Simplified Technical English (STE) has a controlled dictionary (part 2) that gives the words most frequently used in technical writing. You can also use words that are not in the dictionary if you can include them in the specified categories of technical nouns and technical verbs.
+The controlled language has a controlled dictionary that gives the words most frequently used in technical writing. You can also use words that are not in the dictionary if you can include them in the specified categories of technical nouns and technical verbs.
 
 A technical noun is a noun term that refers to a specified concept and is applicable to a subject field. A technical verb is a verb term that also refers to a specified concept or process and is applicable to a subject field.
 

@@ -20,7 +20,7 @@ Write the condition first in the sentence, and then use a comma to show the end 
 
 The comma is important. Be careful when you use it because the position of the comma can change the meaning of your sentence.
 
-**Examples in STE:**
+**Conforming examples:**
 
 If the Constant Speed Drive (CSD) does not operate correctly, disconnect it from the gearbox.
 

@@ -71,9 +71,11 @@ def test_distinctive_basename_with_line_in_corpus_fails():
     assert _fails(CORPUS, "quoted from %s:1455 verbatim" % DISTINCTIVE_BASENAME)
 
 
-def test_shared_prefix_image_path_in_corpus_passes():
+def test_shared_prefix_image_path_in_corpus_fails():
+    # The public tree carries no source-derived asset paths anywhere; a
+    # prefix-bearing image path planted into a corpus module must be caught.
     image = SHARED_PREFIX + "images/imageFile77.png"
-    assert _passes(CORPUS, "asset path %s appears in prose" % image)
+    assert _fails(CORPUS, "asset path %s appears in prose" % image)
 
 
 def test_lowercase_verdict_word_in_corpus_passes():
@@ -84,8 +86,8 @@ def test_uppercase_verdict_token_in_corpus_fails():
     assert _fails(CORPUS, "leaked verdict line says %s" % VERDICT)
 
 
-def test_identifying_phrase_in_corpus_passes():
-    assert _passes(CORPUS, "written in %s style, quoted content" % MULTIWORD_NAME)
+def test_identifying_phrase_in_corpus_fails():
+    assert _fails(CORPUS, "written in %s style, quoted content" % MULTIWORD_NAME)
 
 
 # --------------------------------------------------------------------------- #
@@ -112,25 +114,28 @@ def test_source_name_on_scanned_surface_fails():
     assert _fails("README.md", "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
-def test_source_name_inside_corpus_passes():
-    assert _passes(CORPUS, "these rules are derived from %s upstream" % HYPHEN_NAME)
+# The public tree is fully STOW-native: the source-name gate has NO path
+# exemptions. A name planted anywhere -- including corpus paths under every
+# path spelling the post-extract scan can produce -- must be caught.
+
+def test_source_name_inside_corpus_fails():
+    assert _fails(CORPUS, "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
-def test_source_name_inside_corpus_passes_absolute_path():
-    # The post-extract scan (P7/P9) sees absolute paths; the exemption must hold.
+def test_source_name_inside_corpus_fails_absolute_path():
     p = "C:/workspace/ai/stow/stow/skills/stow/corpus/descriptions/x.md"
-    assert _passes(p, "these rules are derived from %s upstream" % HYPHEN_NAME)
+    assert _fails(p, "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
-def test_source_name_inside_corpus_passes_dot_prefixed_path():
-    assert _passes("./skills/stow/corpus/x.md",
-                   "these rules are derived from %s upstream" % HYPHEN_NAME)
+def test_source_name_inside_corpus_fails_dot_prefixed_path():
+    assert _fails("./skills/stow/corpus/x.md",
+                  "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
-def test_source_name_inside_extracted_artifact_corpus_passes():
+def test_source_name_inside_extracted_artifact_corpus_fails():
     # Extracted artifact layout: <tmp>/stow/corpus/... (no skills/ segment).
-    assert _passes("/tmp/build/stow/corpus/x.md",
-                   "these rules are derived from %s upstream" % HYPHEN_NAME)
+    assert _fails("/tmp/build/stow/corpus/x.md",
+                  "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
 def test_whole_word_abbreviation_not_matched_inside_words():

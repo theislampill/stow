@@ -6,18 +6,22 @@ modules:
     required_substrings:
     - "1. **First line gate:** The first line must be a command, fi"
     - "3. **Last line gate:** If the last line asks \"anything else?"
+    public_kind: retained-baseline
   corpus/action-shaping/overrides.md:
     corpus_exact_sha256: c5476c6acb6af15c45aab61f4473aeacb1bcf5a164941aec3eac130cf1b2fe98
     example_bearing: false
     required_substrings:
     - "1. User asks to \"explain\" or \"walk me through.\" Explain full"
     - "3. Debug spiral. If the last three turns have been \"still br"
+    public_kind: retained-baseline
   corpus/action-shaping/rationale.md:
-    corpus_exact_sha256: 387b8f8dbaedf7d336e03c60337a42c40c40aa518e81e7fecd937c07db4b09e1
+    corpus_exact_sha256: d8a6698bcfb535819d18b8ccf1b3c437fd09664c2a274e8cd728b458897022c8
     example_bearing: false
     required_substrings:
     - "2. Knowing the answer is not doing the answer. The friction"
     - "1. Working memory is small. Anything not on screen is forgot"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/action-shaping/stow-act-001.md:
     corpus_exact_sha256: e5249b1e16558eefe562f33b31d537dc7a958a3f7cccd782809195b6990fd664
     example_bearing: true
@@ -28,6 +32,7 @@ modules:
     - "If the answer is a command, path, or snippet, it goes first."
     - "Good: **Run `npm install jsonwebtoken`, then edit `src/auth.ts:42`.**"
     - "Bad: \"Let's think about this. Your auth flow has a few moving pieces...\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-002.md:
     corpus_exact_sha256: c4965ceb39bc0f5cb252d14a248423f0b9f74a0700c2083dd5068c0975696540
     example_bearing: true
@@ -38,6 +43,7 @@ modules:
     - "Bad: \"First open the file, find the function, swap it out, t"
     - "Good:"
     - "Bad: \"First open the file, find the function, swap it out, then run the tests.\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-003.md:
     corpus_exact_sha256: b52ade858b95a0ede57feabdaa2f55d4a27c1dd500154b81cdef6475f8600867
     example_bearing: true
@@ -48,6 +54,7 @@ modules:
     - "Good: **Next: run `npm test` and paste the first failing lin"
     - "Good: **Next: run `npm test` and paste the first failing line.**"
     - "Bad: \"Hope that helps. Let me know if you want to dig deeper.\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-004.md:
     corpus_exact_sha256: b009c646abecd9a22a781c98c6ff68cecc1cd08a238cae0aa2969e3574924fad
     example_bearing: true
@@ -58,6 +65,7 @@ modules:
     - "Good: \"Here's the fix. Separately: there is also a stale dep"
     - "Good: \"Here's the fix. Separately: there is also a stale dependency. Want me to handle that next?\""
     - "Bad: \"Here's the fix. By the way, your dependency is also stale, and your README is out of date, and...\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-005.md:
     corpus_exact_sha256: 94f73816bd2a61d1ba6efee2720d24faf503ae74eea8be502f8b5d45cd2e07b3
     example_bearing: true
@@ -68,6 +76,7 @@ modules:
     - "Good: \"Step 3 of 5 done: schema updated. Next: backfill the"
     - "Good: \"Step 3 of 5 done: schema updated. Next: backfill the new column. Run the script?\""
     - "Bad: \"Done. Ready for the next part?\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-006.md:
     corpus_exact_sha256: e501c13517651f394af0c875a1b38bffdc02641b5418bb2ee6fc5a19617aa58b
     example_bearing: true
@@ -78,6 +87,7 @@ modules:
     - "Vague estimates fail. Ballpark in concrete units."
     - "Good: \"About 15 minutes if tests already cover this. An afternoon if not.\""
     - "Bad: \"This will take some work.\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-007.md:
     corpus_exact_sha256: 1936727d0d7e44bdd1a2cca8ec23e8fa1ea0137566ef4d81651adcc93caaacd1
     example_bearing: true
@@ -88,6 +98,7 @@ modules:
     - "Bad: \"I've made some changes to the auth flow. Among other t"
     - "Good: **Login now works with magic links.** Try: `npm run dev`, open `/login`."
     - "Bad: \"I've made some changes to the auth flow. Among other things...\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-008.md:
     corpus_exact_sha256: 6a60df0073a13483858403b788452413fbc7613a4794e5b874dd19f523aea9c0
     example_bearing: true
@@ -98,17 +109,20 @@ modules:
     - "Never use \"Uh oh,\" \"Oh no,\" or \"There seems to be a problem."
     - "Good: \"Test fails at `auth.spec.ts:42`: expected 200, got 401. Cause: missing auth header. Fix: add `Authorization: Bearer ${token}` to the request.\""
     - "Bad: \"Uh oh, the test is failing. There seems to be an issue...\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-009.md:
     corpus_exact_sha256: c3169022223b0e6c8dc2db75fec48115add8e4d6c91455322d42481fbe730017
     example_bearing: false
     required_substrings:
     - "If a list grows past five, split into \"do now\" vs \"later,\" o"
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-010.md:
     corpus_exact_sha256: 7d07bc862d083aade3c5299cff03e5409b540333179a67d5edef31f384141104
     example_bearing: false
     required_substrings:
     - "Forbidden openers: \"Great question,\" \"Let me...\", \"I'll...\","
     - "Forbidden closers: \"Let me know if you need anything else,\""
+    public_kind: retained-baseline
   corpus/action-shaping/stow-act-011.md:
     corpus_exact_sha256: a53c682b0a358b73c148ad02c9793813755af9cc02de6a4cbb2bea52ff4b5c16
     example_bearing: true
@@ -118,56 +132,70 @@ modules:
     - "Tables are for reference data only (comparisons, specs, look"
     - "Bad: a table with \"Step | Action\" rows for a task sequence."
     - "Good: a numbered list where each step is its own line."
+    public_kind: retained-baseline
   corpus/action-shaping/worked-example.md:
     corpus_exact_sha256: e4d1cc5c3735c71d1cc02bfc6ead33f81cea5b5d1aaa0a223aa22ba63262e5a8
     example_bearing: false
     required_substrings:
     - "**Prompt:** \"Help me write a short email declining a meeting"
     - "**Open with the subject line and first sentence, then fill i"
+    public_kind: retained-baseline
   corpus/descriptions/stow-dsc-001.md:
-    corpus_exact_sha256: 10d4a9cb5f6d3be12879c5b4eb97f7d9941d248efb612e25b2bc19337e596480
+    corpus_exact_sha256: 0abe7bfe6a5cfcf366c36b0aad1fb72a221887b242f434bea2f135e796a9e7f9
     example_bearing: true
-    approved_example: "**STE:** Instrument Landing System The Instrument Landing System (the system) on the aircraft shows data that helps the pilot during the approach to the runway. This system shows the pilot the deviations from the localizer course and the glideslope path. The localizer course aligns with the centerline of the runway. And the glideslope path is at a constant angle to the threshold of the runway. During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go:"
-    nonapproved_example: "**Non-STE:** Instrument Landing System During the approach to the runway, deviation pointers in the course indicators give commands to fly up or down and left or right. This information comes from the VHF transceivers, which are part of the Instrument Landing System. This helps the pilot during the landing approach. When the pilot responds to the commands, the aircraft can be flown over the runway centerline (localizer) and at a fixed angle (glideslope) to the runway threshold. The localizer signals are processed by the transceiver and data are transmitted to Air Traffic Control."
+    approved_example: "**Conforming:** Instrument Landing System The Instrument Landing System (the system) on the aircraft shows data that helps the pilot during the approach to the runway. This system shows the pilot the deviations from the localizer course and the glideslope path. The localizer course aligns with the centerline of the runway. And the glideslope path is at a constant angle to the threshold of the runway. During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go:"
+    nonapproved_example: "**Non-conforming:** Instrument Landing System During the approach to the runway, deviation pointers in the course indicators give commands to fly up or down and left or right. This information comes from the VHF transceivers, which are part of the Instrument Landing System. This helps the pilot during the landing approach. When the pilot responds to the commands, the aircraft can be flown over the runway centerline (localizer) and at a fixed angle (glideslope) to the runway threshold. The localizer signals are processed by the transceiver and data are transmitted to Air Traffic Control."
     required_substrings:
-    - "**Non-STE:** Instrument Landing System During the approach t"
-    - "**STE:** Instrument Landing System The Instrument Landing Sy"
-    - "**STE:** Instrument Landing System The Instrument Landing System (the system) on the aircraft shows data that helps the pilot during the approach to the runway. This system shows the pilot the deviations from the localizer course and the glideslope path. The localizer course aligns with the centerline of the runway. And the glideslope path is at a constant angle to the threshold of the runway. During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go:"
-    - "**Non-STE:** Instrument Landing System During the approach to the runway, deviation pointers in the course indicators give commands to fly up or down and left or right. This information comes from the VHF transceivers, which are part of the Instrument Landing System. This helps the pilot during the landing approach. When the pilot responds to the commands, the aircraft can be flown over the runway centerline (localizer) and at a fixed angle (glideslope) to the runway threshold. The localizer signals are processed by the transceiver and data are transmitted to Air Traffic Control."
+    - "**Non-conforming:** Instrument Landing System During the approach t"
+    - "**Conforming:** Instrument Landing System The Instrument Landing Sy"
+    - "**Conforming:** Instrument Landing System The Instrument Landing System (the system) on the aircraft shows data that helps the pilot during the approach to the runway. This system shows the pilot the deviations from the localizer course and the glideslope path. The localizer course aligns with the centerline of the runway. And the glideslope path is at a constant angle to the threshold of the runway. During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go:"
+    - "**Non-conforming:** Instrument Landing System During the approach to the runway, deviation pointers in the course indicators give commands to fly up or down and left or right. This information comes from the VHF transceivers, which are part of the Instrument Landing System. This helps the pilot during the landing approach. When the pilot responds to the commands, the aircraft can be flown over the runway centerline (localizer) and at a fixed angle (glideslope) to the runway threshold. The localizer signals are processed by the transceiver and data are transmitted to Air Traffic Control."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/descriptions/stow-dsc-002.md:
-    corpus_exact_sha256: 1242f10e118153287b9c2736d09ec22f4ea36005c8214e5255e9ec0a6c00ab9a
+    corpus_exact_sha256: 7583aee8879d4f8917f6c303d9997cd6f7dac1e9247f2bcdcb93c650e7892241
     example_bearing: false
     required_substrings:
     - "You can also use connecting words and connecting phrases to"
     - "Sentence 5 also uses the key phrase “during the approach to"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/descriptions/stow-dsc-003.md:
-    corpus_exact_sha256: 767a713b45c9ac8deb25218c810dcca5e6931649457734f5b2dc0b6c1233ddc4
+    corpus_exact_sha256: e6bd17863dfca88af9862eea988a403a3ff42606440fce9707e78397964a0142
     example_bearing: true
-    approved_example: "**STE:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)"
-    nonapproved_example: "**Non-STE:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)"
+    approved_example: "**Conforming:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)"
+    nonapproved_example: "**Non-conforming:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)"
     required_substrings:
-    - "**STE:** A smartphone is a cellular telephone that has an in"
-    - "**Non-STE:** A smartphone is a cellular telephone that has a"
-    - "**STE:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)"
-    - "**Non-STE:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)"
+    - "**Conforming:** A smartphone is a cellular telephone that has an in"
+    - "**Non-conforming:** A smartphone is a cellular telephone that has a"
+    - "**Conforming:** During the approach to the runway, deviation pointers in the course indicators show the pilot in which direction the aircraft must go. (22 words)"
+    - "**Non-conforming:** A smartphone is a cellular telephone that has an integrated computer and many other functions, such as an operating system, internet browsing as well as the ability to run software applications. (31 words)"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/descriptions/stow-dsc-004.md:
-    corpus_exact_sha256: 33b673aa08601a1a535e279fea9a4bb4c1efe2ac58c1a5ecc7667ca3472090c0
+    corpus_exact_sha256: 163447f28ed3f7c05e502af70e542c56ed027b6d8452fc47040eca14a9c7d5db
     example_bearing: false
     required_substrings:
     - "In the example, the underlined topic sentence at the start o"
-    - "In STE, a paragraph starts with a “topic sentence” which tel"
+    - "In controlled technical writing, a paragraph starts with a “topic sentence” which tel"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/descriptions/stow-dsc-005.md:
-    corpus_exact_sha256: 915d09d3789fe2597705b3513b2b386a69a457b655e4ab66a52aa6b36b57827e
+    corpus_exact_sha256: ab0f9df382b061463519dfea6cd8feb09732e8bb2eb89ba8dc39ba781c5d592d
     example_bearing: false
     required_substrings:
-    - "**STE:** Instrument Landing System The Instrument Landing Sy"
+    - "**Conforming:** Instrument Landing System The Instrument Landing Sy"
     - "In descriptive writing, paragraphs describe topics, and it i"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/descriptions/stow-dsc-006.md:
-    corpus_exact_sha256: 3cd0d22efca6464b0ad84c9fae40b8d10e0fde7e82104a8e4e9e123d3d5c6829
+    corpus_exact_sha256: eb72d99b0656fd1ebb78ba4a86b8b9d6e44202a42826a517cbd60c9b81687760
     example_bearing: false
     required_substrings:
     - "Paragraphs divide a text into logical units and help keep th"
     - "The example has short paragraphs, which give the text a clea"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/general/stow-gen-001.md:
     corpus_exact_sha256: 3132f923a39185126db1797835e86f3471e9c1b2b338dc6c81143f4357fbf29f
     example_bearing: true
@@ -178,18 +206,21 @@ modules:
     - "In English, you can use the conjunction “that” to connect ne"
     - "**WRITE:** Make sure that the valve is open."
     - "**Do not write:** Make sure the valve is open."
+    public_kind: retained-baseline
   corpus/general/stow-gen-002.md:
-    corpus_exact_sha256: 1b3b8312aadcc75df22b8a48cb401042578b6ff51445fde40611505e0428aa6b
+    corpus_exact_sha256: e62cb4370b5c63608899da3c5175141b984c2d65cb6ad9328127fb85d2e74cf1
     example_bearing: true
     approved_example: "**WRITE:** Lift the aircraft at the maximum takeoff weight (passenger weight included)."
     nonapproved_example: "**Do not write:** Lift the aircraft at the maximum takeoff weight with passengers."
     required_substrings:
-    - "In STE, the preposition “with” has three approved meanings."
+    - "In controlled technical writing, the preposition “with” has three approved meanings."
     - "The context (or experience) tells you that you will not ask"
     - "**WRITE:** Lift the aircraft at the maximum takeoff weight (passenger weight included)."
     - "**Do not write:** Lift the aircraft at the maximum takeoff weight with passengers."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/general/stow-gen-003.md:
-    corpus_exact_sha256: 5d8a8b836e86dfc0ca141412757d34772315b428133a51c1ccea769ce499b6e2
+    corpus_exact_sha256: b56536bebcd2eb1ea710d8ee89eaba03e495208b0549b4950db348172e2f8201
     example_bearing: true
     approved_example: "**WRITE:** If you engage the pins incorrectly with the seats, the pins can become damaged."
     nonapproved_example: "**Do not write:** If you engage the pins incorrectly with the seats, they can become damaged."
@@ -198,6 +229,8 @@ modules:
     - "Pronouns refer to a person, a location, or an item that is a"
     - "**WRITE:** If you engage the pins incorrectly with the seats, the pins can become damaged."
     - "**Do not write:** If you engage the pins incorrectly with the seats, they can become damaged."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/general/stow-gen-004.md:
     corpus_exact_sha256: 37453c95fde788d3e9f5597d7d23115f6096c364631e36ba99e6581ae67ef6c8
     example_bearing: true
@@ -208,6 +241,7 @@ modules:
     - "**Do not write:** Do not use crocus cloth on aluminum parts."
     - "**WRITE:** Make sure that the cover is not locked. If the cover is locked, this can cause damage to the probe."
     - "**Do not write:** Make sure that the cover is not locked (this can cause damage to the probe)."
+    public_kind: retained-baseline
   corpus/general/stow-gen-005.md:
     corpus_exact_sha256: c8f5b2411782578e65c5f0e585c3d49fa006ed4643fef78ba33cce30f06cebff
     example_bearing: true
@@ -218,8 +252,9 @@ modules:
     - "If you are a non-native English speaker, when you use a word"
     - "**WRITE:** When you use this adhesive, obey the manufacturer’s instructions."
     - "**Do not write:** Obey the dispositions of the manufacturer when you use this adhesive."
+    public_kind: retained-baseline
   corpus/general/stow-gen-006.md:
-    corpus_exact_sha256: 7ae47ab4f3faf422f25486c235d70acdc7fc9996a1d71a9282b50ccaef97d76c
+    corpus_exact_sha256: 9b51ce6385f81c38a789d83ad677a38bc62c5abf9831a0e239ff5b1203bdf5db
     example_bearing: true
     approved_example: "**WRITE:** Discard the standard parts (for example, washers, bolts, and nuts) each time you remove them."
     nonapproved_example: "**Do not write:** Discard the standard parts (e.g., washers, screws, bolts, and nuts) each time you remove them."
@@ -228,30 +263,38 @@ modules:
     - "**Do not write:** Discard the standard parts (e.g., washers,"
     - "**WRITE:** Discard the standard parts (for example, washers, bolts, and nuts) each time you remove them."
     - "**Do not write:** Discard the standard parts (e.g., washers, screws, bolts, and nuts) each time you remove them."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/general/stow-gen-007.md:
-    corpus_exact_sha256: 516d709e21ec8e3e13ef5985f44cdfea494b6f8850329a45cd5e2d79fc7743e2
+    corpus_exact_sha256: 3127b3494279d2a90782aea709f2d3e5c478f39728b0ee7efd6e4ec8054cabb8
     example_bearing: false
     required_substrings:
-    - "STE does not include examples of inclusive language, but it"
+    - "The controlled language does not include examples of inclusive language, but it"
     - "Inclusive language prevents bias and makes sure that all per"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/general/stow-gen-008.md:
-    corpus_exact_sha256: bbcf5611588da665060a8a89db81324a9488b477d27f78d12dcc1413e07608f5
+    corpus_exact_sha256: adf4bb6139fdd38c1b403522ecb4e64ff421df9570d2de6eb2e781bd9c199475
     example_bearing: false
     required_substrings:
-    - "STE is a controlled natural language that emphasizes clear w"
+    - "This rule set is a controlled natural language that emphasizes clear w"
     - "Other languages do not have this type of possessive form or"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/multiword-nouns/stow-mwn-001.md:
-    corpus_exact_sha256: 695296f1b2803cd13e32e0236904cac61e720e535457da312162eac7f0c2c179
+    corpus_exact_sha256: c0e48b3f305b9f604bd85ad4dfd36ca610b63c507a6591929513bdb5659e903f
     example_bearing: true
-    approved_example: "**STE:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)"
-    nonapproved_example: "**Non-STE:** Runway light connection resistance calibration. (5 words)"
+    approved_example: "**Conforming:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)"
+    nonapproved_example: "**Non-conforming:** Runway light connection resistance calibration. (5 words)"
     required_substrings:
     - "Long multi-word nouns are not easy to understand because the"
     - "Technical texts can contain long groups of words that have t"
-    - "**STE:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)"
-    - "**Non-STE:** Runway light connection resistance calibration. (5 words)"
+    - "**Conforming:** Calibration of the resistance of the runway light connection. (1 word, 1 word, and 3 words)"
+    - "**Non-conforming:** Runway light connection resistance calibration. (5 words)"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/multiword-nouns/stow-mwn-002.md:
-    corpus_exact_sha256: b16a3aca4a9c3ab17f4e0b91c26f5e2cc267a8abd232671b4f366c74ab8a89c8
+    corpus_exact_sha256: 100a244ce262a4bf07a71a4cb2a5875387f1dbd4260178e170c92844ea43eba9
     example_bearing: true
     approved_example: "**WRITE:** The primary parts of the valve are:"
     nonapproved_example: "**Do not write:** The primary parts of the valve are:"
@@ -260,38 +303,46 @@ modules:
     - "A long multi-word noun can be a long technical noun, or it c"
     - "**WRITE:** The primary parts of the valve are:"
     - "**Do not write:** The primary parts of the valve are:"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/procedures/stow-prc-001.md:
-    corpus_exact_sha256: e5046db0ff85900f7514dd9c4aed7e68b7fe0276488b4246f98cde2f43980170
+    corpus_exact_sha256: e842fff36794d114d8d3c39b1e9c0fdf0f150e12811261724017913c1792fd67
     example_bearing: true
-    approved_example: "**STE:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)"
-    nonapproved_example: "**Non-STE:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)"
+    approved_example: "**Conforming:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)"
+    nonapproved_example: "**Non-conforming:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)"
     required_substrings:
-    - "In the last STE example, the long sentence is divided into t"
-    - "**STE:** Put preservation oil into the unit through the vent"
-    - "**STE:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)"
-    - "**Non-STE:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)"
+    - "In the last conforming example, the long sentence is divided into t"
+    - "**Conforming:** Put preservation oil into the unit through the vent"
+    - "**Conforming:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)"
+    - "**Non-conforming:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/procedures/stow-prc-002.md:
-    corpus_exact_sha256: 27976d9093af786749c3a6ae03be4358c19387b749afc9336a3e444357d6e560
+    corpus_exact_sha256: 450d26f8571ab0b147588acbe83212f28f3ba2cbdd93056bfd6c6e1b42be8100
     example_bearing: true
-    approved_example: "**STE:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF."
-    nonapproved_example: "**Non-STE:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch."
+    approved_example: "**Conforming:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF."
+    nonapproved_example: "**Non-conforming:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch."
     required_substrings:
     - "If there are too many instructions in a sentence, the senten"
     - "(During a torque procedure, the torque action immediately fo"
-    - "**STE:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF."
-    - "**Non-STE:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch."
+    - "**Conforming:** (1) Set the TEST switch to the middle position. (2) Make sure that all the switches on the control panel are OFF."
+    - "**Non-conforming:** Set the TEST switch to the middle position and release the SHORT-CIRCUIT TEST switch."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/procedures/stow-prc-003.md:
-    corpus_exact_sha256: e9ebdbbefbbd61382c2a9c37c52de66933a2181cb754cfa4a768a5b42028df1b
+    corpus_exact_sha256: 082c3dd13a04b3e27af21f977f14e04a344dbf313d49705cb0f0e7e57aea11fa
     example_bearing: true
-    approved_example: "**STE:** Continue the test."
-    nonapproved_example: "**Non-STE:** The test can be continued."
+    approved_example: "**Conforming:** Continue the test."
+    nonapproved_example: "**Non-conforming:** The test can be continued."
     required_substrings:
     - "Do not use the verb “must” before the imperative form, unles"
     - "The imperative form gives the reader a clear instruction. If"
-    - "**STE:** Continue the test."
-    - "**Non-STE:** The test can be continued."
+    - "**Conforming:** Continue the test."
+    - "**Non-conforming:** The test can be continued."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/procedures/stow-prc-004.md:
-    corpus_exact_sha256: 7415471e112d23ed87210ffe1a242c7aceae3b21adb18d400ef3e8478de24fd5
+    corpus_exact_sha256: 889914f653ce7c55ccad40c9f372b35628de14d2871045aa4ae6b4ace05f0c80
     example_bearing: true
     approved_example: "**WRITE:** When the light comes on, set the switch to NORMAL."
     nonapproved_example: "**Do not write:** Set the switch to NORMAL when the light comes on."
@@ -300,16 +351,20 @@ modules:
     - "Write the condition first in the sentence, and then use a co"
     - "**WRITE:** When the light comes on, set the switch to NORMAL."
     - "**Do not write:** Set the switch to NORMAL when the light comes on."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/procedures/stow-prc-005.md:
-    corpus_exact_sha256: fd818a5e0a200f428484ca2626036d9a65a15ab44c740307457f3587bcb870b1
+    corpus_exact_sha256: 8fa5a4bced7aee8970f07e414cf0573a2f0adbdf07422bb897b4c7835f1eb614
     example_bearing: true
-    approved_example: "**STE:** (6) Make sure that the avionics ventilation system continues to operate correctly."
-    nonapproved_example: "**Non-STE:** B. Measure the leakage from the outlet port."
+    approved_example: "**Conforming:** (6) Make sure that the avionics ventilation system continues to operate correctly."
+    nonapproved_example: "**Non-conforming:** B. Measure the leakage from the outlet port."
     required_substrings:
     - "If you include instructions in a note, it is possible that t"
-    - "**Non-STE: NOTE:** Before closing the hatch, it is mandatory"
-    - "**STE:** (6) Make sure that the avionics ventilation system continues to operate correctly."
-    - "**Non-STE:** B. Measure the leakage from the outlet port."
+    - "**Non-conforming: NOTE:** Before closing the hatch, it is mandatory"
+    - "**Conforming:** (6) Make sure that the avionics ventilation system continues to operate correctly."
+    - "**Non-conforming:** B. Measure the leakage from the outlet port."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/prose-integrity/banned-lists.md:
     corpus_exact_sha256: 8c04706b4f7fe43eba0483ec8deb57362ea449dd7ab93f925c3da1ed99b23cc3
     example_bearing: false
@@ -463,35 +518,41 @@ modules:
     required_substrings:
     - "AI-generated content frequently uses narrative, dramatic, or"
     - "Humans hedge contextually, grounding uncertainty in specific"
+    public_kind: retained-baseline
   corpus/prose-integrity/detection-self-check.md:
     corpus_exact_sha256: beb3055fdde92c412f14eeb30fc8881628452c9ae35e4e8b053a8bb97e6d7d20
     example_bearing: false
     required_substrings:
     - "10. Check if your introduction, body, and conclusion have di"
     - "9. Search for hallucinated markup: `oaicite`, `contentRefere"
+    public_kind: retained-baseline
   corpus/prose-integrity/em-dash-guidance.md:
     corpus_exact_sha256: 649b959a499525dbd6a5356dee60c102c9ed316ece75c71b43ed9fe0331f77a6
     example_bearing: false
     required_substrings:
     - "Em dashes are longer than hyphens (-) and are used for empha"
     - "**The em dash (—) has become one of the most reliable marker"
+    public_kind: retained-baseline
   corpus/prose-integrity/false-positive-precision.md:
     corpus_exact_sha256: f6b6aaa7172d9b593386b0878fb112f758660792285d8d5b8a0096f76e61c187
     example_bearing: false
     required_substrings:
     - "If a banned word appears immediately adjacent to specific na"
     - "These words require bigram context checking. Only flag metap"
+    public_kind: retained-baseline
   corpus/prose-integrity/markup-artifacts.md:
     corpus_exact_sha256: 3653c5021f7c10a37dd291200c810b92f9f34dd9311666efc05456bae9adbeb8
     example_bearing: false
     required_substrings:
     - "When AI generates wikitext, it sometimes hallucinates citati"
     - "Any occurrence of these strings in wikitext means the text w"
+    public_kind: retained-baseline
   corpus/prose-integrity/model-family-tells.md:
     corpus_exact_sha256: e1f9f4570e09ec38e9d99ce27842df81f2ad221e89861c02e283d47fbb9a2dc7
     example_bearing: false
     required_substrings:
     - "Different AI model families produce distinct stylistic finge"
+    public_kind: retained-baseline
   corpus/prose-integrity/root-cause-differentiation.md:
     corpus_exact_sha256: c7fc245b98bf191b53c5cde2344a90e4b736a8fcd01c6406f44a2a07ce20a853
     example_bearing: true
@@ -502,138 +563,165 @@ modules:
     - "When you contrast two things, name the concrete difference t"
     - "- RIGHT: \"2020+ Leaf models shipped with 4G/LTE telematics units connected to a newer cloud platform, replacing the 2G/3G units in earlier models. Those vehicles use the MyNISSAN app, which talks to a different backend.\""
     - "- WRONG: \"2020+ Leaf models are unaffected and use the MyNISSAN app instead.\""
+    public_kind: retained-baseline
   corpus/prose-integrity/self-check-pass.md:
     corpus_exact_sha256: 6ed240e6270809f5bf879bf4ac8207113fe52a3c9750302205dfd496b708ebb3
     example_bearing: false
     required_substrings:
     - "Run this pass on every piece of prose before you hand it bac"
     - "3. Scan for banned adjectives and intensifiers (robust, comp"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-001.md:
     corpus_exact_sha256: f1cded7967db456a5175813d400bb01b468a9cce50a7834a6b6c0696c2880fd4
     example_bearing: false
     required_substrings:
     - "1. **No emdashes.** The character is banned. Use a semicolon"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-002.md:
     corpus_exact_sha256: c362613a193bab0ff89c174070577b2b800514997c77dbf2e9a5510f63d47534
     example_bearing: false
     required_substrings:
     - "2. **No unsourced statistics.** Every number must be real an"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-003.md:
     corpus_exact_sha256: 12fe091e555c8e9b505de27e3187ec877ed15c455a58382c6b9e0591c58c7d1a
     example_bearing: false
     required_substrings:
     - "3. **No parenthetical clarifications in headings.** Trust th"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-004.md:
     corpus_exact_sha256: d8966035a3f50db7d1757f1c7ae14b55ae243f3d16589adb61dc70b2f3507716
     example_bearing: false
     required_substrings:
     - "4. **No intensifiers.** \"Extremely\", \"dramatically\", \"except"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-005.md:
     corpus_exact_sha256: b726276eb94c7585fa31e543089c25080bd2edeab49f1ad3d91a80129cef2e2a
     example_bearing: false
     required_substrings:
     - "5. **No hollow statements.** Every claim must end with a con"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-006.md:
     corpus_exact_sha256: 86d77f78ea3e44d7d0fa8684360a143211dcc9b6aac47bb51f6d3572639f5cdc
     example_bearing: false
     required_substrings:
     - "6. **No repeated talking points.** Say it once. Duplicates a"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-007.md:
     corpus_exact_sha256: 229ebb0163834f0b03bc43bb8771a8905a56ef3ea4d2c4e936d8ab8fe888d2d7
     example_bearing: false
     required_substrings:
     - "7. **Vary structure.** Three consecutive sections or paragra"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-008.md:
     corpus_exact_sha256: 948b368d22819dfce12e0b4df4fb1216175199cc80e99977e09421a0f6bac201
     example_bearing: false
     required_substrings:
     - "8. **Reference without narrating the reference.** Do not wri"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-009.md:
     corpus_exact_sha256: 1dacc732ea20834ef3651ea1d34477840bd095158cb006c011bd981b134b88b3
     example_bearing: false
     required_substrings:
     - "9. **No performative urgency without a reason.** \"Act now\" n"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-010.md:
     corpus_exact_sha256: 441c8cef747488790950437c63efdea661b71a5a2eb9ea03a6f9e1032e411d3f
     example_bearing: false
     required_substrings:
     - "10. **No scare quotes on normal words.** Use quotation marks"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-011.md:
     corpus_exact_sha256: 8a81b8fc861459072b513e1d7cadded11ceda6803580d6b6303140c7b26ad84f
     example_bearing: false
     required_substrings:
     - "11. **No filler phrases.** Banned: \"In today's world\", \"It's"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-012.md:
     corpus_exact_sha256: d3a68b44bdda8536112a4e9137659cdf43341704221aa7f25bbb9c0f4d133b7c
     example_bearing: false
     required_substrings:
     - "12. **Never start a sentence with \"Whether you're.\"**"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-013.md:
     corpus_exact_sha256: ef4d8aaed6a013514baec558baa1dc75b2175cd24a09cfe7f4d1544965a50fc3
     example_bearing: false
     required_substrings:
     - "13. **Write like a researcher, not a copywriter.** Direct, s"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-014.md:
     corpus_exact_sha256: 1514eb577db65c1ffb97b4a6b42f48bb6920068d1324dcc1b9a22fec2bafc900
     example_bearing: false
     required_substrings:
     - "14. **No synthetic enthusiasm.** Do not add exclamation mark"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-015.md:
     corpus_exact_sha256: 7987a71db40bdc62218d047f71631228d35fec8b4af84b108e5590933c52b19b
     example_bearing: false
     required_substrings:
     - "15. **No weasel words.** \"Helps ensure\", \"may be able to\", \""
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-016.md:
     corpus_exact_sha256: 27c22588f3907242edb9bc3e312a179f7554e1f8e1d00ca66c31bc2a504a8d70
     example_bearing: false
     required_substrings:
     - "16. **No narrative, dramatic, or AI-generic headings.** Head"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-017.md:
     corpus_exact_sha256: dc10dba82e3ae37ae762bee7e1e68620a4b35c00531c0292ef99281a38f6b82b
     example_bearing: false
     required_substrings:
     - "17. **No fabricated case studies or scenarios.** Never write"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-018.md:
     corpus_exact_sha256: 60cd87648eaf48195d823bb9623c14deb2aa27253f9844706121288c43bc6447
     example_bearing: false
     required_substrings:
     - "18. **No fabricated history or milestones.** Do not invent d"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-019.md:
     corpus_exact_sha256: 1ba34adda51a0d784771c10269bb3429be251b3e66ebfac039826a1b53f8569d
     example_bearing: false
     required_substrings:
     - "19. **No fabricated attributions.** Never claim a person, or"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-020.md:
     corpus_exact_sha256: a59250200695323065f561b402c03cf995c8dd88a9b9d8eb82c63952d067ab4b
     example_bearing: false
     required_substrings:
     - "20. **No AI transition phrases.** Banned: \"Furthermore\", \"Mo"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-021.md:
     corpus_exact_sha256: c6b52a45e57adf3dc021454274aa28c468cd0df28b8d9c71332883f7c57ecbcc
     example_bearing: false
     required_substrings:
     - "21. **No AI verbs.** Banned: delve, leverage, utilize, facil"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-022.md:
     corpus_exact_sha256: 18af06b0670af4864bb31bb18418a8c9980dd1f830ade34f1ba31bcb0bf5fce4
     example_bearing: false
     required_substrings:
     - "22. **No academic AI tells.** Banned: \"shed light on\", \"pave"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-023.md:
     corpus_exact_sha256: 580bf358d356e30581c4856a4b7a38159b898d9cbe6a3dd3a2d94d81150120c2
     example_bearing: false
     required_substrings:
     - "23. **Quote sources accurately, and set off the long ones.**"
+    public_kind: retained-baseline
   corpus/prose-integrity/stow-pro-024.md:
     corpus_exact_sha256: 22ffd6e02960f3ac859f26fabf2b8478af22989bf99782890754a77b35602745
     example_bearing: false
     required_substrings:
     - "24. **No research-process narration.** Report the facts you"
+    public_kind: retained-baseline
   corpus/prose-integrity/structural-statistical.md:
     corpus_exact_sha256: cb00b29a4ec432fac02cdaabbc5fa4131351cc41a7e74069dd4d2d52fe09995e
     example_bearing: false
     required_substrings:
     - "AI aims for visual symmetry. Paragraphs tend toward identica"
     - "AI maintains flat stylistic consistency from introduction th"
+    public_kind: retained-baseline
   corpus/prose-integrity/worked-examples.md:
     corpus_exact_sha256: 3b24df906fe6ce4a1240f67547a4fe975b3c2fe9472f50f6d24220289feba64b
     example_bearing: true
@@ -644,196 +732,242 @@ modules:
     - "\"Significantly\", \"dramatically\", \"extremely\" and their kin a"
     - "- RIGHT: \"The policy affected millions of devices. The company reversed it in December 2017.\""
     - "- WRONG: \"The policy -- which affected millions -- was later reversed.\""
+    public_kind: retained-baseline
   corpus/punctuation/stow-pct-001.md:
-    corpus_exact_sha256: 5c68b5bcbdc4a2af61a26eac64077bbe244a24a803fec07aa3bc1e0918478ae8
+    corpus_exact_sha256: 42df8dd4ac4d9166859d07ccac7e95cd0a7e16d811a8869c7b2fa777e05f9635
     example_bearing: true
-    approved_example: "**STE:** (1) Examine the removed parts for damage. (2) Replace the damaged part(s)."
-    nonapproved_example: "**Non-STE:** (1) Examine the removed parts; replace the damaged ones."
+    approved_example: "**Conforming:** (1) Examine the removed parts for damage. (2) Replace the damaged part(s)."
+    nonapproved_example: "**Non-conforming:** (1) Examine the removed parts; replace the damaged ones."
     required_substrings:
-    - "The semicolon (;) is not permitted in STE because it lets yo"
-    - "**Non-STE:** The battery is not user-replaceable; it can onl"
-    - "**STE:** (1) Examine the removed parts for damage. (2) Replace the damaged part(s)."
-    - "**Non-STE:** (1) Examine the removed parts; replace the damaged ones."
+    - "The semicolon (;) is not permitted in controlled technical writing because it lets yo"
+    - "**Non-conforming:** The battery is not user-replaceable; it can onl"
+    - "**Conforming:** (1) Examine the removed parts for damage. (2) Replace the damaged part(s)."
+    - "**Non-conforming:** (1) Examine the removed parts; replace the damaged ones."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/punctuation/stow-pct-002.md:
     corpus_exact_sha256: 042cee562016024e8311fe06df6be4bacacd0c011ddb20b008c4fdcbfd507742
     example_bearing: false
     required_substrings:
     - "low-altitude flight, high-pressure chamber, air-conditioned"
     - "A hyphen (-) is a punctuation mark that connects words or pa"
+    public_kind: retained-baseline
   corpus/punctuation/stow-pct-003.md:
-    corpus_exact_sha256: b8dd8d5debffd1b8caf55a60bdf9e38d53279bb9a282cdbba19d985970036e9e
+    corpus_exact_sha256: 03741fa5a78ec78985be659cd2827fa393e39ff1c7306d84dea07cb2060218f7
     example_bearing: false
     required_substrings:
     - "(1) Install the locking cap (4) on the body (8). (2) Safety"
     - "A Liquid Crystal Display (LCD) is a flat-panel display that"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/punctuation/stow-pct-004.md:
-    corpus_exact_sha256: af7adc2aa2298e6fc6ae018c41d9ceecc00bbb45d4c1e68e4ddf0f028712a8fe
+    corpus_exact_sha256: 20d117757e1c0564914d62395f6d38f189abf5c0a87dee123b7d8b254a1df883
     example_bearing: false
     required_substrings:
     - "In a vertical list, a colon (:) divides the first part of th"
     - "Each item in a vertical list that comes after the colon coun"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/punctuation/stow-pct-005.md:
-    corpus_exact_sha256: 105253d817888553b4481743289c761698cd38a7c8b3eee21d817baf7f38713b
+    corpus_exact_sha256: 5559b9877f56daedf51a917123ba97b08263b5f7e2d9baa069939d3eed4bb417
     example_bearing: false
     required_substrings:
     - "When you count words for sentence length, text in parenthese"
     - "If there is an identifier in parentheses (a number, a letter"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/punctuation/stow-pct-006.md:
-    corpus_exact_sha256: 4e102eb9186294dafd0da09f4c3ec387bd2eae98c4a4870e97de0c61a369a35f
+    corpus_exact_sha256: f411dd401180e59de5bf8ed1471a9545fe36f1e1260cb78210fda5b01846fa83
     example_bearing: false
     required_substrings:
     - "(“This procedure is for the inspection of” has 7 words. “SSI"
     - "Quoted text is usually given in quotation marks (“...”) Word"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/punctuation/stow-pct-007.md:
-    corpus_exact_sha256: 8eb2e5471738213525f4b41438476dcee69bdf9ac25af60604f553d29ebbbf27
+    corpus_exact_sha256: 7a2497e9d756e7d3af003ed12837e221f009a3598d4ebafb72f1e2207706154b
     example_bearing: false
     required_substrings:
     - "Groups of words that are not usually adjectives but have the"
     - "When you use hyphens in long technical nouns to make them cl"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/safety/stow-saf-001.md:
-    corpus_exact_sha256: b190e7ac202b49a308878c025c4d05838bc93dbb241360cdddbfa8248f6406b0
+    corpus_exact_sha256: fdc95e4c9aa93d80da9d631940201e3b637fbb8c176b1efb1b20ecab9399c5b0
     example_bearing: false
     required_substrings:
     - "Compare the wording in the two safety instructions. The non-"
-    - "In the non-STE example, the safety instruction is a caution."
+    - "In the non-conforming example, the safety instruction is a caution."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/safety/stow-saf-002.md:
-    corpus_exact_sha256: a53a1d65dee96adfa22356a1e9d7674868b21e034aa2e1c7fdc2c18682c2d242
+    corpus_exact_sha256: bcb3cb20b117bd5c0b2ce28fea6ac2aa7f74024c84a651d0d9dd8cb78ddce620
     example_bearing: false
     required_substrings:
     - "**WARNING:** DO NOT SWALLOW THE SOLVENT. ALWAYS MAKE SURE TH"
     - "Start a safety instruction with a clear and accurate command"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/safety/stow-saf-003.md:
     corpus_exact_sha256: 2527cc0d295807b71526459d0a8d378e956fce3a495204ec14ce4b510969695c
     example_bearing: false
     required_substrings:
     - "If it is possible, always tell your reader about the problem"
     - "**WARNING:** DO NOT SWALLOW THE SOLVENT. ALWAYS MAKE SURE TH"
+    public_kind: retained-baseline
   corpus/sentences/stow-sen-001.md:
-    corpus_exact_sha256: 4dba2fb18305daa6141c2f953b663d87f0e01c81a30354e482e8c3a8124eba96
+    corpus_exact_sha256: 3794eef9a589479da5177fbdac7b1b29609a59c6ba06a712ac3e7e33c31543df
     example_bearing: true
-    approved_example: "**STE:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13)."
-    nonapproved_example: "**Non-STE:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away."
+    approved_example: "**Conforming:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13)."
+    nonapproved_example: "**Non-conforming:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away."
     required_substrings:
     - "For the two types of writing, always make sure that your tex"
-    - "**Non-STE:** To remove the cover assembly (9), first remove"
-    - "**STE:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13)."
-    - "**Non-STE:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away."
+    - "**Non-conforming:** To remove the cover assembly (9), first remove"
+    - "**Conforming:** 1. Remove the cover assembly (9) as follows: A. Remove the four screws (10) that attach the cover (11) to the housing (12). B. Remove the cover (11) from the housing (12). C. Remove and discard the preformed packing (13)."
+    - "**Non-conforming:** To remove the cover assembly (9), first remove the four screws (10) that attach the cover (11) to the housing (12), and then, after taking the cover (11) off the housing (12), remove the preformed packing (13) and throw it away."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/sentences/stow-sen-002.md:
-    corpus_exact_sha256: a21de99d36067af1463afabbe4e8da72bdb49ebfbb0a9aa6dd247582b61fe201
+    corpus_exact_sha256: 6eab876f633ab73ec60b52948a372678747bb46167ed3d8627195a4c6d31d14f
     example_bearing: true
-    approved_example: "**STE:** Cracks can have a maximum length of five inches."
-    nonapproved_example: "**Non-STE:** Can be a maximum of five inches long."
+    approved_example: "**Conforming:** Cracks can have a maximum length of five inches."
+    nonapproved_example: "**Non-conforming:** Can be a maximum of five inches long."
     required_substrings:
     - "Each sentence must have all its parts. When you write senten"
-    - "**STE: WARNING:** MAKE SURE THAT THE POTABLE WATER SYSTEM IS"
-    - "**STE:** Cracks can have a maximum length of five inches."
-    - "**Non-STE:** Can be a maximum of five inches long."
+    - "**Conforming: WARNING:** MAKE SURE THAT THE POTABLE WATER SYSTEM IS"
+    - "**Conforming:** Cracks can have a maximum length of five inches."
+    - "**Non-conforming:** Can be a maximum of five inches long."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/sentences/stow-sen-003.md:
-    corpus_exact_sha256: 36b09c0443530d6494fab881d6d3065ccdf6d158cfff4f258830f75e00ff7bb2
+    corpus_exact_sha256: b07d0f548006f7ca23eb66c399ac2c4facf90ad57f9ff862a81882b662a01aa4
     example_bearing: true
-    approved_example: "**STE:** The wheel assembly has these parts:"
-    nonapproved_example: "**Non-STE:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub."
+    approved_example: "**Conforming:** The wheel assembly has these parts:"
+    nonapproved_example: "**Non-conforming:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub."
     required_substrings:
-    - "**STE:** If the Ram Air Turbine (RAT) is retracted: (a) Remo"
+    - "**Conforming:** If the Ram Air Turbine (RAT) is retracted: (a) Remo"
     - "When your sentence is long and you must include many differe"
-    - "**STE:** The wheel assembly has these parts:"
-    - "**Non-STE:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub."
+    - "**Conforming:** The wheel assembly has these parts:"
+    - "**Non-conforming:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/sentences/stow-sen-004.md:
-    corpus_exact_sha256: edc471c1ec33b20f6254cf73516c62712abeb98e1a5285c027c91f791a79c6f1
+    corpus_exact_sha256: 8397a496f5cfe35ae43200b40fafe75e7f8853bfdb0322b1e9e9aa55d147434c
     example_bearing: false
     required_substrings:
     - "In procedures, you can use these connecting words when an ex"
     - "If the pressure increases, it changes the electrical current"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/sentences/stow-sen-005.md:
-    corpus_exact_sha256: ab26dfa8489e82863f68fb1a1cfeff469329cd1e8fc0cfe2e53656833d8c9278
+    corpus_exact_sha256: 195c2ecfca988e9658b0b9b20d323f7ffeb197c5cc0774d96443ef0867717468
     example_bearing: true
-    approved_example: "**STE:** Turn the shaft assembly."
-    nonapproved_example: "**Non-STE:** Turn shaft assembly."
+    approved_example: "**Conforming:** Turn the shaft assembly."
+    nonapproved_example: "**Non-conforming:** Turn shaft assembly."
     required_substrings:
     - "If you are not sure about how to use the articles correctly"
     - "Articles and demonstrative adjectives show the position of n"
-    - "**STE:** Turn the shaft assembly."
-    - "**Non-STE:** Turn shaft assembly."
+    - "**Conforming:** Turn the shaft assembly."
+    - "**Non-conforming:** Turn shaft assembly."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/style/stow-sty-001.md:
-    corpus_exact_sha256: d003c13dda9017c29ac776f7d0b7252103903ca1d2131c177e978082302d7eba
+    corpus_exact_sha256: 27d71a31fa770842c70bbadc015da7d42c5f3b7354a18676226345cf2e230524
     example_bearing: true
-    approved_example: "**STE:** A value of 2 mm is permitted."
-    nonapproved_example: "**Non-STE:** A value of 2 mm is acceptable."
+    approved_example: "**Conforming:** A value of 2 mm is permitted."
+    nonapproved_example: "**Non-conforming:** A value of 2 mm is acceptable."
     required_substrings:
     - "You will understand that “clears the track locks” is the res"
     - "But the first sentence has 23 words, and the technical meani"
-    - "**STE:** A value of 2 mm is permitted."
-    - "**Non-STE:** A value of 2 mm is acceptable."
+    - "**Conforming:** A value of 2 mm is permitted."
+    - "**Non-conforming:** A value of 2 mm is acceptable."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/style/stow-sty-002.md:
-    corpus_exact_sha256: d5084d4fa23983aa57c3cea425a73ef8a0e3910b08f70bf17eb727ffd6bb6ff8
+    corpus_exact_sha256: d9668ef31dc6dd994392c97c0851e3706cfcd07e415bbbba5e4f2fe272b67f5c
     example_bearing: true
-    approved_example: "**STE:** Use (or put on) protective clothing"
-    nonapproved_example: "**Non-STE:** Wear protective clothing."
+    approved_example: "**Conforming:** Use (or put on) protective clothing"
+    nonapproved_example: "**Non-conforming:** Wear protective clothing."
     required_substrings:
     - "Also, make sure that you use approved words as their approve"
     - "Before you use a word, read its definition in the approved m"
-    - "**STE:** Use (or put on) protective clothing"
-    - "**Non-STE:** Wear protective clothing."
+    - "**Conforming:** Use (or put on) protective clothing"
+    - "**Non-conforming:** Wear protective clothing."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/style/stow-sty-003.md:
-    corpus_exact_sha256: 9bbd799167229f4be68ddff864fc149d83bbfcdf6fe06d5c9c6f7bfea65993ca
+    corpus_exact_sha256: a7a5ad65378827a8806bd7fb4fb4388e45f2554384ba25e76431c8912ca83b87
     example_bearing: true
-    approved_example: "**STE:** After you extinguish the fire, close the valve on the fire extinguisher."
-    nonapproved_example: "**Non-STE:** After you put out the fire, close the valve on the fire extinguisher."
+    approved_example: "**Conforming:** After you extinguish the fire, close the valve on the fire extinguisher."
+    nonapproved_example: "**Non-conforming:** After you put out the fire, close the valve on the fire extinguisher."
     required_substrings:
     - "You will not usually find phrasal verbs listed as “not appro"
-    - "“Put” and “out” are approved words in STE. In the example, “"
-    - "**STE:** After you extinguish the fire, close the valve on the fire extinguisher."
-    - "**Non-STE:** After you put out the fire, close the valve on the fire extinguisher."
+    - "“Put” and “out” are approved words in the controlled language. In the example, “"
+    - "**Conforming:** After you extinguish the fire, close the valve on the fire extinguisher."
+    - "**Non-conforming:** After you put out the fire, close the valve on the fire extinguisher."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/style/stow-sty-004.md:
-    corpus_exact_sha256: 31a93f9304f9e2c3c02f117d2c04cade013f65611f0593bba8a41bd0bfd010de
+    corpus_exact_sha256: b8ff573d1cedd1e61dc97dcf1fb894e8c0eb52a49fa57359b3e924a14b464531
     example_bearing: true
-    approved_example: "**STE:** Lubricate the two bolts with a small quantity of oil."
-    nonapproved_example: "**Non-STE:** 1. Put the housing (8) in its installation position on the main body (9). 2. Lubricate the two bolts (10) with oil. 3. Install the two bolts (10) in the body (9). 4. Torque-tighten the two bolts to 4 Nm. 5. Put the transducer (11) on the body assembly (9). 6. Apply a small quantity of oil to the threads of the four bolts (12). 7. Attach the transducer (11) to the body assembly (9) with the four bolts (12). 8. Torque each of the four bolts (12) to 0.8 Nm."
+    approved_example: "**Conforming:** Lubricate the two bolts with a small quantity of oil."
+    nonapproved_example: "**Non-conforming:** 1. Put the housing (8) in its installation position on the main body (9). 2. Lubricate the two bolts (10) with oil. 3. Install the two bolts (10) in the body (9). 4. Torque-tighten the two bolts to 4 Nm. 5. Put the transducer (11) on the body assembly (9). 6. Apply a small quantity of oil to the threads of the four bolts (12). 7. Attach the transducer (11) to the body assembly (9) with the four bolts (12). 8. Torque each of the four bolts (12) to 0.8 Nm."
     required_substrings:
-    - "**STE:** 1. Put the housing (8) in its installation position"
-    - "**Non-STE:** 1. Put the housing (8) in its installation posi"
-    - "**STE:** Lubricate the two bolts with a small quantity of oil."
-    - "**Non-STE:** 1. Put the housing (8) in its installation position on the main body (9). 2. Lubricate the two bolts (10) with oil. 3. Install the two bolts (10) in the body (9). 4. Torque-tighten the two bolts to 4 Nm. 5. Put the transducer (11) on the body assembly (9). 6. Apply a small quantity of oil to the threads of the four bolts (12). 7. Attach the transducer (11) to the body assembly (9) with the four bolts (12). 8. Torque each of the four bolts (12) to 0.8 Nm."
+    - "**Conforming:** 1. Put the housing (8) in its installation position"
+    - "**Non-conforming:** 1. Put the housing (8) in its installation posi"
+    - "**Conforming:** Lubricate the two bolts with a small quantity of oil."
+    - "**Non-conforming:** 1. Put the housing (8) in its installation position on the main body (9). 2. Lubricate the two bolts (10) with oil. 3. Install the two bolts (10) in the body (9). 4. Torque-tighten the two bolts to 4 Nm. 5. Put the transducer (11) on the body assembly (9). 6. Apply a small quantity of oil to the threads of the four bolts (12). 7. Attach the transducer (11) to the body assembly (9) with the four bolts (12). 8. Torque each of the four bolts (12) to 0.8 Nm."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-001.md:
-    corpus_exact_sha256: 458e0d3b685fd09113de774512bf122e4b2e46ae5d48d108bb069f3987448d6e
+    corpus_exact_sha256: 96b4656f9b3006bd4ba55669e408c277cf39e5b948637f0cc04eb1c7431bccbf
     example_bearing: false
     required_substrings:
     - "The introduction to the dictionary in part 2 gives you more"
-    - "The STE dictionary gives you the verb forms that you can use"
+    - "The controlled dictionary gives you the verb forms that you can use"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-002.md:
     corpus_exact_sha256: 955476570757e439e141d3804b3552bf3ebf9a57b39a3a3d157e95621e5c3ddd
     example_bearing: false
     required_substrings:
     - "Do not use other forms and tenses that are not approved, for"
     - "Use only the verbs forms and the tenses of verbs that are ap"
+    public_kind: retained-baseline
   corpus/verbs/stow-vrb-003.md:
-    corpus_exact_sha256: 617e64118eb28cc026abf5cf42eab11a239392b61bf4f59888e8ad92c361909d
+    corpus_exact_sha256: 0ebf575d6cc6e5f5f581e15a02687bd270074d75ac5afeef51ce7fb9419c7f83
     example_bearing: false
     required_substrings:
     - "There are also approved adjectives in the dictionary that ar"
     - "When you use the past participle form as an adjective, it sh"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-004.md:
-    corpus_exact_sha256: 261f2cb1852a877be151792719e359a9761bb5addd4cc544deb118910c99e9c2
+    corpus_exact_sha256: b2099497b9b06ecc6ecc8dd8c4a089b9a89418f42d746195db4b3c845127f55b
     example_bearing: true
-    approved_example: "**STE:** The operator adjusted the linkage."
-    nonapproved_example: "**Non-STE:** The operator has adjusted the linkage."
+    approved_example: "**Conforming:** The operator adjusted the linkage."
+    nonapproved_example: "**Non-conforming:** The operator has adjusted the linkage."
     required_substrings:
     - "Some complex verb constructions include other auxiliary verb"
     - "Do not use the past participle form as a verb form together"
-    - "**STE:** The operator adjusted the linkage."
-    - "**Non-STE:** The operator has adjusted the linkage."
+    - "**Conforming:** The operator adjusted the linkage."
+    - "**Non-conforming:** The operator has adjusted the linkage."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-005.md:
-    corpus_exact_sha256: 6712612e9151d95b9461d8cdcb57dca01c0ff18f1bb7df3461a07cc8e0f50374
+    corpus_exact_sha256: be0783abd23399e70e2fefe764daaeabb64c697ce544100d5a4cb6856c583371
     example_bearing: true
-    approved_example: "**STE:** When you do this procedure, obey all the safety precautions."
-    nonapproved_example: "**Non-STE:** When you are doing this procedure, obey all the safety precautions."
+    approved_example: "**Conforming:** When you do this procedure, obey all the safety precautions."
+    nonapproved_example: "**Non-conforming:** When you are doing this procedure, obey all the safety precautions."
     required_substrings:
-    - "**STE:** Before you use dangerous materials, obey these prec"
-    - "**Non-STE:** Mechanics wearing insufficient protective cloth"
-    - "**STE:** When you do this procedure, obey all the safety precautions."
-    - "**Non-STE:** When you are doing this procedure, obey all the safety precautions."
+    - "**Conforming:** Before you use dangerous materials, obey these prec"
+    - "**Non-conforming:** Mechanics wearing insufficient protective cloth"
+    - "**Conforming:** When you do this procedure, obey all the safety precautions."
+    - "**Non-conforming:** When you are doing this procedure, obey all the safety precautions."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-006.md:
-    corpus_exact_sha256: 0300f55e2b27a24c186328b0fc4f3ca3b4dba16de5d2990fd131283aef804c0c
+    corpus_exact_sha256: dc193e2efac3e8e08521d456de308350182462ce84a25d4dd90a601715ccf281
     example_bearing: true
     approved_example: "**Active:** The manufacturer gives the safety procedures."
     nonapproved_example: "**Passive:** The safety procedures are given by the manufacturer."
@@ -842,8 +976,10 @@ modules:
     - "A sentence in the active voice always has a grammatical subj"
     - "**Active:** The manufacturer gives the safety procedures."
     - "**Passive:** The safety procedures are given by the manufacturer."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/verbs/stow-vrb-007.md:
-    corpus_exact_sha256: 41d3e6d4204a349e72427504559989bbbdfaae4079f1e6a9de6a7bfcad18a297
+    corpus_exact_sha256: fc7230e6e9b541fc4527a96e169fe40c602f6e9d576974ab887243368d4b2fc8
     example_bearing: true
     approved_example: "**WRITE:** The ohmmeter shows 450 ohms."
     nonapproved_example: "**Do not write:** The ohmmeter gives an indication of 450 ohms."
@@ -852,127 +988,156 @@ modules:
     - "If a word is not approved as a verb in the dictionary, do no"
     - "**WRITE:** The ohmmeter shows 450 ohms."
     - "**Do not write:** The ohmmeter gives an indication of 450 ohms."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-001.md:
-    corpus_exact_sha256: 421f9891b71cee92e5cfdc74ac0504d048a8d6393a0dbaf4c8a8b8a6c78edba1
+    corpus_exact_sha256: 9fd4f5c9437a88d4dec87a735704d496d938000bf11087ba6d6a129fcee64f05
     example_bearing: false
     required_substrings:
-    - "Simplified Technical English (STE) has a controlled dictiona"
+    - "The controlled language has a controlled dictionary that giv"
     - "A technical noun is a noun term that refers to a specified c"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-002.md:
-    corpus_exact_sha256: 4458dc3821eeb30e9158d423b14a3fc364744947a32eeedf06ce09b894431978
+    corpus_exact_sha256: bbfdccc6aa2912d703d19dc423605945d1074853b2a7cc13ce77798e59eeeaf9
     example_bearing: true
-    approved_example: "**STE:** Test B is an alternative to test A."
-    nonapproved_example: "**Non-STE:** Test the system for leaks."
+    approved_example: "**Conforming:** Test B is an alternative to test A."
+    nonapproved_example: "**Non-conforming:** Test the system for leaks."
     required_substrings:
     - "Some words are approved as more than one part of speech. For"
     - "“Acceptable” is an adjective that is not approved. The dicti"
-    - "**STE:** Test B is an alternative to test A."
-    - "**Non-STE:** Test the system for leaks."
+    - "**Conforming:** Test B is an alternative to test A."
+    - "**Non-conforming:** Test the system for leaks."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-003.md:
-    corpus_exact_sha256: 011dfa27296ef20e6e39025ddf11f292eae8336916d1157130fd087556fe2685
+    corpus_exact_sha256: 8898348279687b67310807be2d6ad8c73908cdc18f528e4dad85513f58f4e178
     example_bearing: true
-    approved_example: "**STE:** Do the procedures that follow:"
-    nonapproved_example: "**Non-STE:** Follow the safety instructions."
+    approved_example: "**Conforming:** Do the procedures that follow:"
+    nonapproved_example: "**Non-conforming:** Follow the safety instructions."
     required_substrings:
     - "Each approved word in the dictionary has a specified approve"
     - "In this sentence, always use “obey” with the approved meanin"
-    - "**STE:** Do the procedures that follow:"
-    - "**Non-STE:** Follow the safety instructions."
+    - "**Conforming:** Do the procedures that follow:"
+    - "**Non-conforming:** Follow the safety instructions."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-004.md:
     corpus_exact_sha256: e97a140dba17e0deb2946119de0605289abaf6bc85466946b182c92548cf8a00
     example_bearing: false
     required_substrings:
     - "The dictionary gives each approved verb together with its ap"
     - "Adjectives that make their comparative and superlative forms"
+    public_kind: retained-baseline
   corpus/words/stow-wrd-005.md:
-    corpus_exact_sha256: 84ae13255478e591846254c307ff2d289ffa173a6ff71ceb00fd881228135179
+    corpus_exact_sha256: 4b6d3f80506553ca2535ac66050c6923307f87ea7e7e4a5a46b258ad7d9f967b
     example_bearing: false
     required_substrings:
     - "acceleration, allowance, astronomy, atom, average, biochemis"
     - "Acceptance Test, Activation/Deactivation, Allowable Damage,"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-006.md:
-    corpus_exact_sha256: f47aa3ea477e244a83a367b2a11bc3369d04f97c69341aa069dd5a474e691484
+    corpus_exact_sha256: eac95253f71d1a1f6668bed2d19f199441debf7456eaedf2d9dd56bedb2156b9
     example_bearing: true
-    approved_example: "**STE:** Make sure that the two spigots at the bottom of the unit engage."
-    nonapproved_example: "**Non-STE:** Make sure that the two spigots at the base of the unit engage."
+    approved_example: "**Conforming:** Make sure that the two spigots at the bottom of the unit engage."
+    nonapproved_example: "**Non-conforming:** Make sure that the two spigots at the base of the unit engage."
     required_substrings:
     - "The dictionary includes some words that you cannot use becau"
     - "(“Main landing gear” is a technical noun. It is incorrect to"
-    - "**STE:** Make sure that the two spigots at the bottom of the unit engage."
-    - "**Non-STE:** Make sure that the two spigots at the base of the unit engage."
+    - "**Conforming:** Make sure that the two spigots at the bottom of the unit engage."
+    - "**Non-conforming:** Make sure that the two spigots at the base of the unit engage."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-007.md:
-    corpus_exact_sha256: 5de9c4f0c699b46a03eb9dfc673c8d6298bbf53f2dfdd77d9ad8e555104c655a
+    corpus_exact_sha256: 53379f92b13cad2d4483c1e69792c09bdf86f67c439f522ae9c199d040903890
     example_bearing: true
-    approved_example: "**STE:** Apply oil to the steel surfaces."
-    nonapproved_example: "**Non-STE:** Oil the steel surfaces."
+    approved_example: "**Conforming:** Apply oil to the steel surfaces."
+    nonapproved_example: "**Non-conforming:** Oil the steel surfaces."
     required_substrings:
     - "In some contexts, the same word can be a technical noun and"
     - "“Oil” is a technical noun, category 4, materials, consumable"
-    - "**STE:** Apply oil to the steel surfaces."
-    - "**Non-STE:** Oil the steel surfaces."
+    - "**Conforming:** Apply oil to the steel surfaces."
+    - "**Non-conforming:** Oil the steel surfaces."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-008.md:
-    corpus_exact_sha256: 8ee663017c76b429f92552862bb30d07653bb6a900dfd8508913b33908116acd
+    corpus_exact_sha256: f5d48bf6f2503beb663b2becf5cdc2c41e7696b11f2093410dc542f5be484232
     example_bearing: false
     required_substrings:
     - "If your company, industry, or subject field, has an approved"
     - "(“Touchscreen” and “home button” are technical nouns that ar"
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-009.md:
-    corpus_exact_sha256: c379b616f86b66e2fceab8c3ac4ee9e15f154b03fa6e6f9d9e4e4da91ec50cfa
+    corpus_exact_sha256: f94cc5981636288463d0b69b2b6924b7fb5ac8127308ebe41ecb3a1a5dd6f6a8
     example_bearing: true
-    approved_example: "**STE:** Remove the four screws (10) that attach the flange (15) to the cover (20)."
-    nonapproved_example: "**Non-STE:** Remove the four stainless steel pan head machine screws (10) that attach the metallic machined flange (15) to the front housing cover (20)."
+    approved_example: "**Conforming:** Remove the four screws (10) that attach the flange (15) to the cover (20)."
+    nonapproved_example: "**Non-conforming:** Remove the four stainless steel pan head machine screws (10) that attach the metallic machined flange (15) to the front housing cover (20)."
     required_substrings:
     - "In this example, it is sufficient to use the words “screws,”"
     - "When there is no technical noun that is approved in your com"
-    - "**STE:** Remove the four screws (10) that attach the flange (15) to the cover (20)."
-    - "**Non-STE:** Remove the four stainless steel pan head machine screws (10) that attach the metallic machined flange (15) to the front housing cover (20)."
+    - "**Conforming:** Remove the four screws (10) that attach the flange (15) to the cover (20)."
+    - "**Non-conforming:** Remove the four stainless steel pan head machine screws (10) that attach the metallic machined flange (15) to the front housing cover (20)."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-010.md:
-    corpus_exact_sha256: c507fc26ecc25ed1ad74f14a41b1badf53b1513b59b487e142587c82f331282e
+    corpus_exact_sha256: d36d13313939baeba520541d0ec107cd58e9f6371b29272c5afba4ec63657bbd
     example_bearing: true
-    approved_example: "**STE:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position."
-    nonapproved_example: "**Non-STE:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position."
+    approved_example: "**Conforming:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position."
+    nonapproved_example: "**Non-conforming:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position."
     required_substrings:
     - "(A “choker” is a type of cable used in logging operations to"
     - "There can be technical words that only persons in confined r"
-    - "**STE:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position."
-    - "**Non-STE:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position."
+    - "**Conforming:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position."
+    - "**Non-conforming:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-011.md:
-    corpus_exact_sha256: e2cdb241eed66cc9937e84c0f9c033c440447191a568e30365751c26ac5c534d
+    corpus_exact_sha256: 7cfae06a24507212c3b8b7dc6330838e2cd7215d5506b3b605948e87919a35be
     example_bearing: true
-    approved_example: "**STE:** 1. Make sure that the actuator is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the actuator from the test rig."
-    nonapproved_example: "**Non-STE:** 1. Make sure that the servo control unit is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the control unit from the test rig."
+    approved_example: "**Conforming:** 1. Make sure that the actuator is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the actuator from the test rig."
+    nonapproved_example: "**Non-conforming:** 1. Make sure that the servo control unit is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the control unit from the test rig."
     required_substrings:
-    - "In the non-STE example, “servo control unit,” “actuator,” an"
-    - "**Non-STE:** 1. Make sure that the servo control unit is in"
-    - "**STE:** 1. Make sure that the actuator is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the actuator from the test rig."
-    - "**Non-STE:** 1. Make sure that the servo control unit is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the control unit from the test rig."
+    - "In the non-conforming example, “servo control unit,” “actuator,” an"
+    - "**Non-conforming:** 1. Make sure that the servo control unit is in"
+    - "**Conforming:** 1. Make sure that the actuator is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the actuator from the test rig."
+    - "**Non-conforming:** 1. Make sure that the servo control unit is in the open position. 2. Do the operational test of the actuator. 3. Disconnect the control unit from the test rig."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-012.md:
-    corpus_exact_sha256: 7faa5ae21fea3ef498f18390b4e4433f80df97ff650e8f51f1243c03b169f1c1
+    corpus_exact_sha256: 86c5d8f99709e19ead012cbc2ee38d2181b9852195fed4522a68169ea3b00612
     example_bearing: true
-    approved_example: "**STE:** If you find broken wires, repair them."
-    nonapproved_example: "**Non-STE:** If you detect broken wires, repair them."
+    approved_example: "**Conforming:** If you find broken wires, repair them."
+    nonapproved_example: "**Non-conforming:** If you detect broken wires, repair them."
     required_substrings:
     - "If there is an approved verb in the dictionary that accurate"
     - "clear, close, copy, cut, delete, deselect, disable, drag, dr"
-    - "**STE:** If you find broken wires, repair them."
-    - "**Non-STE:** If you detect broken wires, repair them."
+    - "**Conforming:** If you find broken wires, repair them."
+    - "**Non-conforming:** If you detect broken wires, repair them."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-013.md:
-    corpus_exact_sha256: d84beddb767b00ba541c64c65ade74a994b8d5623eb38ab9ca4ed99df81f736a
+    corpus_exact_sha256: 267a5c805f84b22819ad80924b60f6e973e13ab991a96e34e174d41e837dd348
     example_bearing: true
-    approved_example: "**STE:** Ream the hole to a 0.20-inch dimension."
-    nonapproved_example: "**Non-STE:** Give the hole 0.20-inch ream."
+    approved_example: "**Conforming:** Ream the hole to a 0.20-inch dimension."
+    nonapproved_example: "**Non-conforming:** Give the hole 0.20-inch ream."
     required_substrings:
     - "In some contexts, the same word can be a technical verb and"
     - "In English, words that look the same do not always have the"
-    - "**STE:** Ream the hole to a 0.20-inch dimension."
-    - "**Non-STE:** Give the hole 0.20-inch ream."
+    - "**Conforming:** Ream the hole to a 0.20-inch dimension."
+    - "**Non-conforming:** Give the hole 0.20-inch ream."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true
   corpus/words/stow-wrd-014.md:
-    corpus_exact_sha256: 8aa86af161f453e20376a4732153e1a1c545beb3e9d0e04eb76cec93c4b7e758
+    corpus_exact_sha256: da03e022504cd79b9e4aca954f7377683c9fca6dabd31587ba1f6df786db9b6a
     example_bearing: true
-    approved_example: "**STE:** The door is made of carbon-fiber-reinforced plastic."
-    nonapproved_example: "**Non-STE:** The door is made of carbon fibre reinforced plastic."
+    approved_example: "**Conforming:** The door is made of carbon-fiber-reinforced plastic."
+    nonapproved_example: "**Non-conforming:** The door is made of carbon fibre reinforced plastic."
     required_substrings:
     - "If there is quoted text that has British English spelling, f"
     - "Use a different spelling only if other technical publication"
-    - "**STE:** The door is made of carbon-fiber-reinforced plastic."
-    - "**Non-STE:** The door is made of carbon fibre reinforced plastic."
+    - "**Conforming:** The door is made of carbon-fiber-reinforced plastic."
+    - "**Non-conforming:** The door is made of carbon fibre reinforced plastic."
+    public_kind: identity-neutralized
+    private_baseline_preserved: true

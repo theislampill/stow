@@ -1,4 +1,4 @@
-## What ADHD changes about reading
+## What limited attention changes about reading
 
 Five facts drive every rule below:
 

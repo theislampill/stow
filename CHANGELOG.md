@@ -5,6 +5,27 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 ## [Unreleased]
 
+Nothing yet.
+
+## [0.3.1] - 2026-07-20
+
+Public identity normalization and rule-catalog completion.
+
+### Changed
+
+- Normalized the wording of retained guidance so every public surface and the
+  packaged skill are fully STOW-native. Rule meaning, scope, thresholds,
+  examples, exceptions, and safety force are preserved; each replacement was
+  narrowly scoped, ledgered, and independently reviewed. The pre-normalization
+  baseline text remains preserved outside the public tree, and the future
+  comparative rewrite gate still measures candidates against that preserved
+  baseline.
+- Corpus fidelity claims now describe the public model truthfully: modules are
+  hash-locked and internally consistent; per-module wording metadata records
+  which modules carry identity-neutralized wording.
+- Version 0.3.1 (the packaged corpus changed); the artifact was rebuilt and
+  its digest re-recorded.
+
 ### Fixed
 
 - Corrected an invalid GitHub expression context in the verification workflow:

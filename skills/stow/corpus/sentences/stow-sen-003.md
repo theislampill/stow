@@ -23,9 +23,9 @@ To know which marks or symbols to use, refer to the applicable specifications fo
 
 In the two examples that follow, the vertical lists give a list of parts and documents. Dashes and bullet points identify each of these parts and documents.
 
-**Non-STE:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub.
+**Non-conforming:** The wheel assembly comprises the tire, the tube, the spokes, the spoke fittings, the valve, and the hub.
 
-**STE:** The wheel assembly has these parts:
+**Conforming:** The wheel assembly has these parts:
 - The tire
 - The tube
 - The spokes
@@ -33,19 +33,19 @@ In the two examples that follow, the vertical lists give a list of parts and doc
 - The valve
 - The hub.
 
-**Non-STE:** The report must include each of the following: a completed REC-1 form, a threeview drawing of the unit, a photograph of the unit, a copy of the source data.
+**Non-conforming:** The report must include each of the following: a completed REC-1 form, a threeview drawing of the unit, a photograph of the unit, a copy of the source data.
 
-**STE:** The report must include: • A completed REC-1 form • A three-view drawing of the unit • A photograph of the unit • A copy of the source data.
+**Conforming:** The report must include: • A completed REC-1 form • A three-view drawing of the unit • A photograph of the unit • A copy of the source data.
 
 In the two examples that follow, the vertical lists give a procedure and a description. Letters and numbers identify each work step.
 
-**Non-STE:** If the RAT is retracted, remove the tag, open the isolating valves and, ensuring that there is no possibility of fouling, slowly extend the RAT to its full stroke. Close the isolating valves; tag “DO NOT OPERATE.” Release the DOWN pressure.
+**Non-conforming:** If the RAT is retracted, remove the tag, open the isolating valves and, ensuring that there is no possibility of fouling, slowly extend the RAT to its full stroke. Close the isolating valves; tag “DO NOT OPERATE.” Release the DOWN pressure.
 
-**STE:** If the Ram Air Turbine (RAT) is retracted: (a) Remove the tag. (b) Open the isolating valves. (c) Slowly and fully extend the RAT and make sure that it does not touch other parts. (d) Close the isolating valves. (e) Tag the isolating valves with “DO NOT OPERATE.” (f) Release the DOWN pressure.
+**Conforming:** If the Ram Air Turbine (RAT) is retracted: (a) Remove the tag. (b) Open the isolating valves. (c) Slowly and fully extend the RAT and make sure that it does not touch other parts. (d) Close the isolating valves. (e) Tag the isolating valves with “DO NOT OPERATE.” (f) Release the DOWN pressure.
 
-**Non-STE:** During the final movement of the landing gear retraction, the door operating bar located on the leg contacts and turns the latch, withdrawing the roller from the slot and the second roller entraps the door operating bar.
+**Non-conforming:** During the final movement of the landing gear retraction, the door operating bar located on the leg contacts and turns the latch, withdrawing the roller from the slot and the second roller entraps the door operating bar.
 
-**STE:** When the landing gear retracts: (1) The door operating bar on the leg touches and turns the latch. (2) The roller moves out of the slot. (3) The second roller keeps the door operating bar in position.
+**Conforming:** When the landing gear retracts: (1) The door operating bar on the leg touches and turns the latch. (2) The roller moves out of the slot. (3) The second roller keeps the door operating bar in position.
 
 You can use vertical lists in procedural and descriptive writings, but you cannot mix the two types of writing in the same vertical list.
 
@@ -53,11 +53,11 @@ In safety instructions, include negative commands (DO NOT) where necessary for e
 
 **Example:**
 
-**Non-STE: CAUTION:** WHEN YOU GET ACCESS TO THE REAR FUSELAGE THROUGH THE ACCESS PANEL, DO NOT:
+**Non-conforming: CAUTION:** WHEN YOU GET ACCESS TO THE REAR FUSELAGE THROUGH THE ACCESS PANEL, DO NOT:
 - PUT YOUR FEET ON THE APU LINE.
 - USE THE APU LINE AS A HANDLE.
 
-**STE: CAUTION:** WHEN YOU GET ACCESS TO THE REAR FUSELAGE THROUGH THE ACCESS PANEL:
+**Conforming: CAUTION:** WHEN YOU GET ACCESS TO THE REAR FUSELAGE THROUGH THE ACCESS PANEL:
 - DO NOT PUT YOUR FEET ON THE APU LINE.
 - DO NOT USE THE APU LINE AS A HANDLE.
 
@@ -65,12 +65,12 @@ Always make sure that each item in the vertical list connects clearly and correc
 
 **Example:**
 
-**Non-STE:** Do not use acetone for cleaning these parts after the repair:
+**Non-conforming:** Do not use acetone for cleaning these parts after the repair:
 - the service cabinet,
 - the toilet shrouds with the supports,
 - parts made of polycarbonate.
 
-**STE:** After the repair, do not use acetone to clean:
+**Conforming:** After the repair, do not use acetone to clean:
 - The service cabinet
 - The toilet shrouds
 - The toilet shroud supports
@@ -80,7 +80,7 @@ Always make sure that the layout of your vertical list is easy to read. In the e
 
 **Example:**
 
-**Non-STE:** Remove these parts:
+**Non-conforming:** Remove these parts:
 - The four screws (3)
 - The four washers (4)
 - The flange (2) that includes:
@@ -89,7 +89,7 @@ Always make sure that the layout of your vertical list is easy to read. In the e
 - The shims (8)
 - The spring (9).
 
-**STE:** Remove these parts:
+**Conforming:** Remove these parts:
 - The four screws (3)
 - The four washers (4)
 - The flange (2) (that includes the two O-rings (6) and the seals (7))
@@ -100,12 +100,12 @@ An item in a vertical list can contain a verb and not be a full sentence. Then, 
 
 **Example:**
 
-**Non-STE:** The middle part of the reservoir has the components that follow:
+**Non-conforming:** The middle part of the reservoir has the components that follow:
 - One check valve that prevents the backflow of fluid.
 - One air relief valve that opens at a pressure of 25 psi.
 - One transfer pipe connected to the pressurization manifold.
 
-**STE:** The middle part of the reservoir has the components that follow:
+**Conforming:** The middle part of the reservoir has the components that follow:
 - One check valve that prevents the backflow of fluid
 - One air relief valve that opens at a pressure of 25 psi
 - One transfer pipe connected to the pressurization manifold.

@@ -1,6 +1,6 @@
 > **Rule 3.1 — Use only the verb forms that are given in the dictionary.**
 
-The STE dictionary gives you the verb forms that you can use for each approved verb.
+The controlled dictionary gives you the verb forms that you can use for each approved verb.
 
 Example:
 

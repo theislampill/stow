@@ -4,7 +4,7 @@ Notes only give information to help the reader during a procedure. They contain 
 
 Notes must not give instructions, requirements, or limits.
 
-**Examples in STE:**
+**Conforming examples:**
 
 **NOTE:** The gyroscope will become stable after approximately 15 seconds.
 
@@ -14,7 +14,7 @@ Notes must not give instructions, requirements, or limits.
 
 A note can have one or more sentences. Each sentence in a note can have a maximum of 25 words.
 
-**Examples in STE:**
+**Conforming examples:**
 
 **NOTE:** During the subsequent test, you get the cracking pressure when the fuel flow from the CROSS FEED port is more than 5 cc/minute.
 
@@ -28,11 +28,11 @@ Do not use the imperative form in a note. If you use the imperative form, the no
 
 **Example:**
 
-**Non-STE: NOTE:** Make sure that the avionics ventilation system continues to operate correctly.
+**Non-conforming: NOTE:** Make sure that the avionics ventilation system continues to operate correctly.
 
 (This text is not a note because it contains the imperative form.)
 
-**STE:** (6) Make sure that the avionics ventilation system continues to operate correctly.
+**Conforming:** (6) Make sure that the avionics ventilation system continues to operate correctly.
 
 (This is work step number 6 in the applicable procedure.)
 
@@ -40,29 +40,29 @@ If you include instructions in a note, it is possible that the reader will not s
 
 **Examples:**
 
-**Non-STE: NOTE:** When you connect the lines, do not bend them too much. If you bend the lines too much, you can cause damage to them.
+**Non-conforming: NOTE:** When you connect the lines, do not bend them too much. If you bend the lines too much, you can cause damage to them.
 
 (This text is not a note. It is a safety instruction.)
 
-**STE: CAUTION:** WHEN YOU CONNECT THE LINES, DO NOT BEND THEM TOO MUCH. IF YOU BEND THE LINES TOO MUCH, YOU CAN CAUSE DAMAGE TO THEM.
+**Conforming: CAUTION:** WHEN YOU CONNECT THE LINES, DO NOT BEND THEM TOO MUCH. IF YOU BEND THE LINES TOO MUCH, YOU CAN CAUSE DAMAGE TO THEM.
 
-**Non-STE: NOTE:** Before closing the hatch, it is mandatory to ensure that no persons are in the crew rest compartment. When the hatch is closed, there is no airflow to the compartment and therefore there is a risk of suffocation.
+**Non-conforming: NOTE:** Before closing the hatch, it is mandatory to ensure that no persons are in the crew rest compartment. When the hatch is closed, there is no airflow to the compartment and therefore there is a risk of suffocation.
 
-(Although the non-STE text does not contain the imperative form, it is not a note. It is a safety instruction.)
+(Although the non-conforming text does not contain the imperative form, it is not a note. It is a safety instruction.)
 
-**STE: WARNING:** BEFORE YOU CLOSE THE HATCH, MAKE SURE THAT NO PERSONS ARE IN THE CREW REST COMPARTMENT. WHEN THE HATCH IS CLOSED, THERE IS NO AIRFLOW TO THE COMPARTMENT AND THERE IS A RISK OF SUFFOCATION.
+**Conforming: WARNING:** BEFORE YOU CLOSE THE HATCH, MAKE SURE THAT NO PERSONS ARE IN THE CREW REST COMPARTMENT. WHEN THE HATCH IS CLOSED, THERE IS NO AIRFLOW TO THE COMPARTMENT AND THERE IS A RISK OF SUFFOCATION.
 
 Do not use a note to give limits, tolerances, or results of a work step. This information must come directly after the related action in the work step.
 
 **Examples:**
 
-**Non-STE:** B. Measure the leakage from the outlet port.
+**Non-conforming:** B. Measure the leakage from the outlet port.
 
 NOTE: The leakage must not be more than 0.5 cc/minute.
 
 (This note gives a limit that is important for the work step.)
 
-**STE:** B. Measure the leakage from the outlet port. The leakage must not be more than 0.5 cc/minute.
+**Conforming:** B. Measure the leakage from the outlet port. The leakage must not be more than 0.5 cc/minute.
 
 (This work step is correct. It gives the action first and then the related limit.)
 
@@ -82,4 +82,4 @@ If important information is missing from the procedure and this information is i
 - Include this new work step where applicable in the procedure.
 - Do the test again until you are fully sure that the reader can do the procedure without the notes.
 
-In STE, you use notes in procedures. You can write notes in descriptions only if the notes are necessary for illustrations or tables that are parts of such descriptions.
+In controlled technical writing, you use notes in procedures. You can write notes in descriptions only if the notes are necessary for illustrations or tables that are parts of such descriptions.

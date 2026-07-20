@@ -4,6 +4,6 @@ If your company, industry, or subject field, has an approved technical noun for 
 
 **Example:**
 
-**STE:** The front panel of the phone has a touchscreen and a home button.
+**Conforming:** The front panel of the phone has a touchscreen and a home button.
 
 (“Touchscreen” and “home button” are technical nouns that are approved in your company, industry, or subject field.)

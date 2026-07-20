@@ -1,16 +1,16 @@
 > **Rule 9.1 — Use a different sentence construction to write a sentence when a word-for-word replacement is not sufficient.**
 
-STE is a controlled natural language with a controlled dictionary.
+This rule set is a controlled natural language with a controlled dictionary.
 
 To help you use the approved words correctly, the dictionary gives approved alternatives for words that are not approved. If you find an alternative that has the same part of speech, you can use it to replace the word that is not permitted (a word-for-word replacement).
 
 **Example:**
 
-**Non-STE:** A value of 2 mm is acceptable.
+**Non-conforming:** A value of 2 mm is acceptable.
 
 (“Acceptable” is not approved.)
 
-**STE:** A value of 2 mm is permitted.
+**Conforming:** A value of 2 mm is permitted.
 
 When you replace a word, always make sure that the alternative that you select does not change the meaning of the sentence. If the meaning changes, or if the alternative does not have the same part of speech, you must use a different sentence construction.
 
@@ -18,15 +18,15 @@ A different sentence construction is necessary because:
 
 **Examples:**
 
-**Non-STE:** The oil level on the sight gauge must be visible during the test.
+**Non-conforming:** The oil level on the sight gauge must be visible during the test.
 
-**STE:** During the test, make sure that you can see the oil level on the sight gauge.
+**Conforming:** During the test, make sure that you can see the oil level on the sight gauge.
 
 In this example, the approved verb “see” replaces the adjective “visible.” But to use the verb “see,” it is necessary to replace “must be” with “make sure that you can.”
 
-**Non-STE:** Cycle the unit twice to remove air from the lines.
+**Non-conforming:** Cycle the unit twice to remove air from the lines.
 
-**STE:** Operate the unit for two cycles to remove air from the lines.
+**Conforming:** Operate the unit for two cycles to remove air from the lines.
 
 In this example, the approved noun “cycle” together with the approved verb “operate” replaces the verb “cycle.” And the technical noun “two” replaces the adverb “twice.”
 
@@ -34,13 +34,13 @@ When you use different sentence constructions, always make sure that you use app
 
 **Example:**
 
-**Non-STE:** Without this modification, the service life of the unit can be uncertain.
+**Non-conforming:** Without this modification, the service life of the unit can be uncertain.
 
 “Uncertain” is not in the dictionary, but it means “not sure” or “not known.” Thus, you can refer to “sure” and “know” in the dictionary. You will find that they are approved, and you can use “not sure” and “not known” (“not” + the approved word).
 
 But do not write:
 
-**Non-STE:** Without this modification, the service life of the unit cannot be sure.
+**Non-conforming:** Without this modification, the service life of the unit cannot be sure.
 
 or
 
@@ -48,17 +48,17 @@ Without this modification, the service life of the unit cannot be known.
 
 These sentences are not clear, and they are not good English. You must think about the meaning of the sentence and then use a different sentence construction.
 
-**Non-STE:** Without this modification, the service life of the unit can be uncertain.
+**Non-conforming:** Without this modification, the service life of the unit can be uncertain.
 
-**STE:** Without this modification, it is possible that the service life of this unit will be shorter than usual.
+**Conforming:** Without this modification, it is possible that the service life of this unit will be shorter than usual.
 
-The STE sentence uses approved words to give the same information clearly. Always make sure that you know the purpose of your communication and that the words that you use give the meaning that you want.
+The conforming sentence uses approved words to give the same information clearly. Always make sure that you know the purpose of your communication and that the words that you use give the meaning that you want.
 
 **Example:**
 
-**Non-STE:** Just apply very light pressure to the surface.
+**Non-conforming:** Just apply very light pressure to the surface.
 
-**STE:** Only apply very light pressure to the surface.
+**Conforming:** Only apply very light pressure to the surface.
 
 **NOT:** Immediately apply very light pressure to the surface.
 
@@ -66,9 +66,9 @@ The STE sentence uses approved words to give the same information clearly. Alway
 
 **Example:**
 
-**Non-STE:** The incidence of water in fuel is dangerous.
+**Non-conforming:** The incidence of water in fuel is dangerous.
 
-**STE:** Water in fuel is dangerous.
+**Conforming:** Water in fuel is dangerous.
 
 “Incidence” is not in the dictionary. Thus, you must think of a different word that has the same meaning, for example, “presence.” But “presence” is not approved, and its suggested approved alternative is “be.” You can use a different sentence construction to keep the same meaning.
 
@@ -78,9 +78,9 @@ When you cannot do a word-for-word replacement, use different words to get the s
 
 **Example:**
 
-**Non-STE:** Lift the seat so that it clears the track locks.
+**Non-conforming:** Lift the seat so that it clears the track locks.
 
-**STE:** Lift the seat until it is away from the track locks.
+**Conforming:** Lift the seat until it is away from the track locks.
 
 **NOT:** Lift the seat so that it cleans the track locks.
 
@@ -93,7 +93,7 @@ Answer these questions before you write the sentence:
 - “What is the meaning of the word ‘clear’ in this context?”
 - “What is the action that a reader must do?”
 
-- The underlined words are not approved in STE.
+- The underlined words are not approved in the controlled language.
 - The first verb form “are detected” is in the passive voice.
 - The first sentence is 24 words long.
 - An article is missing in front of “crack length” and “following table.”
@@ -119,17 +119,17 @@ make many changes to your text. Then, when you change one part of a text, you mu
 
 **Example:**
 
-| Non-STE: | If cracks are detected during this procedure, the operator must perform the repair within a certain number of flight hours depending on crack length. Refer to following table: |
+| Non-conforming: | If cracks are detected during this procedure, the operator must perform the repair within a certain number of flight hours depending on crack length. Refer to following table: |
 |---|---|
 | Crack length detected | Time before repair |
 | L> ... L = ... L< ... | 1000 flight hours <br><br>2000 flight hours <br><br>3000 flight hours |
 
-| STE: | If you find cracks, refer to the table that follows: |
+| Conforming: | If you find cracks, refer to the table that follows: |
 |---|---|
 | If the crack is of this length | Do the repair before |
 | L> ... L = ... L< ... | 1000 flight hours <br><br>2000 flight hours <br><br>3000 flight hours |
 
-In the non-STE example:
+In the non-conforming example:
 
 As shown in the dictionary, you can replace:
 
@@ -153,6 +153,6 @@ You can then write the first sentence as follows:
 
 If you find cracks during this procedure, do the repair before the number of flight hours that are applicable to the crack length. Refer to the table that follows:
 
-But the first sentence has 23 words, and the technical meaning is not correct and not easy to understand. Also, part of the information is in the table. Thus, it is not necessary to give it two times. A good solution is to put the instruction in the table heading, as shown in the STE text.
+But the first sentence has 23 words, and the technical meaning is not correct and not easy to understand. Also, part of the information is in the table. Thus, it is not necessary to give it two times. A good solution is to put the instruction in the table heading, as shown in the conforming text.
 
-The primary objective of STE is that readers immediately understand each sentence that they read.
+The primary objective of this rule set is that readers immediately understand each sentence that they read.

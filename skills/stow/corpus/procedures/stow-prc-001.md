@@ -2,11 +2,11 @@
 
 Procedures give instructions that tell you how to do a task. Long sentences in work steps are not easy to understand.
 
-In STE, the maximum length of a sentence for procedures is 20 words.
+In controlled technical writing, the maximum length of a sentence for procedures is 20 words.
 
 Warnings, cautions, and other safety instructions must also obey this rule.
 
-**Examples in STE:**
+**Conforming examples:**
 
 Install the three auxiliary screws (2) in the flange of the motor assembly (9).
 
@@ -16,11 +16,11 @@ Install the three auxiliary screws (2) in the flange of the motor assembly (9).
 
 (This sentence has 20 words.)
 
-**Non-STE:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)
+**Non-conforming:** Put preservation oil into the unit through the vent hole until the oil level is approximately 6 mm (0.24 inches) below the surface of the flange cover. (25 words)
 
-**STE:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)
+**Conforming:** Put preservation oil into the unit through the vent hole. (10 words) Continue until the oil level is approximately 6 mm (0.24 in) below the surface of the flange cover. (16 words)
 
-In the last STE example, the long sentence is divided into two shorter sentences, which are easier to read. You cannot divide this instruction into two different work steps, because the two actions occur at the same time.
+In the last conforming example, the long sentence is divided into two shorter sentences, which are easier to read. You cannot divide this instruction into two different work steps, because the two actions occur at the same time.
 
 Section 8 gives all the rules about word count.
 

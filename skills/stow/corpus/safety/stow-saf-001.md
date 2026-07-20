@@ -2,9 +2,9 @@
 
 Use a word (for example, “warning” or “caution”) or, when applicable, a symbol, to immediately show your reader the level of the related risk.
 
-**Examples in STE:**
+**Conforming examples:**
 
-All examples in this section are in uppercase letters, but STE does not give rules for formatting. Refer to the applicable specifications for technical publications, style guides, and other official directives.
+All examples in this section are in uppercase letters, but this rule set does not give rules for formatting. Refer to the applicable specifications for technical publications, style guides, and other official directives.
 
 **WARNING:** BEFORE YOU FILL THE LIQUID OXYGEN SYSTEM, PUT ON A FACE MASK AND PROTECTIVE CLOTHING. LIQUID OXYGEN CAN CAUSE IRRITATION OF THE RESPIRATORY TRACT AND EYE IRRITATION.
 
@@ -22,10 +22,10 @@ Do an accurate risk analysis to identify the level of risk. Then, make a decisio
 
 Examples:
 
-**Non-STE: CAUTION:** EXTREME CLEANLINESS OF OXYGEN TUBES IS IMPERATIVE.
+**Non-conforming: CAUTION:** EXTREME CLEANLINESS OF OXYGEN TUBES IS IMPERATIVE.
 
-**STE: WARNING:** MAKE SURE THAT THE OXYGEN TUBES ARE FULLY CLEAN. OXYGEN AND GREASE MAKE AN EXPLOSIVE MIXTURE. AN EXPLOSION CAN CAUSE INJURY OR DEATH.
+**Conforming: WARNING:** MAKE SURE THAT THE OXYGEN TUBES ARE FULLY CLEAN. OXYGEN AND GREASE MAKE AN EXPLOSIVE MIXTURE. AN EXPLOSION CAN CAUSE INJURY OR DEATH.
 
-In the non-STE example, the safety instruction is a caution. But if you know about oxygen systems, you also know that oxygen mixed with other materials can cause explosions. Because there is a risk of injury or death here, you must identify this safety instruction as a warning.
+In the non-conforming example, the safety instruction is a caution. But if you know about oxygen systems, you also know that oxygen mixed with other materials can cause explosions. Because there is a risk of injury or death here, you must identify this safety instruction as a warning.
 
-Compare the wording in the two safety instructions. The non-STE safety instruction is an abstract sentence and only makes a general statement. The warning in STE gives clear and correct information about how to decrease the risk of explosion. The warning contains the words “explosion,” “injury,” and “death” to make the reader clearly understand how important this safety instruction is.
+Compare the wording in the two safety instructions. The non-conforming safety instruction is an abstract sentence and only makes a general statement. The conforming warning gives clear and correct information about how to decrease the risk of explosion. The warning contains the words “explosion,” “injury,” and “death” to make the reader clearly understand how important this safety instruction is.

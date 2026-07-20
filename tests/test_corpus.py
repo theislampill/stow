@@ -19,7 +19,8 @@ hashes), that:
     corpus passes (GREEN).
 
 No source-project name appears in this file. Example markers and distinctive
-phrases are read from the manifest (a Tier-3, source-name-gate-exempt surface).
+phrases are read from the manifest (like every tracked surface, it is fully
+covered by the source-name gate: no exemptions remain).
 The one deliberate exception is the fixed list of 14 detection-reference section
 titles used by the section-level completeness check: they are topic headings
 (not source names), pinned here on purpose so that section coverage is proven
@@ -347,12 +348,13 @@ def test_provenance_gate_clean_over_corpus_and_manifest():
 
 
 @_leak
-def test_corpus_is_gate2_exempt_but_gate1_still_applies():
-    """Sanity: a source basename planted into a corpus module WOULD be caught by
-    gate 1 (proving the exemption is only for gate 2, not a blanket pass)."""
+def test_planted_identifiers_in_corpus_are_caught_by_both_gates():
+    """The public corpus is fully STOW-native: a source basename (gate 1) and a
+    source name (gate 2) planted into a corpus module must BOTH be caught."""
     patterns = MOD.Patterns(_PATTERN_DATA)
     hash_specs = MOD.load_hash_positions(HASH_POS)
-    basename = patterns.basenames[0]
-    planted = "quoted from %s:1 in text\n" % basename
     ref = "skills/stow/corpus/words/stow-wrd-001.md"
-    assert MOD.scan_file(ref, planted, patterns, True, hash_specs) != []
+    planted_basename = "quoted from %s:1 in text\n" % patterns.basenames[0]
+    assert MOD.scan_file(ref, planted_basename, patterns, True, hash_specs) != []
+    planted_name = "derived from %s upstream\n" % patterns.word_tokens[0]
+    assert MOD.scan_file(ref, planted_name, patterns, True, hash_specs) != []

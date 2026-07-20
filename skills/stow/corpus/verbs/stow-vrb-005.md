@@ -24,13 +24,13 @@ These different functions for words that have an “-ing” form can frequently 
 
 Examples:
 
-**Non-STE:** When you are doing this procedure, obey all the safety precautions.
+**Non-conforming:** When you are doing this procedure, obey all the safety precautions.
 
-**STE:** When you do this procedure, obey all the safety precautions.
+**Conforming:** When you do this procedure, obey all the safety precautions.
 
-**Non-STE:** Mechanics wearing insufficient protective clothing and opening containers containing hazardous materials in areas where there is a lack of ventilation, using inappropriate tools without observing the manufacturer's instructions, are in danger of coming into contact with these materials and thus suffering from skin irritation and breathing problems.
+**Non-conforming:** Mechanics wearing insufficient protective clothing and opening containers containing hazardous materials in areas where there is a lack of ventilation, using inappropriate tools without observing the manufacturer's instructions, are in danger of coming into contact with these materials and thus suffering from skin irritation and breathing problems.
 
-**STE:** Before you use dangerous materials, obey these precautions: (1) Read the manufacturer's instructions. (2) Make sure that there is sufficient airflow in the work area. (3) Put on a face mask and protective clothing. (4) Get the correct tools to open the containers for these materials. If you do not obey these precautions, injury to your skin and your lungs can occur.
+**Conforming:** Before you use dangerous materials, obey these precautions: (1) Read the manufacturer's instructions. (2) Make sure that there is sufficient airflow in the work area. (3) Put on a face mask and protective clothing. (4) Get the correct tools to open the containers for these materials. If you do not obey these precautions, injury to your skin and your lungs can occur.
 
 Words that have an “-ing” form and are technical nouns or parts of technical nouns
 

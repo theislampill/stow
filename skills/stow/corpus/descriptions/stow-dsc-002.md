@@ -6,11 +6,11 @@ These key words and key phrases show how information in a text is related and gi
 
 You can also use connecting words and connecting phrases to help the reader understand the logical flow of ideas in the text. Connecting words and connecting phrases have the function of traffic signs, which tell the reader if the information is new, different, or a result of previous information. Examples of approved connecting words are: “and,” “but,” “then,” “thus,” and examples of connecting phrases are “as a result,” and “at the same time.”
 
-The example that follows is the STE text of the example for rule 6.1. In the text, you can see how the underlined key words and key phrases connect sentences and their related ideas. This makes the text much easier to read and understand.
+The example that follows is the conforming text of the example for rule 6.1. In the text, you can see how the underlined key words and key phrases connect sentences and their related ideas. This makes the text much easier to read and understand.
 
 When you use key words and key phrases, make sure that you do not change them in your text. The same terminology will keep your text clear and correct.
 
-**Example in STE:**
+**Conforming example:**
 
 | Sentence 1 | Sentence 2 |
 |---|---|

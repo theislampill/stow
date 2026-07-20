@@ -4,15 +4,15 @@ In English, words that look the same do not always have the same function in a s
 
 **Example:**
 
-**Non-STE:** Give the hole 0.20-inch ream.
+**Non-conforming:** Give the hole 0.20-inch ream.
 
-**STE:** Ream the hole to a 0.20-inch dimension.
+**Conforming:** Ream the hole to a 0.20-inch dimension.
 
 But you can use the past participle form of technical verbs as adjectives.
 
 **Example:**
 
-**STE:** Lubricate the reamed hole.
+**Conforming:** Lubricate the reamed hole.
 
 (The adjective “reamed” is the past participle form of the technical verb “ream.” “Reamed hole” is a technical noun.)
 
@@ -22,10 +22,10 @@ In some contexts, the same word can be a technical verb and a technical noun. Th
 
 **Examples:**
 
-**STE:** Make sure that the plate is not damaged.
+**Conforming:** Make sure that the plate is not damaged.
 
 (“Plate” is a technical noun, category 1, official parts information.)
 
-**STE:** There are two methods to plate the ring nut (2).
+**Conforming:** There are two methods to plate the ring nut (2).
 
 (“Plate” is a technical verb, category 1 c), manufacturing processes, attach material.)

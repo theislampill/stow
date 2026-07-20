@@ -6,21 +6,21 @@ Use a technical noun only as a noun or as an adjective that is part of a differe
 
 “Oil” is a technical noun, category 4, materials, consumables, and unwanted material. Do not use “oil” as a verb. Use a different sentence construction that lets you use “oil” as a technical noun.
 
-**Non-STE:** Oil the steel surfaces.
+**Non-conforming:** Oil the steel surfaces.
 
-**STE:** Apply oil to the steel surfaces.
+**Conforming:** Apply oil to the steel surfaces.
 
 “Snow” is a technical noun, category 16, environmental and operational conditions. Do not use “snow” as a verb. Use a different sentence construction that lets you use “snow” as a technical noun.
 
-**Non-STE:** If you think it will snow, make sure that the vehicle is in the applicable configuration.
+**Non-conforming:** If you think it will snow, make sure that the vehicle is in the applicable configuration.
 
-**STE:** If you think that snow will fall, make sure that the vehicle is in the applicable configuration.
+**Conforming:** If you think that snow will fall, make sure that the vehicle is in the applicable configuration.
 
 Words that can be technical nouns and technical verbs
 
 In some contexts, the same word can be a technical noun and a technical verb. This condition occurs when you can put this word in a technical noun category (rule 1.5) and in a technical verb category (rule 1.12).
 
-**Examples in STE:**
+**Conforming examples:**
 
 If the surface is hard, use a carbide drill.
 

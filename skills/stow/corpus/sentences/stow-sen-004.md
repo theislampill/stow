@@ -8,7 +8,7 @@ Some of the connecting words that are approved in the dictionary are “and,” 
 
 “As a result” and “at the same time” are examples of connecting phrases that you can use.
 
-**Examples in STE:  (Refer to the underlined connecting words and connecting phrases.)**
+**Conforming examples:  (Refer to the underlined connecting words and connecting phrases.)**
 
 The localizer course aligns with the centerline of the runway. And the glideslope path is at a constant angle to the threshold of the runway.
 
@@ -22,7 +22,7 @@ You can also use demonstrative adjectives as connecting words to connect ideas i
 
 In procedures, you can use these connecting words when an explanation is necessary after a work step. Connecting words can also be necessary in safety instructions to connect related sentences or make the text clear.
 
-**Examples in STE:  (Refer to underlined connecting words.)**
+**Conforming examples:  (Refer to underlined connecting words.)**
 
 Tag the disassembled parts. This method will help you during the subsequent procedures.
 

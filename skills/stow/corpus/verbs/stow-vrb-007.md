@@ -1,6 +1,6 @@
 > **Rule 3.7 — Use an approved verb to describe an action, not a noun or other parts of speech.**
 
-There can be different solutions to give the same information in STE. If there is an approved verb that describes an action, use the approved verb. Verbs describe actions more clearly than nouns or other parts of speech.
+There can be different solutions to give the same information in the controlled language. If there is an approved verb that describes an action, use the approved verb. Verbs describe actions more clearly than nouns or other parts of speech.
 
 **Examples:**
 
@@ -12,12 +12,12 @@ There can be different solutions to give the same information in STE. If there i
 
 **WRITE:** Before you remove the unit, make sure that the power supply is OFF.
 
-In the examples, all sentences are in STE but those with direct verbs describe the action more clearly.
+In the examples, all sentences are in the controlled language but those with direct verbs describe the action more clearly.
 
 If a word is not approved as a verb in the dictionary, do not use it as a verb. Use a different sentence construction to give the same information.
 
 **Example:**
 
-**Non-STE:** Check the laptop battery.
+**Non-conforming:** Check the laptop battery.
 
-**STE:** Do a check of the laptop battery.
+**Conforming:** Do a check of the laptop battery.

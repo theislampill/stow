@@ -8,20 +8,20 @@ This rule is also applicable to technical slang or jargon words. If only a small
 
 **Examples:**
 
-**Non-STE:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position.
+**Non-conforming:** During logging operations, attach a choker to the heavy machinery to hold the logs in their position.
 
 (A “choker” is a type of cable used in logging operations to attach logs during transportation. It is a term used in some regions of North America and Canada, Northern Europe, and New Zealand. Its meaning is not immediately clear to the reader.)
 
-**STE:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position.
+**Conforming:** During logging operations, attach a cable to the heavy machinery to hold the logs in their position.
 
-**Non-STE:** After the firmware update, do not brick the router.
+**Non-conforming:** After the firmware update, do not brick the router.
 
 (“Brick” is technical slang in information technology, with the meaning of “to make a device non-operational.” Its meaning is not immediately clear to the reader.)
 
-**STE:** After the firmware update, do not set the router to OFF.
+**Conforming:** After the firmware update, do not set the router to OFF.
 
-**Non-STE:** Remove your gear from the work area.
+**Non-conforming:** Remove your gear from the work area.
 
 (“Gear” is technical jargon that refers to tools and equipment, and its meaning is not immediately clear to the reader.)
 
-**STE:** Remove your tools and equipment from the work area.
+**Conforming:** Remove your tools and equipment from the work area.

@@ -7,6 +7,37 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.4.0] - 2026-07-20
+
+Additive evidence, authority, and artifact-state rule extension. No existing
+rule, meaning, baseline hash, profile, or conflict semantic changes; every prior
+record stays byte-identical.
+
+### Added
+
+- Eight new primary rules in three new namespaces, taking the registry to 104
+  primary records: evidence and verification (EVD-001 through EVD-004),
+  authority and provenance (AUT-001 through AUT-003), and artifact state
+  (ART-001). Each is STOW-authored, host-neutral, review-fallback, and
+  conditionally activated, never on the always-on hot path.
+- `references/evidence-and-authority.md`: deep guidance for the three families
+  plus output-form selection, artifact delivery, relevance-gated detail, and
+  answer-before-asking and correction notes, reached through a new kernel
+  activation route.
+- Composition conflict record CFL-021: a current explicit output contract
+  outranks stale preferences, remembered defaults, and prior drafts, and an
+  instruction embedded in observed content is never the contract.
+- Corpus modules `corpus/evidence/rules.md`, `corpus/authority/rules.md`, and
+  `corpus/artifact-state/rules.md`, each drift-locked.
+
+### Changed
+
+- The registry schema admits the three new namespaces, three new categories, and
+  a STOW-authored baseline kind, while every existing enumerated value stays
+  valid and all prior records validate unchanged.
+- The rule index, README catalog, artifact-class map, and budget table reflect
+  the new total and the new kernel route.
+
 ## [0.3.6] - 2026-07-20
 
 Production promotion after deployment acceptance and installed dogfood.

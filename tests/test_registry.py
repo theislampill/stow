@@ -33,6 +33,7 @@ REGISTRY_REL = "skills/stow/rules/registry.yaml"
 EXPECTED_COUNTS = {
     "WRD": 14, "MWN": 2, "VRB": 7, "SEN": 5, "PRC": 5, "DSC": 6,
     "SAF": 3, "PCT": 7, "STY": 4, "GEN": 8, "ACT": 11, "PRO": 24,
+    "EVD": 4, "AUT": 3, "ART": 1,
 }
 
 # precedence prefix -> enum EQUALITY table (the deciding authority).
@@ -42,6 +43,7 @@ PRECEDENCE_TABLE = {
     "PRC": "profile", "DSC": "profile", "PCT": "profile", "STY": "profile",
     "GEN": "profile",
     "ACT": "presentation", "PRO": "presentation",
+    "EVD": "accuracy", "AUT": "accuracy", "ART": "contract",
 }
 
 
@@ -99,15 +101,15 @@ def test_registry_matches_schema():
         "%s: %s" % (list(e.path), e.message) for e in errors)
 
 
-def test_exactly_96_primary_records():
-    assert len(RECORDS) == 96
+def test_exactly_104_primary_records():
+    assert len(RECORDS) == 104
     assert all(r["record_class"] == "primary" for r in RECORDS)
 
 
 def test_ids_unique_and_well_formed():
     import re
     assert len(IDS) == len(ID_SET)
-    pat = re.compile(r"^STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO)-\d{3}$")
+    pat = re.compile(r"^STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO|EVD|AUT|ART)-\d{3}$")
     for rid in IDS:
         assert pat.match(rid), rid
 
@@ -116,8 +118,8 @@ def test_domain_counts_and_total():
     from collections import Counter
     got = Counter(_prefix(rid) for rid in IDS)
     assert dict(got) == EXPECTED_COUNTS
-    assert sum(EXPECTED_COUNTS.values()) == 96
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+    assert sum(EXPECTED_COUNTS.values()) == 104
+    assert REGISTRY["generated_counts"]["primary_total"] == 104
 
 
 def test_generated_counts_has_no_per_domain_totals():
@@ -159,7 +161,7 @@ def test_conflicts_are_reciprocal():
 def test_baseline_text_sha256_roundtrip():
     for r in RECORDS:
         w = r["wording"]
-        assert w["baseline_kind"] == "verbatim"
+        assert w["baseline_kind"] in ("verbatim", "authored")
         recomputed = hashlib.sha256(w["baseline_text"].encode("utf-8")).hexdigest()
         assert recomputed == w["baseline_text_sha256"], r["id"]
 

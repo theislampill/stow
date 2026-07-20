@@ -41,6 +41,7 @@ classes:
       - skills/stow/references/controlled-technical-writing.md
       - skills/stow/references/cross-harness-interchange.md
       - skills/stow/references/descriptions.md
+      - skills/stow/references/evidence-and-authority.md
       - skills/stow/references/format-json.md
       - skills/stow/references/format-jsonl.md
       - skills/stow/references/format-markdown.md
@@ -56,12 +57,15 @@ classes:
       - skills/stow/references/user-facing-output.md
 
   protected-corpus:
-    description: "Anchored corpus modules holding verbatim rule wording. Drift-locked."
+    description: "Anchored corpus modules holding verbatim or STOW-authored rule wording. Drift-locked."
     checks:
       - tests/test_corpus.py
     files:
       - skills/stow/corpus/action-shaping.md
+      - skills/stow/corpus/artifact-state/rules.md
+      - skills/stow/corpus/authority/rules.md
       - skills/stow/corpus/descriptions.md
+      - skills/stow/corpus/evidence/rules.md
       - skills/stow/corpus/general-practice.md
       - skills/stow/corpus/multiword-nouns.md
       - skills/stow/corpus/procedures.md

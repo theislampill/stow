@@ -132,6 +132,14 @@ routes:
     corpus: null
     validator: null
 
+  - mode: evidence-authority-deep
+    predicate: "evidence, authority, or artifact-state deep guidance"
+    references:
+      - references/evidence-and-authority.md
+    profile: null
+    corpus: null
+    validator: null
+
   - mode: precedence-and-region
     predicate: "precedence or region question"
     references:

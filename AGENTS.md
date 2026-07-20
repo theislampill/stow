@@ -34,7 +34,7 @@ The size of the rule set can be reconstructed from how its total splits across
 the upstream partitions it was distilled from, so publishing those partition
 sizes as bare counts, or spelling the split out as a multi-way breakdown on
 one line, leaks provenance no less than naming a source does. The prose surfaces
-(`README.md`, `docs/*.md`) must carry neither. The rule total (`96`) and the
+(`README.md`, `docs/*.md`) must carry neither. The rule total (`104`) and the
 precedence-band count (`8`) are structural, non-provenance figures and are always
 allowed. The gate that enforces this is `tests/test_count_leak.py`.
 
@@ -96,7 +96,7 @@ and `rules/conflicts.yaml` (cross-rule conflict resolutions, from which
 `docs/rule-conflicts.md` is generated). Never hand-edit a generated surface.
 Regenerate with `python tools/gen_rule_index.py`, `python tools/gen_always_on.py`,
 and `python tools/gen_rule_conflicts.py`, and verify each with `--check`, which
-fails on any drift. The registry's `generated_counts.primary_total` is `96` and is
+fails on any drift. The registry's `generated_counts.primary_total` is `104` and is
 an invariant: material added in a richness pass registers outside the primary
 total and must not change it. The registry's `wording.baseline_*` fields are
 protected verbatim content; the STOW-authored `activation.applicability` and

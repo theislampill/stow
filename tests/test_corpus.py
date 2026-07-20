@@ -193,7 +193,7 @@ def test_module_count_is_20_and_each_within_size_cap():
         for f in files:
             if f.endswith(".md"):
                 on_disk.append(os.path.join(base, f))
-    assert len(on_disk) == 20, "expected 20 corpus modules, found %d" % len(on_disk)
+    assert len(on_disk) == 23, "expected 23 corpus modules, found %d" % len(on_disk)
     for p in on_disk:
         size = os.path.getsize(p)
         assert size <= 15360, "%s is %d bytes, over the 15360 cap" % (p, size)

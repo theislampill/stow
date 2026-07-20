@@ -58,6 +58,7 @@ VALID_STATUS = {"callable", "review-fallback", "planned"}
 EXPECTED_DOMAIN_COUNTS = {
     "WRD": 14, "MWN": 2, "VRB": 7, "SEN": 5, "PRC": 5, "DSC": 6,
     "SAF": 3, "PCT": 7, "STY": 4, "GEN": 8, "ACT": 11, "PRO": 24,
+    "EVD": 4, "AUT": 3, "ART": 1,
 }
 
 
@@ -207,12 +208,12 @@ def test_always_on_count_matches_selector():
 # Invariants -- primary_total + per-domain counts unchanged; contracts outside
 # --------------------------------------------------------------------------- #
 
-def test_primary_total_and_domain_counts_unchanged():
-    assert len(RECORDS) == 96
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+def test_primary_total_and_domain_counts():
+    assert len(RECORDS) == 104
+    assert REGISTRY["generated_counts"]["primary_total"] == 104
     got = Counter(_domain(r["id"]) for r in RECORDS)
     assert dict(got) == EXPECTED_DOMAIN_COUNTS
-    assert sum(EXPECTED_DOMAIN_COUNTS.values()) == 96
+    assert sum(EXPECTED_DOMAIN_COUNTS.values()) == 104
 
 
 def test_contracts_catalog_kept_outside_primary_total():
@@ -222,6 +223,6 @@ def test_contracts_catalog_kept_outside_primary_total():
     assert ids == ["output-contract", "handoff", "task-packet",
                    "evidence-record", "state"]
     assert len(ids) == 5
-    # meta-contracts are counted separately from the 96 primary records
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+    # meta-contracts are counted separately from the 104 primary records
+    assert REGISTRY["generated_counts"]["primary_total"] == 104
     assert "contracts" not in REGISTRY["generated_counts"]

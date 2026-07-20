@@ -12,13 +12,13 @@
       "additionalProperties": false,
       "required": ["primary_total"],
       "properties": {
-        "primary_total": {"const": 96}
+        "primary_total": {"const": 104}
       }
     },
     "records": {
       "type": "array",
-      "minItems": 96,
-      "maxItems": 96,
+      "minItems": 104,
+      "maxItems": 104,
       "items": {"$ref": "#/$defs/record"}
     },
     "contracts": {
@@ -51,7 +51,7 @@
   "$defs": {
     "stow_id": {
       "type": "string",
-      "pattern": "^STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO)-[0-9]{3}$"
+      "pattern": "^STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO|EVD|AUT|ART)-[0-9]{3}$"
     },
     "record": {
       "type": "object",
@@ -69,7 +69,8 @@
           "enum": [
             "words", "multiword-nouns", "verbs", "sentences", "procedures",
             "descriptions", "safety", "punctuation", "style", "general",
-            "action-shaping", "prose-integrity"
+            "action-shaping", "prose-integrity",
+            "evidence", "authority", "artifact-state"
           ]
         },
         "title": {"type": "string", "minLength": 1},
@@ -81,10 +82,10 @@
             "active_version", "rewrite_status", "candidates", "replacement_gate"
           ],
           "properties": {
-            "baseline_kind": {"const": "verbatim"},
+            "baseline_kind": {"enum": ["verbatim", "authored"]},
             "baseline_text": {"type": "string", "minLength": 1},
             "baseline_text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-            "active_version": {"const": "verbatim-baseline"},
+            "active_version": {"enum": ["verbatim-baseline", "authored-baseline"]},
             "rewrite_status": {"const": "deferred"},
             "candidates": {"type": "array", "maxItems": 0},
             "replacement_gate": {"const": "comparative-proof-required"}
@@ -152,7 +153,7 @@
         },
         "corpus_ref": {
           "type": "string",
-          "pattern": "^corpus/[a-z][a-z0-9/-]*\\.md#STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO)-[0-9]{3}$"
+          "pattern": "^corpus/[a-z][a-z0-9/-]*\\.md#STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO|EVD|AUT|ART)-[0-9]{3}$"
         }
       }
     }

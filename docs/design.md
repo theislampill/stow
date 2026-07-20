@@ -139,11 +139,11 @@ differently, so treat them as a calibrated proxy and leave headroom.
 
 | Load path | Budget (tokens) | What is resident |
 | --- | --- | --- |
-| Kernel alone | 993 | `SKILL.md` only |
-| Ordinary prose turn | 2325 | kernel + `references/always-on.md` (ids, conditions, exceptions, and the request-mode router included -- a deliberate, measured cost over the bare-title form it replaced) |
+| Kernel alone | 1164 | `SKILL.md` only |
+| Ordinary prose turn | 2395 | kernel + `references/always-on.md` (ids, conditions, exceptions, and the request-mode router included -- a deliberate, measured cost over the bare-title form it replaced) |
 | Technical-clarity turn | 2827 | the ordinary turn + `references/technical-clarity.md` |
 | Raw JSON artifact | 2854 | kernel + `references/format-json.md` + `references/protected-regions.md` |
-| Deep corpus (one module) | ~1100 | kernel + the routed corpus module (varies by module) |
+| Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
 | Procedure load path | 6021 | the ordinary turn + procedure authoring surfaces |
 | Procedure + safety | 6766 | the procedure load path + `references/safety-instructions.md` |
 
@@ -165,9 +165,11 @@ The intended load path for each:
   point of splitting always-on out of the kernel: a machine-readable artifact
   never pays for prose guidance it must not apply. Zero prose checks are resident
   on this path.
-- **Deep corpus.** When a specific rule needs its full text, worked examples, or
-  baseline, exactly one corpus module is routed in on top of the kernel. Corpus
-  material is never resident by default.
+- **Deep single-rule lookup.** When a specific rule needs its full text, worked
+  examples, or baseline, the reader routes to one grouped corpus module (the
+  largest is just under fifteen kilobytes) or, following the kernel's
+  bounded-read instruction, reads only the rule's anchored section from that
+  module. Corpus material is never resident by default.
 - **Procedure / procedure + safety.** The most expensive paths. Procedure
   authoring pulls in the procedure and action-shaping surfaces; safety-critical
   procedure authoring adds the safety reference on top. Even the heaviest path

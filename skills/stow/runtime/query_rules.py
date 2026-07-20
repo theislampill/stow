@@ -4,15 +4,18 @@
     python runtime/query_rules.py STOW-PCT-006
 
 Prints the registry record's key fields, the profiles that include the rule
-(through their guidance_rules or their selector), and the anchored corpus
-section sliced from the rule's corpus module. Exit 2 with a clear message for an
-unknown id.
+(through their selector, category prefix, or explicit guidance_rules), the
+per-record registry conflicts, the composition-level conflicts that name the
+rule, and the anchored corpus section sliced from the rule's corpus module.
+Exit 2 with a clear message for an unknown id.
 
-Stdlib only. The registry is YAML, but this helper never imports a YAML library:
-it locates the single record block by the id line and reads the few flat fields
-it needs by hand. profiles.json is plain JSON. This tool is not shipped (it is
-outside the runtime allowlist in tools/build_skill.py) and no kernel path reads
-it; it only speeds up manual rule lookups.
+Stdlib only. The registry and conflicts files are YAML, but this helper never
+imports a YAML library: it locates each record block by its id line and reads
+the few flat fields it needs by hand. profiles.json is plain JSON. This tool
+IS shipped: it is inside the runtime allowlist in tools/build_skill.py and
+ships in the packaged skill. It is still an optional acceleration and no kernel
+path reads it; plain file reads remain the contract path, and this tool only
+speeds up manual rule lookups.
 """
 
 import json
@@ -24,8 +27,14 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SKILL_DIR = os.path.dirname(HERE)                       # .../skills/stow
 REGISTRY = os.path.join(SKILL_DIR, "rules", "registry.yaml")
 PROFILES = os.path.join(SKILL_DIR, "rules", "profiles.json")
+CONFLICTS = os.path.join(SKILL_DIR, "rules", "conflicts.yaml")
 
 ID_RE = re.compile(r"^  - id:\s*(\S+)\s*$")
+CFL_ID_RE = re.compile(r"^  - id:\s*(CFL-\S+)\s*$")
+# A ref token inside a flow mapping, e.g. "{kind: rule, ref: STOW-ACT-001}".
+REF_RE = re.compile(r"ref:\s*([^\s,}]+)")
+# A band token inside a flow mapping, e.g. "{band: contract, ref: result-first}".
+BAND_RE = re.compile(r"band:\s*([^\s,}]+)")
 
 
 def _unquote(value):
@@ -57,8 +66,9 @@ def _record_block(text, rid):
 def _parse_record(block):
     """Read the flat fields this helper reports from a record block."""
     rec = {"id": None, "title": None, "category": None,
-           "predicate": None, "enforcement_status": None,
-           "corpus_ref": None, "conflicts": []}
+           "predicate": None, "always_on_for_prose": False,
+           "applicability": None, "exception": None,
+           "enforcement_status": None, "corpus_ref": None, "conflicts": []}
     section = None
     for line in block:
         stripped = line.strip()
@@ -79,6 +89,12 @@ def _parse_record(block):
             section = None
         elif line.startswith("      predicate:") and section == "activation":
             rec["predicate"] = _unquote(line.split(":", 1)[1])
+        elif line.startswith("      always_on_for_prose:") and section == "activation":
+            rec["always_on_for_prose"] = _unquote(line.split(":", 1)[1]).lower() == "true"
+        elif line.startswith("      applicability:") and section == "activation":
+            rec["applicability"] = _unquote(line.split(":", 1)[1])
+        elif line.startswith("      exception:") and section == "activation":
+            rec["exception"] = _unquote(line.split(":", 1)[1])
         elif line.startswith("      status:") and section == "enforcement":
             rec["enforcement_status"] = _unquote(line.split(":", 1)[1])
         elif line.startswith("      - rule:") and section == "conflicts":
@@ -86,21 +102,87 @@ def _parse_record(block):
     return rec
 
 
-def _profiles_including(rid, category):
-    """Profiles whose guidance_rules or selector include the rule."""
+def _profiles_including(rec):
+    """Profiles that include the rule, honoring every selector kind.
+
+    A profile includes a rule when any of these holds:
+      * its ``includes.selector`` is ``always_on_for_prose`` and the rule's
+        activation is always-on for prose;
+      * the rule's category prefix (e.g. ``PRC``) is in the profile's
+        ``includes.category_prefixes``;
+      * the rule id is listed in the profile's ``guidance_rules``.
+    """
+    rid = rec["id"]
     with open(PROFILES, encoding="utf-8") as handle:
         data = json.load(handle)
     prefix = rid.split("-")[1] if "-" in rid else ""
     hits = []
     for prof in data.get("profiles", []):
+        if prof.get("locked"):
+            continue
         reasons = []
+        includes = prof.get("includes") or {}
+        if includes.get("selector") == "always_on_for_prose" and rec["always_on_for_prose"]:
+            reasons.append("always_on_for_prose selector")
+        if prefix and prefix in (includes.get("category_prefixes") or []):
+            reasons.append("category-prefix selector %s" % prefix)
         if rid in (prof.get("guidance_rules") or []):
             reasons.append("guidance_rules")
-        includes = prof.get("includes") or {}
-        if prefix and prefix in (includes.get("category_prefixes") or []):
-            reasons.append("selector category %s" % prefix)
         if reasons:
             hits.append((prof["id"], ", ".join(reasons)))
+    return hits
+
+
+def _split_cfl_blocks(lines):
+    """Split conflicts.yaml lines into per-conflict blocks."""
+    blocks = []
+    start = None
+    for i, line in enumerate(lines):
+        if CFL_ID_RE.match(line):
+            if start is not None:
+                blocks.append(lines[start:i])
+            start = i
+    if start is not None:
+        blocks.append(lines[start:])
+    return blocks
+
+
+def _composition_conflicts(rid):
+    """Composition-level conflicts (origin: composition) naming the rule.
+
+    Returns ``[(cfl_id, winner_ref, winner_band, permitted_substitute), ...]``.
+    The per-record registry conflicts are reported separately, so only
+    composition entries are surfaced here to avoid double-listing the eight
+    registry-mirrored pairs.
+    """
+    if not os.path.isfile(CONFLICTS):
+        return []
+    lines = open(CONFLICTS, encoding="utf-8").read().splitlines()
+    hits = []
+    for block in _split_cfl_blocks(lines):
+        cid = CFL_ID_RE.match(block[0]).group(1)
+        origin = None
+        winner_ref = None
+        winner_band = None
+        permitted = None
+        refs = []
+        for line in block:
+            stripped = line.strip()
+            if line.startswith("    origin:"):
+                origin = _unquote(line.split(":", 1)[1])
+            elif line.startswith("    winner:"):
+                bm = BAND_RE.search(line)
+                rm = REF_RE.search(line)
+                winner_band = bm.group(1) if bm else None
+                winner_ref = rm.group(1) if rm else None
+            elif line.startswith("    permitted_substitute:"):
+                permitted = _unquote(line.split(":", 1)[1])
+            elif stripped.startswith("- {") and "ref:" in stripped:
+                rm = REF_RE.search(stripped)
+                if rm:
+                    refs.append(rm.group(1))
+        if origin == "composition" and rid in refs:
+            hits.append((cid, winner_ref, winner_band, permitted))
     return hits
 
 
@@ -150,15 +232,28 @@ def main(argv=None):
         return 2
 
     rec = _parse_record(block)
-    profiles = _profiles_including(rid, rec["category"])
+    profiles = _profiles_including(rec)
+    composition = _composition_conflicts(rid)
     section = _corpus_section(rec["corpus_ref"], rid)
 
     print("id: %s" % rec["id"])
     print("title: %s" % (rec["title"] or ""))
     print("category: %s" % (rec["category"] or ""))
     print("activation predicate: %s" % (rec["predicate"] or ""))
+    if rec["applicability"]:
+        print("applicability: %s" % rec["applicability"])
+    if rec["exception"]:
+        print("exception: %s" % rec["exception"])
     print("enforcement status: %s" % (rec["enforcement_status"] or ""))
     print("conflicts: %s" % (", ".join(rec["conflicts"]) if rec["conflicts"] else "none"))
+    if composition:
+        print("composition conflicts:")
+        for cid, winner_ref, winner_band, permitted in composition:
+            band = " [band %s]" % winner_band if winner_band else ""
+            sub = "; substitute: %s" % permitted if permitted else ""
+            print("  %s: winner %s%s%s" % (cid, winner_ref or "?", band, sub))
+    else:
+        print("composition conflicts: none")
     if profiles:
         print("profiles including this rule:")
         for pid, why in profiles:

@@ -70,6 +70,15 @@ def _records():
 
 def applies_when(record):
     activation = record["activation"]
+    # Prefer the STOW-authored applicability qualifier when present; append the
+    # exception so the catalog states the real condition, not just a family bucket.
+    applicability = activation.get("applicability")
+    if applicability:
+        text = applicability.strip()
+        exception = activation.get("exception")
+        if exception:
+            text = "%s; exception: %s" % (text, exception.strip())
+        return text
     if record["precedence"] == "system":
         return "Safety notices"
     if activation.get("always_on_for_prose"):

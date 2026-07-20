@@ -110,9 +110,9 @@ distinctive corpus phrasing, no all-caps source acronyms, no numerals
 ## Build reproducibility
 
 The shipped artifact is byte-exact: `dist/STOW.skill` is a deterministic ZIP
-built from the kernel, the references, the corpus, the rule data, and the three
-allowlisted runtime modules, and two clean builds are byte-for-byte identical and
-share one SHA-256 digest. The build excludes tests, caches, `.git`,
+built from the kernel, the references, the corpus, the rule data, and the
+runtime modules named in the `build_skill.RUNTIME_ALLOW` allowlist, and two clean
+builds are byte-for-byte identical and share one SHA-256 digest. The build excludes tests, caches, `.git`,
 `.IMPLEMENTAUDIT/`, the anti-leak checker, and the private pattern data. The
 committed `dist/` set is machine-checked: `tests/test_repo_hygiene.py` rebuilds
 the artifact and fails when the committed archive, sidecar, or manifest differs

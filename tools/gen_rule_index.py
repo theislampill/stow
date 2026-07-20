@@ -43,6 +43,14 @@ def render(records, primary_total):
     lines.append("")
     lines.append("Primary records: %d" % primary_total)
     lines.append("")
+    lines.append(
+        "For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` "
+        "when execution is available. Otherwise search this index for the id, "
+        "then search `registry.yaml` for the sentinel line `# === <ID> ===` and "
+        "read only that record block up to the next sentinel, then open the cited "
+        "corpus module and read only the anchored section. Full-registry "
+        "ingestion is for complete audits only.")
+    lines.append("")
     lines.append("| id | title | category | precedence |")
     lines.append("| --- | --- | --- | --- |")
     for r in records:

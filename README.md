@@ -4,7 +4,7 @@ STOW is a writing-discipline skill that governs what a model emits. It treats ev
 
 ## STOW in one minute
 
-- **What it does.** STOW loads a compact kernel on every turn. The kernel classifies the reply into regions, applies always-on integrity and output-shaping checks to the prose, and pulls deeper references only when a named predicate is true.
+- **What it does.** STOW is designed to be selected on every user-facing turn; when the host invokes it, the compact kernel loads. The kernel classifies the reply into regions, applies always-on integrity and output-shaping checks to the prose, and pulls deeper references only when a named predicate is true.
 - **What it governs.** User-facing prose (answers, explanations, procedures), agent-to-agent coordination artifacts (handoffs, plans, audits, runbooks, state records, task packets, event streams), and structured payloads (JSON, JSONL, YAML) held to a parse-and-validate contract.
 - **What it protects.** Code, commands, paths, identifiers, quoted text, and data values are protected literals: they pass through byte-for-byte unchanged. **Executable source code is protected by default and is not STOW's primary writing target.** If you install STOW expecting it to restyle your source code, it will not, by design.
 - **How always-on works.** Any user-facing prose turn loads the operational checks in `references/always-on.md`. Each check carries its rule id, its applicability condition, and its principal exception, and the module opens with a request-mode router: an informational question leads with the answer, an actionable task with the next bounded action, completed work with the result and no invented follow-up, a raw artifact with the raw artifact alone.
@@ -90,13 +90,13 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-ACT-001` | Action-first response opening | All prose (always on) | Planned |
+| `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer, per the request-mode router | Planned |
 | `STOW-ACT-002` | Numbered steps for multi-step work | All prose (always on) | Planned |
-| `STOW-ACT-003` | Close with a single concrete next step | All prose (always on) | Review-fallback |
-| `STOW-ACT-004` | Defer secondary issues | All prose (always on) | Planned |
-| `STOW-ACT-005` | Restate progress each turn | All prose (always on) | Review-fallback |
-| `STOW-ACT-006` | Concrete effort estimates | All prose (always on) | Review-fallback |
-| `STOW-ACT-007` | Surface completed outcomes | All prose (always on) | Planned |
+| `STOW-ACT-003` | Close with a single concrete next step | open work remains when the turn ends; exception: when the work is complete, report the result and invent no follow-up step | Review-fallback |
+| `STOW-ACT-004` | Defer secondary issues | a secondary issue surfaces during the main task; exception: offer the deferred issue separately at the end rather than dropping it | Planned |
+| `STOW-ACT-005` | Restate progress each turn | a multi-turn task is in progress; exception: a single-turn answer needs no progress ledger | Review-fallback |
+| `STOW-ACT-006` | Concrete effort estimates | a defensible range exists for the estimate; exception: with no defensible range, omit the figure; accuracy outranks the preference | Review-fallback |
+| `STOW-ACT-007` | Surface completed outcomes | work ran and produced a result this turn | Planned |
 | `STOW-ACT-008` | Neutral error reporting | All prose (always on) | Planned |
 | `STOW-ACT-009` | Bound action lists to five items | All prose (always on) | Callable |
 | `STOW-ACT-010` | No preamble, recap, or sign-off | All prose (always on) | Planned |
@@ -109,19 +109,19 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-PRO-001` | Ban the em dash | All prose (always on) | Callable |
-| `STOW-PRO-002` | Require attributable numbers | All prose (always on) | Review-fallback |
+| `STOW-PRO-001` | Ban the em dash | editable prose under every profile; exception: under the controlled profile the semicolon is also banned; use a period, comma, colon, or two sentences | Callable |
+| `STOW-PRO-002` | Require attributable numbers | any numeric claim; exception: no attributable source: omit the number rather than invent one | Review-fallback |
 | `STOW-PRO-003` | No parentheticals in headings | Section headings | Planned |
 | `STOW-PRO-004` | No empty intensifiers | All prose (always on) | Callable |
-| `STOW-PRO-005` | End claims on a concrete detail | All prose (always on) | Review-fallback |
+| `STOW-PRO-005` | End claims on a concrete detail | factual claims in editable prose; exception: a conceptual definition satisfies this with a precise, checkable statement | Review-fallback |
 | `STOW-PRO-006` | No repeated points | All prose (always on) | Review-fallback |
-| `STOW-PRO-007` | Vary structure | All prose (always on) | Planned |
+| `STOW-PRO-007` | Vary structure | several consecutive blocks share one layout; exception: never vary above a length cap or across recurring terminology | Planned |
 | `STOW-PRO-008` | Reference without narrating | All prose (always on) | Planned |
 | `STOW-PRO-009` | No urgency without a reason | All prose (always on) | Review-fallback |
 | `STOW-PRO-010` | No scare quotes on ordinary words | All prose (always on) | Callable |
 | `STOW-PRO-011` | No filler phrases | All prose (always on) | Callable |
 | `STOW-PRO-012` | Ban the whether-you-are opener | All prose (always on) | Callable |
-| `STOW-PRO-013` | Write like a researcher | All prose (always on) | Review-fallback |
+| `STOW-PRO-013` | Write like a researcher | the default register; exception: an explicitly requested casual or creative voice governs; facts stay real | Review-fallback |
 | `STOW-PRO-014` | No synthetic enthusiasm | All prose (always on) | Planned |
 | `STOW-PRO-015` | No weasel words | All prose (always on) | Callable |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
@@ -132,7 +132,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-PRO-021` | No AI verbs | All prose (always on) | Callable |
 | `STOW-PRO-022` | No academic AI tells | All prose (always on) | Callable |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
-| `STOW-PRO-024` | No research-process narration | All prose (always on) | Review-fallback |
+| `STOW-PRO-024` | No research-process narration | process diary that changes no conclusion; exception: a limitation or failed verification that changes the answer is disclosed in one clause | Review-fallback |
 
 </details>
 
@@ -151,7 +151,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
 | `STOW-WRD-009` | When coining a technical noun, keep it short and easy to understand | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |
-| `STOW-WRD-011` | Use one technical noun consistently for one item; do not switch synonyms mid-text | Controlled profile | Planned |
+| `STOW-WRD-011` | Use one technical noun consistently for one item; do not switch synonyms mid-text | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 | `STOW-WRD-012` | Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one exists | Controlled profile | Review-fallback |
 | `STOW-WRD-013` | Do not nominalize a technical verb; its past participle may act as an adjective | Controlled profile | Planned |
 | `STOW-WRD-014` | Use American English spelling unless another official directive overrides; do not change quoted-text spelling | Controlled profile | Planned |
@@ -257,7 +257,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-STY-001` | When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning | Controlled profile | Review-fallback |
 | `STOW-STY-002` | Use each approved word with its correct restricted meaning and part of speech | Controlled profile | Review-fallback |
 | `STOW-STY-003` | Do not combine approved words into unlisted phrasal verbs | Controlled profile | Planned |
-| `STOW-STY-004` | Use a consistent style: reuse the same terminology and wording for recurring content | Controlled profile | Planned |
+| `STOW-STY-004` | Use a consistent style: reuse the same terminology and wording for recurring content | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 
 </details>
 
@@ -395,13 +395,21 @@ python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-typ
 
 The profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks protected regions (fenced blocks, inline code, block quotes, URLs, paths, identifiers) so their contents are never flagged.
 
+**`runtime/query_rules.py`** is a packaged, standard-library-only lookup helper. Given a rule id it prints the registry record, the profiles that include the rule (by selector, category prefix, or guidance list), the per-record and composition conflicts that name it, and the anchored corpus section.
+
+```
+python skills/stow/runtime/query_rules.py STOW-PCT-006
+```
+
+It is an acceleration for manual rule lookups; no kernel path depends on it, and plain file reads remain the contract path.
+
 ## Architecture
 
 Three tiers, loaded from most general to most specific. A response is answered from the kernel alone unless a predicate calls for more.
 
 - **Kernel** (`skills/stow/SKILL.md`): precedence, the region model, the integrity rules, and the activation map.
 - **References** (`skills/stow/references/`): mid-tier guidance, each file loaded only when its predicate is true.
-- **Corpus** (`skills/stow/corpus/`): one module per rule with the full guidance, loaded only when a rule audit or deep application cites it.
+- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor; loaded only when a rule audit or deep application cites it.
 
 Precedence runs in eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. A lower band never corrupts a higher one.
 
@@ -454,7 +462,7 @@ python tools/check_provenance_leak.py --local
 skills/stow/
   SKILL.md              kernel: precedence, region model, integrity rules
   references/           mid-tier guidance, loaded by predicate
-  corpus/               one module per rule, with full guidance
+  corpus/               grouped modules, every rule at a ## STOW-XXX-NNN anchor
   rules/                registry, profiles, conflicts, and their schemas
   runtime/              validators, prose lint, and the profile resolver
   schemas/              meta-code artifact schemas

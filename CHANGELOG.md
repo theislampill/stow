@@ -7,6 +7,54 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.3.3] - 2026-07-20
+
+Integrity corrections across the lookup helper, the public docs, and governance.
+
+### Changed
+
+- The packaged rule lookup helper (`runtime/query_rules.py`) now states its
+  deployment truthfully: it ships inside the runtime allowlist. Its profile
+  membership honors every selector kind (the always-on-for-prose selector,
+  category-prefix selectors, and explicit guidance rules), it prints an
+  always-on rule's applicability and exception, and it lists the composition
+  conflicts from `rules/conflicts.yaml` that name the rule alongside the
+  per-record registry conflicts.
+- The kernel and the generated rule index route a single-rule lookup to
+  `runtime/query_rules.py` when execution is available, and otherwise to a
+  bounded registry read: locate the record by its sentinel line, read to the
+  next sentinel, then read only the anchored corpus section. Full-registry
+  ingestion is reserved for complete audits.
+- Public-doc topology drift corrected: the README, the readiness sheet, the
+  design notes, and the package-health report now describe the grouped
+  anchored-module corpus (twenty modules, every rule addressable by a stable
+  heading anchor) instead of the retired per-rule-module and per-turn-load
+  phrasings. The README documents the lookup helper.
+- The README catalog renders each rule's authored applicability, with its
+  exception appended, in place of the family bucket when the qualifier exists.
+- The kernel makes the protected-literal exception explicit: a supplied literal
+  stays byte-for-byte exact unless the request itself asks for that literal to
+  be edited, which the output contract band already outranks.
+
+### Added
+
+- A topology-consistency gate (`tests/test_topology_claims.py`): the README
+  carries no per-rule-module claim, the corpus-module count in prose is derived
+  from the on-disk modules, the AGENTS.md runtime allowlist claim tracks
+  `build_skill.RUNTIME_ALLOW`, the manifest entry count matches the package
+  walk, and `plugin.json` matches the top released changelog section.
+- Extended lookup-helper tests: selector-aware membership for the always-on and
+  controlled-only rules, applicability and exception presence, and a
+  composition-conflict listing. `tests/test_query_rules.py` is bound to the
+  runtime-code artifact class.
+
+### Notes
+
+- The packaged corpus, rule meanings, profile semantics, conflict resolutions,
+  and the primary rule total are unchanged; the artifact was rebuilt so its
+  digest reflects the truthful helper docstring and the kernel and rule-index
+  routing text.
+
 ## [0.3.2] - 2026-07-20
 
 Corpus topology consolidation and rule-usability governance.

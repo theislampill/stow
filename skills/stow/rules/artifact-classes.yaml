@@ -103,6 +103,7 @@ classes:
       - tests/test_structured_output.py
       - tests/test_lint_prose.py
       - tests/test_profiles.py
+      - tests/test_query_rules.py
     files:
       - skills/stow/runtime/lint_prose.py
       - skills/stow/runtime/query_rules.py

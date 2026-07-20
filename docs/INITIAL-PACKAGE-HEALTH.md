@@ -1,5 +1,10 @@
 # Initial package health
 
+> **Scope note.** This is the historical 0.3.1 package-health report. Superseded
+> metrics below, including the runtime module count and the version, are stated
+> as-of that release. Current state is covered by the CHANGELOG 0.3.2 and 0.3.3
+> sections and by `docs/RULE-USABILITY.md`.
+
 Status of the shipped artifact `dist/STOW.skill` as a fresh install, verified
 on 2026-07-20 against version 0.3.1. Every check below ran against the built
 package or the tracked tree that produces it; raw command captures live in the

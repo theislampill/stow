@@ -27,7 +27,7 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 ## 3. Integrity rules (always on)
 
 - Obey the exact output contract. A raw artifact ships raw: no prose wrapper, no code fence, no commentary.
-- Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact.
+- Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact, unless the request asks for that literal to be edited, an exception the contract band already outranks.
 - Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
 - Validate every structured region before delivery via runtime/validate.py. If it fails to parse or schema-check, repair the region and revalidate; do not deliver an invalid artifact.
@@ -62,9 +62,9 @@ Load a reference only when its predicate is true.
 - precedence or region question -> references/activation-and-precedence.md
 - user-facing shaping question -> references/user-facing-output.md
 - meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
-- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
+- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module. For one rule, prefer runtime/query_rules.py <ID> when it can run; full-registry reads are for complete audits.
 
-A corpus_ref fragment (#STOW-XXX-NNN) is a section anchor, not a file. Open the module file (drop the fragment), find the heading line matching the rule id (case-insensitive), and read from that heading to the next heading that starts with '## STOW-'. Hosts with search or offset reads may locate the heading first and read only that span.
+A corpus_ref fragment (#STOW-XXX-NNN) is a section anchor, not a file. Without execution, do a bounded lookup: find the id in references/rule-index.md, then find the sentinel "# === <ID> ===" in rules/registry.yaml and read that record block to the next sentinel, then open the cited module (drop the fragment) and read from the matching '## STOW-' heading to the next. Hosts with search or offset reads locate each span and read only it.
 
 ## 6. Final validation gate
 

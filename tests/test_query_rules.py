@@ -1,10 +1,13 @@
-"""Smoke gate for the optional rule-lookup helper.
+"""Smoke gate for the packaged rule-lookup helper.
 
-runtime/query_rules.py is an optional, stdlib-only acceleration; it is not
-shipped and no kernel path reads it. These checks confirm it resolves a known
-id with a non-empty corpus section, exits 2 for an unknown id, and authors no
-em dash of its own (the known id used here has an em-dash-free corpus section,
-so a clean run proves the helper adds none).
+runtime/query_rules.py is a packaged, stdlib-only acceleration: it ships inside
+the runtime allowlist, but no kernel path reads it and plain file reads remain
+the contract path. These checks confirm it resolves a known id with a non-empty
+corpus section, reports selector-aware profile membership, surfaces an always-on
+rule's applicability and exception, lists composition conflicts that name the
+rule, exits 2 for an unknown id, and authors no em dash of its own (the known id
+used here has an em-dash-free corpus section, so a clean run proves the helper
+adds none).
 """
 
 import importlib.util
@@ -75,3 +78,53 @@ def test_helper_source_has_no_em_dash():
 def test_missing_argument_exits_2():
     code = query_rules.main([])
     assert code == 2
+
+
+def _profiles_section(out):
+    """The profile-membership block of the helper output, as one string."""
+    assert "profiles including this rule:" in out
+    after = out.split("profiles including this rule:", 1)[1]
+    return after.split("corpus section", 1)[0]
+
+
+def test_act_001_membership_all_three_profiles():
+    """An always-on action-shaping rule joins every prose-selector profile."""
+    _code, out, _err = _run("STOW-ACT-001")
+    section = _profiles_section(out)
+    assert "stow-default" in section
+    assert "technical-clarity" in section
+    assert "controlled-technical-guided" in section
+
+
+def test_pro_001_membership_all_three_profiles():
+    """An always-on prose-integrity rule joins every prose-selector profile,
+    through the selector, not a category prefix (PRO is not a prefix selector)."""
+    _code, out, _err = _run("STOW-PRO-001")
+    section = _profiles_section(out)
+    assert "stow-default" in section
+    assert "technical-clarity" in section
+    assert "controlled-technical-guided" in section
+
+
+def test_prc_001_membership_guided_only():
+    """A controlled-only procedural rule joins the guided profile alone,
+    through its category-prefix selector."""
+    _code, out, _err = _run("STOW-PRC-001")
+    section = _profiles_section(out)
+    assert "controlled-technical-guided" in section
+    assert "stow-default" not in section
+    assert "technical-clarity" not in section
+
+
+def test_always_on_rule_prints_applicability_and_exception():
+    """STOW-ACT-001 is always-on; its applicability and exception must appear."""
+    _code, out, _err = _run("STOW-ACT-001")
+    assert "the request is an actionable task" in out
+    assert "an informational request leads with the answer" in out
+
+
+def test_composition_conflict_lists_cfl_id():
+    """STOW-ACT-001 participates in the composition conflict CFL-009."""
+    _code, out, _err = _run("STOW-ACT-001")
+    assert "composition conflicts:" in out
+    assert "CFL-009" in out

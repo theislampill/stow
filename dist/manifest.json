@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "e575900f1efae15b46019a8bd279d6f9168beac4b75bf7eadae83f9c0a131182",
+  "artifact_sha256": "90f9b76c1fd5de4ad09458a921aa52fc39c7f093ec707bf63ecded14ba01cc60",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -75,5 +75,5 @@
     "stow/templates/task-packet.yaml"
   ],
   "entry_count": 71,
-  "version": "0.3.2"
+  "version": "0.3.3"
 }

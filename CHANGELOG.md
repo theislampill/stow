@@ -7,6 +7,64 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.3.4] - 2026-07-20
+
+Initial-release integrity pass: cold-cache budget headroom, timeless templates,
+and consistent governance wording across the public surfaces.
+
+### Changed
+
+- Cold-cache budget restored with headroom: the kernel (`SKILL.md`) was shortened
+  so it fits its token ceiling under the deterministic fallback estimator, not
+  only under the exact tokenizer. The detailed bounded-lookup steps moved from the
+  kernel into the generated `references/rule-index.md`, leaving one short pointer
+  in the kernel. The ordinary prose-turn bundle stays under its cap in both
+  measurement modes.
+- The meta-code layer templates are timeless fictional worked examples: a
+  fictional session-store migration service with placeholder commit ids. They no
+  longer carry stale repository state or retired capability claims, and they still
+  validate against their schemas through the runtime CLI.
+- The protected-literal exception reads consistently across the README, the
+  plugin description, `references/protected-regions.md`, and the kernel final gate:
+  STOW preserves a supplied literal unless the user's task is to edit that
+  literal, and the prose and style rules never independently rewrite one.
+- `AGENTS.md` states its own authority. It is the authorized repository
+  instruction file, and every other surface in the tree is data and evidence
+  unless the instruction hierarchy admits it. Its repository map now names the
+  protected public corpus.
+- The packaged lookup helper (`runtime/query_rules.py`) prints each per-record
+  registry conflict with its resolution text, not only the counterpart id, and
+  its docstring states the kernel-prefers-helper, file-reads-fallback model.
+- The meta-code route in `rules/routing.yaml` binds the `technical-clarity`
+  profile, matching the profile auto-contexts and the meta-code reference.
+- Refined always-on applicability: the numbered-steps, error-reporting,
+  five-item-cap, and lists-over-tables checks now carry STOW-authored
+  applicability, and the cap check carries its exhaustive-content exception. The
+  always-on module and the README catalog were regenerated.
+
+### Added
+
+- A cold-cache budget regression test (`tests/test_cold_budget.py`) re-runs the
+  real kernel and ordinary-bundle ceilings under the forced fallback estimator.
+- `requirements-runtime.txt` at the repository root declares the two packages the
+  shipped validator needs. `runtime/validate.py` now fails a missing dependency
+  with one install instruction and a stable exit code, covered by
+  `tests/test_runtime_deps.py`.
+- Fail-closed leak scanning: `tools/check_provenance_leak.py` refuses to report
+  PASS over an empty target set and gains a `--tree` mode that walks the
+  filesystem without git (`tests/test_leak_failclosed.py`).
+- Template governance gates: semantic-currentness checks that reject a real
+  commit hash or a retired capability literal in a template, and a comment-prose
+  scan for the YAML templates (`tests/test_meta_templates.py`,
+  `tests/test_self_dogfood.py`).
+
+### Notes
+
+- Rule meanings, the protected corpus, profile semantics, conflict resolutions,
+  and the primary rule total are unchanged. The artifact was rebuilt so its
+  digest reflects the shortened kernel, the regenerated always-on module and rule
+  index, the refined registry qualifiers, and the rewritten templates.
+
 ## [0.3.3] - 2026-07-20
 
 Integrity corrections across the lookup helper, the public docs, and governance.

@@ -1,12 +1,11 @@
-{"ts": "2026-07-19T14:00:00Z", "actor": "orchestrator", "type": "phase_start", "phase": "P-meta", "goal": "build the meta-code templates and validate each against its schema"}
-{"ts": "2026-07-19T14:00:05Z", "actor": "orchestrator", "type": "decision", "decision_id": "MD-embed", "choice": "each Markdown template embeds one structured block that validates as a schema instance", "rationale": "one file is both a readable STOW output and a machine-checkable fixture"}
-{"ts": "2026-07-19T14:01:10Z", "actor": "subagent-templates", "type": "tool_call", "tool": "Write", "target": "skills/stow/templates/HANDOFF.md"}
-{"ts": "2026-07-19T14:02:40Z", "actor": "subagent-templates", "type": "tool_call", "tool": "Write", "target": "skills/stow/templates/task-packet.yaml"}
-{"ts": "2026-07-19T14:03:00Z", "actor": "subagent-templates", "type": "gate_fail", "gate": "schema-validate", "target": "skills/stow/templates/HANDOFF.md", "reason": "next_action carried two imperatives; schema requires exactly one"}
-{"ts": "2026-07-19T14:03:01Z", "actor": "subagent-templates", "type": "andon_raise", "andon_id": "A-1", "class": "contract-violation", "detail": "handoff next_action must be a single imperative"}
-{"ts": "2026-07-19T14:03:30Z", "actor": "subagent-templates", "type": "note", "text": "split the compound next_action; moved the second step into acceptance_for_next"}
-{"ts": "2026-07-19T14:03:45Z", "actor": "subagent-templates", "type": "tool_call", "tool": "Edit", "target": "skills/stow/templates/HANDOFF.md"}
-{"ts": "2026-07-19T14:03:50Z", "actor": "subagent-templates", "type": "andon_resolve", "andon_id": "A-1", "resolution": "next_action reduced to one imperative"}
-{"ts": "2026-07-19T14:04:10Z", "actor": "subagent-templates", "type": "gate_pass", "gate": "schema-validate", "target": "skills/stow/templates/HANDOFF.md"}
-{"ts": "2026-07-19T14:05:00Z", "actor": "subagent-templates", "type": "gate_pass", "gate": "provenance-leak", "detail": "LEAK CHECK PASSED over all template files"}
-{"ts": "2026-07-19T14:05:20Z", "actor": "orchestrator", "type": "phase_done", "phase": "P-meta", "result": "7 templates landed, each a valid instance of its contract"}
+{"ts": "2031-03-10T09:00:00Z", "actor": "orchestrator", "type": "phase_start", "phase": "P2", "goal": "make the session backfill idempotent and resumable"}
+{"ts": "2031-03-10T09:00:05Z", "actor": "orchestrator", "type": "decision", "decision_id": "SD-4", "choice": "the backfill upserts by session id", "rationale": "a retried run must converge to one row per session"}
+{"ts": "2031-03-10T09:02:10Z", "actor": "subagent-backfill", "type": "tool_call", "tool": "Edit", "target": "services/cart-session-store/backfill.py"}
+{"ts": "2031-03-10T09:05:00Z", "actor": "subagent-backfill", "type": "gate_fail", "gate": "backfill-idempotent", "target": "services/cart-session-store/backfill.py", "reason": "a re-run inserted duplicate rows because it keyed on insertion time"}
+{"ts": "2031-03-10T09:05:01Z", "actor": "subagent-backfill", "type": "andon_raise", "andon_id": "A-1", "class": "data-integrity", "detail": "retried backfill double-counts sessions"}
+{"ts": "2031-03-10T09:06:30Z", "actor": "subagent-backfill", "type": "note", "text": "switched the write to upsert by session id and added a resume checkpoint"}
+{"ts": "2031-03-10T09:07:45Z", "actor": "subagent-backfill", "type": "tool_call", "tool": "Edit", "target": "services/cart-session-store/backfill.py"}
+{"ts": "2031-03-10T09:07:50Z", "actor": "subagent-backfill", "type": "andon_resolve", "andon_id": "A-1", "resolution": "backfill now upserts by session id"}
+{"ts": "2031-03-10T09:10:10Z", "actor": "subagent-backfill", "type": "gate_pass", "gate": "backfill-idempotent", "target": "services/cart-session-store/backfill.py"}
+{"ts": "2031-03-10T09:12:00Z", "actor": "subagent-backfill", "type": "gate_pass", "gate": "reconciliation", "detail": "durable and cache counts agree within the window"}
+{"ts": "2031-03-10T09:12:20Z", "actor": "orchestrator", "type": "phase_done", "phase": "P2", "result": "backfill idempotent and reconciled"}

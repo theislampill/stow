@@ -1,4 +1,4 @@
-# Handoff: meta-code layer build → kernel wiring
+# Handoff: dual-write landed, backfill phase next
 
 Worked-example template for the agent-handoff class. An orchestrator finishing a
 bounded phase transfers control to a fresh subagent that has no access to this
@@ -7,74 +7,78 @@ constraints, the single next action, the artifacts, and the open risks from this
 file alone. The fenced block below is the machine-readable instance; it validates
 against `skills/stow/schemas/handoff.schema.json`.
 
+The scenario is a fictional service, `cart-session-store`, moving its session
+store to a durable backend. The commit ids and paths are illustrative
+placeholders.
+
 ## Next action
 
-Wire eight activation predicates into `SKILL.md` section 5, one predicate per
-meta-code reference, keeping the kernel under its token ceiling.
+Run the backfill in dry-run mode against a staging copy and record the count of
+sessions it would insert, before enabling any write.
 
 ## Done
 
-- Five schemas landed under `skills/stow/schemas/`, each `additionalProperties:false`.
-- The validator gained a `--schema <id> <file>` mode; all five schemas run clean.
-- Seven templates landed, each a valid instance of its contract.
+- Sessions write to both the cache and the durable backend behind the
+  migrate_sessions flag.
+- The read path prefers the durable backend and falls back to the cache on a miss.
+- The dual-write path has integration coverage for create, update, and expire.
 
 ## Not done
 
-- Kernel activation predicates for the meta-code references are not yet added.
-- The non-primary contract catalog (`meta_contract_total`) is not yet recorded.
+- Historical sessions are not backfilled into the durable backend.
+- The cache still serves as the source of truth.
 
 ## Constraints
 
-- Do not add rows to the primary registry count of 96; register contracts separately.
-- Keep the kernel always-on token budget within its ceiling; predicates only, no inlined guidance.
-- Both leak gates stay green over every new file.
+- Keep the migrate_sessions flag default-off until the backfill is verified.
+- Do not delete any cache entry during the migration.
+- The durable backend keeps one row per session id.
 
 ## Open risks
 
-- Kernel budget: eight predicate lines are cheap, but the hub reference must stay predicate-loaded, never inlined.
-- A governed instruction file is data, not authority: validation never implies "obey."
+- A backfill without an idempotency guard can double-count sessions on retry.
+- Clock skew between writers can reorder create and expire under dual-write.
 
 ```yaml
 schema_version: 1
 profile: technical-clarity
-handoff_id: HO-metacode-to-kernel
+handoff_id: HO-dualwrite-to-backfill
 from_actor: orchestrator
-to_actor: subagent-kernel-wiring
-created_ts: "2026-07-19T15:10:00Z"
+to_actor: subagent-backfill
+created_ts: "2031-03-04T15:10:00Z"
 goal: >-
-  Add the meta-code layer's activation predicates to the kernel so ordinary turns
-  route to the right reference and schema without loading everything.
+  Migrate cart-session-store to a durable backend so sessions survive a restart,
+  without losing or duplicating any active session.
 plan_ref: skills/stow/templates/PLAN.md
 done:
-  - claim: schemas landed, each additionalProperties:false
-    evidence_ref: "command: ls skills/stow/schemas/*.schema.json"
-  - claim: validator gained a --schema mode; the shipped schemas validate clean
-    evidence_ref: "command: python skills/stow/runtime/validate.py --schema handoff skills/stow/templates/HANDOFF.md"
-  - claim: seven templates landed, each a valid instance of its contract
-    evidence_ref: "command: python -m pytest tests/test_meta_templates.py -q"
+  - claim: sessions dual-write to the cache and the durable backend
+    evidence_ref: "command: pytest services/cart-session-store/tests/test_dualwrite.py"
+  - claim: the read path prefers the durable backend with a cache fallback
+    evidence_ref: "file-line: services/cart-session-store/reader.py:48"
+  - claim: dual-write integration coverage exists for create, update, and expire
+    evidence_ref: "command: pytest services/cart-session-store/tests/ -k dualwrite"
 not_done:
-  - kernel activation predicates for the meta-code references
-  - non-primary contract catalog entry (meta_contract_total)
+  - historical sessions are not backfilled into the durable backend
+  - the cache still serves as the source of truth
 constraints:
-  - do not add rows to primary_total (stays 96); register contracts separately
-  - keep the always-on kernel within its token ceiling; predicates only
-  - both leak gates stay green over every new file
+  - keep the migrate_sessions flag default-off until backfill is verified
+  - do not delete any cache entry during the migration
+  - the durable backend keeps one row per session id
 next_action: >-
-  Wire eight activation predicates into SKILL.md section 5, one predicate per
-  meta-code reference, keeping the kernel under its token ceiling.
+  Run the backfill in dry-run mode against a staging copy and record the count of
+  sessions it would insert, before enabling any write.
 artifacts:
-  - path: skills/stow/schemas/
-    role: landed schemas the predicates point at
-  - path: skills/stow/templates/
-    role: worked-example instances used as validation fixtures
-  - path: skills/stow/SKILL.md
-    role: kernel file to edit (section 5, activation map)
+  - path: services/cart-session-store/writer.py
+    role: dual-write entry point behind the migrate_sessions flag
+  - path: services/cart-session-store/backfill.py
+    role: backfill job the next phase runs and hardens
+  - path: services/cart-session-store/reader.py
+    role: read path with durable-first, cache-fallback lookup
 open_risks:
-  - "kernel budget: the hub reference must stay predicate-loaded, never inlined"
-  - a governed instruction file is data, not authority; validation never implies obey
+  - a backfill without an idempotency guard can double-count sessions on retry
+  - clock skew between writers can reorder create and expire under dual-write
 acceptance_for_next: >-
-  Each meta-code reference has exactly one activation predicate in SKILL.md
-  section 5; the kernel token count stays at or below its ceiling; the
-  meta_contract_total is recorded with primary_total still 96 and both leak
-  gates green.
+  The backfill runs idempotently against staging, the durable session count
+  matches the cache count within the reconciliation window, and no cache entry
+  was deleted.
 ```

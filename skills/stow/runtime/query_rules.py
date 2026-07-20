@@ -13,9 +13,9 @@ Stdlib only. The registry and conflicts files are YAML, but this helper never
 imports a YAML library: it locates each record block by its id line and reads
 the few flat fields it needs by hand. profiles.json is plain JSON. This tool
 IS shipped: it is inside the runtime allowlist in tools/build_skill.py and
-ships in the packaged skill. It is still an optional acceleration and no kernel
-path reads it; plain file reads remain the contract path, and this tool only
-speeds up manual rule lookups.
+ships in the packaged skill. It is an optional acceleration: the kernel prefers
+this helper when execution is available; bounded file reads remain the fallback,
+and no route depends exclusively on execution.
 """
 
 import json
@@ -70,6 +70,9 @@ def _parse_record(block):
            "applicability": None, "exception": None,
            "enforcement_status": None, "corpus_ref": None, "conflicts": []}
     section = None
+    # A registry conflict entry is a "- rule:" line optionally followed by a
+    # "resolution:" line at deeper indent; capture both so the resolution text
+    # is reported, not just the counterpart id.
     for line in block:
         stripped = line.strip()
         indent = len(line) - len(line.lstrip(" "))
@@ -98,7 +101,11 @@ def _parse_record(block):
         elif line.startswith("      status:") and section == "enforcement":
             rec["enforcement_status"] = _unquote(line.split(":", 1)[1])
         elif line.startswith("      - rule:") and section == "conflicts":
-            rec["conflicts"].append(_unquote(line.split(":", 1)[1]))
+            rec["conflicts"].append(
+                {"rule": _unquote(line.split(":", 1)[1]), "resolution": None})
+        elif line.startswith("        resolution:") and section == "conflicts" \
+                and rec["conflicts"]:
+            rec["conflicts"][-1]["resolution"] = _unquote(line.split(":", 1)[1])
     return rec
 
 
@@ -245,7 +252,15 @@ def main(argv=None):
     if rec["exception"]:
         print("exception: %s" % rec["exception"])
     print("enforcement status: %s" % (rec["enforcement_status"] or ""))
-    print("conflicts: %s" % (", ".join(rec["conflicts"]) if rec["conflicts"] else "none"))
+    if rec["conflicts"]:
+        print("registry conflicts:")
+        for conflict in rec["conflicts"]:
+            if conflict["resolution"]:
+                print("  %s: %s" % (conflict["rule"], conflict["resolution"]))
+            else:
+                print("  %s" % conflict["rule"])
+    else:
+        print("registry conflicts: none")
     if composition:
         print("composition conflicts:")
         for cid, winner_ref, winner_band, permitted in composition:

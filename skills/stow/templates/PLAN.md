@@ -1,4 +1,4 @@
-# Plan: build the meta-code layer
+# Plan: migrate the session store to a durable backend
 
 Worked-example template for the implementation-plan class. It turns a goal into an
 ordered, reviewable set of phases with acceptance criteria and gates, executable by
@@ -7,66 +7,67 @@ observable `acceptance`, and a `gate`; dependencies form a DAG with no cycles;
 every phase has a defined terminal state; no task is an orphan. The fenced block is
 the machine-readable task DAG.
 
-## Phase P0: schemas
+The scenario is a fictional service, `cart-session-store`, replacing an in-process
+session cache with a durable backend so sessions survive a restart.
 
-Author the five schemas as JSON-Schema-2020-12 with `additionalProperties:false`.
+## Phase P0: design
 
-## Phase P1: validator schema mode
+Choose the durable schema and the key layout, one row per session id.
 
-Add `--schema <id> <file>` to the validator; add the cross-field post-checks that
-JSON-Schema alone cannot express.
+## Phase P1: dual-write
 
-## Phase P2: templates
+Write every new session to both the cache and the durable backend behind a flag.
 
-Author seven worked-example templates, each a valid instance of its contract.
+## Phase P2: backfill
 
-## Phase P3: kernel wiring + catalog
+Copy historical sessions into the durable backend with an idempotent, resumable job.
 
-Add one activation predicate per reference; record `meta_contract_total` outside
-the primary count of 96.
+## Phase P3: cutover
+
+Read from the durable backend as the source of truth and retire the cache write.
 
 ```yaml
 schema_version: 1
 profile: technical-clarity
-plan_id: PLAN-metacode
+plan_id: PLAN-session-store-migration
 tasks:
-  - id: T-schemas
+  - id: T-schema
     phase: P0
     depends_on: []
-    acceptance: five *.schema.json parse and reject an additional property
-    method: schema
-    gate: G-schemas
-  - id: T-validator-mode
+    acceptance: the durable schema stores one row per session id and round-trips a sample
+    method: review
+    gate: G-schema
+  - id: T-dualwrite
     phase: P1
-    depends_on: [T-schemas]
-    acceptance: "validate.py --schema handoff FILE exits zero on a valid instance"
+    depends_on: [T-schema]
+    acceptance: create, update, and expire write to both stores behind the flag
     method: command
-    gate: G-validator
-  - id: T-templates
+    gate: G-dualwrite
+  - id: T-backfill
     phase: P2
-    depends_on: [T-validator-mode]
-    acceptance: each of seven templates validates against its contract
-    method: schema
-    gate: G-templates
-  - id: T-kernel-wiring
-    phase: P3
-    depends_on: [T-templates]
-    acceptance: each meta-code reference has exactly one predicate in SKILL.md section 5
-    method: parse
-    gate: G-kernel
-  - id: T-catalog
-    phase: P3
-    depends_on: [T-schemas]
-    acceptance: meta_contract_total recorded; primary_total still 96
+    depends_on: [T-dualwrite]
+    acceptance: a re-run of the backfill leaves the durable row count unchanged
     method: command
-    gate: G-catalog
+    gate: G-backfill
+  - id: T-reconcile
+    phase: P2
+    depends_on: [T-backfill]
+    acceptance: durable and cache session counts agree within the reconciliation window
+    method: command
+    gate: G-reconcile
+  - id: T-cutover
+    phase: P3
+    depends_on: [T-reconcile]
+    acceptance: reads resolve from the durable backend and the cache write is disabled
+    method: command
+    gate: G-cutover
 phases:
   - id: P0
-    terminal_state: schemas-authored
+    terminal_state: schema-chosen
   - id: P1
-    terminal_state: validator-schema-mode-runnable
+    terminal_state: dual-write-live-behind-flag
   - id: P2
-    terminal_state: templates-valid
+    terminal_state: backfilled-and-reconciled
   - id: P3
-    terminal_state: kernel-wired-and-cataloged
+    terminal_state: durable-is-source-of-truth
 ```

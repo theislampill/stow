@@ -246,3 +246,63 @@ def test_template_validates_against_its_schema(schema_id, name):
         "%s does not validate against %s:\n%s%s"
         % (name, schema_id, proc.stdout, proc.stderr))
     assert "VALID" in proc.stdout
+
+
+# --------------------------------------------------------------------------- #
+# Semantic currentness: the templates are TIMELESS FICTIONAL worked examples.
+# They must not smuggle in stale real-project state (a real commit id, a stale
+# capability claim, or completed work described as pending), which is how a
+# worked example rots into a lie a cold reader trusts.
+# --------------------------------------------------------------------------- #
+
+# Literal fragments a prior generation of these templates carried, each a
+# now-false statement about the STOW repository's own state or capabilities.
+STALE_LITERALS = (
+    "5e3aafe",             # a real repo commit id an old template embedded
+    "no schema-runner",    # stale: the schema validator ships
+    "schema-runner ships",
+    "not runnable until",
+    "gains a schema mode",
+    "validator gains a schema mode",
+    "five schemas landed",
+    "five schemas",
+)
+
+
+@pytest.mark.parametrize("name", ALL_TEMPLATES)
+def test_template_carries_no_stale_repo_state(name):
+    low = _read(name).lower()
+    hits = [lit for lit in STALE_LITERALS if lit.lower() in low]
+    assert hits == [], "%s carries stale real-project literal(s): %r" % (name, hits)
+
+
+@pytest.mark.parametrize("name", ALL_TEMPLATES)
+def test_template_makes_no_not_yet_schema_count_claim(name):
+    """Generic guard: a 'not yet' phrase paired with a schema-count claim is the
+    exact stale-capability shape the retired templates carried."""
+    low = _read(name).lower()
+    if "not yet" in low:
+        assert not re.search(r"(?:five|seven|eight|nine|\d+)\s+schema", low), (
+            "%s pairs a 'not yet' phrase with a schema-count claim" % name)
+
+
+def _repo_commit_hashes():
+    proc = subprocess.run(["git", "-C", REPO, "log", "--format=%H"],
+                          capture_output=True, text=True)
+    if proc.returncode != 0:
+        return []
+    return [h.strip() for h in proc.stdout.split() if h.strip()]
+
+
+@pytest.mark.parametrize("name", ALL_TEMPLATES)
+def test_template_embeds_no_real_repo_commit_hash(name):
+    """A shipped template must reference no real commit of this repository. The
+    fictional placeholder ids (e.g. 0000abc) are not real hashes, so they are
+    allowed; only a real hash (or its short prefix) is a currentness leak."""
+    hashes = _repo_commit_hashes()
+    if not hashes:
+        pytest.skip("git history unavailable (weak/export environment)")
+    shorts = {h[:7].lower() for h in hashes} | {h.lower() for h in hashes}
+    low = _read(name).lower()
+    hit = next((h for h in shorts if h in low), None)
+    assert hit is None, "%s embeds a real repo commit hash: %r" % (name, hit)

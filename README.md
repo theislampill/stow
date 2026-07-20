@@ -6,7 +6,7 @@ STOW is a writing-discipline skill that governs what a model emits. It treats ev
 
 - **What it does.** STOW is designed to be selected on every user-facing turn; when the host invokes it, the compact kernel loads. The kernel classifies the reply into regions, applies always-on integrity and output-shaping checks to the prose, and pulls deeper references only when a named predicate is true.
 - **What it governs.** User-facing prose (answers, explanations, procedures), agent-to-agent coordination artifacts (handoffs, plans, audits, runbooks, state records, task packets, event streams), and structured payloads (JSON, JSONL, YAML) held to a parse-and-validate contract.
-- **What it protects.** Code, commands, paths, identifiers, quoted text, and data values are protected literals: they pass through byte-for-byte unchanged. **Executable source code is protected by default and is not STOW's primary writing target.** If you install STOW expecting it to restyle your source code, it will not, by design.
+- **What it protects.** Code, commands, paths, identifiers, quoted text, and data values are protected literals: STOW preserves them byte-for-byte unless the user's task is to edit that literal, and the prose and style rules never independently rewrite one. **Executable source code is protected by default and is not STOW's primary writing target.** If you install STOW expecting it to restyle your source code, it will not, by design.
 - **How always-on works.** Any user-facing prose turn loads the operational checks in `references/always-on.md`. Each check carries its rule id, its applicability condition, and its principal exception, and the module opens with a request-mode router: an informational question leads with the answer, an actionable task with the next bounded action, completed work with the result and no invented follow-up, a raw artifact with the raw artifact alone.
 - **How profiles work.** Profiles only make rules stricter, and only where they apply. The default profile imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules; the controlled profile activates them for executable procedures and safety instructions.
 - **How meta-code fits.** Coordination artifacts are governed by schemas and templates, not by taste. The shipped validator checks any instance against its schema, and the documented loop is validate, repair, revalidate.
@@ -91,16 +91,16 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer, per the request-mode router | Planned |
-| `STOW-ACT-002` | Numbered steps for multi-step work | All prose (always on) | Planned |
+| `STOW-ACT-002` | Numbered steps for multi-step work | the work runs across multiple steps | Planned |
 | `STOW-ACT-003` | Close with a single concrete next step | open work remains when the turn ends; exception: when the work is complete, report the result and invent no follow-up step | Review-fallback |
 | `STOW-ACT-004` | Defer secondary issues | a secondary issue surfaces during the main task; exception: offer the deferred issue separately at the end rather than dropping it | Planned |
 | `STOW-ACT-005` | Restate progress each turn | a multi-turn task is in progress; exception: a single-turn answer needs no progress ledger | Review-fallback |
 | `STOW-ACT-006` | Concrete effort estimates | a defensible range exists for the estimate; exception: with no defensible range, omit the figure; accuracy outranks the preference | Review-fallback |
 | `STOW-ACT-007` | Surface completed outcomes | work ran and produced a result this turn | Planned |
-| `STOW-ACT-008` | Neutral error reporting | All prose (always on) | Planned |
-| `STOW-ACT-009` | Bound action lists to five items | All prose (always on) | Callable |
+| `STOW-ACT-008` | Neutral error reporting | the turn reports an error | Planned |
+| `STOW-ACT-009` | Bound action lists to five items | a list of actions to take; exception: exhaustive evidence, reference inventories, safety content, contract-required lists | Callable |
 | `STOW-ACT-010` | No preamble, recap, or sign-off | All prose (always on) | Planned |
-| `STOW-ACT-011` | Lists, not tables, for action sequences | All prose (always on) | Planned |
+| `STOW-ACT-011` | Lists, not tables, for action sequences | action sequences, not comparison data | Planned |
 
 </details>
 
@@ -450,7 +450,7 @@ python tools/check_provenance_leak.py --local
 
 **`--schema` says the schema is unknown.** The id is a bare filename stem: `handoff`, not `handoff.schema.json` and not a path.
 
-**STOW edited my source code.** It should not. Code is a protected literal that passes through unchanged. If a code region was altered, that is a precedence violation worth reporting, not intended behavior.
+**STOW edited my source code.** It should not, unless editing that code was the task you set. Otherwise code is a protected literal that passes through unchanged, and the prose and style rules never rewrite it on their own. If a code region was altered when your task was not to edit it, that is a precedence violation worth reporting, not intended behavior.
 
 **A generated file keeps coming back changed.** `references/rule-index.md`, `references/always-on.md`, `docs/rule-conflicts.md`, and the README catalog sections are generated. Edit the registry or the conflict registry and regenerate; do not hand-edit a generated region.
 

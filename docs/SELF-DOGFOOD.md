@@ -6,7 +6,8 @@ command, or review that backs it. Classes: **mechanically checked** (a
 committed test enforces it), **independently reviewed** (a fresh-context
 reviewer verified it), **exempt** (a declared profile or protected-region
 exemption applies), **accepted deviation** (kept, with a rule-based
-rationale), **unresolved** (none remain).
+rationale), **unresolved** (none remain within the mechanically covered scope
+described below; the semantic checks rest on point-in-time review).
 
 ## Method
 
@@ -50,6 +51,7 @@ silently.
 | D-18 | Unclear conditions, exceptions, precedence | Every always-on check carries its condition and principal exception; collisions have terminal resolutions | mechanically checked | qualifier preservation tests; conflict registry gates |
 | D-19 | Stale counts, versions, hashes, claims | Mechanically covered claims only: callable-count phrases pinned to the runtime; catalog statuses pinned to the registry; version pinned to the manifest and cross-checked against the changelog top section; corpus-topology claims pinned to the on-disk module count and the runtime allowlist size by the topology-consistency gate; artifact freshness machine-checked. Claims outside these gates rest on review. | mechanically checked | `tests/test_doc_lint.py`, `tests/test_readme_catalog.py`, `tests/test_build.py`, `tests/test_repo_hygiene.py`, `tests/test_topology_claims.py` |
 | D-20 | Meta-code examples validate | Every shipped template validates through the documented CLI | mechanically checked | `tests/test_meta_templates.py` |
+| D-25 | Templates stay timeless and current | The templates are fictional worked examples; gates assert they embed no real repo commit hash, no retired capability literal, and no completed work described as pending, and that YAML template comments obey the em-dash and lexical checks | mechanically checked | `tests/test_meta_templates.py`, `tests/test_self_dogfood.py` |
 | D-21 | Documented commands run | Generators, validators, linter, build, and measurement commands all execute in the suite; README examples marked for validation pass the runtime | mechanically checked | suite-wide; `tests/test_readme_catalog.py` |
 | D-22 | Install instructions reproduce | Extraction shape, fidelity, import closure, and runtime drive proven from a fresh build; temporary-home installs re-proven in the package-health report | mechanically checked | `tests/test_install_smoke.py`; `docs/INITIAL-PACKAGE-HEALTH.md` |
 | D-23 | Public statements match evidence | Live-model claims scoped to measured evidence; capability counts derived, not asserted | independently reviewed | `docs/FUNCTIONAL-EVIDENCE.md` |

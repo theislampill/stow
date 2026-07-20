@@ -97,3 +97,49 @@ def test_authored_surface_passes_its_own_deterministic_checks(rel, profile):
     assert findings == [], (
         "%s betrays its own rules under %s: %r"
         % (rel, profile, [(a.line, a.rule, a.message[:50]) for a in findings]))
+
+
+# --------------------------------------------------------------------------- #
+# YAML/JSONL template comments carry authored prose that the .md self-dogfood
+# scan never reaches (those files are data surfaces, not .md). A comment is
+# still authored English, so it must obey the em-dash rule and the lexical
+# subset below. This closes the governance gap where an em dash or an AI tell
+# could hide in a template comment.
+# --------------------------------------------------------------------------- #
+
+YAML_TEMPLATE_FILES = ("task-packet.yaml", "event-stream.jsonl")
+
+# The deterministic prose checks meaningful for a short comment line.
+COMMENT_GATED_RULES = frozenset({
+    "em-dash", "intensifier", "filler-phrase", "whether-youre-opener",
+    "weasel-phrase", "ai-transition", "ai-verb", "academic-tell",
+})
+
+
+def _comment_prose(path):
+    """The authored prose of a YAML/JSONL file: its comment lines, joined."""
+    out = []
+    with open(path, encoding="utf-8") as fh:
+        for line in fh.read().splitlines():
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                out.append(stripped.lstrip("#").strip())
+    return "\n".join(out)
+
+
+@pytest.mark.parametrize("name", YAML_TEMPLATE_FILES)
+def test_yaml_template_comments_have_no_em_dash(name):
+    path = os.path.join(REPO, "skills", "stow", "templates", name)
+    assert "—" not in _comment_prose(path), (
+        "%s has an em dash in a comment" % name)
+
+
+@pytest.mark.parametrize("name", YAML_TEMPLATE_FILES)
+def test_yaml_template_comments_pass_lexical_subset(name):
+    path = os.path.join(REPO, "skills", "stow", "templates", name)
+    text = _comment_prose(path)
+    findings = [a for a in lint_prose.lint(text, profile=CLARITY, tables=TABLES)
+                if a.rule in COMMENT_GATED_RULES]
+    assert findings == [], (
+        "%s comment prose betrays a lexical rule: %r"
+        % (name, [(a.line, a.rule, a.message[:50]) for a in findings]))

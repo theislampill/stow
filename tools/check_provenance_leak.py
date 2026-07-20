@@ -30,8 +30,15 @@ Modes:
 Targets:
   --self-test    scan this module's own source (must pass both gates).
   --staged       scan the git staged snapshot.
+  --tree         scan every readable file under the repo root, walking the
+                 filesystem directly (no git checkout required).
   <paths...>     scan the given files.
-  (none)         scan every tracked file.
+  (none)         scan every tracked file (via git ls-files).
+
+Fail-closed: a whole-tree scan (the default tracked scan or --tree) that matches
+ZERO files never prints PASS. It exits nonzero with a clear message, so running
+the checker outside a git checkout, or over an empty tree, cannot masquerade as a
+clean result.
 """
 
 import argparse
@@ -345,6 +352,28 @@ def targets_tracked():
     return result
 
 
+_TREE_SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", ".mypy_cache"}
+
+
+def targets_tree():
+    """Every readable file under the repo root, walking the filesystem directly.
+
+    Independent of git, so it catches a leak in an untracked file and works in a
+    checkout-free export. Binary files (a NUL byte) are skipped by ``_read_text``.
+    """
+    root = repo_root()
+    result = []
+    for dirpath, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in _TREE_SKIP_DIRS]
+        for name in files:
+            full = os.path.join(dirpath, name)
+            content = _read_text(full)
+            if content is not None:
+                rel = os.path.relpath(full, root).replace("\\", "/")
+                result.append((rel, content))
+    return result
+
+
 def targets_paths(paths):
     result = []
     for p in paths:
@@ -375,6 +404,9 @@ def run(argv=None):
                         help="full mode: load the private pattern file")
     parser.add_argument("--staged", action="store_true",
                         help="scan the git staged snapshot")
+    parser.add_argument("--tree", action="store_true",
+                        help="scan the filesystem tree under the repo root "
+                             "(no git required)")
     parser.add_argument("--self-test", dest="self_test", action="store_true",
                         help="scan this module's own source")
     parser.add_argument("--patterns", default=None,
@@ -410,14 +442,30 @@ def run(argv=None):
 
     hash_specs = load_hash_positions(hash_positions_path())
 
+    whole_tree = False
     if args.self_test:
         targets = targets_self()
     elif args.staged:
         targets = targets_staged()
+    elif args.tree:
+        targets = targets_tree()
+        whole_tree = True
     elif args.paths:
         targets = targets_paths(args.paths)
     else:
         targets = targets_tracked()
+        whole_tree = True
+
+    # Fail-closed: a whole-tree scan that matched nothing must never report PASS.
+    # An empty tracked set means git returned nothing (no checkout); an empty
+    # tree walk means an empty directory. Either way, scanning zero files is not
+    # evidence of a clean tree.
+    if whole_tree and not targets:
+        print("FAIL: whole-tree scan matched zero files; refusing to report PASS "
+              "over an empty target set (no git checkout, or an empty tree). Run "
+              "from inside the repository, or use --tree to walk the filesystem.",
+              file=sys.stderr)
+        return 5
 
     findings = []
     for path, content in targets:

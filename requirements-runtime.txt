@@ -1,0 +1,5 @@
+# Third-party packages the shipped STOW runtime needs.
+# Only skills/stow/runtime/validate.py imports these; lint_prose.py,
+# profiles.py, and query_rules.py are standard-library only.
+ruamel.yaml>=0.19.1
+jsonschema>=4.26.0

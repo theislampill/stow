@@ -53,9 +53,38 @@ import math
 import os
 import sys
 
-import jsonschema
-from ruamel.yaml import YAML
-from ruamel.yaml.nodes import MappingNode, ScalarNode, SequenceNode
+# Exit code and message for a missing third-party runtime dependency. Kept as a
+# module-level helper so the error path is unit-testable without uninstalling a
+# package. The two packages are declared in requirements-runtime.txt at the
+# repository root.
+MISSING_DEPENDENCY_EXIT = 3
+_RUNTIME_DEP_HINT = (
+    "validate.py needs the ruamel.yaml and jsonschema packages. Install them "
+    "with: pip install -r requirements-runtime.txt "
+    "(or: pip install ruamel.yaml jsonschema)")
+
+
+def missing_dependency_message(exc):
+    """One concise install instruction for a missing runtime dependency."""
+    return "%s\n(import error: %s)" % (_RUNTIME_DEP_HINT, exc)
+
+
+def dependency_exit(exc, stream=None):
+    """Print the install instruction and return the stable exit code 3."""
+    print(missing_dependency_message(exc), file=stream or sys.stderr)
+    return MISSING_DEPENDENCY_EXIT
+
+
+try:
+    import jsonschema
+    from ruamel.yaml import YAML
+    from ruamel.yaml.nodes import MappingNode, ScalarNode, SequenceNode
+    _IMPORT_ERROR = None
+except ImportError as exc:  # pragma: no cover - exercised via dependency_exit
+    jsonschema = None
+    YAML = None
+    MappingNode = ScalarNode = SequenceNode = None
+    _IMPORT_ERROR = exc
 
 
 # --------------------------------------------------------------------------- #
@@ -571,6 +600,8 @@ VALIDATORS = {
 
 
 def main(argv=None):
+    if _IMPORT_ERROR is not None:
+        return dependency_exit(_IMPORT_ERROR)
     parser = argparse.ArgumentParser(
         description="Validate a structured-output file: --format for JSON/JSONL/"
                     "YAML structure, or --schema for a named meta-code schema.")

@@ -1,7 +1,9 @@
 # Protected regions (mask first, scan second)
 
-Protected regions are spans of a response that STOW must read but must never
-rewrite: code, quotations, machine identifiers, and serialized data. Before any
+Protected regions are spans of a response that STOW must read but must not
+rewrite on its own: code, quotations, machine identifiers, and serialized data.
+STOW preserves a supplied literal unless the user's task is to edit that literal;
+the prose and style rules never independently rewrite one. Before any
 prose rule or lexical scan runs, STOW replaces each protected span with an
 opaque placeholder, applies every rule to the masked surface, then restores the
 original spans byte-for-byte. This ordering is a STOW-native invariant, not a
@@ -27,8 +29,10 @@ never mutates them.
 2. **Scan.** Run the controlled-technical rules and the lexical scans over the
    masked surface only. Placeholders are inert: they match no banned pattern and
    carry no editable prose.
-3. **Restore.** Put every original span back exactly as written. No protected
-   span is ever paraphrased, re-spelled, re-cased, or re-punctuated.
+3. **Restore.** Put every original span back exactly as written. A prose or
+   style rule never paraphrases, re-spells, re-cases, or re-punctuates a
+   protected span on its own; only a task that itself edits that literal changes
+   it, and that edit is the contract band acting, not a presentation rule.
 
 A rule may still act on the region *around* a placeholder (spacing, a following
 period, sentence length), but never on the masked content itself.

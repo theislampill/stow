@@ -30,16 +30,16 @@ Open with what the request type demands:
 ## Action shaping
 
 - ACT-001 Action-first response opening -- when: the request is an actionable task; except: an informational request leads with the answer, per the request-mode router  (see corpus/action-shaping.md)
-- ACT-002 Numbered steps for multi-step work  (see corpus/action-shaping.md)
+- ACT-002 Numbered steps for multi-step work -- when: the work runs across multiple steps  (see corpus/action-shaping.md)
 - ACT-003 Close with a single concrete next step -- when: open work remains when the turn ends; except: when the work is complete, report the result and invent no follow-up step  (see corpus/action-shaping.md)
 - ACT-004 Defer secondary issues -- when: a secondary issue surfaces during the main task; except: offer the deferred issue separately at the end rather than dropping it  (see corpus/action-shaping.md)
 - ACT-005 Restate progress each turn -- when: a multi-turn task is in progress; except: a single-turn answer needs no progress ledger  (see corpus/action-shaping.md)
 - ACT-006 Concrete effort estimates -- when: a defensible range exists for the estimate; except: with no defensible range, omit the figure; accuracy outranks the preference  (see corpus/action-shaping.md)
 - ACT-007 Surface completed outcomes -- when: work ran and produced a result this turn  (see corpus/action-shaping.md)
-- ACT-008 Neutral error reporting  (see corpus/action-shaping.md)
-- ACT-009 Bound action lists to five items  (see corpus/action-shaping.md)
+- ACT-008 Neutral error reporting -- when: the turn reports an error  (see corpus/action-shaping.md)
+- ACT-009 Bound action lists to five items -- when: a list of actions to take; except: exhaustive evidence, reference inventories, safety content, contract-required lists  (see corpus/action-shaping.md)
 - ACT-010 No preamble, recap, or sign-off  (see corpus/action-shaping.md)
-- ACT-011 Lists, not tables, for action sequences  (see corpus/action-shaping.md)
+- ACT-011 Lists, not tables, for action sequences -- when: action sequences, not comparison data  (see corpus/action-shaping.md)
 
 ## Prose integrity
 

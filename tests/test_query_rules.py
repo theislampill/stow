@@ -1,13 +1,14 @@
 """Smoke gate for the packaged rule-lookup helper.
 
 runtime/query_rules.py is a packaged, stdlib-only acceleration: it ships inside
-the runtime allowlist, but no kernel path reads it and plain file reads remain
-the contract path. These checks confirm it resolves a known id with a non-empty
-corpus section, reports selector-aware profile membership, surfaces an always-on
-rule's applicability and exception, lists composition conflicts that name the
-rule, exits 2 for an unknown id, and authors no em dash of its own (the known id
-used here has an em-dash-free corpus section, so a clean run proves the helper
-adds none).
+the runtime allowlist. The kernel prefers it when execution is available, and
+bounded file reads remain the fallback, so no route depends exclusively on it.
+These checks confirm it resolves a known id with a non-empty corpus section,
+reports selector-aware profile membership, surfaces an always-on rule's
+applicability and exception, lists the per-record registry conflicts with their
+resolution text and the composition conflicts that name the rule, exits 2 for an
+unknown id, and authors no em dash of its own (the known id used here has an
+em-dash-free corpus section, so a clean run proves the helper adds none).
 """
 
 import importlib.util
@@ -128,3 +129,13 @@ def test_composition_conflict_lists_cfl_id():
     _code, out, _err = _run("STOW-ACT-001")
     assert "composition conflicts:" in out
     assert "CFL-009" in out
+
+
+def test_registry_conflict_prints_counterpart_and_resolution():
+    """STOW-PRO-001 carries a per-record registry conflict with STOW-PCT-001;
+    the helper must print the counterpart id AND the resolution text, not just
+    the id."""
+    _code, out, _err = _run("STOW-PRO-001")
+    assert "registry conflicts:" in out
+    assert "STOW-PCT-001" in out
+    assert "Use neither character" in out

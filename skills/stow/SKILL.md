@@ -18,11 +18,11 @@ Eight bands, highest to lowest. Invariant: a lower rule never corrupts a higher 
 7. profile: controlled-technical writing profile, when requested.
 8. presentation: user-facing shaping and prose integrity.
 
-When two bands conflict, the higher band wins and the lower yields. Corruption means a lower band altering, dropping, or reshaping what a higher band fixed: presentation never edits a literal, terminology never breaks serialization, profile never softens a safety instruction.
+When two bands conflict, the higher wins. Corruption is a lower band altering, dropping, or reshaping what a higher band fixed: presentation never edits a literal, terminology never breaks serialization, profile never softens a safety instruction.
 
 ## 2. Classify output regions
 
-A single response mixes prose, procedure, data, code, quotes, and identifiers. Region boundaries follow the delimiters already in the text: fences, quotes, list layout, and structured-data syntax. Split the response into regions and apply each rule only to the region its scope names. A prose rule never rewrites code, structured data, quoted text, or identifiers; a formatting rule never enters prose.
+A response mixes prose, procedure, data, code, quotes, and identifiers. Region boundaries follow the delimiters already in the text: fences, quotes, list layout, and structured-data syntax. Split the response into regions and apply each rule only to the region its scope names. A prose rule never rewrites code, data, quotes, or identifiers; a formatting rule never enters prose.
 
 ## 3. Integrity rules (always on)
 
@@ -30,12 +30,12 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 - Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact, unless the request asks for that literal to be edited, an exception the contract band already outranks.
 - Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
-- Validate every structured region before delivery via runtime/validate.py. If it fails to parse or schema-check, repair the region and revalidate; do not deliver an invalid artifact.
+- Validate every structured region before delivery via runtime/validate.py. If it fails to parse or schema-check, repair and revalidate; never deliver an invalid artifact.
 
 ## 4. User-facing output
 
 - Result first. Cut preamble, filler, enthusiasm, and closers.
-- Open per the request mode: answer or result first for informational asks, next bounded action first for actionable tasks, raw artifact only when raw output is requested (router table in the always-on checks).
+- Open per the request mode; the always-on checks carry the router that fixes the opening for each intent.
 - Progressive disclosure: the essential answer first, supporting detail on demand.
 - Keep actions bounded and visible; externalize state instead of holding it silently.
 - Report errors as cause -> effect -> correction.
@@ -62,16 +62,16 @@ Load a reference only when its predicate is true.
 - precedence or region question -> references/activation-and-precedence.md
 - user-facing shaping question -> references/user-facing-output.md
 - meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
-- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module. For one rule, prefer runtime/query_rules.py <ID> when it can run; full-registry reads are for complete audits.
+- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
 
-A corpus_ref fragment (#STOW-XXX-NNN) is a section anchor, not a file. Without execution, do a bounded lookup: find the id in references/rule-index.md, then find the sentinel "# === <ID> ===" in rules/registry.yaml and read that record block to the next sentinel, then open the cited module (drop the fragment) and read from the matching '## STOW-' heading to the next. Hosts with search or offset reads locate each span and read only it.
+For one rule, use runtime/query_rules.py <ID> when it can run; otherwise follow the bounded lookup in references/rule-index.md.
 
 ## 6. Final validation gate
 
 Before delivery, confirm:
 
 - the top contract is obeyed;
-- literals are unchanged;
+- literals are unchanged unless their editing was the task;
 - every structured region parses and schema-checks;
 - nothing unsupported was added and nothing required was dropped;
 - only predicate-matched references were loaded.

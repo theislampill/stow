@@ -48,8 +48,11 @@ def render(records, primary_total):
         "when execution is available. Otherwise search this index for the id, "
         "then search `registry.yaml` for the sentinel line `# === <ID> ===` and "
         "read only that record block up to the next sentinel, then open the cited "
-        "corpus module and read only the anchored section. Full-registry "
-        "ingestion is for complete audits only.")
+        "corpus module and read only the anchored section. A `corpus_ref` fragment "
+        "(`#STOW-XXX-NNN`) is a section anchor, not a file: drop the fragment to "
+        "open the module, then read from the matching `## STOW-` heading to the "
+        "next heading. A host with search or offset reads locates each span and "
+        "reads only it. Full-registry ingestion is for complete audits only.")
     lines.append("")
     lines.append("| id | title | category | precedence |")
     lines.append("| --- | --- | --- | --- |")

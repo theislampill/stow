@@ -152,7 +152,7 @@ routes:
     predicate: "meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope)"
     references:
       - references/meta-code.md
-    profile: null
+    profile: technical-clarity
     corpus: null
     validator: python runtime/validate.py
 

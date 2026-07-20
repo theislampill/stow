@@ -2349,6 +2349,7 @@ records:
       kind: always-user-facing
       predicate: The response is user-facing.
       always_on_for_prose: true
+      applicability: "the work runs across multiple steps"
     precedence: presentation
     enforcement:
       kind: heuristic
@@ -2582,6 +2583,7 @@ records:
       kind: always-user-facing
       predicate: The response is user-facing.
       always_on_for_prose: true
+      applicability: "the turn reports an error"
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -2619,6 +2621,8 @@ records:
       kind: always-user-facing
       predicate: The response is user-facing.
       always_on_for_prose: true
+      applicability: "a list of actions to take"
+      exception: "exhaustive evidence, reference inventories, safety content, contract-required lists"
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -2693,6 +2697,7 @@ records:
       kind: always-user-facing
       predicate: The response is user-facing.
       always_on_for_prose: true
+      applicability: "action sequences, not comparison data"
     precedence: presentation
     enforcement:
       kind: heuristic

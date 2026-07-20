@@ -1,72 +1,76 @@
-# Runbook: rebuild and republish the STOW skill artifact
+# Runbook: cut over the session store to the durable backend
 
-Worked-example template for the runbook class. Because an operator (human or
-agent) executes this under time pressure, every step is a single imperative.
-Every step that can fail carries a `verify` and a `rollback`. Every safety step
-states a risk level and its consequence. Commands are protected literals: copy
-them exactly. The fenced block is the machine-readable step list.
+Worked-example template for the runbook class. An operator executes this under
+time pressure, so every step is a single imperative. Every step that can fail
+carries a `verify` and a `rollback`. Every safety step states a risk level and
+its consequence. Commands are protected literals: copy them exactly. The fenced
+block is the machine-readable step list.
+
+The scenario is a fictional service, `cart-session-store`. Every command is
+illustrative.
 
 ## Preconditions
 
-- Working tree is clean (`git status` shows nothing to commit).
-- All gates are green (tests pass, and both leak gates report `LEAK CHECK PASSED`).
+- The backfill has completed and reconciliation reported zero drift.
+- The migrate_sessions flag is present and default-off.
 
 ## Steps
 
-1. Run the full test suite.
-   - Verify: exit code is zero.
+1. Run the session-store test suite.
+   - Verify: the suite exits zero.
    - Rollback: none (read-only).
-2. Run the anti-leak gate over the tree.
-   - Verify: output ends with `LEAK CHECK PASSED`.
+2. Run reconciliation between the cache and the durable backend.
+   - Verify: the drift count is zero.
    - Rollback: none (read-only).
-3. Build the artifact.
-   - Verify: two consecutive builds are byte-identical.
-   - Rollback: delete the build output directory.
-4. CAUTION (medium): publishing replaces the live artifact. Consequence: installed
-   agents pick up the new build on next load. Publish only after steps 1–3 are green.
-   - Verify: the published artifact's short SHA matches the local build.
-   - Rollback: republish the previous release.
+3. Enable durable reads by turning on the migrate_sessions flag.
+   - Verify: read latency stays within budget and the error rate is flat.
+   - Rollback: turn the migrate_sessions flag off.
+4. CAUTION (medium): disabling the cache write makes the durable backend the only
+   store. Consequence: a durable outage now drops session writes. Disable the
+   cache write only after step 3 has held for one full traffic peak.
+   - Verify: new sessions appear only in the durable backend.
+   - Rollback: re-enable the cache write and keep dual-write.
 
 ## Success check
 
-The published artifact matches the local build byte-for-byte and both leak gates
-pass over the extracted artifact.
+Reads resolve from the durable backend, new sessions land only there, and the
+reconciliation job reports zero drift.
 
 ## Safety
 
-- CAUTION (high): never `git push --force`. Consequence: remote history is
-  rewritten and every clone diverges. Push fast-forward only.
-- To undo a bad release, revert to the last known-good commit `5e3aafe` and
-  rebuild. Do not rewrite history.
+- CAUTION (high): never truncate the durable session table. Consequence: every
+  active session is lost and users are signed out.
+- To undo the cutover, turn the migrate_sessions flag off and restore dual-write.
+  Do not delete any row.
 
 ```yaml
 schema_version: 1
 profile: controlled-technical-guided
-runbook_id: RB-rebuild-republish
+runbook_id: RB-session-store-cutover
 preconditions:
-  - clean working tree
-  - all gates green
+  - backfill complete and reconciliation reports zero drift
+  - the migrate_sessions flag is present and default-off
 steps:
   - n: 1
-    action: run the full test suite
-    verify: exit code is zero
+    action: run the session-store test suite
+    verify: the suite exits zero
     rollback: none
     risk: none
   - n: 2
-    action: run the anti-leak gate over the tree
-    verify: output ends with LEAK CHECK PASSED
+    action: run reconciliation between the cache and the durable backend
+    verify: the drift count is zero
     rollback: none
     risk: none
   - n: 3
-    action: build the artifact
-    verify: two consecutive builds are byte-identical
-    rollback: delete the build output directory
+    action: enable durable reads by turning on the migrate_sessions flag
+    verify: read latency stays within budget and the error rate is flat
+    rollback: turn the migrate_sessions flag off
     risk: low
   - n: 4
-    action: publish the artifact
-    verify: published short SHA matches the local build
-    rollback: republish the previous release
+    action: disable the cache write so the durable backend is the only store
+    verify: new sessions appear only in the durable backend
+    rollback: re-enable the cache write and keep dual-write
     risk: medium
-    consequence: installed agents pick up the new build on next load
-success_check: published artifact matches the local build and both leak gates pass on extract
+    consequence: a durable outage now drops session writes
+success_check: reads resolve from the durable backend and reconciliation reports zero drift
 ```

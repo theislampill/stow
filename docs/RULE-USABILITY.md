@@ -52,3 +52,32 @@ protected-region misclassification, or conflict-resolution defect was found.
 The known host constraints (invocation skip on short prompts, denied
 non-interactive execution of packaged checkers) are environment classes,
 recorded as such in the run record.
+
+## The 0.4.0 additive extension (eight new rules)
+
+Version 0.4.0 adds eight primary rules in three new namespaces (EVD, AUT, ART).
+Each was proven usable through the shipped package by a fresh-context reviewer.
+
+- **Reachability, all eight.** Every new record resolves through its registry
+  sentinel to a corpus_ref module; each corpus anchor exists exactly once with
+  its authored baseline byte-present and its sha256 verified against the
+  drift-lock manifest.
+- **Activation, all eight.** Each rule carries a conditional predicate and stays
+  off the always-on hot path (`always_on_for_prose: false`), reached through the
+  new evidence-and-authority deep-guidance route.
+- **Application, all eight.** For each rule a fresh reviewer produced a compliant
+  artifact, identified the planted violation, wrote the correction, and confirmed
+  the rule's stated exception permits its adversarial over-application case
+  rather than misfiring.
+- **Conflict behavior.** The one new composition record (CFL-021, the
+  current-contract-over-stale precedence paired with AUT-001) passes its
+  structural checks.
+
+## Honesty boundary for the new rules
+
+All eight are `enforcement.kind: semantic-review`, `status: review-fallback`,
+with no callable validator. Their usability evidence is model-behavior evidence,
+labeled as such. Passing a fresh-context application test does not make a
+semantic rule mechanically enforced, and this page makes no such claim. The
+baseline rules keep their separate reachability and preserved-baseline
+verification; the eight authored rules carry their own hashed baselines.

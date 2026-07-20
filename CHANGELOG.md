@@ -26,7 +26,11 @@ Public identity normalization and rule-catalog completion.
 - Strengthened raw-artifact delivery guidance from measured evaluation
   findings: the always-on router row and the format references now state that
   a raw artifact is composed once and shipped alone, with no
-  draft-then-correction and no validation notes in the reply.
+  draft-then-correction and no validation notes in the reply; the skill
+  activation description now names exact-output-contract requests so hosts
+  invoke the skill on raw-artifact prompts.
+- Added the banned-list pointer reference named by the corpus self-check
+  pass, closing the one dangling link found by the dead-reference scan.
 - Version 0.3.1 (the packaged corpus changed); the artifact was rebuilt and
   its digest re-recorded.
 

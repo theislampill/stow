@@ -32,7 +32,7 @@ HEADER = (
     "\n"
     "These checks yield to safety, the output contract, and factual accuracy: keep\n"
     "justified uncertainty, disclose a material limitation or failed verification\n"
-    "in one clause, and honor a requested, clearly labeled hypothetical. Cross-rule\n"
+    "in one clause, and honor a requested hypothetical that is labeled as one. Cross-rule\n"
     "collisions resolve per rules/conflicts.yaml. Open the turn per the\n"
     "request-mode router below.\n"
 )

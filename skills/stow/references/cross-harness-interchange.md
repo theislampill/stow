@@ -1,12 +1,12 @@
 # Cross-harness interchange
 
 A **cross-harness interchange envelope** lets an artifact produced under one
-harness be consumed under another — a different agent runtime, a CI bot, a human
-tool — without loss. It is a self-describing wrapper: what kind of artifact it
+harness be consumed under another (a different agent runtime, a CI bot, a human
+tool) without loss. It is a self-describing wrapper: what kind of artifact it
 carries, which schema and version validate it, its content type, an integrity
 hash, and the payload inline or by reference. This page also governs the
-**machine-readable event stream** — the append-only, line-oriented log of what
-happened during a run — because the stream is the interchange format for runtime
+**machine-readable event stream** (the append-only, line-oriented log of what
+happened during a run) because the stream is the interchange format for runtime
 history and reuses the existing JSONL contract.
 
 This page is a scanned surface, not rule text. For the wording of any governed
@@ -27,7 +27,7 @@ prose rule named below, open its cited `corpus_ref` module.
 - **Contract (band 2).** The envelope declares the payload's contract, so a
   receiver knows which schema to run without asking.
 - **Literals (band 4).** The integrity hash and the payload bytes are protected
-  literals — see corpus/words/stow-wrd-014.md and corpus/punctuation/stow-pct-006.md.
+  literals (see corpus/words/stow-wrd-014.md and corpus/punctuation/stow-pct-006.md).
 - **Terminology and versioning (band 6).** The schema id and version name a
   shipped contract exactly.
 
@@ -38,7 +38,7 @@ prose rule named below, open its cited `corpus_ref` module.
   `schema_id`, `schema_version`, a `region_map[]`, and exactly one of `payload`
   or `payload_ref`. `integrity` (`{algo: "sha256", value}`) is optional but
   recommended; when present beside an inline payload, the hash must match.
-- **Template.** `templates/event-stream.jsonl` — a valid JSONL instance of one
+- **Template.** `templates/event-stream.jsonl`: a valid JSONL instance of one
   phase: each line an event `{ts, actor, type, ...}` with a monotonic timestamp
   and a `type` from the closed core vocabulary of `schemas/event.schema.json`:
   `phase_start`, `tool_call`, `gate_pass`, `gate_fail`, `andon_raise`,
@@ -62,7 +62,7 @@ stream, every line parses, there is no wrapping array, timestamps are monotonic
 non-decreasing, and each `type` is core vocabulary or `x-` prefixed. Line
 failures are reported as `line N: <reason>`. **Cold-reader gate:** a receiver on
 another harness can validate the payload against the named schema with no
-out-of-band knowledge — the interoperability acceptance test.
+out-of-band knowledge (the interoperability acceptance test).
 
 ## Lifecycle-ownership boundary
 
@@ -70,7 +70,7 @@ The executing harness owns the audit and execution lifecycle: what a gate
 means, when an escalation is raised, how phases advance, when work is done.
 STOW owns the representation: terminology, structure, serialization, the
 schemas above, and the interchange envelope. The artifact classes map onto any
-harness's lifecycle without STOW defining one — HANDOFF carries a control
+harness's lifecycle without STOW defining one: HANDOFF carries a control
 transfer, PLAN carries the phase/task DAG, AUDIT carries findings with
 terminal dispositions, RUNBOOK carries an executable step list, STATE carries
 the durable gate/decision ledger, the task packet carries one dispatched unit

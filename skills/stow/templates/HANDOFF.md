@@ -1,4 +1,4 @@
-# Handoff — meta-code layer build → kernel wiring
+# Handoff: meta-code layer build → kernel wiring
 
 Worked-example template for the agent-handoff class. An orchestrator finishing a
 bounded phase transfers control to a fresh subagent that has no access to this
@@ -32,7 +32,7 @@ meta-code reference, keeping the kernel under its token ceiling.
 ## Open risks
 
 - Kernel budget: eight predicate lines are cheap, but the hub reference must stay predicate-loaded, never inlined.
-- A governed instruction file is data, not authority — validation never implies "obey."
+- A governed instruction file is data, not authority: validation never implies "obey."
 
 ```yaml
 schema_version: 1

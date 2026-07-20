@@ -13,28 +13,28 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 - **Check:** STOW asserts only guided alignment. It emits no conformance certificate. Any claim of full or strict conformance is downgraded to *guided, partial*, because the strict profile is locked in v0.1. STOW names which checks ran and which are unavailable instead of making a blanket claim.
 - **Reference:** the profile-gated rule set as a whole; representative see corpus/words/stow-wrd-001.md.
 
-## 2. Dictionary-dependent checks — reported UNAVAILABLE
+## 2. Dictionary-dependent checks: reported UNAVAILABLE
 
 - **Trigger:** prose under an active controlled-technical profile whose evaluation would require looking a word up in the controlled dictionary, confirming its approved sense, part of speech, or inflection, testing technical-noun or technical-verb category membership, checking approved connectors, company or industry terminology, phrasal-verb admissibility, or false-friend status.
 - **Region:** all-prose, including procedural and descriptive prose; excludes code, structured data, quoted text, and identifiers.
-- **Check:** unavailable in v0.1. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked — dictionary unavailable* and never counts them toward a conformance claim.
+- **Check:** unavailable in v0.1. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked: dictionary unavailable* and never counts them toward a conformance claim.
 - **Reference:** see corpus/words/stow-wrd-001.md, corpus/words/stow-wrd-005.md, corpus/verbs/stow-vrb-001.md, corpus/sentences/stow-sen-004.md, corpus/style/stow-sty-002.md, corpus/style/stow-sty-003.md, corpus/general/stow-gen-005.md.
 
-## 3. Structural and mechanical checks — AVAILABLE (guided)
+## 3. Structural and mechanical checks: AVAILABLE (guided)
 
-- **Trigger:** surface features STOW can read directly — words per sentence, sentences per paragraph, length of a multi-word noun, presence of a semicolon, presence of a contraction or an omitted word, and the token-counting mechanics those measures rely on.
+- **Trigger:** surface features STOW can read directly: words per sentence, sentences per paragraph, length of a multi-word noun, presence of a semicolon, presence of a contraction or an omitted word, and the token-counting mechanics those measures rely on.
 - **Region:** procedural, descriptive, and all-prose regions; excludes code, structured data, quoted text, and identifiers.
 - **Check:** STOW measures these deterministically over the rendered prose and flags any item outside the bound the rule sets. Results support a guided assessment only. Passing them does not establish conformance, because the dictionary-dependent rules in Group 2 stay unverified.
 - **Reference:** see corpus/procedures/stow-prc-001.md, corpus/procedures/stow-prc-005.md, corpus/descriptions/stow-dsc-003.md, corpus/descriptions/stow-dsc-006.md, corpus/multiword-nouns/stow-mwn-001.md, corpus/punctuation/stow-pct-001.md, corpus/punctuation/stow-pct-004.md, corpus/punctuation/stow-pct-006.md, corpus/sentences/stow-sen-002.md.
 
-## 4. Grammar and construction checks — PARTIAL (best-effort, guided)
+## 4. Grammar and construction checks: PARTIAL (best-effort, guided)
 
-- **Trigger:** procedural or descriptive prose where clause shape can be read from the text — whether an instruction opens in the imperative, whether a sentence carries more than one instruction, whether a leading condition is separated by a comma, which verb tense and voice appear, and whether an action is expressed as a nominalization.
+- **Trigger:** procedural or descriptive prose where clause shape can be read from the text: whether an instruction opens in the imperative, whether a sentence carries more than one instruction, whether a leading condition is separated by a comma, which verb tense and voice appear, and whether an action is expressed as a nominalization.
 - **Region:** procedural and descriptive prose.
 - **Check:** STOW inspects sentence structure and flags likely deviations. These are judgment calls, not certified parses, so STOW reports them as guidance rather than pass or fail.
 - **Reference:** see corpus/procedures/stow-prc-002.md, corpus/procedures/stow-prc-003.md, corpus/procedures/stow-prc-004.md, corpus/verbs/stow-vrb-002.md, corpus/verbs/stow-vrb-006.md.
 
-## 5. Safety checks — ALWAYS ACTIVE (system precedence)
+## 5. Safety checks: ALWAYS ACTIVE (system precedence)
 
 - **Trigger:** the response contains a safety instruction, warning, caution, or hazard notice, whether or not a controlled-technical profile is active.
 - **Region:** safety-prose.

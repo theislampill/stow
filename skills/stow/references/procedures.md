@@ -1,4 +1,4 @@
-# Procedural writing — application reference
+# Procedural writing: application reference
 
 Compressed application guidance for the procedure rules (`PRC`) and for the
 punctuation and word-count rules (`PCT`) as they act on procedural output. This
@@ -83,7 +83,7 @@ inspect, the validator STOW runs, and the full-text citation.
 ### STOW-PCT-006
 - **Fires when:** a step or note contains a number, identifier, quoted string, title, or proper noun.
 - **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-021` conflict note keeps that region immutable — count it, do not rewrite it.
+- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-021` conflict note keeps that region immutable: count it, do not rewrite it.
 - **Full text:** `corpus/punctuation/stow-pct-006.md`
 
 ### STOW-PCT-007

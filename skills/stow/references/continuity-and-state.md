@@ -1,7 +1,7 @@
 # Continuity and state records
 
 A **state / continuity record** is the durable, externalized state of a
-long-running, multi-session effort — the gate ledger, the decision log, the phase
+long-running, multi-session effort: the gate ledger, the decision log, the phase
 history that lets any later session resume without re-deriving what already
 happened. It is the meta-code layer's answer to holding state silently in a
 conversation: the state lives in the artifact, so a fresh session picks it up cold
@@ -19,8 +19,8 @@ prose rule named below, open its cited `corpus_ref` module.
 ## Governing STOW families
 
 - **Action-shaping (band 8).** The record restates progress and externalizes
-  state rather than implying it, and surfaces completed outcomes — see
-  corpus/action-shaping/stow-act-005.md and corpus/action-shaping/stow-act-007.md.
+  state rather than implying it, and surfaces completed outcomes (see
+  corpus/action-shaping/stow-act-005.md and corpus/action-shaping/stow-act-007.md).
 - **Accuracy (band 5, always on).** Every gate or phase state cites evidence and
   is a terminal value, not a vague status; the kernel integrity rules forbid an
   unsupported state claim (`SKILL.md` section 3).
@@ -36,7 +36,7 @@ prose rule named below, open its cited `corpus_ref` module.
   `id`, a `status`, and optional `supersedes[]` / `superseded_by` links), and a
   `history_append_only` flag; `andons[]` is optional. Status vocabularies are
   closed cores with an `x-` prefix escape for harness-specific states.
-- **Template.** `templates/STATE.md` — a valid instance carrying a gate ledger, a
+- **Template.** `templates/STATE.md`: a valid instance carrying a gate ledger, a
   decision list with supersession links, and a current-state block.
 
 ## Validation contract

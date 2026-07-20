@@ -1,4 +1,4 @@
-# State — meta-code layer build
+# State: meta-code layer build
 
 Worked-example template for the state / continuity class. This is the durable,
 externalized state of a multi-session effort: any session can resume from it
@@ -10,7 +10,7 @@ decision id.
 ## Current
 
 - Head: `5e3aafe` (v0.1 baseline).
-- Phase: P-meta — templates landed, kernel wiring next.
+- Phase: P-meta (templates landed, kernel wiring next).
 - Next action: add eight activation predicates to the kernel.
 
 ## Gate ledger
@@ -24,14 +24,14 @@ decision id.
 
 ## Decisions
 
-- MD-1 Contracts register outside the primary count — accepted.
-- MD-2 Each Markdown template embeds one schema-valid block — accepted.
-- MD-3 Superseded by MD-4 — statements-only templates rejected.
-- MD-4 Every template is a filled worked example, not a skeleton — accepted.
+- MD-1 Contracts register outside the primary count: accepted.
+- MD-2 Each Markdown template embeds one schema-valid block: accepted.
+- MD-3 Superseded by MD-4: statements-only templates rejected.
+- MD-4 Every template is a filled worked example, not a skeleton: accepted.
 
 ## Andons
 
-- A-1 Handoff `next_action` carried two imperatives — resolved (split to one).
+- A-1 Handoff `next_action` carried two imperatives: resolved (split to one).
 
 ```yaml
 schema_version: 1

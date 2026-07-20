@@ -62,8 +62,8 @@ Region: keys, identifiers, and quoted literals are protected and immutable;
 scalar tokens generally are structured data, not prose. How checked: they are
 not scanned or rewritten. Do not rename a key or identifier, and do not edit
 quoted text, to satisfy a lexical or presentation preference. The precedence
-that fixes this boundary — serialization validity and protected literals
-outrank presentation-layer lexical preferences, which skip protected regions —
+that fixes this boundary (serialization validity and protected literals
+outrank presentation-layer lexical preferences, which skip protected regions)
 is carried on the governing records; see `corpus/words/stow-wrd-014.md`,
 `corpus/punctuation/stow-pct-006.md`, and
 `corpus/prose-integrity/stow-pro-021.md` for the full statements.

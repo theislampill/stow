@@ -18,11 +18,11 @@ data (tables, JSON, YAML), and identifiers are excluded and never flagged.
 
 Enforcement kinds referenced below:
 
-- deterministic — a fixed linter matches an exact character, token, or listed
+- deterministic: a fixed linter matches an exact character, token, or listed
   phrase; zero tolerance, no autofix.
-- heuristic — a linter flags a likely pattern for confirmation; expect some false
+- heuristic: a linter flags a likely pattern for confirmation; expect some false
   positives, so the flag is reviewed before it stands.
-- semantic-review — no automatic validator; a review pass applies judgement
+- semantic-review: no automatic validator; a review pass applies judgement
   against the corpus rule.
 
 Many of the deterministic and heuristic linters match against the shared tables in
@@ -36,7 +36,7 @@ current entries.
 
 ## Typographic tells
 
-- **STOW-PRO-001 · Ban the em dash.** Trigger: an em-dash character (—, U+2014),
+- **STOW-PRO-001 · Ban the em dash.** Trigger: an em-dash character (`—`, U+2014),
   or a double-hyphen standing in for one, inside a prose sentence. Region: all
   prose. Check: deterministic linter `no-em-dash`. Full text:
   `corpus/prose-integrity/stow-pro-001.md`. Cross-layer note: when this would fire
@@ -89,7 +89,7 @@ carrying the words itself.
   matched against the Hedging thresholds and AI Hedging Phrases in `banned-lists.md`.
   Full text: `corpus/prose-integrity/stow-pro-022.md`.
 - **STOW-PRO-012 · Ban the whether-you-are opener.** Trigger: an opener of the
-  "Whether you are X, Y, or Z" shape (three trailing examples after "whether").
+  "Whether you are X, Y, or Z" shape (three trailing examples after `whether`).
   Region: sentence and paragraph openings. Check: deterministic linter
   `no-whether-youre-opener`, matched against the Structural Patterns list in
   `banned-lists.md`. Full text: `corpus/prose-integrity/stow-pro-012.md`.

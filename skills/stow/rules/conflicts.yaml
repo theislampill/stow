@@ -262,7 +262,7 @@ conflicts:
     activation_predicate: The user requests a hypothetical example or scenario.
     winner: {band: contract, ref: contract}
     losing_behavior: Refusing a requested hypothetical, or presenting an invented scenario as a real event.
-    permitted_substitute: Provide the scenario clearly labeled as hypothetical; never present invented events as history.
+    permitted_substitute: Provide the scenario labeled as hypothetical; never present invented events as history.
     resolution_kind: semantic-review
     fixtures:
       positive: "Hypothetical: suppose the primary region fails during the batch window; the runbook fails over in stage 2."
@@ -277,7 +277,7 @@ conflicts:
     activation_predicate: A banned-lexicon term is used in its legitimate technical sense or is the domain's established name.
     winner: {band: terminology, ref: terminology}
     losing_behavior: Replacing a domain term with a synonym that changes or blurs the technical meaning.
-    permitted_substitute: Keep the technical sense (financial leverage, literal navigation, a quoted API name); avoid the term only in its inflated metaphorical sense.
+    permitted_substitute: Keep the technical sense (`financial leverage`, literal navigation, a quoted API name); avoid the term only in its inflated metaphorical sense.
     resolution_kind: semantic-review
     fixtures:
       positive: "The fund's leverage ratio doubled last quarter, in the financial sense of leverage."

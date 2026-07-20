@@ -18,21 +18,21 @@ the corpus citation.
 
 ## Per-rule application
 
-**STOW-ACT-001 — Action-first response opening**
+**STOW-ACT-001: Action-first response opening**
 - Trigger: the draft's first line announces intent, greets, or clears its
   throat before anything actionable appears.
 - Region: line one of the reply.
 - Check: `heuristic` validator `lead-with-action` inspects the opening line.
 - Full text: see corpus/action-shaping/stow-act-001.md
 
-**STOW-ACT-002 — Numbered steps for multi-step work**
+**STOW-ACT-002: Numbered steps for multi-step work**
 - Trigger: the work decomposes into more than one ordered step, but the draft
   renders it as running prose or undifferentiated bullets.
 - Region: the body of any procedure or plan.
 - Check: `heuristic` validator `numbered-multistep`.
 - Full text: see corpus/action-shaping/stow-act-002.md
 
-**STOW-ACT-003 — Close with a single concrete next step**
+**STOW-ACT-003: Close with a single concrete next step**
 - Trigger: work remains open at the end of the turn and the final line does not
   point to exactly one next step (or points to several).
 - Region: the last line of the reply.
@@ -40,14 +40,14 @@ the corpus citation.
   the closer names one concrete action.
 - Full text: see corpus/action-shaping/stow-act-003.md
 
-**STOW-ACT-004 — Defer secondary issues**
+**STOW-ACT-004: Defer secondary issues**
 - Trigger: a side observation or "by the way" aside is spliced into the main
   answer.
 - Region: the body, between the primary action and its close.
 - Check: `deterministic` validator `no-inline-tangents`.
 - Full text: see corpus/action-shaping/stow-act-004.md
 
-**STOW-ACT-005 — Restate progress each turn**
+**STOW-ACT-005: Restate progress each turn**
 - Trigger: a continuing multi-turn task where the new turn assumes the reader
   still holds prior state in memory.
 - Region: the status line at the top of each turn.
@@ -55,35 +55,35 @@ the corpus citation.
   screen, not implied.
 - Full text: see corpus/action-shaping/stow-act-005.md
 
-**STOW-ACT-006 — Concrete effort estimates**
+**STOW-ACT-006: Concrete effort estimates**
 - Trigger: the reply proposes work whose size or duration the reader must weigh.
 - Region: wherever proposed work is introduced.
 - Check: `semantic-review`. Conflict: `STOW-PRO-002` (require attributable
-  numbers) outranks this on accuracy — supply an estimate only when a defensible
+  numbers) outranks this on accuracy: supply an estimate only when a defensible
   range exists, otherwise omit it rather than invent a number.
 - Full text: see corpus/action-shaping/stow-act-006.md
 
-**STOW-ACT-007 — Surface completed outcomes**
+**STOW-ACT-007: Surface completed outcomes**
 - Trigger: work ran and produced a result, but the outcome is buried in the
   body or left implicit.
 - Region: the result or status area after an action runs.
 - Check: `heuristic` validator `surface-outcomes`.
 - Full text: see corpus/action-shaping/stow-act-007.md
 
-**STOW-ACT-008 — Neutral error reporting**
+**STOW-ACT-008: Neutral error reporting**
 - Trigger: a failure or error is being reported with an alarmed or apologetic
   opener.
 - Region: the line that first reports the failure.
 - Check: `deterministic` validator `no-alarm-openers`.
 - Full text: see corpus/action-shaping/stow-act-008.md
 
-**STOW-ACT-009 — Bound action lists to five items**
+**STOW-ACT-009: Bound action lists to five items**
 - Trigger: an enumerated list of actions exceeds five entries.
 - Region: any action list in the reply.
 - Check: `deterministic` validator `list-max-5-items` (`limit: 5`).
 - Full text: see corpus/action-shaping/stow-act-009.md
 
-**STOW-ACT-010 — No preamble, recap, or sign-off**
+**STOW-ACT-010: No preamble, recap, or sign-off**
 - Trigger: the reply opens with framing before the content or ends with a recap
   or closing pleasantry.
 - Region: the first and last lines (the reply's framing).
@@ -91,7 +91,7 @@ the corpus citation.
   `STOW-ACT-001` (opening) and `STOW-ACT-003` (close).
 - Full text: see corpus/action-shaping/stow-act-010.md
 
-**STOW-ACT-011 — Lists, not tables, for action sequences**
+**STOW-ACT-011: Lists, not tables, for action sequences**
 - Trigger: a table encodes steps or actions the reader is meant to perform in
   sequence.
 - Region: any tabular block that carries actions.
@@ -104,14 +104,14 @@ the corpus citation.
 Three module files support the group. Cite them for the reasoning and the
 pre-send discipline; do not inline their content.
 
-- **When the defaults yield** — the conditions under which an ACT rule is
+- **When the defaults yield**: the conditions under which an ACT rule is
   correctly overridden (for example, an explicit request to explain at length,
   or a destructive action that must be confirmed first). See
   corpus/action-shaping/overrides.md
-- **Pre-send gates** — the ordered hard checks to run on a draft before it is
+- **Pre-send gates**: the ordered hard checks to run on a draft before it is
   sent, including the first-line, last-line, tangent, table, and scan gates.
   See corpus/action-shaping/gates.md
-- **Rationale** — the reader model that motivates the whole group. See
+- **Rationale**: the reader model that motivates the whole group. See
   corpus/action-shaping/rationale.md
 
 ## Precedence note

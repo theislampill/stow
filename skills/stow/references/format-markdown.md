@@ -4,8 +4,8 @@ Application guidance for Markdown output that carries embedded literals or
 structured data. This page is a scanned surface, not rule text. It tells a
 reviewer *where* each region boundary falls in a Markdown document, *which*
 rules may touch each region, and *how* STOW checks the result. The normative
-statement of every rule named here lives only in its cited `corpus_ref` file —
-read the corpus for the wording, never this page.
+statement of every rule named here lives only in its cited `corpus_ref` file.
+Read the corpus for the wording, never this page.
 
 The contract in one line: apply prose rules only to editable prose, keep every
 code fence, inline-code span, quotation, path, identifier, schema key, and
@@ -15,7 +15,7 @@ on its own.
 ## When this page applies
 
 - **Predicate:** the response is Markdown that contains at least one embedded
-  literal or structured-data region — a fenced code block, an inline-code span,
+  literal or structured-data region: a fenced code block, an inline-code span,
   a block quote, YAML front matter, a data fence, a table cell holding a literal,
   or a bare path, identifier, version, or key inside prose.
 - Load it together with `references/protected-regions.md`, which defines how STOW
@@ -49,7 +49,7 @@ Two invariants hold across every construct below:
 - **How STOW checks it:** no prose rule enters the fence or the span. The literals
   band holds the bytes fixed; the presentation and profile lexical checks skip the
   region entirely. This is the immutability behavior the registry records on the
-  protected-literal conflicts — see corpus/punctuation/stow-pct-006.md and
+  protected-literal conflicts: see corpus/punctuation/stow-pct-006.md and
   corpus/words/stow-wrd-014.md.
 - When a fence's info string names a data language, also treat its body as a
   structured region (below).
@@ -60,9 +60,9 @@ Two invariants hold across every construct below:
   document, and any fenced block whose info string is a data format (for example
   `json`, `yaml`, or `jsonl`).
 - **Region:** one independent serialization region per block.
-- **How STOW checks it:** validate each region against its own format reference —
-  `references/format-json.md`, `references/format-yaml.md`, or
-  `references/format-jsonl.md` — and through `runtime/validate.py` before delivery.
+- **How STOW checks it:** validate each region against its own format reference
+  (`references/format-json.md`, `references/format-yaml.md`, or
+  `references/format-jsonl.md`) and through `runtime/validate.py` before delivery.
   No prose rule renames a key, reorders a mapping, or edits a value. A failure in
   one region is isolated to that region.
 
@@ -120,7 +120,7 @@ Before delivery, confirm each of these for the Markdown document:
   byte-identical to its intended value;
 - every embedded structured-data region parses and schema-checks on its own
   through `runtime/validate.py`;
-- the top output contract is obeyed — a raw artifact ships raw, with no added
+- the top output contract is obeyed: a raw artifact ships raw, with no added
   prose wrapper or fence.
 
 For how STOW recognizes and bounds a protected literal, defer to

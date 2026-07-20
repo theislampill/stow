@@ -13,7 +13,7 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## When this page applies
 
-- **Predicate:** control passes to an actor that will not see this conversation —
+- **Predicate:** control passes to an actor that will not see this conversation:
   a phase-to-phase transfer, a fan-out to a subagent, or a compaction that a
   future session resumes from.
 
@@ -21,7 +21,7 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Action-shaping (band 8).** The handoff opens with the result and carries
   exactly one concrete next action, restates progress so the receiver holds no
-  state implicitly, and surfaces completed outcomes rather than burying them —
+  state implicitly, and surfaces completed outcomes rather than burying them:
   see corpus/action-shaping/stow-act-001.md,
   corpus/action-shaping/stow-act-003.md, corpus/action-shaping/stow-act-005.md,
   and corpus/action-shaping/stow-act-007.md. It carries no preamble or synthetic
@@ -41,7 +41,7 @@ prose rule named below, open its cited `corpus_ref` module.
   `done[]` (each a `{claim, evidence_ref}`), `not_done[]`, `constraints[]`,
   `next_action` (a single string), `artifacts[]`, `open_risks[]`, and
   `acceptance_for_next`.
-- **Template.** `templates/HANDOFF.md` — a valid instance with those fields as
+- **Template.** `templates/HANDOFF.md`: a valid instance with those fields as
   headings and inline field hints.
 
 ## Validation contract
@@ -56,5 +56,5 @@ The load-bearing rules, checked as deterministic post-checks in the same mode:
 `next_action` is exactly one non-empty imperative; every `done[].evidence_ref`
 resolves; every task ID used under `done`/`not_done` exists in the referenced
 plan; no artifact path dangles. **Cold-reader gate:** no field references
-conversation state the handoff does not itself carry — confirm this by hand after
+conversation state the handoff does not itself carry. Confirm this by hand after
 the schema passes.

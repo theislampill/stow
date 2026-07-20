@@ -1,4 +1,4 @@
-# Plan — build the meta-code layer
+# Plan: build the meta-code layer
 
 Worked-example template for the implementation-plan class. It turns a goal into an
 ordered, reviewable set of phases with acceptance criteria and gates, executable by
@@ -7,20 +7,20 @@ observable `acceptance`, and a `gate`; dependencies form a DAG with no cycles;
 every phase has a defined terminal state; no task is an orphan. The fenced block is
 the machine-readable task DAG.
 
-## Phase P0 — schemas
+## Phase P0: schemas
 
 Author the five schemas as JSON-Schema-2020-12 with `additionalProperties:false`.
 
-## Phase P1 — validator schema mode
+## Phase P1: validator schema mode
 
 Add `--schema <id> <file>` to the validator; add the cross-field post-checks that
 JSON-Schema alone cannot express.
 
-## Phase P2 — templates
+## Phase P2: templates
 
 Author seven worked-example templates, each a valid instance of its contract.
 
-## Phase P3 — kernel wiring + catalog
+## Phase P3: kernel wiring + catalog
 
 Add one activation predicate per reference; record `meta_contract_total` outside
 the primary count of 96.

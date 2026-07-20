@@ -1,16 +1,16 @@
-# Controlled-technical writing profile — application reference
+# Controlled-technical writing profile: application reference
 
 This reference is compressed application guidance for the controlled-technical
 writing profile: **when and where** each rule fires, **which output region** it
 governs, **how STOW checks it**, and a link to the corpus file that holds the
-full normative text. It does not restate the rules themselves — read the linked
+full normative text. It does not restate the rules themselves: read the linked
 corpus file for the wording that governs.
 
 **Guided, not conformant.** This profile is *guided*. STOW applies the checks
 below as best-effort shaping of prose. Passing them is not a claim of full
 conformance to any controlled-language standard, and it does not certify the
 output against the external standard the rules trace to. Treat a clean pass as
-"shaped toward the controlled-technical rules", not "verified compliant".
+*shaped toward the controlled-technical rules*, not *verified compliant*.
 
 **Activation gate (shared by every rule here).** These are profile-precedence
 rules. They apply only when a controlled-technical writing profile is active and
@@ -27,7 +27,7 @@ below as WRD (words), MWN (multi-word nouns), VRB (verbs, voice, tense), SEN
 (sentences, lists, articles), STY (writing-practice consistency), and GEN
 (general recommendations).
 
-## WRD — words
+## WRD: words
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
@@ -50,14 +50,14 @@ WRD-011 and WRD-014 carry recorded conflict resolutions (with the presentation
 layer and with protected regions respectively); the corpus file states the
 resolution.
 
-## MWN — multi-word nouns
+## MWN: multi-word nouns
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
 | MWN-001 | A noun phrase built from stacked nouns or modifiers appears | all prose | parser · `multiword-noun-max-3-words` (limit 3) | see corpus/multiword-nouns/stow-mwn-001.md |
 | MWN-002 | A technical noun runs past three words | all prose | heuristic · `long-technical-noun-shorten-or-hyphenate` | see corpus/multiword-nouns/stow-mwn-002.md |
 
-## VRB — verbs, voice, and tense
+## VRB: verbs, voice, and tense
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
@@ -69,7 +69,7 @@ resolution.
 | VRB-006 | A clause is in the passive voice | all prose | parser · `active-voice-required-unless-agentless-descriptive` | see corpus/verbs/stow-vrb-006.md |
 | VRB-007 | An action is expressed as a noun or other part of speech | all prose | heuristic · `prefer-verb-over-nominalization` | see corpus/verbs/stow-vrb-007.md |
 
-## SEN — sentences, lists, and articles
+## SEN: sentences, lists, and articles
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ resolution.
 | SEN-004 | Adjacent sentences share a related topic | all prose | heuristic · `approved-connectors-only` | see corpus/sentences/stow-sen-004.md |
 | SEN-005 | A noun or multi-word noun appears without an article or demonstrative | all prose | parser · `article-and-demonstrative-usage` | see corpus/sentences/stow-sen-005.md |
 
-## STY — writing-practice consistency
+## STY: writing-practice consistency
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
@@ -91,7 +91,7 @@ resolution.
 STY-004 carries a recorded conflict resolution with the presentation layer; the
 corpus file states it.
 
-## GEN — general recommendations
+## GEN: general recommendations
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |

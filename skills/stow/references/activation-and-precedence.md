@@ -8,7 +8,7 @@ ladder, how a response is split into regions, and how the registry's
 
 This is a scanned surface, not rule text. It names rules by their registry id
 and title (both STOW-authored) and points to each rule's `corpus_ref`; it never
-restates a rule's normative wording. For what a rule actually says, open its
+restates a rule's normative wording. For what a rule says, open its
 corpus file. For the masking mechanism that keeps a rule off the regions it does
 not own, see the companion page `skills/stow/references/protected-regions.md`.
 
@@ -55,15 +55,15 @@ rules whose include-region matches and whose predicate holds.
 
 Regions and the band that owns each:
 
-- **Editable prose** — general (`all-prose`), procedural (`procedural-prose`),
+- **Editable prose**: general (`all-prose`), procedural (`procedural-prose`),
   descriptive (`descriptive-prose`), safety (`safety-prose`), or user-facing
   (`user-facing-output`). Governed by bands 5 through 8.
-- **Structured data** (`structured-data`) and **code** (`code`) — owned by band
+- **Structured data** (`structured-data`) and **code** (`code`): owned by band
   3. Validated for well-formedness by `skills/stow/runtime/validate.py`, never
   rewritten by a prose rule.
-- **Quotations** (`quoted-text`) and **identifiers** (`identifiers`) — owned by
+- **Quotations** (`quoted-text`) and **identifiers** (`identifiers`): owned by
   band 4, immutable.
-- **Safety notices** — owned by band 1, independent of any active profile.
+- **Safety notices**: owned by band 1, independent of any active profile.
 
 Nearly every controlled-technical and presentation record carries the same
 `scope.exclude: [code, structured-data, quoted-text, identifiers]`. That uniform
@@ -94,7 +94,7 @@ format, the profile and presentation preferences yield to it. Bands 4 through 6
 surface in the registry only through declared `conflicts[]` (the cross-band
 section below).
 
-## Band 1 — safety (always live)
+## Band 1: safety (always live)
 
 - **Trigger:** the response emits a safety instruction, warning, caution, or
   hazard notice. Not gated on any writing profile.
@@ -108,48 +108,48 @@ section below).
   corpus/safety/stow-saf-003.md (and the per-rule breakdown in
   `skills/stow/references/safety-instructions.md`).
 
-## Band 7 — controlled-technical profile
+## Band 7: controlled-technical profile
 
 Live only when a controlled-technical profile is active and the matching region
 is present. Every family below excludes code, structured data, quoted text, and
 identifiers, and none auto-fixes. Per family: trigger add-on, region, check
 kind, and corpus directory.
 
-- **Words** (`STOW-WRD-001`..`014`) — trigger: profile active + prose present;
+- **Words** (`STOW-WRD-001`..`014`): trigger: profile active + prose present;
   region: editable prose; check: approved-word, part-of-speech, sense, and
   inflection validators (semantic-review, parser, deterministic). See
   corpus/words/.
-- **Multi-word nouns** (`STOW-MWN-001`..`002`) — region: prose; check: parser
+- **Multi-word nouns** (`STOW-MWN-001`..`002`): region: prose; check: parser
   word-count and heuristic. See corpus/multiword-nouns/.
-- **Verbs** (`STOW-VRB-001`..`007`) — region: prose; check: parser form, tense,
+- **Verbs** (`STOW-VRB-001`..`007`): region: prose; check: parser form, tense,
   and voice validators plus a nominalization heuristic. See corpus/verbs/.
-- **Sentences** (`STOW-SEN-001`..`005`) — region: prose; check: parser and
+- **Sentences** (`STOW-SEN-001`..`005`): region: prose; check: parser and
   semantic-review. See corpus/sentences/.
-- **Procedures** (`STOW-PRC-001`..`005`) — trigger add-on: procedural or safety
+- **Procedures** (`STOW-PRC-001`..`005`): trigger add-on: procedural or safety
   instructions present; region: `procedural-prose`; check: deterministic word
   caps plus parsers (imperative form, one instruction per sentence,
   condition-then-comma). See corpus/procedures/ and
   `skills/stow/references/controlled-technical-writing.md`.
-- **Descriptions** (`STOW-DSC-001`..`006`) — region: `descriptive-prose`; check:
+- **Descriptions** (`STOW-DSC-001`..`006`): region: `descriptive-prose`; check:
   deterministic caps plus semantic-review of topic and paragraph structure. See
   corpus/descriptions/ and `skills/stow/references/descriptions.md`.
-- **Punctuation** (`STOW-PCT-001`..`007`) — region: prose; check: deterministic
+- **Punctuation** (`STOW-PCT-001`..`007`): region: prose; check: deterministic
   and heuristic (including the word-count token rules). See corpus/punctuation/.
-- **Style** (`STOW-STY-001`..`004`) — region: prose; check: semantic-review,
+- **Style** (`STOW-STY-001`..`004`): region: prose; check: semantic-review,
   heuristic, and parser. See corpus/style/.
-- **General grammar** (`STOW-GEN-001`..`008`) — region: prose; check: parser,
+- **General grammar** (`STOW-GEN-001`..`008`): region: prose; check: parser,
   heuristic, deterministic, and semantic-review. See corpus/general/.
 
-## Band 8 — presentation preferences
+## Band 8: presentation preferences
 
 Live on region presence alone; no writing profile is required.
 
-- **Action-shaping** (`STOW-ACT-001`..`011`) — trigger: the response is
+- **Action-shaping** (`STOW-ACT-001`..`011`): trigger: the response is
   user-facing; region: `user-facing-output`; check: heuristic, deterministic,
   and semantic-review validators covering opening, ordering, list caps, tone,
   and framing. See corpus/action-shaping/ and
   `skills/stow/references/action-shaping.md`.
-- **Prose-integrity** (`STOW-PRO-001`..`024`) — trigger: prose sentences present
+- **Prose-integrity** (`STOW-PRO-001`..`024`): trigger: prose sentences present
   (a few fire only when section headings, or an external quotation, are
   present); region: editable prose, always excluding the protected regions;
   check: deterministic lexical scans and semantic-review. See
@@ -190,7 +190,7 @@ every one resolves by the higher band winning. The load-bearing cases:
 ## How to read a finding
 
 For any STOW finding, place it on the ladder before acting on it: identify the
-rule's `precedence` band and the region it governs, confirm the span is actually
-in that region and not a protected literal, then resolve upward — a higher-band
+rule's `precedence` band and the region it governs, confirm the span is
+in that region and not a protected literal, then resolve upward: a higher-band
 finding on the same span wins. Read the cited `corpus_ref` for the rule's
 wording; this page only tells you where the rule lives and when it fires.

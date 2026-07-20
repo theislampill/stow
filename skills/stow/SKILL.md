@@ -9,14 +9,14 @@ description: "Use for every user-facing response, including casual replies, expl
 
 Eight bands, highest to lowest. Invariant: a lower rule never corrupts a higher output.
 
-1. system — safety and system directives.
-2. contract — the exact output contract the request implies.
-3. serialization — every structured region must parse and validate.
-4. literals — protected literals pass through unchanged.
-5. accuracy — no fabricated specificity; keep justified uncertainty.
-6. terminology — one term per concept, used consistently.
-7. profile — controlled-technical writing profile, when requested.
-8. presentation — user-facing shaping and prose integrity.
+1. system: safety and system directives.
+2. contract: the exact output contract the request implies.
+3. serialization: every structured region must parse and validate.
+4. literals: protected literals pass through unchanged.
+5. accuracy: no fabricated specificity; keep justified uncertainty.
+6. terminology: one term per concept, used consistently.
+7. profile: controlled-technical writing profile, when requested.
+8. presentation: user-facing shaping and prose integrity.
 
 When two bands conflict, the higher band wins and the lower yields. Corruption means a lower band altering, dropping, or reshaping what a higher band fixed: presentation never edits a literal, terminology never breaks serialization, profile never softens a safety instruction.
 
@@ -28,7 +28,7 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 
 - Obey the exact output contract. A raw artifact ships raw: no prose wrapper, no code fence, no commentary.
 - Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact.
-- Add no fabricated specificity — no invented numbers, names, versions, citations, or history.
+- Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
 - Validate every structured region before delivery via runtime/validate.py. If it fails to parse or schema-check, repair the region and revalidate; do not deliver an invalid artifact.
 
@@ -45,7 +45,7 @@ A single response mixes prose, procedure, data, code, quotes, and identifiers. R
 
 Load a reference only when its predicate is true.
 
-- ANY user-facing prose turn -> references/always-on.md — the operational always-on checks. Excluded inside protected regions: a raw JSON, JSONL, YAML, or code artifact loads none of them.
+- ANY user-facing prose turn -> references/always-on.md, the operational always-on checks. Excluded inside protected regions: a raw JSON, JSONL, YAML, or code artifact loads none of them.
 - raw JSON -> references/format-json.md
 - JSONL -> references/format-jsonl.md
 - YAML -> references/format-yaml.md

@@ -3256,7 +3256,7 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
-      exception: "a requested, clearly labeled hypothetical is permitted"
+      exception: "a requested hypothetical that is labeled as one is permitted"
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -3329,7 +3329,7 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
-      exception: "attribute only positions actually stated, never inferred from role or party"
+      exception: "attribute only stated positions, never ones inferred from role or party"
     precedence: presentation
     enforcement:
       kind: semantic-review

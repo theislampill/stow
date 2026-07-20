@@ -15,7 +15,7 @@ Convention:
 - `False` -- the property is **violated**; the failure is present (RED).
 
 The catalog encodes what user-facing output looks like **without** STOW
-governance. For each deterministic case we author a short "no-STOW" answer that
+governance. For each deterministic case we author a short `no-STOW` answer that
 exhibits the failure and confirm its detector returns `False`. That is the RED
 baseline: the property STOW would later enforce is currently violated. GREEN
 (post-STOW) is out of scope for P1 and is not asserted.
@@ -57,7 +57,7 @@ advisory only, not gated in CI):
 
 #### A4 reconciliation
 
-- The 17 hard set equals A4's "fully deterministic" list exactly (no change).
+- The 17 hard set equals A4's `fully deterministic` list exactly (no change).
 - A4's determinism summary lists only 9 cases in the "deterministic primary gate,
   heuristic secondary" group and **omits UF-02 entirely**. Per the P1 directive,
   UF-02 (ordered-list-of-steps parse; `and then` chain count) is placed in the
@@ -80,7 +80,7 @@ the residual STOW will tighten later:
   near the limit could diverge; the fixtures sit well over the limit.
 - TW-03, TW-04: the leading label token (WARNING / CAUTION) is deterministic;
   command-first phrasing and the consequence clause are heuristic.
-- CA-09: the affirmative "conformant" gate is deterministic; the exact caveat and
+- CA-09: the affirmative `conformant` gate is deterministic; the exact caveat and
   the pointer to the guided profile are heuristic.
 - CA-12: the preamble/closer prose gate around the artifact is deterministic;
   perfect boundary detection is heuristic.
@@ -165,7 +165,7 @@ anti-leak gate (`tools/check_provenance_leak.py --local`).
 
 Same scope as P1: these are **fixture / detector-contract tests**, not proof of
 live model behaviour. There is **no model-invocation harness** in this project.
-Where P1 authored a "no-STOW" answer per deterministic case and confirmed its
+Where P1 authored a `no-STOW` answer per deterministic case and confirmed its
 `red_assertion` evaluates `False` (RED), P5 authors the **opposite** -- a
 STOW-compliant answer per case -- and confirms the same detector now returns
 `True` (GREEN). Passing here means the detector contract holds for a

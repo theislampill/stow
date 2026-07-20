@@ -42,8 +42,8 @@ Public identity normalization and rule-catalog completion.
 
 ### Notes
 
-- No shipped STOW payload change: the packaged skill bytes and the artifact
-  digest are identical to 0.3.0.
+- The workflow fix itself changed no packaged skill bytes; the 0.3.1 digest
+  change comes from the wording normalization above.
 
 ## [0.3.0] - 2026-07-19
 
@@ -109,7 +109,7 @@ repository hygiene.
 
 ### Corrections
 
-- The 0.1.0 "Known limitations" entry "The validator CLI exposes `--format`
+- The 0.1.0 known-limitations entry "The validator CLI exposes `--format`
   only, with no schema argument" was already stale when written: the
   `--schema` mode shipped in the richness pass below.
 
@@ -131,7 +131,7 @@ shipped rule set.
 - The generated always-on operational module (`references/always-on.md`) and
   the kernel routing that applies the always-on families on every user-facing
   prose turn.
-- `AGENTS.md`: the working-rules contract for agents and contributors — the
+- `AGENTS.md`: the working-rules contract for agents and contributors: the
   source-name-free surface rule, the two-gate leak model, the canonical
   registry, the verbatim-corpus and local-provenance rules, the invariant
   primary rule total, and byte-exact build reproducibility.
@@ -143,8 +143,8 @@ shipped rule set.
 
 ### Changed
 
-- Expanded the README and docs coverage — positioning, install, quick start,
-  examples, profiles, validator usage, and known limitations — as
+- Expanded the README and docs coverage: positioning, install, quick start,
+  examples, profiles, validator usage, and known limitations: as
   source-name-free, count-leak-safe prose.
 
 ### Notes

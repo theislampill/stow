@@ -285,7 +285,7 @@ Retained material that supports the primary rules without joining the primary co
 - **Applicability overrides.** When acting on instructions would conflict with a rule, the override order is recorded rather than improvised.
 - **Pre-send gates.** Final self-checks a reply runs before delivery.
 - **Foundational rationale.** Why the action-shaping rules exist: what limited attention changes about reading.
-- **False-positive guidance.** When a suspicious pattern is legitimate and must not be "fixed".
+- **False-positive guidance.** When a suspicious pattern is legitimate and must not be fixed.
 - **Detection and review guidance.** How to recognize synthetic prose patterns, with worked examples and a self-check pass.
 - **General recommendations.** Cross-cutting writing practice under the controlled profile.
 
@@ -385,7 +385,7 @@ python skills/stow/runtime/validate.py --format {json,jsonl,yaml} <file>
 python skills/stow/runtime/validate.py --schema <schema-id> <file>
 ```
 
-Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2` the file could not be read or is not valid UTF-8. Instances may be JSON, YAML, a Markdown document (its single fenced yaml/json block is the instance), or a `.jsonl` stream validated per line. An evidence-record file may wrap several records as `{records: [...]}` and validates per record. Working instances of every schema live in `tests/fixtures/meta/`, and the shipped templates themselves are validated instances.
+Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2` the file could not be read or is not valid UTF-8. An instance is JSON, YAML, a Markdown document (its single fenced yaml/json block is the instance), or a `.jsonl` stream validated per line. An evidence-record file can wrap several records as `{records: [...]}` and validates per record. Working instances of every schema live in `tests/fixtures/meta/`, and the shipped templates themselves are validated instances.
 
 **`runtime/lint_prose.py`** is advisory and report-only. Findings never change the exit code; only an invalid invocation (an unknown or locked profile) exits nonzero.
 
@@ -426,7 +426,7 @@ python tools/check_provenance_leak.py --local
 
 - **Prose linters are advisory and report-only.** `lint_prose.py` always exits 0 on findings. The structured-output validator is the only hard gate.
 - **Most registry rules are not callable.** Fourteen rules have callable validators today. The large majority are either review-fallback (a model applies them by reading them) or planned (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
-- **Host-dependent skill selection.** The skill is invoked per turn by the host model. Live evidence shows it selects on task-shaped, technical, and meta-code turns and may skip trivial or raw one-liners; on a non-invoked turn, only the external parser and schema gates apply.
+- **Host-dependent skill selection.** The skill is invoked per turn by the host model. Live evidence shows it selects on task-shaped, technical, and meta-code turns and can skip trivial or raw one-liners; on a non-invoked turn, only the external parser and schema gates apply.
 - **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks. Behavioral evidence is measured and documented, not promised.
 - **Lexical advisories ignore a requested register.** An explicitly requested casual or creative voice governs the register, but lexical advisories still fire on the result; advisories never override the contract band.
 - **The strict profile is locked** and must never be claimed.

@@ -57,9 +57,11 @@ def build():
     for entry in entries:
         parts.append("## %s -- %s" % (entry["id"], _participants(entry)))
         parts.append("")
-        parts.append("- Origin: %s. Resolution kind: %s."
-                     % (entry["origin"], entry["resolution_kind"]))
-        parts.append("- Fires when: %s" % entry["activation_predicate"])
+        # Intro line (prose, not a bullet) keeps each entry's bullet run short.
+        parts.append("Origin %s; resolution %s. Fires when: %s"
+                     % (entry["origin"], entry["resolution_kind"],
+                        entry["activation_predicate"]))
+        parts.append("")
         winner = entry["winner"]
         parts.append("- Winner: band `%s` (`%s`)." % (winner["band"], winner["ref"]))
         parts.append("- Losing behavior: %s" % entry["losing_behavior"])
@@ -69,15 +71,17 @@ def build():
                          % entry["registry_resolution"])
         if entry.get("tie_break"):
             parts.append("- Tie-break: %s" % entry["tie_break"])
+        parts.append("")
+        # Fixtures are quoted example DATA (often deliberately non-conforming);
+        # they render as indented protected literals, never as prose bullets.
         fixtures = entry.get("fixtures", {})
-        if fixtures.get("positive"):
-            parts.append("- Fixture (conforming): %s" % fixtures["positive"])
-        if fixtures.get("adversarial"):
-            parts.append("- Fixture (violating): %s" % fixtures["adversarial"])
-        if fixtures.get("expected_rewrite"):
-            parts.append("- Expected rewrite of the violation: %s"
-                         % fixtures["expected_rewrite"])
-        parts.append("- Evidence: %s" % entry["evidence"])
+        for label, key in (("Fixture (conforming)", "positive"),
+                           ("Fixture (violating)", "adversarial"),
+                           ("Expected rewrite", "expected_rewrite")):
+            if fixtures.get(key):
+                parts.append("    %s: `%s`" % (label, fixtures[key]))
+        parts.append("")
+        parts.append("Evidence: %s" % entry["evidence"])
         parts.append("")
     return "\n".join(parts).rstrip("\n") + "\n", len(entries)
 

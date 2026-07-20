@@ -72,7 +72,7 @@ a gap to be quietly filled.
 ### The `.skill` artifact
 
 The distributable artifact is an ordinary **spec-compliant ZIP** container that
-is simply **renamed to `STOW.skill`**. There is no bespoke archive format: any
+is **renamed to `STOW.skill`**. There is no bespoke archive format: any
 standard unzip reads it, and the anti-leak gate's post-extract scan treats the
 extracted tree (`<tmp>/stow/...`, with no `skills/` segment) exactly like the
 in-repo tree -- the corpus exemption keys on the `corpus/` path segment, so it
@@ -80,7 +80,7 @@ holds under both layouts.
 
 ### Unit-glyph anomaly
 
-A small rendering anomaly is recorded here so nobody "fixes" it by editing the
+A small rendering anomaly is recorded here so nobody repairs it by editing the
 corpus: **some unit glyphs render as empty parentheses** in certain viewers /
 pipelines (the glyph fails to round-trip and collapses to `()`). The corpus and
 manifest validators are designed to be indifferent to this: they **key on line
@@ -88,7 +88,7 @@ anchors** -- per-line, whitespace-normalised substring and drift-lock matching -
 rather than on the exact code point of a unit symbol. A record whose example
 contains such a glyph therefore still matches its baseline and its manifest
 `required_substring`, because the matched anchor does not depend on the fragile
-glyph. Do not "repair" an empty-parenthesis rendering in a corpus module; the
+glyph. Do not repair an empty-parenthesis rendering in a corpus module; the
 byte-exact source is intentional and the drift-lock protects it.
 
 ### What the drift-lock guarantees
@@ -131,7 +131,7 @@ gate and must be green before pushing.
 
 ## Context budgets and load paths
 
-STOW is built so that the cost of a turn tracks what the turn actually needs. The
+STOW is built so that the cost of a turn tracks what the turn needs. The
 kernel is the only surface that is always resident; everything else is pulled in
 on demand. The figures below are token measurements taken with
 `tools/measure_context.py` (tokenizer `o200k_base`); other models tokenize
@@ -187,7 +187,7 @@ distinction is stated plainly here.
 - **`enforcement.kind` is the *intended* mechanism.** It records how a rule
   *would* be enforced by a mechanical checker: what class of check applies, what
   it would key on. It is a design declaration.
-- **`enforcement.status` is the *shipped* truth.** It records what actually runs
+- **`enforcement.status` is the *shipped* truth.** It records what runs
   today: **fourteen rules are callable**; the bulk of the remainder are planned,
   and the rest fall back to model review. The exact callable set is derived
   bidirectionally from the runtime's own `IMPLEMENTED_VALIDATORS` constant by
@@ -214,7 +214,7 @@ the field to trust, and `tests/test_enforcement_status.py` keeps it honest.
 
 ## End-to-end reality
 
-What is actually proven here, and what is not:
+What is proven here, and what is not:
 
 **Proven.** The install property is a real, gated, model-free end-to-end check.
 `tests/test_install_smoke.py` builds the artifact, extracts it to a throwaway
@@ -228,12 +228,12 @@ the build.
 executes a model against the shipped skill. Two properties therefore remain
 **unverified claims, and are stated as such rather than asserted**:
 
-- **Auto-selection** -- that a model presented with a given task will actually
+- **Auto-selection** -- that a model presented with a given task will
   activate STOW, and will route to the correct reference or corpus module. The
   activation cues are authored and their *structure* is tested; their *effect* on
   a live model is not.
 - **Live reference-loading behaviour** -- that the load paths described above are
-  the paths a model actually takes at runtime. The budgets are measured over the
+  the paths a model takes at runtime. The budgets are measured over the
   file set each path *should* pull in; that the model pulls in exactly that set is
   not observed anywhere in this suite.
 
@@ -244,7 +244,7 @@ Closing this gap requires a model-in-the-loop harness, which is roadmap.
 
 ## Cross-harness scope
 
-The interoperability claim is scoped to what actually ships. The **meta-code
+The interoperability claim is scoped to what ships. The **meta-code
 surface** -- `skills/stow/schemas/*.schema.json`, `skills/stow/templates/*`, the
 meta-code reference set, and `runtime/validate.py --schema <id>` -- is concrete,
 committed, and tested. Any agent or harness that can read a JSON Schema and a
@@ -305,5 +305,5 @@ ceiling that passes in estimate mode also holds in exact tokens. Band-style
 targets (two-sided) are evaluated only in exact mode; the offline gates in
 `tests/test_offline_measurement.py` prove the fallback's determinism and prove
 a fully offline run completes with the ceilings still enforced. CI restores a
-named tokenizer cache and warms it in a single clearly named step whose failure
+named tokenizer cache and warms it in a single named step whose failure
 is tolerated because the estimator covers every gate.

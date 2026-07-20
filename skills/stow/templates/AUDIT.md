@@ -1,9 +1,9 @@
-# Audit — meta-code layer readiness
+# Audit: meta-code layer readiness
 
 Worked-example template for the audit / evidence class. A read-only reviewer
 produces findings a decision-maker acts on. FACTS are separated from
 RECOMMENDATIONS; every record carries a verifiable locator and reaches a terminal
-disposition — no orphan findings. The fenced block validates against
+disposition: no orphan findings. The fenced block validates against
 `skills/stow/schemas/evidence-record.schema.json`. A `fact` needs at least one
 resolvable locator; a `finding` with `verified: true` needs a `failure_scenario`;
 `disposition` is one of the terminal set

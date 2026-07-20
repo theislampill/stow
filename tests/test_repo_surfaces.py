@@ -77,7 +77,7 @@ def test_changelog_md_exists():
 # --------------------------------------------------------------------------- #
 
 AGENTS_REQUIRED = (
-    "# STOW — working rules for agents",
+    "# STOW working rules for agents",
     "## Repository map",
     "## Source-name-free surfaces",
     "### Count-leak scope",

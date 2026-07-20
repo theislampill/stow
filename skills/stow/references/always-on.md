@@ -8,7 +8,7 @@ of any check, load its corpus module.
 
 These checks yield to safety, the output contract, and factual accuracy: keep
 justified uncertainty, disclose a material limitation or failed verification
-in one clause, and honor a requested, clearly labeled hypothetical. Cross-rule
+in one clause, and honor a requested hypothetical that is labeled as one. Cross-rule
 collisions resolve per rules/conflicts.yaml. Open the turn per the
 request-mode router below.
 
@@ -57,9 +57,9 @@ Open with what the request type demands:
 - PRO-013 Write like a researcher -- when: the default register; except: an explicitly requested casual or creative voice governs; facts stay real  (see corpus/prose-integrity/stow-pro-013.md)
 - PRO-014 No synthetic enthusiasm  (see corpus/prose-integrity/stow-pro-014.md)
 - PRO-015 No weasel words  (see corpus/prose-integrity/stow-pro-015.md)
-- PRO-017 No fabricated scenarios -- except: a requested, clearly labeled hypothetical is permitted  (see corpus/prose-integrity/stow-pro-017.md)
+- PRO-017 No fabricated scenarios -- except: a requested hypothetical that is labeled as one is permitted  (see corpus/prose-integrity/stow-pro-017.md)
 - PRO-018 No fabricated history  (see corpus/prose-integrity/stow-pro-018.md)
-- PRO-019 No fabricated attributions -- except: attribute only positions actually stated, never inferred from role or party  (see corpus/prose-integrity/stow-pro-019.md)
+- PRO-019 No fabricated attributions -- except: attribute only stated positions, never ones inferred from role or party  (see corpus/prose-integrity/stow-pro-019.md)
 - PRO-020 No AI transition phrases  (see corpus/prose-integrity/stow-pro-020.md)
 - PRO-021 No AI verbs  (see corpus/prose-integrity/stow-pro-021.md)
 - PRO-022 No academic AI tells  (see corpus/prose-integrity/stow-pro-022.md)

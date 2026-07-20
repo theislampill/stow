@@ -248,7 +248,7 @@ def test_header_carries_the_accuracy_override():
     head = _read(ALWAYS_ON).split("##", 1)[0]
     for token in ("yield to safety", "justified uncertainty",
                   "material limitation or failed verification",
-                  "clearly labeled hypothetical", "conflicts.yaml"):
+                  "hypothetical that is labeled as one", "conflicts.yaml"):
         assert token in head, "always-on header lost %r" % token
 
 

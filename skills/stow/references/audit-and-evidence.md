@@ -3,8 +3,8 @@
 An **audit / evidence record** is the unit a read-only reviewer or a CI gate
 produces so a decision-maker can act: a fact, a recommendation, or a finding,
 each carrying verifiable evidence and reaching a terminal disposition. This page
-also governs **acceptance criteria** — the binary, observable conditions that
-decide whether a task, phase, or change is done — because an acceptance criterion
+also governs **acceptance criteria** (the binary, observable conditions that
+decide whether a task, phase, or change is done), because an acceptance criterion
 is an evidence-bound predicate of the same shape as an audit finding.
 
 This page is a scanned surface, not rule text. For the wording of any governed
@@ -14,17 +14,17 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Predicate:** a review produces findings a reader will act on, or a task
   declares the observable conditions under which it is complete. Both must be
-  mechanically checkable to prevent overclaim — a status asserted without evidence.
+  mechanically checkable to prevent overclaim: a status asserted without evidence.
 
 ## Governing STOW families
 
-- **Accuracy and integrity (band 5, always on).** Every finding cites evidence —
-  a file-and-line locator, a hash, or command output — and adds no fabricated
+- **Accuracy and integrity (band 5, always on).** Every finding cites evidence
+  (a file-and-line locator, a hash, or command output) and adds no fabricated
   specificity (`SKILL.md` section 3). Facts and recommendations stay separate
   records, never merged.
 - **Literals (band 4).** Paths and line numbers in a locator are byte-exact.
 - **Presentation (band 8).** The verdict comes first and detail follows on demand
-  — see corpus/action-shaping/stow-act-001.md — and an outcome is surfaced, not
+  (see corpus/action-shaping/stow-act-001.md), and an outcome is surfaced, not
   buried, per corpus/action-shaping/stow-act-007.md.
 - **Safety (band 1, system precedence).** A risk-bearing finding carries a
   risk-level label and a stated consequence, per corpus/safety/stow-saf-001.md.
@@ -38,7 +38,7 @@ prose rule named below, open its cited `corpus_ref` module.
   as `fixed`, `already-covered`, `rejected-with-evidence`, `owner-decision`,
   `blocked`, or `deferred`), and `verified`. A finding also requires a
   `failure_scenario`.
-- **Template.** `templates/AUDIT.md` — a valid instance separating facts from
+- **Template.** `templates/AUDIT.md`: a valid instance separating facts from
   recommendations, each finding with locators, severity, and a terminal
   disposition.
 

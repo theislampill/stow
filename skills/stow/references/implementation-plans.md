@@ -19,11 +19,11 @@ prose rule named below, open its cited `corpus_ref` module.
 ## Governing STOW families
 
 - **Procedures (profile, band 7).** Each task step is a single imperative
-  instruction, one instruction per step — see corpus/procedures/stow-prc-002.md
+  instruction, one instruction per step; see corpus/procedures/stow-prc-002.md
   and corpus/procedures/stow-prc-003.md. Multi-step work is rendered as numbered
   steps, per corpus/action-shaping/stow-act-002.md.
 - **Accuracy (band 5).** An effort or size estimate is supplied only when a
-  defensible range exists, and omitted otherwise rather than invented — see
+  defensible range exists, and omitted otherwise rather than invented; see
   corpus/action-shaping/stow-act-006.md.
 - **Terminology (band 6).** Task IDs are stable and reused wherever the task is
   named, per corpus/style/stow-sty-004.md.
@@ -32,14 +32,15 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## Governing schema + template
 
-- **Schema.** A plan has no standalone schema; its machine-checkable core is the
-  task and its acceptance criteria, validated against
+- **Schema.** `schemas/plan.schema.json` validates the plan's fenced task-DAG
+  block (plan id, phases with terminal states, tasks with observable
+  acceptance). A task dispatched FROM a plan validates separately against
   `schemas/task-packet.schema.json`. Each task carries an `id`, an `acceptance[]`
   (each a `{predicate, method, expected}` where `method` is one of
   `command | parse | schema | review`), and a gate. Acceptance criteria are the
   same shape a dispatched task packet uses, so a plan task and a task packet
   validate against one contract.
-- **Template.** `templates/PLAN.md` — a valid instance: ordered phases, each with
+- **Template.** `templates/PLAN.md`, a valid instance: ordered phases, each with
   a gate and an observable acceptance line, dependencies forming a DAG.
 
 ## Validation contract

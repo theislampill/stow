@@ -1,15 +1,15 @@
-# Runbook — rebuild and republish the STOW skill artifact
+# Runbook: rebuild and republish the STOW skill artifact
 
-Worked-example template for the runbook class. An operator (human or agent)
-executes this under time pressure, so every step is a single imperative, every
-step that can fail carries a `verify` and a `rollback`, and every safety step
+Worked-example template for the runbook class. Because an operator (human or
+agent) executes this under time pressure, every step is a single imperative.
+Every step that can fail carries a `verify` and a `rollback`. Every safety step
 states a risk level and its consequence. Commands are protected literals: copy
 them exactly. The fenced block is the machine-readable step list.
 
 ## Preconditions
 
 - Working tree is clean (`git status` shows nothing to commit).
-- All gates are green (tests pass; both leak gates report `LEAK CHECK PASSED`).
+- All gates are green (tests pass, and both leak gates report `LEAK CHECK PASSED`).
 
 ## Steps
 
@@ -22,7 +22,7 @@ them exactly. The fenced block is the machine-readable step list.
 3. Build the artifact.
    - Verify: two consecutive builds are byte-identical.
    - Rollback: delete the build output directory.
-4. CAUTION (medium): publishing replaces the live artifact; consequence — installed
+4. CAUTION (medium): publishing replaces the live artifact. Consequence: installed
    agents pick up the new build on next load. Publish only after steps 1–3 are green.
    - Verify: the published artifact's short SHA matches the local build.
    - Rollback: republish the previous release.
@@ -34,10 +34,10 @@ pass over the extracted artifact.
 
 ## Safety
 
-- CAUTION (high): never `git push --force`; consequence — remote history is
+- CAUTION (high): never `git push --force`. Consequence: remote history is
   rewritten and every clone diverges. Push fast-forward only.
 - To undo a bad release, revert to the last known-good commit `5e3aafe` and
-  rebuild; do not rewrite history.
+  rebuild. Do not rewrite history.
 
 ```yaml
 schema_version: 1

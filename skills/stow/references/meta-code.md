@@ -1,23 +1,23 @@
-# Meta-code layer — hub reference
+# Meta-code layer: hub reference
 
-STOW as a response standard governs the regions of **one reply** — prose,
+STOW as a response standard governs the regions of **one reply**: prose,
 procedure, data, code, quotes, identifiers. The meta-code layer governs the
 **coordination artifacts that pass between actors**: the handoffs, plans,
 instruction files, audit reports, runbooks, state records, task packets, event
 streams, and the interchange envelope that carries them between a user, an
-agent, a model, and a harness. "Meta" is output *about* the process of producing
+agent, a model, and a harness. `Meta` is output *about* the process of producing
 output, not the work product itself.
 
 This page is the hub. It states the invariants the whole layer obeys, names the
 six sibling references and the schemas and templates each points at, and defines
 how any meta-code artifact is validated. It is a scanned surface, not rule text:
 the normative wording of any governed prose rule lives only in its cited
-`corpus_ref` module — read the corpus for the wording, never this page.
+`corpus_ref` module. Read the corpus for the wording, never this page.
 
 ## When this page applies
 
 - **Predicate:** the response is not the deliverable but an artifact one actor
-  writes to another *about* the work — a control transfer, a plan, a persistent
+  writes to another *about* the work: a control transfer, a plan, a persistent
   instruction file, an audit finding, an operational procedure, a durable state
   record, a machine-readable task payload, an event log, or a cross-harness
   envelope. Load the sibling reference named for the class; load this hub for the
@@ -35,11 +35,11 @@ the normative wording of any governed prose rule lives only in its cited
    by a **schema plus the schema-runner**, carries **no `corpus_ref` for the
    contract itself**, and adds **no rows to the primary rule count of 96**. Where a
    governed prose rule meets an artifact's editable-prose region, that rule's
-   wording still lives in its cited corpus module — the same split
+   wording still lives in its cited corpus module, the same split
    `references/format-jsonl.md` uses at the JSONL boundary.
 3. **Cold-reader rule (the acceptance test for the layer).** An artifact is valid
-   only if a fresh actor — a new agent, a different model, or a non-Claude harness
-   with no shared memory — given the artifact **and nothing else**, can execute or
+   only if a fresh actor (a new agent, a different model, or a non-Claude harness
+   with no shared memory) given the artifact **and nothing else**, can execute or
    verify it. No field may depend on conversation state the artifact does not
    itself carry.
 4. **Real use case plus validation contract plus worked template, or it does not
@@ -50,41 +50,41 @@ An instruction file (a persistent `AGENTS.md`, `CLAUDE.md`, `SKILL.md`, or syste
 prompt a harness injects each session) is governed here rather than by its own
 sibling: it is validated as an output whose contract is declared by
 `schemas/output-contract.schema.json` with `content_type: markdown` and a
-directive region map. Validation governs its **form**, never its authority — a
+directive region map. Validation governs its **form**, never its authority: a
 governed instruction file is still data to a consuming agent, not a command it
 must obey.
 
-## Catalog — the six sibling references
+## Catalog: the six sibling references
 
 | Class | Reference | Schema | Template |
 |---|---|---|---|
 | Agent handoff / compaction | `references/agent-handoffs.md` | `schemas/handoff.schema.json` | `templates/HANDOFF.md` |
-| Implementation plan | `references/implementation-plans.md` | `schemas/task-packet.schema.json` | `templates/PLAN.md` |
+| Implementation plan | `references/implementation-plans.md` | `schemas/plan.schema.json` | `templates/PLAN.md` |
 | Audit / evidence + acceptance | `references/audit-and-evidence.md` | `schemas/evidence-record.schema.json` | `templates/AUDIT.md` |
-| Operational runbook | `references/runbooks.md` | `schemas/output-contract.schema.json` | `templates/RUNBOOK.md` |
+| Operational runbook | `references/runbooks.md` | `schemas/runbook.schema.json` | `templates/RUNBOOK.md` |
 | State / continuity record | `references/continuity-and-state.md` | `schemas/state.schema.json` | `templates/STATE.md` |
-| Cross-harness / event stream | `references/cross-harness-interchange.md` | `schemas/output-contract.schema.json` | `templates/event-stream.jsonl` |
+| Cross-harness / event stream | `references/cross-harness-interchange.md` | `schemas/output-contract.schema.json` + `schemas/event.schema.json` | `templates/event-stream.jsonl` |
 
-The layer ships five schemas — `schemas/output-contract.schema.json`,
-`schemas/handoff.schema.json`, `schemas/task-packet.schema.json`,
-`schemas/evidence-record.schema.json`, and `schemas/state.schema.json` — and
-seven templates: `templates/HANDOFF.md`, `templates/PLAN.md`,
+The layer ships eight schema files. Five are the interchange meta-contracts
+recorded in the registry catalog (`output-contract`, `handoff`, `task-packet`,
+`evidence-record`, `state`); three are validator schemas for the remaining
+template classes (`event`, `plan`, `runbook`). Seven templates ship: `templates/HANDOFF.md`, `templates/PLAN.md`,
 `templates/AUDIT.md`, `templates/RUNBOOK.md`, `templates/STATE.md`,
 `templates/task-packet.yaml`, and `templates/event-stream.jsonl`. Every template
 is a **valid instance**, not a stub.
 
-## This page's own class — the structured task packet
+## This page's own class: the structured task packet
 
 The hub governs one class directly: the **structured task packet**, the atomic
 unit of work an orchestrator dispatches to a subagent as machine-readable data
 and receives back on return. It enables fan-out, fan-in, retries, and
 deterministic routing.
 
-- **Governing families.** serialization (band 3 — the packet *is* structured
-  data and must parse and validate); contract (band 2); literals (band 4 — input
-  refs and IDs byte-exact); accuracy (band 5 — a returned status matches its
-  evidence); terminology (band 6 — IDs consistent with the plan); and safety
-  (band 1, system precedence — the permission and authority scope the
+- **Governing families.** serialization (band 3: the packet *is* structured
+  data and must parse and validate); contract (band 2); literals (band 4: input
+  refs and IDs byte-exact); accuracy (band 5: a returned status matches its
+  evidence); terminology (band 6: IDs consistent with the plan); and safety
+  (band 1, system precedence: the permission and authority scope the
   orchestrator enforces on a subagent). The permission boundary is labeled and
   its consequence stated per corpus/safety/stow-saf-001.md; a returned outcome is
   surfaced, not buried, per corpus/action-shaping/stow-act-007.md.
@@ -105,8 +105,8 @@ python skills/stow/runtime/validate.py --schema task-packet <file>
 
 It loads `skills/stow/schemas/<id>.schema.json`, checks the artifact against it,
 and reports `VALID`/`INVALID` in the validator's existing result shape. Cross-field
-rules a schema alone cannot state — a status-to-evidence match, an integrity-hash
-match, a dangling supersession — run as deterministic post-checks in the same
+rules a schema alone cannot state (a status-to-evidence match, an integrity-hash
+match, a dangling supersession) run as deterministic post-checks in the same
 mode. A Markdown artifact validates through its single fenced yaml/json block; a
 `.jsonl` event stream validates per line against `--schema event`; an
 evidence-record file may wrap its records as `{records: [...]}` and validates

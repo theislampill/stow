@@ -7,6 +7,28 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.3.6] - 2026-07-20
+
+Production promotion after deployment acceptance and installed dogfood.
+
+### Changed
+
+- Version only: no functional file changed. This release promotes the exact
+  package that passed the deployment-acceptance campaign: byte-verified
+  personal installation, an installed-dogfood campaign with zero package
+  faults, and a complete installed-usability proof in which every primary
+  rule was engaged through the skill, retrieved through the bounded lookup,
+  and applied with its planted violation identified and corrected; every
+  callable check fired and cleared in both directions.
+
+### Notes
+
+- Documented environment covariates from the campaign: non-interactive host
+  sessions deny reads of personal-skill files and deny packaged-helper
+  execution, so the kernel's bounded-lookup fallback is the operative
+  retrieval path there; interactive sessions load the installed kernel
+  directly. Neither is a package defect.
+
 ## [0.3.5] - 2026-07-20
 
 Documentation-truth and self-audit pass: the public docs match the shipped

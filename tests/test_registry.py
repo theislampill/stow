@@ -1,4 +1,4 @@
-"""P2 tests for the STOW machine-readable rule registry (index of 96 records).
+"""P2 tests for the STOW machine-readable rule registry (index of 104 records).
 
 Self-contained: no corpus dependency (the corpus arrives in P2B) and no
 dependency on a runtime validate.py (it does not exist yet). The registry is
@@ -164,6 +164,16 @@ def test_baseline_text_sha256_roundtrip():
         assert w["baseline_kind"] in ("verbatim", "authored")
         recomputed = hashlib.sha256(w["baseline_text"].encode("utf-8")).hexdigest()
         assert recomputed == w["baseline_text_sha256"], r["id"]
+
+
+def test_baseline_kind_and_active_version_stay_paired():
+    """The schema relaxed baseline_kind/active_version to independent enums; this
+    keeps them in lockstep so no record can mix a verbatim kind with an authored
+    version or vice versa."""
+    paired = {"verbatim": "verbatim-baseline", "authored": "authored-baseline"}
+    for r in RECORDS:
+        w = r["wording"]
+        assert paired[w["baseline_kind"]] == w["active_version"], r["id"]
 
 
 # --------------------------------------------------------------------------- #

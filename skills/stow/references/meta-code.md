@@ -33,7 +33,7 @@ the normative wording of any governed prose rule lives only in its cited
 2. **Contracts, not prose rules.** Each artifact class is a serialization /
    coordination invariant, the same shape as the format contracts. It is enforced
    by a **schema plus the schema-runner**, carries **no `corpus_ref` for the
-   contract itself**, and adds **no rows to the primary rule count of 96**. Where a
+   contract itself**, and adds **no rows to the primary rule count**. Where a
    governed prose rule meets an artifact's editable-prose region, that rule's
    wording still lives in its cited corpus module, the same split
    `references/format-jsonl.md` uses at the JSONL boundary.

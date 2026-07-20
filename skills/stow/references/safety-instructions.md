@@ -33,7 +33,7 @@ rule on conflict.
   inspects each notice for the risk-level signal word that heads it and confirms
   the chosen level matches the severity, using the level classification defined in
   the corpus. Not auto-fixed: flagged for the author.
-- **Full text:** see corpus/safety/stow-saf-001.md.
+- **Full text:** see corpus/safety.md#STOW-SAF-001.
 
 ### STOW-SAF-002: opening of the notice
 
@@ -42,7 +42,7 @@ rule on conflict.
   STOW reads the opening of each notice's instruction line and confirms it begins
   in the form the corpus specifies, rather than with an abstract lead-in. Not
   auto-fixed: flagged for the author.
-- **Full text:** see corpus/safety/stow-saf-002.md.
+- **Full text:** see corpus/safety.md#STOW-SAF-002.
 
 ### STOW-SAF-003: statement of the risk
 
@@ -51,7 +51,7 @@ rule on conflict.
   confirms each notice carries the explanatory clause the corpus calls for, so the
   reader can see the outcome tied to the instruction. Not auto-fixed: flagged for
   the author.
-- **Full text:** see corpus/safety/stow-saf-003.md.
+- **Full text:** see corpus/safety.md#STOW-SAF-003.
 
 ## Applying the group together
 

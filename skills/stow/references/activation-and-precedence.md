@@ -104,8 +104,8 @@ section below).
   validators per notice (`STOW-SAF-001`..`003`).
 - Because these outrank the profile and presentation bands, a lower-band lexical
   or layout preference never suppresses or reshapes a safety notice.
-- See corpus/safety/stow-saf-001.md, corpus/safety/stow-saf-002.md,
-  corpus/safety/stow-saf-003.md (and the per-rule breakdown in
+- See corpus/safety.md#STOW-SAF-001, corpus/safety.md#STOW-SAF-002,
+  corpus/safety.md#STOW-SAF-003 (and the per-rule breakdown in
   `skills/stow/references/safety-instructions.md`).
 
 ## Band 7: controlled-technical profile
@@ -164,28 +164,28 @@ every one resolves by the higher band winning. The load-bearing cases:
   and the profile lexical rules `STOW-WRD-014` and `STOW-PCT-006` yield inside
   `quoted-text`, `identifiers`, and `structured-data`: bands 3 and 4 outrank
   bands 7 and 8, so keys, identifiers, and quoted text are never re-spelled or
-  re-cased. See corpus/prose-integrity/stow-pro-021.md,
-  corpus/words/stow-wrd-014.md, corpus/punctuation/stow-pct-006.md.
+  re-cased. See corpus/prose-integrity/rules.md#STOW-PRO-021,
+  corpus/words/usage.md#STOW-WRD-014, corpus/punctuation.md#STOW-PCT-006.
 - **Factual accuracy vs an estimate preference.** `STOW-ACT-006` yields to
   `STOW-PRO-002`: band 5 forbids presenting an unsupported number as fact, so an
   estimate is given only when a defensible range exists and is otherwise omitted.
-  See corpus/action-shaping/stow-act-006.md,
-  corpus/prose-integrity/stow-pro-002.md.
+  See corpus/action-shaping.md#STOW-ACT-006,
+  corpus/prose-integrity/rules.md#STOW-PRO-002.
 - **Domain terminology and profile consistency vs a variation preference.**
   `STOW-PRO-007` yields to `STOW-WRD-011` and `STOW-STY-004`: bands 6 and 7 keep
   one term per referent and consistent wording for recurring content. See
-  corpus/prose-integrity/stow-pro-007.md, corpus/words/stow-wrd-011.md,
-  corpus/style/stow-sty-004.md.
+  corpus/prose-integrity/rules.md#STOW-PRO-007, corpus/words/usage.md#STOW-WRD-011,
+  corpus/style/consistency.md#STOW-STY-004.
 - **Profile length caps vs the same variation preference.** `STOW-PRO-007` also
   yields to `STOW-PRC-001` and `STOW-DSC-003`: vary sentence length below the
-  profile's cap, never above it. See corpus/procedures/stow-prc-001.md,
-  corpus/descriptions/stow-dsc-003.md.
+  profile's cap, never above it. See corpus/procedures.md#STOW-PRC-001,
+  corpus/descriptions.md#STOW-DSC-003.
 - **Two punctuation bans on one substitution.** `STOW-PRO-001` (presentation)
   and `STOW-PCT-001` (profile) collide because the profile-band ban removes a
   substitute character the presentation-band rule would otherwise reach for. The
   resolution uses neither character and lets the active profile choose the
-  replacement. See corpus/prose-integrity/stow-pro-001.md,
-  corpus/punctuation/stow-pct-001.md.
+  replacement. See corpus/prose-integrity/rules.md#STOW-PRO-001,
+  corpus/punctuation.md#STOW-PCT-001.
 
 ## How to read a finding
 

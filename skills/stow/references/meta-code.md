@@ -86,8 +86,8 @@ deterministic routing.
   evidence); terminology (band 6: IDs consistent with the plan); and safety
   (band 1, system precedence: the permission and authority scope the
   orchestrator enforces on a subagent). The permission boundary is labeled and
-  its consequence stated per corpus/safety/stow-saf-001.md; a returned outcome is
-  surfaced, not buried, per corpus/action-shaping/stow-act-007.md.
+  its consequence stated per corpus/safety.md#STOW-SAF-001; a returned outcome is
+  surfaced, not buried, per corpus/action-shaping.md#STOW-ACT-007.
 - **Schema + template.** Validates against `schemas/task-packet.schema.json`;
   the worked instance is `templates/task-packet.yaml`.
 - **Load-bearing rule.** If `status == "done"` then `evidence` is non-empty and

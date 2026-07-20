@@ -20,7 +20,7 @@ region it governs, how STOW checks it, and the corpus source to read.
 - **How STOW checks:** validator `lead-with-action` inspects the first line and
   flags an opening that announces intent or sets up context instead of putting
   the deliverable (result, artifact, path, or command) in first position.
-- **See** corpus/action-shaping/stow-act-001.md.
+- **See** corpus/action-shaping.md#STOW-ACT-001.
 
 ## Bounded, visible actions
 
@@ -31,9 +31,9 @@ region it governs, how STOW checks it, and the corpus source to read.
   ordered list (STOW-ACT-002); `list-max-5-items` bounds the count at five and
   flags overflow (STOW-ACT-009); `no-action-tables` flags a table that carries
   steps and marks it for conversion to a list (STOW-ACT-011).
-- **See** corpus/action-shaping/stow-act-002.md,
-  corpus/action-shaping/stow-act-009.md,
-  corpus/action-shaping/stow-act-011.md.
+- **See** corpus/action-shaping.md#STOW-ACT-002,
+  corpus/action-shaping.md#STOW-ACT-009,
+  corpus/action-shaping.md#STOW-ACT-011.
 
 ## Progressive disclosure
 
@@ -45,9 +45,9 @@ region it governs, how STOW checks it, and the corpus source to read.
   `no-inline-tangents` flags a secondary issue raised mid-answer, which is
   deferred to a single offer at the end (STOW-ACT-004); the prose-layer
   `no-filler-phrases` check removes throat-clearing (STOW-PRO-011).
-- **See** corpus/action-shaping/stow-act-004.md,
-  corpus/action-shaping/stow-act-010.md,
-  corpus/prose-integrity/stow-pro-011.md.
+- **See** corpus/action-shaping.md#STOW-ACT-004,
+  corpus/action-shaping.md#STOW-ACT-010,
+  corpus/prose-integrity/rules.md#STOW-PRO-011.
 
 ## Close on the next step
 
@@ -56,7 +56,7 @@ region it governs, how STOW checks it, and the corpus source to read.
 - **How STOW checks:** STOW-ACT-003 (semantic review) inspects the closer for
   exactly one concrete next action rather than a recap or an open-ended
   "anything else?"; it pairs with the closing half of `no-preamble-or-signoff`.
-- **See** corpus/action-shaping/stow-act-003.md.
+- **See** corpus/action-shaping.md#STOW-ACT-003.
 
 ## Carry state across turns
 
@@ -65,8 +65,8 @@ region it governs, how STOW checks it, and the corpus source to read.
 - **How STOW checks:** STOW-ACT-005 (restate-state, semantic review) checks that
   each turn re-states where the work stands; `surface-outcomes` checks that
   completed results are made visible rather than left implicit (STOW-ACT-007).
-- **See** corpus/action-shaping/stow-act-005.md,
-  corpus/action-shaping/stow-act-007.md.
+- **See** corpus/action-shaping.md#STOW-ACT-005,
+  corpus/action-shaping.md#STOW-ACT-007.
 
 ## Effort estimates, only when defensible
 
@@ -77,8 +77,8 @@ region it governs, how STOW checks it, and the corpus source to read.
   registry resolution: give a range only when a defensible basis exists,
   otherwise omit it; factual accuracy outranks the estimate preference, and an
   unsupported number must not be presented as fact.
-- **See** corpus/action-shaping/stow-act-006.md,
-  corpus/prose-integrity/stow-pro-002.md.
+- **See** corpus/action-shaping.md#STOW-ACT-006,
+  corpus/prose-integrity/rules.md#STOW-PRO-002.
 
 ## Errors as cause, effect, correction
 
@@ -87,7 +87,7 @@ region it governs, how STOW checks it, and the corpus source to read.
 - **How STOW checks:** `no-alarm-openers` flags an alarm word at the start and
   keeps the report matter-of-fact (STOW-ACT-008). Structure the report so the
   reader gets the cause, then the effect, then the correction, in that order.
-- **See** corpus/action-shaping/stow-act-008.md.
+- **See** corpus/action-shaping.md#STOW-ACT-008.
 
 ## Prose quality inside user-facing output
 
@@ -108,18 +108,18 @@ region it governs, how STOW checks it, and the corpus source to read.
     (STOW-PRO-002) and the performative-urgency check (STOW-PRO-009).
   - Presentation-layer punctuation: the em dash ban `no-em-dash` (STOW-PRO-001).
 - **See** the prose-integrity corpus group under corpus/prose-integrity/, in
-  particular corpus/prose-integrity/stow-pro-011.md,
-  corpus/prose-integrity/stow-pro-020.md,
-  corpus/prose-integrity/stow-pro-021.md,
-  corpus/prose-integrity/stow-pro-022.md,
-  corpus/prose-integrity/stow-pro-014.md,
-  corpus/prose-integrity/stow-pro-004.md,
-  corpus/prose-integrity/stow-pro-003.md,
-  corpus/prose-integrity/stow-pro-016.md,
-  corpus/prose-integrity/stow-pro-015.md,
-  corpus/prose-integrity/stow-pro-002.md,
-  corpus/prose-integrity/stow-pro-009.md,
-  corpus/prose-integrity/stow-pro-001.md.
+  particular corpus/prose-integrity/rules.md#STOW-PRO-011,
+  corpus/prose-integrity/rules.md#STOW-PRO-020,
+  corpus/prose-integrity/rules.md#STOW-PRO-021,
+  corpus/prose-integrity/rules.md#STOW-PRO-022,
+  corpus/prose-integrity/rules.md#STOW-PRO-014,
+  corpus/prose-integrity/rules.md#STOW-PRO-004,
+  corpus/prose-integrity/rules.md#STOW-PRO-003,
+  corpus/prose-integrity/rules.md#STOW-PRO-016,
+  corpus/prose-integrity/rules.md#STOW-PRO-015,
+  corpus/prose-integrity/rules.md#STOW-PRO-002,
+  corpus/prose-integrity/rules.md#STOW-PRO-009,
+  corpus/prose-integrity/rules.md#STOW-PRO-001.
 
 ## Precedence and conflicts
 

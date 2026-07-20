@@ -27,7 +27,7 @@ prose rule named below, open its cited `corpus_ref` module.
 - **Contract (band 2).** The envelope declares the payload's contract, so a
   receiver knows which schema to run without asking.
 - **Literals (band 4).** The integrity hash and the payload bytes are protected
-  literals (see corpus/words/stow-wrd-014.md and corpus/punctuation/stow-pct-006.md).
+  literals (see corpus/words/usage.md#STOW-WRD-014 and corpus/punctuation.md#STOW-PCT-006).
 - **Terminology and versioning (band 6).** The schema id and version name a
   shipped contract exactly.
 

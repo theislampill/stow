@@ -152,7 +152,7 @@
         },
         "corpus_ref": {
           "type": "string",
-          "pattern": "^corpus/[a-z-]+/stow-(wrd|mwn|vrb|sen|prc|dsc|saf|pct|sty|gen|act|pro)-[0-9]{3}\\.md$"
+          "pattern": "^corpus/[a-z][a-z0-9/-]*\\.md#STOW-(WRD|MWN|VRB|SEN|PRC|DSC|SAF|PCT|STY|GEN|ACT|PRO)-[0-9]{3}$"
         }
       }
     }

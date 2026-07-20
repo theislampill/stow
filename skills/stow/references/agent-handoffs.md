@@ -22,17 +22,17 @@ prose rule named below, open its cited `corpus_ref` module.
 - **Action-shaping (band 8).** The handoff opens with the result and carries
   exactly one concrete next action, restates progress so the receiver holds no
   state implicitly, and surfaces completed outcomes rather than burying them:
-  see corpus/action-shaping/stow-act-001.md,
-  corpus/action-shaping/stow-act-003.md, corpus/action-shaping/stow-act-005.md,
-  and corpus/action-shaping/stow-act-007.md. It carries no preamble or synthetic
-  enthusiasm, per corpus/action-shaping/stow-act-010.md.
+  see corpus/action-shaping.md#STOW-ACT-001,
+  corpus/action-shaping.md#STOW-ACT-003, corpus/action-shaping.md#STOW-ACT-005,
+  and corpus/action-shaping.md#STOW-ACT-007. It carries no preamble or synthetic
+  enthusiasm, per corpus/action-shaping.md#STOW-ACT-010.
 - **Accuracy and integrity (band 5, always on).** Every `done` claim carries an
   evidence reference; a status with no evidence is fabricated specificity and is
   forbidden by the kernel integrity rules (`SKILL.md` section 3).
 - **Literals (band 4).** Repository paths and commit identifiers pass through
   byte-exact.
 - **Terminology (band 6).** Task and phase IDs are reused verbatim from the plan
-  the handoff points at, one term per concept, per corpus/style/stow-sty-004.md.
+  the handoff points at, one term per concept, per corpus/style/consistency.md#STOW-STY-004.
 
 ## Governing schema + template
 

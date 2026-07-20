@@ -90,6 +90,11 @@ REF_TARGET_RE = re.compile(r"references/([A-Za-z0-9_.-]+\.md)")
 # character. "corpus/ module" (space after the slash) does not match.
 CORPUS_PATH_RE = re.compile(r"corpus/[\w.-]+")
 
+# A full corpus module citation: the module path (with any subdirectories) and an
+# optional #STOW-XXX-NNN section anchor. Used by the strengthened gate 4 to prove
+# every cited corpus token resolves to a real module file after fragment strip.
+CORPUS_CITATION_RE = re.compile(r"corpus/[\w./-]+\.md(?:#[\w-]+)?")
+
 # --------------------------------------------------------------------------- #
 # Loaders
 # --------------------------------------------------------------------------- #
@@ -230,6 +235,18 @@ def test_every_reference_has_provenance():
         assert cites_corpus or is_native or is_index, (
             "%s cites no corpus/ path and is neither a native architecture "
             "reference nor the generated registry index" % name)
+
+
+def test_every_corpus_token_in_references_resolves_on_disk():
+    """Strengthened gate 4: every corpus/ module citation in every reference must
+    resolve to an on-disk module file after any #fragment (section anchor) is
+    stripped. This is what makes the module#anchor citations trustworthy."""
+    for name, text in REFERENCES.items():
+        for token in CORPUS_CITATION_RE.findall(text):
+            path = token.split("#", 1)[0]
+            full = os.path.join(SKILL_DIR, *path.split("/"))
+            assert os.path.isfile(full), \
+                "%s cites %r which does not resolve to a module file" % (name, token)
 
 
 # --------------------------------------------------------------------------- #

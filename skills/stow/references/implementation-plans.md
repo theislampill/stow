@@ -19,14 +19,14 @@ prose rule named below, open its cited `corpus_ref` module.
 ## Governing STOW families
 
 - **Procedures (profile, band 7).** Each task step is a single imperative
-  instruction, one instruction per step; see corpus/procedures/stow-prc-002.md
-  and corpus/procedures/stow-prc-003.md. Multi-step work is rendered as numbered
-  steps, per corpus/action-shaping/stow-act-002.md.
+  instruction, one instruction per step; see corpus/procedures.md#STOW-PRC-002
+  and corpus/procedures.md#STOW-PRC-003. Multi-step work is rendered as numbered
+  steps, per corpus/action-shaping.md#STOW-ACT-002.
 - **Accuracy (band 5).** An effort or size estimate is supplied only when a
   defensible range exists, and omitted otherwise rather than invented; see
-  corpus/action-shaping/stow-act-006.md.
+  corpus/action-shaping.md#STOW-ACT-006.
 - **Terminology (band 6).** Task IDs are stable and reused wherever the task is
-  named, per corpus/style/stow-sty-004.md.
+  named, per corpus/style/consistency.md#STOW-STY-004.
 - **Presentation (band 8).** Phase headings are concrete and descriptive
   (`SKILL.md` section 4).
 

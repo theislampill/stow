@@ -64,6 +64,8 @@ Load a reference only when its predicate is true.
 - meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
 - rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
 
+A corpus_ref fragment (#STOW-XXX-NNN) is a section anchor, not a file. Open the module file (drop the fragment), find the heading line matching the rule id (case-insensitive), and read from that heading to the next heading that starts with '## STOW-'. Hosts with search or offset reads may locate the heading first and read only that span.
+
 ## 6. Final validation gate
 
 Before delivery, confirm:

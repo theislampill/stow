@@ -67,8 +67,8 @@ checks it, and the `corpus_ref` for the full rule text.
   conflict the resolution is fixed: serialization validity and the protected
   literal outrank the presentation-layer lexical preference, which skips the
   protected span.
-- **Full text:** see corpus/words/stow-wrd-014.md, corpus/prose-integrity/stow-pro-021.md,
-  and corpus/punctuation/stow-pct-006.md.
+- **Full text:** see corpus/words/usage.md#STOW-WRD-014, corpus/prose-integrity/rules.md#STOW-PRO-021,
+  and corpus/punctuation.md#STOW-PCT-006.
 
 ### JSON structural punctuation is not prose punctuation
 
@@ -78,8 +78,8 @@ checks it, and the `corpus_ref` for the full rule text.
 - **How STOW checks it:** the line is excluded as structured-data, so the
   punctuation and character-ban rules never read a JSON delimiter as a prose mark
   or flag it for rewriting.
-- **Full text:** see corpus/punctuation/stow-pct-001.md and
-  corpus/prose-integrity/stow-pro-001.md.
+- **Full text:** see corpus/punctuation.md#STOW-PCT-001 and
+  corpus/prose-integrity/rules.md#STOW-PRO-001.
 
 ## Applying it
 

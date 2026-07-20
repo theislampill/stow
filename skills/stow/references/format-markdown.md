@@ -49,8 +49,8 @@ Two invariants hold across every construct below:
 - **How STOW checks it:** no prose rule enters the fence or the span. The literals
   band holds the bytes fixed; the presentation and profile lexical checks skip the
   region entirely. This is the immutability behavior the registry records on the
-  protected-literal conflicts: see corpus/punctuation/stow-pct-006.md and
-  corpus/words/stow-wrd-014.md.
+  protected-literal conflicts: see corpus/punctuation.md#STOW-PCT-006 and
+  corpus/words/usage.md#STOW-WRD-014.
 - When a fence's info string names a data language, also treat its body as a
   structured region (below).
 
@@ -72,11 +72,11 @@ Two invariants hold across every construct below:
   prose.
 - **Region:** quoted text. Excluded from the lexical prose rules.
 - **How STOW checks it:** the quoted span stays byte-exact, so its spelling is not
-  changed to match the prose spelling convention (see corpus/words/stow-wrd-014.md),
+  changed to match the prose spelling convention (see corpus/words/usage.md#STOW-WRD-014),
   and each quotation counts as a single token for length (see
-  corpus/punctuation/stow-pct-006.md). Fidelity to the source and the block layout
+  corpus/punctuation.md#STOW-PCT-006). Fidelity to the source and the block layout
   for a long quotation are reviewed by the quotation check at
-  corpus/prose-integrity/stow-pro-023.md.
+  corpus/prose-integrity/rules.md#STOW-PRO-023.
 
 ## Paths, identifiers, schema keys, and bare literals
 
@@ -85,7 +85,7 @@ Two invariants hold across every construct below:
 - **Region:** identifier. Protected.
 - **How STOW checks it:** the token passes through unchanged and is not renamed,
   re-cased, or reworded, and it counts as one word (see
-  corpus/punctuation/stow-pct-006.md). Recognition of a bare, un-fenced literal is
+  corpus/punctuation.md#STOW-PCT-006). Recognition of a bare, un-fenced literal is
   the job of `references/protected-regions.md`; this page only confirms that once
   recognized, the token is out of scope for every prose rule.
 
@@ -95,8 +95,8 @@ Two invariants hold across every construct below:
 - **Region:** the heading text is editable prose, but two presentation checks
   target headings specifically, and any literal inside the heading stays protected.
 - **How STOW checks it:** STOW inspects each heading against the parenthetical
-  constraint at corpus/prose-integrity/stow-pro-003.md and the concreteness
-  constraint at corpus/prose-integrity/stow-pro-016.md. Both are flagged for the
+  constraint at corpus/prose-integrity/rules.md#STOW-PRO-003 and the concreteness
+  constraint at corpus/prose-integrity/rules.md#STOW-PRO-016. Both are flagged for the
   author, not auto-fixed.
 
 ## Lists and tables
@@ -105,9 +105,9 @@ Two invariants hold across every construct below:
 - **Region:** list-item and cell prose is editable prose; a cell that holds a
   literal stays protected.
 - **How STOW checks it:** a multi-step action sequence is rendered as a numbered
-  list rather than a table (see corpus/action-shaping/stow-act-002.md and
-  corpus/action-shaping/stow-act-011.md), and complex conditional text is broken
-  into a vertical list (see corpus/sentences/stow-sen-003.md). The prose inside
+  list rather than a table (see corpus/action-shaping.md#STOW-ACT-002 and
+  corpus/action-shaping.md#STOW-ACT-011), and complex conditional text is broken
+  into a vertical list (see corpus/sentences.md#STOW-SEN-003). The prose inside
   each item is checked as editable prose against the active profile and
   presentation rules.
 

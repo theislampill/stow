@@ -39,14 +39,14 @@ current entries.
 - **STOW-PRO-001 · Ban the em dash.** Trigger: an em-dash character (`—`, U+2014),
   or a double-hyphen standing in for one, inside a prose sentence. Region: all
   prose. Check: deterministic linter `no-em-dash`. Full text:
-  `corpus/prose-integrity/stow-pro-001.md`. Cross-layer note: when this would fire
+  `corpus/prose-integrity/rules.md#STOW-PRO-001`. Cross-layer note: when this would fire
   alongside the semicolon check (STOW-PCT-001), neither character is kept; the
   active controlled-technical profile selects the substitute (see the `conflicts`
   note on this record in `skills/stow/rules/registry.yaml`).
 - **STOW-PRO-010 · No scare quotes on ordinary words.** Trigger: quotation marks
   wrapping a single common word where the marks are not a real quotation, a
   term-being-defined, or a title. Region: all prose. Check: heuristic linter
-  `no-scare-quotes`. Full text: `corpus/prose-integrity/stow-pro-010.md`.
+  `no-scare-quotes`. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-010`.
 
 ## Banned-vocabulary linters
 
@@ -57,42 +57,42 @@ carrying the words itself.
 - **STOW-PRO-021 · No AI verbs.** Trigger: a verb drawn from the overused-verb
   table. Region: all prose. Check: deterministic linter `no-ai-verbs`, matched
   against the Overused Verbs table in `banned-lists.md`. Full text:
-  `corpus/prose-integrity/stow-pro-021.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-021`.
 - **STOW-PRO-014 · No synthetic enthusiasm.** Trigger: promotional adjectives,
   metaphorical nouns used for false gravitas, or listed inflated-symbolism phrases.
   Region: all prose. Check: deterministic linter `no-synthetic-enthusiasm`, matched
   against the Overused Adjectives, Metaphorical Nouns, and Inflated Symbolism tables
-  in `banned-lists.md`. Full text: `corpus/prose-integrity/stow-pro-014.md`.
+  in `banned-lists.md`. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-014`.
 - **STOW-PRO-004 · No empty intensifiers.** Trigger: a degree word from the
   intensifier list attached to a claim it does not measurably strengthen. Region:
   all prose. Check: deterministic linter `no-intensifiers`, matched against the
   Filler Words and Empty Intensifiers table in `banned-lists.md`. Full text:
-  `corpus/prose-integrity/stow-pro-004.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-004`.
 - **STOW-PRO-011 · No filler phrases.** Trigger: a multi-word filler or opener from
   the listed phrases. Region: all prose. Check: deterministic linter
   `no-filler-phrases`, matched against the Phrases That Signal AI Writing section of
-  `banned-lists.md`. Full text: `corpus/prose-integrity/stow-pro-011.md`.
+  `banned-lists.md`. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-011`.
 - **STOW-PRO-020 · No AI transition phrases.** Trigger: a connector or transition
   from the list at a clause or sentence boundary. Region: all prose. Check:
   deterministic linter `no-ai-transitions`, matched against the Overused Transitions
   and Connectors and Transitional Phrases tables in `banned-lists.md`. Full text:
-  `corpus/prose-integrity/stow-pro-020.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-020`.
 - **STOW-PRO-015 · No weasel words.** Trigger: an unattributed hedge or vague
   quantifier standing in for a specific figure or source. Region: all prose. Check:
   deterministic linter `no-weasel-words`, matched against the Hedging and Epistemic
   Modality markers in `banned-lists.md`. Full text:
-  `corpus/prose-integrity/stow-pro-015.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-015`.
 - **STOW-PRO-022 · No academic AI tells.** Trigger: stacked hedging or academic
   boilerplate layered over declarative content, above the per-paragraph and
   per-1000-word thresholds. Region: all prose, especially declarative sections
   (Background, History, Timeline). Check: deterministic linter `no-academic-tells`,
   matched against the Hedging thresholds and AI Hedging Phrases in `banned-lists.md`.
-  Full text: `corpus/prose-integrity/stow-pro-022.md`.
+  Full text: `corpus/prose-integrity/rules.md#STOW-PRO-022`.
 - **STOW-PRO-012 · Ban the whether-you-are opener.** Trigger: an opener of the
   "Whether you are X, Y, or Z" shape (three trailing examples after `whether`).
   Region: sentence and paragraph openings. Check: deterministic linter
   `no-whether-youre-opener`, matched against the Structural Patterns list in
-  `banned-lists.md`. Full text: `corpus/prose-integrity/stow-pro-012.md`.
+  `banned-lists.md`. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-012`.
 
 ## Headings
 
@@ -100,26 +100,26 @@ Both rules activate only when the response contains section headings.
 
 - **STOW-PRO-003 · No parentheticals in headings.** Trigger: a parenthetical clause
   inside a heading line. Region: section headings. Check: heuristic linter
-  `no-heading-parentheticals`. Full text: `corpus/prose-integrity/stow-pro-003.md`.
+  `no-heading-parentheticals`. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-003`.
 - **STOW-PRO-016 · Concrete, descriptive headings.** Trigger: a heading matching a
   dramatic or clickbait shape rather than describing the section content. Region:
   section headings. Check: heuristic linter `concrete-headings`, matched against the
   Heading Anti-Patterns table and self-check in `banned-lists.md`. Full text:
-  `corpus/prose-integrity/stow-pro-016.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-016`.
 
 ## Structure and non-repetition
 
 - **STOW-PRO-006 · No repeated points.** Trigger: the same claim restated across
   sentences or sections without adding new content. Region: all prose. Check:
-  semantic-review. Full text: `corpus/prose-integrity/stow-pro-006.md`.
+  semantic-review. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-006`.
 - **STOW-PRO-007 · Vary structure.** Trigger: consecutive paragraphs or sections
   built on the same repeated template. Region: across sections. Check: heuristic
   linter `vary-section-structure`. Full text:
-  `corpus/prose-integrity/stow-pro-007.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-007`.
 - **STOW-PRO-005 · End claims on a concrete detail.** Trigger: a paragraph or
   section closing on an abstract restatement rather than a specific fact. Region:
   the closing sentence of a claim. Check: semantic-review. Full text:
-  `corpus/prose-integrity/stow-pro-005.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-005`.
 
 ## Sourcing and fabrication
 
@@ -128,34 +128,34 @@ traceable source rather than pattern-matching text.
 
 - **STOW-PRO-002 · Require attributable numbers.** Trigger: a statistic or quantity
   with no source the reader can trace. Region: all prose. Check: semantic-review.
-  Full text: `corpus/prose-integrity/stow-pro-002.md`.
+  Full text: `corpus/prose-integrity/rules.md#STOW-PRO-002`.
 - **STOW-PRO-023 · Quote sources accurately.** Trigger: quoted material from an
   external source. Region: the quoted text and its attribution. Check:
   semantic-review against the cited source. Activates only when the response quotes
-  an external source. Full text: `corpus/prose-integrity/stow-pro-023.md`.
+  an external source. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-023`.
 - **STOW-PRO-019 · No fabricated attributions.** Trigger: a quote, opinion, or
   position credited to a named person or organization. Region: all prose. Check:
-  semantic-review. Full text: `corpus/prose-integrity/stow-pro-019.md`.
+  semantic-review. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-019`.
 - **STOW-PRO-018 · No fabricated history.** Trigger: dates, sequences, or origin
   accounts presented as historical fact. Region: all prose, especially Background
   and Timeline sections. Check: semantic-review. Full text:
-  `corpus/prose-integrity/stow-pro-018.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-018`.
 - **STOW-PRO-017 · No fabricated scenarios.** Trigger: an invented example or
   anecdote presented as a real event. Region: all prose. Check: semantic-review.
-  Full text: `corpus/prose-integrity/stow-pro-017.md`.
+  Full text: `corpus/prose-integrity/rules.md#STOW-PRO-017`.
 
 ## Voice and meta-narration
 
 - **STOW-PRO-013 · Write like a researcher.** Trigger: prose whose stance or voice
   departs from grounded, evidence-first exposition. Region: all prose. Check:
-  semantic-review. Full text: `corpus/prose-integrity/stow-pro-013.md`.
+  semantic-review. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-013`.
 - **STOW-PRO-008 · Reference without narrating.** Trigger: text that narrates the
   act of consulting or citing a source instead of stating the sourced fact. Region:
   all prose. Check: deterministic linter `no-reference-narration`. Full text:
-  `corpus/prose-integrity/stow-pro-008.md`.
+  `corpus/prose-integrity/rules.md#STOW-PRO-008`.
 - **STOW-PRO-024 · No research-process narration.** Trigger: sentences describing
   the author's own searching, reading, or deliberation. Region: all prose. Check:
-  semantic-review. Full text: `corpus/prose-integrity/stow-pro-024.md`.
+  semantic-review. Full text: `corpus/prose-integrity/rules.md#STOW-PRO-024`.
 - **STOW-PRO-009 · No urgency without a reason.** Trigger: urgency or pressure
   language with no stated cause. Region: all prose. Check: semantic-review. Full
-  text: `corpus/prose-integrity/stow-pro-009.md`.
+  text: `corpus/prose-integrity/rules.md#STOW-PRO-009`.

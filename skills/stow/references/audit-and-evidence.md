@@ -24,10 +24,10 @@ prose rule named below, open its cited `corpus_ref` module.
   records, never merged.
 - **Literals (band 4).** Paths and line numbers in a locator are byte-exact.
 - **Presentation (band 8).** The verdict comes first and detail follows on demand
-  (see corpus/action-shaping/stow-act-001.md), and an outcome is surfaced, not
-  buried, per corpus/action-shaping/stow-act-007.md.
+  (see corpus/action-shaping.md#STOW-ACT-001), and an outcome is surfaced, not
+  buried, per corpus/action-shaping.md#STOW-ACT-007.
 - **Safety (band 1, system precedence).** A risk-bearing finding carries a
-  risk-level label and a stated consequence, per corpus/safety/stow-saf-001.md.
+  risk-level label and a stated consequence, per corpus/safety.md#STOW-SAF-001.
 
 ## Governing schema + template
 

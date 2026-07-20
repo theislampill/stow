@@ -20,12 +20,12 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Action-shaping (band 8).** The record restates progress and externalizes
   state rather than implying it, and surfaces completed outcomes (see
-  corpus/action-shaping/stow-act-005.md and corpus/action-shaping/stow-act-007.md).
+  corpus/action-shaping.md#STOW-ACT-005 and corpus/action-shaping.md#STOW-ACT-007).
 - **Accuracy (band 5, always on).** Every gate or phase state cites evidence and
   is a terminal value, not a vague status; the kernel integrity rules forbid an
   unsupported state claim (`SKILL.md` section 3).
 - **Terminology (band 6).** Gate and phase IDs are stable across sessions, one
-  term per concept, per corpus/style/stow-sty-004.md.
+  term per concept, per corpus/style/consistency.md#STOW-STY-004.
 - **Literals (band 4).** Commit identifiers and paths are byte-exact.
 
 ## Governing schema + template

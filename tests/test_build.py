@@ -192,7 +192,8 @@ def test_every_corpus_ref_resolves_inside_extracted_tree(built):
     assert records, "registry carries no records"
 
     for record in records:
-        ref = record["corpus_ref"]  # e.g. corpus/words/stow-wrd-001.md
+        # corpus_ref is now module#anchor; the anchor is a section, not a file.
+        ref = record["corpus_ref"].split("#", 1)[0]  # e.g. corpus/words/selection.md
         member = built.path("stow", *ref.split("/"))
         assert os.path.isfile(member), "corpus_ref %r missing in artifact" % ref
         # The resolved member stays inside the extracted tree (no traversal).

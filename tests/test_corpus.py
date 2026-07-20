@@ -4,15 +4,17 @@ The corpus modules under skills/stow/corpus/** hold byte-exact source material.
 This suite proves, from inside the repository alone (no source paths, no source
 hashes), that:
 
-  * every registry corpus_ref resolves to a module file,
+  * every registry corpus_ref resolves to a module file (after fragment strip),
   * each record's baseline_text appears inside its module,
-  * the 24 prose records map to 24 distinct modules,
+  * every corpus_ref anchor is a unique `## <ID>` heading in its module,
+  * the corpus is exactly 20 modules, each within the size cap,
+  * the 24 prose records map to 24 distinct anchors,
   * every manifest required_substring is present, and example-bearing modules
     carry at least one approved and one non-approved example marker,
   * the banned-lists module still contains every categorized term (by count),
   * all 14 detection-reference sections are represented in the prose-integrity
     corpus (section-level completeness, checked against a fixed heading list),
-  * the secondary action-shaping modules exist and are non-empty,
+  * the secondary action-shaping sections are present as `##` anchors,
   * each module matches its drift-lock sha256 in the manifest,
   * the provenance anti-leak gate finds nothing in corpus/** or the manifest,
   * a deliberately mutated module breaks the drift-lock (RED), while the real
@@ -46,10 +48,27 @@ PATTERNS_PATH = os.path.abspath(os.path.join(REPO, os.pardir, "leak-patterns-pri
 
 PROSE_CATEGORY = "prose-integrity"
 BANNED_REF = "corpus/prose-integrity/banned-lists.md"
-SECONDARY_REQUIRED = [
-    "corpus/action-shaping/overrides.md",
-    "corpus/action-shaping/gates.md",
-    "corpus/action-shaping/rationale.md",
+
+# The secondary action-shaping material (overrides/gates/rationale) is now a set
+# of `##` sections inside the single action-shaping.md module, not separate files.
+ACTION_SHAPING_MODULE = "corpus/action-shaping.md"
+SECONDARY_SECTION_HEADINGS = [
+    "## When to break the rules",                        # overrides
+    "## Pre-send check",                                 # gates
+    "## What limited attention changes about reading",   # rationale
+]
+
+# Pinned heading set of the untouched banned-lists module (runtime parses it by
+# these H2 headings; a dropped or renamed section fails here).
+BANNED_LISTS_HEADINGS = [
+    "## Overused Verbs",
+    "## Overused Adjectives",
+    "## Overused Transitions and Connectors",
+    "## Phrases That Signal AI Writing",
+    "## Heading Anti-Patterns",
+    "## Filler Words and Empty Intensifiers",
+    "## Academic-Specific AI Tells",
+    "## Hedging and Epistemic Modality Overload",
 ]
 
 
@@ -69,7 +88,9 @@ def _load_yaml(path):
 
 
 def module_path(corpus_ref):
-    return os.path.join(SKILL, corpus_ref.replace("/", os.sep))
+    # A corpus_ref is now module#anchor; the anchor is a section, not a file.
+    ref = corpus_ref.split("#", 1)[0]
+    return os.path.join(SKILL, ref.replace("/", os.sep))
 
 
 def read_module(corpus_ref):
@@ -141,13 +162,41 @@ def test_baseline_text_appears_in_its_module():
         assert baseline in text, "%s baseline not found in module" % r["id"]
 
 
-def test_prose_records_map_to_24_distinct_modules():
+def test_prose_records_map_to_24_distinct_anchors():
     prose = [r for r in RECORDS if r["category"] == PROSE_CATEGORY]
     assert len(prose) == 24
     refs = {r["corpus_ref"] for r in prose}
-    assert len(refs) == 24, "prose modules are not distinct"
+    assert len(refs) == 24, "prose anchors are not distinct"
+    frags = {r["corpus_ref"].split("#", 1)[1] for r in prose}
+    assert len(frags) == 24, "prose fragments are not distinct"
     for ref in refs:
+        assert "#" in ref, "prose corpus_ref carries no anchor: %s" % ref
         assert os.path.isfile(module_path(ref)), ref
+
+
+def test_every_corpus_ref_anchor_is_a_unique_heading_in_its_module():
+    """Every corpus_ref fragment (#STOW-XXX-NNN) must appear as a literal
+    `## <ID>` heading exactly once in the module it points at."""
+    for r in RECORDS:
+        ref = r["corpus_ref"]
+        assert "#" in ref, "%s corpus_ref has no anchor" % r["id"]
+        frag = ref.split("#", 1)[1]
+        lines = read_module(ref).splitlines()
+        count = sum(1 for ln in lines if ln == "## " + frag)
+        assert count == 1, "%s: heading '## %s' appears %d time(s) in %s" % (
+            r["id"], frag, count, module_path(ref))
+
+
+def test_module_count_is_20_and_each_within_size_cap():
+    on_disk = []
+    for base, _dirs, files in os.walk(CORPUS_ROOT):
+        for f in files:
+            if f.endswith(".md"):
+                on_disk.append(os.path.join(base, f))
+    assert len(on_disk) == 20, "expected 20 corpus modules, found %d" % len(on_disk)
+    for p in on_disk:
+        size = os.path.getsize(p)
+        assert size <= 15360, "%s is %d bytes, over the 15360 cap" % (p, size)
 
 
 # --------------------------------------------------------------------------- #
@@ -185,6 +234,13 @@ def test_example_bearing_modules_have_approved_and_nonapproved_markers():
 # --------------------------------------------------------------------------- #
 # banned-lists cardinality (every categorized term present)
 # --------------------------------------------------------------------------- #
+
+def test_banned_lists_heading_set_is_pinned():
+    lines = read_module(BANNED_REF).splitlines()
+    headings = [ln for ln in lines if ln.startswith("## ")]
+    assert headings == BANNED_LISTS_HEADINGS, \
+        "banned-lists heading set changed: %r" % headings
+
 
 def test_banned_lists_contains_every_categorized_term():
     entry = MODULES[BANNED_REF]
@@ -257,12 +313,15 @@ def test_every_detection_reference_section_is_represented():
 # Secondary action-shaping modules
 # --------------------------------------------------------------------------- #
 
-def test_secondary_modules_exist_and_nonempty():
-    for ref in SECONDARY_REQUIRED:
-        p = module_path(ref)
-        assert os.path.isfile(p), "missing secondary module %s" % ref
-        assert len(normalize(read_module(ref)).strip()) > 0, "empty %s" % ref
-        assert ref in MODULES, "%s absent from manifest" % ref
+def test_secondary_action_shaping_sections_present_as_anchors():
+    """The secondary action-shaping material now lives as `##` sections inside
+    action-shaping.md; assert each heading is present and the module is tracked."""
+    assert ACTION_SHAPING_MODULE in MODULES, \
+        "%s absent from manifest" % ACTION_SHAPING_MODULE
+    lines = read_module(ACTION_SHAPING_MODULE).splitlines()
+    for heading in SECONDARY_SECTION_HEADINGS:
+        assert heading in lines, \
+            "action-shaping.md missing secondary section heading %r" % heading
 
 
 # --------------------------------------------------------------------------- #
@@ -297,8 +356,9 @@ def test_every_disk_module_is_in_the_manifest():
 
 def test_mutated_module_breaks_drift_lock_but_real_passes():
     ref = RECORDS[0]["corpus_ref"]
+    mref = ref.split("#", 1)[0]
     real = read_module(ref)
-    stored = MODULES[ref]["corpus_exact_sha256"]
+    stored = MODULES[mref]["corpus_exact_sha256"]
 
     # GREEN: the real module matches its drift-lock hash.
     assert _sha_norm(real) == stored
@@ -353,7 +413,7 @@ def test_planted_identifiers_in_corpus_are_caught_by_both_gates():
     source name (gate 2) planted into a corpus module must BOTH be caught."""
     patterns = MOD.Patterns(_PATTERN_DATA)
     hash_specs = MOD.load_hash_positions(HASH_POS)
-    ref = "skills/stow/corpus/words/stow-wrd-001.md"
+    ref = "skills/stow/corpus/words/selection.md"
     planted_basename = "quoted from %s:1 in text\n" % patterns.basenames[0]
     assert MOD.scan_file(ref, planted_basename, patterns, True, hash_specs) != []
     planted_name = "derived from %s upstream\n" % patterns.word_tokens[0]

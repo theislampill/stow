@@ -122,7 +122,7 @@ def test_every_bullet_cites_its_corpus_module():
     """Full statement/examples stay Tier-3: each check points at its corpus module."""
     for line in _read(ALWAYS_ON).splitlines():
         if line.startswith("- "):
-            assert re.search(r"\(see corpus/[\w./-]+\.md\)", line), line
+            assert re.search(r"\(see corpus/[\w./-]+\.md(?:#[\w-]+)?\)", line), line
 
 
 # --------------------------------------------------------------------------- #

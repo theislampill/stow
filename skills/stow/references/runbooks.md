@@ -19,14 +19,14 @@ prose rule named below, open its cited `corpus_ref` module.
 
 - **Procedures (profile, band 7).** Each step is short, a single imperative
   instruction, and any leading condition is set off first; see
-  corpus/procedures/stow-prc-001.md, corpus/procedures/stow-prc-002.md,
-  corpus/procedures/stow-prc-003.md, and corpus/procedures/stow-prc-004.md.
+  corpus/procedures.md#STOW-PRC-001, corpus/procedures.md#STOW-PRC-002,
+  corpus/procedures.md#STOW-PRC-003, and corpus/procedures.md#STOW-PRC-004.
 - **Safety (band 1, system precedence, always on).** Every step that can cause
   loss carries a risk-level label and a stated consequence, and outranks any
-  presentation or profile preference; see corpus/safety/stow-saf-001.md,
-  corpus/safety/stow-saf-002.md, and corpus/safety/stow-saf-003.md.
+  presentation or profile preference; see corpus/safety.md#STOW-SAF-001,
+  corpus/safety.md#STOW-SAF-002, and corpus/safety.md#STOW-SAF-003.
 - **Verbs (profile, band 7).** Instructions stay imperative and active, per
-  corpus/verbs/stow-vrb-006.md.
+  corpus/verbs/verb-forms.md#STOW-VRB-006.
 - **Literals (band 4).** Command bodies and paths are protected literals, byte-exact
   and unchanged by any prose scan.
 

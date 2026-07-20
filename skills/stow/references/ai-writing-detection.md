@@ -1,6 +1,6 @@
 # Banned-list lookup for the self-check pass
 
-The corpus self-check pass (`corpus/prose-integrity/self-check-pass.md`) sends
+The corpus self-check pass (`corpus/prose-integrity/detection-patterns.md`) sends
 readers here for the full banned lists. This page is a pointer, not a copy:
 the lists have exactly one home and are never duplicated into a reference.
 

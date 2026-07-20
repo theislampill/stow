@@ -5,6 +5,7 @@ schema_version: 1
 generated_counts:
   primary_total: 96
 records:
+# === STOW-WRD-001 ===
   - id: STOW-WRD-001
     ordinal: '1.1'
     record_class: primary
@@ -40,7 +41,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-001.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-001
+# === STOW-WRD-002 ===
   - id: STOW-WRD-002
     ordinal: '1.2'
     record_class: primary
@@ -76,7 +78,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-002.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-002
+# === STOW-WRD-003 ===
   - id: STOW-WRD-003
     ordinal: '1.3'
     record_class: primary
@@ -112,7 +115,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-003.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-003
+# === STOW-WRD-004 ===
   - id: STOW-WRD-004
     ordinal: '1.4'
     record_class: primary
@@ -148,7 +152,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-004.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-004
+# === STOW-WRD-005 ===
   - id: STOW-WRD-005
     ordinal: '1.5'
     record_class: primary
@@ -185,7 +190,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-005.md
+    corpus_ref: corpus/words/approved-tables.md#STOW-WRD-005
+# === STOW-WRD-006 ===
   - id: STOW-WRD-006
     ordinal: '1.6'
     record_class: primary
@@ -221,7 +227,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-006.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-006
+# === STOW-WRD-007 ===
   - id: STOW-WRD-007
     ordinal: '1.7'
     record_class: primary
@@ -257,7 +264,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-007.md
+    corpus_ref: corpus/words/selection.md#STOW-WRD-007
+# === STOW-WRD-008 ===
   - id: STOW-WRD-008
     ordinal: '1.8'
     record_class: primary
@@ -293,7 +301,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-008.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-008
+# === STOW-WRD-009 ===
   - id: STOW-WRD-009
     ordinal: '1.9'
     record_class: primary
@@ -329,7 +338,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-009.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-009
+# === STOW-WRD-010 ===
   - id: STOW-WRD-010
     ordinal: '1.10'
     record_class: primary
@@ -365,7 +375,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-010.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-010
+# === STOW-WRD-011 ===
   - id: STOW-WRD-011
     ordinal: '1.11'
     record_class: primary
@@ -404,7 +415,8 @@ records:
     conflicts:
       - rule: STOW-PRO-007
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
-    corpus_ref: corpus/words/stow-wrd-011.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-011
+# === STOW-WRD-012 ===
   - id: STOW-WRD-012
     ordinal: '1.12'
     record_class: primary
@@ -441,7 +453,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-012.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-012
+# === STOW-WRD-013 ===
   - id: STOW-WRD-013
     ordinal: '1.13'
     record_class: primary
@@ -477,7 +490,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/words/stow-wrd-013.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-013
+# === STOW-WRD-014 ===
   - id: STOW-WRD-014
     ordinal: '1.14'
     record_class: primary
@@ -515,7 +529,8 @@ records:
     conflicts:
       - rule: STOW-PRO-021
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
-    corpus_ref: corpus/words/stow-wrd-014.md
+    corpus_ref: corpus/words/usage.md#STOW-WRD-014
+# === STOW-MWN-001 ===
   - id: STOW-MWN-001
     ordinal: '2.1'
     record_class: primary
@@ -551,7 +566,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/multiword-nouns/stow-mwn-001.md
+    corpus_ref: corpus/multiword-nouns.md#STOW-MWN-001
+# === STOW-MWN-002 ===
   - id: STOW-MWN-002
     ordinal: '2.2'
     record_class: primary
@@ -587,7 +603,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/multiword-nouns/stow-mwn-002.md
+    corpus_ref: corpus/multiword-nouns.md#STOW-MWN-002
+# === STOW-VRB-001 ===
   - id: STOW-VRB-001
     ordinal: '3.1'
     record_class: primary
@@ -623,7 +640,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-001.md
+    corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-001
+# === STOW-VRB-002 ===
   - id: STOW-VRB-002
     ordinal: '3.2'
     record_class: primary
@@ -659,7 +677,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-002.md
+    corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-002
+# === STOW-VRB-003 ===
   - id: STOW-VRB-003
     ordinal: '3.3'
     record_class: primary
@@ -695,7 +714,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-003.md
+    corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-003
+# === STOW-VRB-004 ===
   - id: STOW-VRB-004
     ordinal: '3.4'
     record_class: primary
@@ -731,7 +751,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-004.md
+    corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-004
+# === STOW-VRB-005 ===
   - id: STOW-VRB-005
     ordinal: '3.5'
     record_class: primary
@@ -767,7 +788,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-005.md
+    corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-005
+# === STOW-VRB-006 ===
   - id: STOW-VRB-006
     ordinal: '3.6'
     record_class: primary
@@ -803,7 +825,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-006.md
+    corpus_ref: corpus/verbs/verb-forms.md#STOW-VRB-006
+# === STOW-VRB-007 ===
   - id: STOW-VRB-007
     ordinal: '3.7'
     record_class: primary
@@ -839,7 +862,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/verbs/stow-vrb-007.md
+    corpus_ref: corpus/verbs/verb-forms.md#STOW-VRB-007
+# === STOW-SEN-001 ===
   - id: STOW-SEN-001
     ordinal: '4.1'
     record_class: primary
@@ -875,7 +899,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/sentences/stow-sen-001.md
+    corpus_ref: corpus/sentences.md#STOW-SEN-001
+# === STOW-SEN-002 ===
   - id: STOW-SEN-002
     ordinal: '4.2'
     record_class: primary
@@ -911,7 +936,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/sentences/stow-sen-002.md
+    corpus_ref: corpus/sentences.md#STOW-SEN-002
+# === STOW-SEN-003 ===
   - id: STOW-SEN-003
     ordinal: '4.3'
     record_class: primary
@@ -947,7 +973,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/sentences/stow-sen-003.md
+    corpus_ref: corpus/sentences.md#STOW-SEN-003
+# === STOW-SEN-004 ===
   - id: STOW-SEN-004
     ordinal: '4.4'
     record_class: primary
@@ -983,7 +1010,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/sentences/stow-sen-004.md
+    corpus_ref: corpus/sentences.md#STOW-SEN-004
+# === STOW-SEN-005 ===
   - id: STOW-SEN-005
     ordinal: '4.5'
     record_class: primary
@@ -1019,7 +1047,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/sentences/stow-sen-005.md
+    corpus_ref: corpus/sentences.md#STOW-SEN-005
+# === STOW-PRC-001 ===
   - id: STOW-PRC-001
     ordinal: '5.1'
     record_class: primary
@@ -1058,7 +1087,8 @@ records:
     conflicts:
       - rule: STOW-PRO-007
         resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
-    corpus_ref: corpus/procedures/stow-prc-001.md
+    corpus_ref: corpus/procedures.md#STOW-PRC-001
+# === STOW-PRC-002 ===
   - id: STOW-PRC-002
     ordinal: '5.2'
     record_class: primary
@@ -1094,7 +1124,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/procedures/stow-prc-002.md
+    corpus_ref: corpus/procedures.md#STOW-PRC-002
+# === STOW-PRC-003 ===
   - id: STOW-PRC-003
     ordinal: '5.3'
     record_class: primary
@@ -1131,7 +1162,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/procedures/stow-prc-003.md
+    corpus_ref: corpus/procedures.md#STOW-PRC-003
+# === STOW-PRC-004 ===
   - id: STOW-PRC-004
     ordinal: '5.4'
     record_class: primary
@@ -1167,7 +1199,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/procedures/stow-prc-004.md
+    corpus_ref: corpus/procedures.md#STOW-PRC-004
+# === STOW-PRC-005 ===
   - id: STOW-PRC-005
     ordinal: '5.5'
     record_class: primary
@@ -1203,7 +1236,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/procedures/stow-prc-005.md
+    corpus_ref: corpus/procedures.md#STOW-PRC-005
+# === STOW-DSC-001 ===
   - id: STOW-DSC-001
     ordinal: '6.1'
     record_class: primary
@@ -1239,7 +1273,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/descriptions/stow-dsc-001.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-001
+# === STOW-DSC-002 ===
   - id: STOW-DSC-002
     ordinal: '6.2'
     record_class: primary
@@ -1275,7 +1310,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/descriptions/stow-dsc-002.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-002
+# === STOW-DSC-003 ===
   - id: STOW-DSC-003
     ordinal: '6.3'
     record_class: primary
@@ -1313,7 +1349,8 @@ records:
     conflicts:
       - rule: STOW-PRO-007
         resolution: Sentence-length caps govern inside a controlled-technical profile. Vary sentence length below the cap, never above it; the profile outranks the presentation-layer variance preference.
-    corpus_ref: corpus/descriptions/stow-dsc-003.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-003
+# === STOW-DSC-004 ===
   - id: STOW-DSC-004
     ordinal: '6.4'
     record_class: primary
@@ -1349,7 +1386,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/descriptions/stow-dsc-004.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-004
+# === STOW-DSC-005 ===
   - id: STOW-DSC-005
     ordinal: '6.5'
     record_class: primary
@@ -1385,7 +1423,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/descriptions/stow-dsc-005.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-005
+# === STOW-DSC-006 ===
   - id: STOW-DSC-006
     ordinal: '6.6'
     record_class: primary
@@ -1421,7 +1460,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/descriptions/stow-dsc-006.md
+    corpus_ref: corpus/descriptions.md#STOW-DSC-006
+# === STOW-SAF-001 ===
   - id: STOW-SAF-001
     ordinal: '7.1'
     record_class: primary
@@ -1457,7 +1497,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/safety/stow-saf-001.md
+    corpus_ref: corpus/safety.md#STOW-SAF-001
+# === STOW-SAF-002 ===
   - id: STOW-SAF-002
     ordinal: '7.2'
     record_class: primary
@@ -1493,7 +1534,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/safety/stow-saf-002.md
+    corpus_ref: corpus/safety.md#STOW-SAF-002
+# === STOW-SAF-003 ===
   - id: STOW-SAF-003
     ordinal: '7.3'
     record_class: primary
@@ -1529,7 +1571,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/safety/stow-saf-003.md
+    corpus_ref: corpus/safety.md#STOW-SAF-003
+# === STOW-PCT-001 ===
   - id: STOW-PCT-001
     ordinal: '8.1'
     record_class: primary
@@ -1567,7 +1610,8 @@ records:
     conflicts:
       - rule: STOW-PRO-001
         resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
-    corpus_ref: corpus/punctuation/stow-pct-001.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-001
+# === STOW-PCT-002 ===
   - id: STOW-PCT-002
     ordinal: '8.2'
     record_class: primary
@@ -1603,7 +1647,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/punctuation/stow-pct-002.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-002
+# === STOW-PCT-003 ===
   - id: STOW-PCT-003
     ordinal: '8.3'
     record_class: primary
@@ -1639,7 +1684,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/punctuation/stow-pct-003.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-003
+# === STOW-PCT-004 ===
   - id: STOW-PCT-004
     ordinal: '8.4'
     record_class: primary
@@ -1675,7 +1721,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/punctuation/stow-pct-004.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-004
+# === STOW-PCT-005 ===
   - id: STOW-PCT-005
     ordinal: '8.5'
     record_class: primary
@@ -1711,7 +1758,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/punctuation/stow-pct-005.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-005
+# === STOW-PCT-006 ===
   - id: STOW-PCT-006
     ordinal: '8.6'
     record_class: primary
@@ -1749,7 +1797,8 @@ records:
     conflicts:
       - rule: STOW-PRO-021
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
-    corpus_ref: corpus/punctuation/stow-pct-006.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-006
+# === STOW-PCT-007 ===
   - id: STOW-PCT-007
     ordinal: '8.7'
     record_class: primary
@@ -1785,7 +1834,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/punctuation/stow-pct-007.md
+    corpus_ref: corpus/punctuation.md#STOW-PCT-007
+# === STOW-STY-001 ===
   - id: STOW-STY-001
     ordinal: '9.1'
     record_class: primary
@@ -1821,7 +1871,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/style/stow-sty-001.md
+    corpus_ref: corpus/style/economy.md#STOW-STY-001
+# === STOW-STY-002 ===
   - id: STOW-STY-002
     ordinal: '9.2'
     record_class: primary
@@ -1857,7 +1908,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/style/stow-sty-002.md
+    corpus_ref: corpus/style/consistency.md#STOW-STY-002
+# === STOW-STY-003 ===
   - id: STOW-STY-003
     ordinal: '9.3'
     record_class: primary
@@ -1893,7 +1945,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/style/stow-sty-003.md
+    corpus_ref: corpus/style/economy.md#STOW-STY-003
+# === STOW-STY-004 ===
   - id: STOW-STY-004
     ordinal: '9.4'
     record_class: primary
@@ -1932,7 +1985,8 @@ records:
     conflicts:
       - rule: STOW-PRO-007
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
-    corpus_ref: corpus/style/stow-sty-004.md
+    corpus_ref: corpus/style/consistency.md#STOW-STY-004
+# === STOW-GEN-001 ===
   - id: STOW-GEN-001
     ordinal: GR-1
     record_class: primary
@@ -1968,7 +2022,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-001.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-001
+# === STOW-GEN-002 ===
   - id: STOW-GEN-002
     ordinal: GR-2
     record_class: primary
@@ -2004,7 +2059,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-002.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-002
+# === STOW-GEN-003 ===
   - id: STOW-GEN-003
     ordinal: GR-3
     record_class: primary
@@ -2040,7 +2096,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-003.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-003
+# === STOW-GEN-004 ===
   - id: STOW-GEN-004
     ordinal: GR-4
     record_class: primary
@@ -2076,7 +2133,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-004.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-004
+# === STOW-GEN-005 ===
   - id: STOW-GEN-005
     ordinal: GR-5
     record_class: primary
@@ -2112,7 +2170,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-005.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-005
+# === STOW-GEN-006 ===
   - id: STOW-GEN-006
     ordinal: GR-6
     record_class: primary
@@ -2148,7 +2207,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-006.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-006
+# === STOW-GEN-007 ===
   - id: STOW-GEN-007
     ordinal: GR-7
     record_class: primary
@@ -2184,7 +2244,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-007.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-007
+# === STOW-GEN-008 ===
   - id: STOW-GEN-008
     ordinal: GR-8
     record_class: primary
@@ -2220,7 +2281,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/general/stow-gen-008.md
+    corpus_ref: corpus/general-practice.md#STOW-GEN-008
+# === STOW-ACT-001 ===
   - id: STOW-ACT-001
     ordinal: '1'
     record_class: primary
@@ -2258,7 +2320,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-001.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-001
+# === STOW-ACT-002 ===
   - id: STOW-ACT-002
     ordinal: '2'
     record_class: primary
@@ -2294,7 +2357,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-002.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-002
+# === STOW-ACT-003 ===
   - id: STOW-ACT-003
     ordinal: '3'
     record_class: primary
@@ -2332,7 +2396,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-003.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-003
+# === STOW-ACT-004 ===
   - id: STOW-ACT-004
     ordinal: '4'
     record_class: primary
@@ -2370,7 +2435,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-004.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-004
+# === STOW-ACT-005 ===
   - id: STOW-ACT-005
     ordinal: '5'
     record_class: primary
@@ -2408,7 +2474,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-005.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-005
+# === STOW-ACT-006 ===
   - id: STOW-ACT-006
     ordinal: '6'
     record_class: primary
@@ -2448,7 +2515,8 @@ records:
     conflicts:
       - rule: STOW-PRO-002
         resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
-    corpus_ref: corpus/action-shaping/stow-act-006.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-006
+# === STOW-ACT-007 ===
   - id: STOW-ACT-007
     ordinal: '7'
     record_class: primary
@@ -2485,7 +2553,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-007.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-007
+# === STOW-ACT-008 ===
   - id: STOW-ACT-008
     ordinal: '8'
     record_class: primary
@@ -2521,7 +2590,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-008.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-008
+# === STOW-ACT-009 ===
   - id: STOW-ACT-009
     ordinal: '9'
     record_class: primary
@@ -2557,7 +2627,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-009.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-009
+# === STOW-ACT-010 ===
   - id: STOW-ACT-010
     ordinal: '10'
     record_class: primary
@@ -2593,7 +2664,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-010.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-010
+# === STOW-ACT-011 ===
   - id: STOW-ACT-011
     ordinal: '11'
     record_class: primary
@@ -2629,7 +2701,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/action-shaping/stow-act-011.md
+    corpus_ref: corpus/action-shaping.md#STOW-ACT-011
+# === STOW-PRO-001 ===
   - id: STOW-PRO-001
     ordinal: '1'
     record_class: primary
@@ -2669,7 +2742,8 @@ records:
     conflicts:
       - rule: STOW-PCT-001
         resolution: Use neither character. Replace with a period, comma, colon, or two sentences; the active controlled-technical profile decides the substitute and outranks the presentation-layer preference.
-    corpus_ref: corpus/prose-integrity/stow-pro-001.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-001
+# === STOW-PRO-002 ===
   - id: STOW-PRO-002
     ordinal: '2'
     record_class: primary
@@ -2709,7 +2783,8 @@ records:
     conflicts:
       - rule: STOW-ACT-006
         resolution: Give an effort estimate only when a defensible range exists; otherwise omit it. Factual accuracy outranks the presentation-layer estimate preference, and an unsupported number must not be presented as fact.
-    corpus_ref: corpus/prose-integrity/stow-pro-002.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-002
+# === STOW-PRO-003 ===
   - id: STOW-PRO-003
     ordinal: '3'
     record_class: primary
@@ -2745,7 +2820,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-003.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-003
+# === STOW-PRO-004 ===
   - id: STOW-PRO-004
     ordinal: '4'
     record_class: primary
@@ -2782,7 +2858,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-004.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-004
+# === STOW-PRO-005 ===
   - id: STOW-PRO-005
     ordinal: '5'
     record_class: primary
@@ -2820,7 +2897,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-005.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-005
+# === STOW-PRO-006 ===
   - id: STOW-PRO-006
     ordinal: '6'
     record_class: primary
@@ -2856,7 +2934,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-006.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-006
+# === STOW-PRO-007 ===
   - id: STOW-PRO-007
     ordinal: '7'
     record_class: primary
@@ -2902,7 +2981,8 @@ records:
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
       - rule: STOW-WRD-011
         resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
-    corpus_ref: corpus/prose-integrity/stow-pro-007.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-007
+# === STOW-PRO-008 ===
   - id: STOW-PRO-008
     ordinal: '8'
     record_class: primary
@@ -2938,7 +3018,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-008.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-008
+# === STOW-PRO-009 ===
   - id: STOW-PRO-009
     ordinal: '9'
     record_class: primary
@@ -2974,7 +3055,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-009.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-009
+# === STOW-PRO-010 ===
   - id: STOW-PRO-010
     ordinal: '10'
     record_class: primary
@@ -3010,7 +3092,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-010.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-010
+# === STOW-PRO-011 ===
   - id: STOW-PRO-011
     ordinal: '11'
     record_class: primary
@@ -3046,7 +3129,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-011.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-011
+# === STOW-PRO-012 ===
   - id: STOW-PRO-012
     ordinal: '12'
     record_class: primary
@@ -3082,7 +3166,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-012.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-012
+# === STOW-PRO-013 ===
   - id: STOW-PRO-013
     ordinal: '13'
     record_class: primary
@@ -3120,7 +3205,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-013.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-013
+# === STOW-PRO-014 ===
   - id: STOW-PRO-014
     ordinal: '14'
     record_class: primary
@@ -3156,7 +3242,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-014.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-014
+# === STOW-PRO-015 ===
   - id: STOW-PRO-015
     ordinal: '15'
     record_class: primary
@@ -3192,7 +3279,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-015.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-015
+# === STOW-PRO-016 ===
   - id: STOW-PRO-016
     ordinal: '16'
     record_class: primary
@@ -3228,7 +3316,8 @@ records:
       autofix: false
       status: planned
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-016.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-016
+# === STOW-PRO-017 ===
   - id: STOW-PRO-017
     ordinal: '17'
     record_class: primary
@@ -3265,7 +3354,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-017.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-017
+# === STOW-PRO-018 ===
   - id: STOW-PRO-018
     ordinal: '18'
     record_class: primary
@@ -3301,7 +3391,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-018.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-018
+# === STOW-PRO-019 ===
   - id: STOW-PRO-019
     ordinal: '19'
     record_class: primary
@@ -3338,7 +3429,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-019.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-019
+# === STOW-PRO-020 ===
   - id: STOW-PRO-020
     ordinal: '20'
     record_class: primary
@@ -3374,7 +3466,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-020.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-020
+# === STOW-PRO-021 ===
   - id: STOW-PRO-021
     ordinal: '21'
     record_class: primary
@@ -3414,7 +3507,8 @@ records:
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
       - rule: STOW-WRD-014
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.
-    corpus_ref: corpus/prose-integrity/stow-pro-021.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-021
+# === STOW-PRO-022 ===
   - id: STOW-PRO-022
     ordinal: '22'
     record_class: primary
@@ -3450,7 +3544,8 @@ records:
       autofix: false
       status: callable
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-022.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-022
+# === STOW-PRO-023 ===
   - id: STOW-PRO-023
     ordinal: '23'
     record_class: primary
@@ -3486,7 +3581,8 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-023.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-023
+# === STOW-PRO-024 ===
   - id: STOW-PRO-024
     ordinal: '24'
     record_class: primary
@@ -3524,7 +3620,7 @@ records:
       autofix: false
       status: review-fallback
     conflicts: []
-    corpus_ref: corpus/prose-integrity/stow-pro-024.md
+    corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-024
 contracts:
   meta_contract_total: 5
   catalog:

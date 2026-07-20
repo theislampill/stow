@@ -84,7 +84,12 @@ def _bullet(record):
         clauses.append("except: %s" % activation["exception"])
     if clauses:
         line += " -- " + "; ".join(clauses)
-    line += "  (see %s)" % record["corpus_ref"]
+    # The every-turn digest points at the corpus MODULE (per the header, "load its
+    # corpus module"); the bullet already leads with the rule id, so the section
+    # anchor in corpus_ref is redundant here. The full module#anchor form is kept
+    # in the registry (the source of truth).
+    module = record["corpus_ref"].split("#", 1)[0]
+    line += "  (see %s)" % module
     return line
 
 

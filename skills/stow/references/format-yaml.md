@@ -64,9 +64,9 @@ not scanned or rewritten. Do not rename a key or identifier, and do not edit
 quoted text, to satisfy a lexical or presentation preference. The precedence
 that fixes this boundary (serialization validity and protected literals
 outrank presentation-layer lexical preferences, which skip protected regions)
-is carried on the governing records; see `corpus/words/stow-wrd-014.md`,
-`corpus/punctuation/stow-pct-006.md`, and
-`corpus/prose-integrity/stow-pro-021.md` for the full statements.
+is carried on the governing records; see `corpus/words/usage.md#STOW-WRD-014`,
+`corpus/punctuation.md#STOW-PCT-006`, and
+`corpus/prose-integrity/rules.md#STOW-PRO-021` for the full statements.
 
 ## Deliver once
 

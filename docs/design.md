@@ -133,24 +133,39 @@ gate and must be green before pushing.
 
 STOW is built so that the cost of a turn tracks what the turn needs. The
 kernel is the only surface that is always resident; everything else is pulled in
-on demand. The figures below are token measurements taken with
-`tools/measure_context.py` (tokenizer `o200k_base`); other models tokenize
-differently, so treat them as a calibrated proxy and leave headroom.
+on demand. Every figure below is a token count from `tools/measure_context.py`,
+measured at version 0.3.5; other models tokenize differently, so treat them as a
+calibrated proxy and leave headroom.
 
-| Load path | Budget (tokens) | What is resident |
+The two always-resident paths are measured in both of the tool's modes: the
+exact tokenizer (`o200k_base`, used when its encoding is cached locally) and the
+deterministic conservative fallback (`ceil(chars / 3.5)`, used on a cold host
+with no cache). The fallback over-counts, so a path that fits under its fallback
+figure also fits under its exact figure.
+
+| Always-resident path | Exact tokenizer | Conservative fallback |
 | --- | --- | --- |
-| Kernel alone | 1164 | `SKILL.md` only |
-| Ordinary prose turn | 2395 | kernel + `references/always-on.md` (ids, conditions, exceptions, and the request-mode router included -- a deliberate, measured cost over the bare-title form it replaced) |
-| Technical-clarity turn | 2827 | the ordinary turn + `references/technical-clarity.md` |
-| Raw JSON artifact | 2854 | kernel + `references/format-json.md` + `references/protected-regions.md` |
-| Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 6021 | the ordinary turn + procedure authoring surfaces |
-| Procedure + safety | 6766 | the procedure load path + `references/safety-instructions.md` |
+| Kernel alone (`SKILL.md`) | 1040 | 1427 |
+| Ordinary prose turn (kernel + `references/always-on.md`) | 2321 | 3026 |
 
-These figures are point-in-time measurements; regenerate them with
-`tools/measure_context.py` after any kernel, always-on, or reference change.
-The test suite pins the kernel ceiling and the always-on and ordinary-turn caps
-in both measurement modes (exact tokenizer and conservative estimate).
+The test suite pins both rows in both modes: the kernel ceiling and the
+always-on and ordinary-turn caps are asserted under the exact tokenizer and
+under the forced fallback (`tests/test_always_on.py`, `tests/test_cold_budget.py`).
+A drift gate in `tests/test_cold_budget.py` re-measures the two rows and fails if
+this table falls out of step with a fresh measurement, so the numbers cannot go
+stale unnoticed.
+
+The remaining load paths are exact-tokenizer point measurements of one specific
+file set, not gated invariants. They drift when the underlying references grow,
+so regenerate them with `tools/measure_context.py` after any reference change.
+
+| Load path | Tokens (exact) | What is resident |
+| --- | --- | --- |
+| Technical-clarity turn | 2823 | the ordinary turn + `references/technical-clarity.md` |
+| Raw JSON artifact | 3093 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
+| Procedure load path | 5219 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 5967 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 
@@ -175,11 +190,10 @@ The intended load path for each:
   procedure authoring adds the safety reference on top. Even the heaviest path
   stays well inside a normal working context.
 
-Two caveats on these numbers. First, they are single-tokenizer measurements, not
-a contract. Second, the kernel and always-on figures are regenerated and checked
-mechanically (`tools/gen_always_on.py --check`), whereas the composite profile
-figures are point measurements of a load path, not a gated invariant -- if the
-underlying references grow, the composite figures drift until someone re-measures.
+These are single-tokenizer measurements, not a contract. The kernel and
+always-on surfaces are additionally regenerated and checked mechanically
+(`tools/gen_always_on.py --check`), so their content, and the caps above, cannot
+drift silently.
 
 ## Enforcement reality
 
@@ -226,23 +240,31 @@ closure, and validator accept/reject behaviour from the installed location. It
 runs in CI as a hard gate. A package that would not work on a fresh install fails
 the build.
 
-**Unproven.** There is **no live-model harness in this repository.** Nothing here
-executes a model against the shipped skill. Two properties therefore remain
-**unverified claims, and are stated as such rather than asserted**:
+**Evidenced on one host, not proven universally.** The repository includes a
+non-hermetic enabled-versus-disabled evaluation harness: `tools/ab_eval_runner.py`
+with the fixed prompts, frozen rubric, and mechanical validators under
+`tests/evals/ab/`, documented in `docs/FUNCTIONAL-EVIDENCE.md`. It runs the
+shipped package against a live host model in an enabled arm and a disabled arm,
+grades the outputs with the packaged validators and blind reviewers, and records
+the deltas. This supplies useful single-host evidence for two properties the
+hermetic suite cannot reach:
 
-- **Auto-selection** -- that a model presented with a given task will
-  activate STOW, and will route to the correct reference or corpus module. The
-  activation cues are authored and their *structure* is tested; their *effect* on
-  a live model is not.
+- **Auto-selection** -- that a model presented with a given task activates STOW
+  and routes to the correct reference or corpus module. The evaluation observed
+  the skill auto-selecting and loading the kernel-predicted references on the
+  measured host; the activation cues' structure is also tested hermetically.
 - **Live reference-loading behaviour** -- that the load paths described above are
-  the paths a model takes at runtime. The budgets are measured over the
-  file set each path *should* pull in; that the model pulls in exactly that set is
-  not observed anywhere in this suite.
+  the paths a model takes at runtime. The evaluation recorded per-file read
+  telemetry on the measured host.
 
-The behavioural and adversarial eval files in `tests/evals/` are authored
-expectations and fixtures. They pin intended behaviour and catch regressions in
-the authored material. They are not evidence that a live model behaves that way.
-Closing this gap requires a model-in-the-loop harness, which is roadmap.
+What the harness does not establish is universal cross-host behaviour. It ran on
+one pinned host model per round, invocation is telemetry rather than forced, and
+the evaluators share a model family with the generators, so the result is a set
+of deltas on a single host, not a guarantee that every model and harness behaves
+the same way. The behavioural and adversarial eval files in `tests/evals/` remain
+authored expectations and fixtures that pin intended behaviour and catch
+regressions in the authored material; on their own they are not live-model
+evidence.
 
 ## Cross-harness scope
 

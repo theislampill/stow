@@ -7,6 +7,53 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.3.5] - 2026-07-20
+
+Documentation-truth and self-audit pass: the public docs match the shipped
+reality, and STOW's own structured data is held to STOW's own prose checks.
+
+### Changed
+
+- `docs/design.md` context budgets are re-measured at this version with
+  `tools/measure_context.py`. The two always-resident paths (kernel and ordinary
+  prose turn) are shown in both measurement modes, exact tokenizer and
+  conservative fallback, and a drift gate in `tests/test_cold_budget.py`
+  re-measures them so the table cannot go stale unnoticed. The point-measurement
+  load paths were refreshed to their current file sets.
+- `docs/design.md` states the live-evidence reality truthfully. The repository
+  includes a non-hermetic enabled-versus-disabled evaluation harness
+  (`tools/ab_eval_runner.py`, `tests/evals/ab/`, documented in
+  `docs/FUNCTIONAL-EVIDENCE.md`) that supplies single-host evidence for
+  auto-selection and reference-loading and does not prove universal cross-host
+  behavior. The earlier "no live-model harness" and harness-is-roadmap wording is
+  removed.
+- `docs/REWRITE-READINESS.md` live-evidence rows now describe the current
+  evaluation: three rounds, three reps per case per arm, enabled and disabled
+  arms, blind scoring on a frozen rubric, sealed hold-outs, and mechanical
+  validation, in place of the single-run phrasing.
+- `docs/INITIAL-PACKAGE-HEALTH.md` scope note points to the CHANGELOG sections
+  from 0.3.2 onward instead of naming two releases.
+- The shipped validator's missing-dependency message makes
+  `pip install ruamel.yaml jsonschema` the primary instruction, with
+  `requirements-runtime.txt` as the repository-checkout alternative
+  (`runtime/validate.py`, `tests/test_runtime_deps.py`).
+
+### Added
+
+- Structured-field self-dogfood coverage (`tests/test_self_dogfood.py`): the
+  em-dash and banned-lexical subset now runs on the authored prose carried inside
+  `rules/profiles.json`, `rules/routing.yaml`, `rules/conflicts.yaml`, and
+  `skills/stow/schemas/*.json`. Conflict-registry fixtures are excluded as
+  protected demonstrations. `docs/SELF-DOGFOOD.md` records the widened scope with
+  a new check row.
+
+### Notes
+
+- Rule meanings, the protected corpus, profile and conflict semantics, and the
+  primary rule total are unchanged. The kernel did not change, so its measured
+  budget figures hold. The packaged validator message is the only shipped-runtime
+  change; the artifact was rebuilt so its digest reflects it.
+
 ## [0.3.4] - 2026-07-20
 
 Initial-release integrity pass: cold-cache budget headroom, timeless templates,

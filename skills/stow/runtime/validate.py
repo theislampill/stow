@@ -55,13 +55,14 @@ import sys
 
 # Exit code and message for a missing third-party runtime dependency. Kept as a
 # module-level helper so the error path is unit-testable without uninstalling a
-# package. The two packages are declared in requirements-runtime.txt at the
-# repository root.
+# package. The primary instruction installs the two packages directly, which is
+# what a package-only user needs; the requirements-runtime.txt file at the
+# repository root is offered as the repository-checkout alternative.
 MISSING_DEPENDENCY_EXIT = 3
 _RUNTIME_DEP_HINT = (
     "validate.py needs the ruamel.yaml and jsonschema packages. Install them "
-    "with: pip install -r requirements-runtime.txt "
-    "(or: pip install ruamel.yaml jsonschema)")
+    "with: pip install ruamel.yaml jsonschema "
+    "(from a repository checkout: pip install -r requirements-runtime.txt)")
 
 
 def missing_dependency_message(exc):

@@ -18,14 +18,20 @@ linter: `README.md`, `AGENTS.md`, `CHANGELOG.md`, and `docs/*.md` under
 `controlled-technical-guided`); templates under `technical-clarity`, with the
 runbook template under `controlled-technical-guided` because it is an
 executable-procedure worked example. The protected corpus is never
-style-scanned: it is hash-locked content, not authored prose. Structured
-files are parser-governed.
+style-scanned: it is hash-locked content, not authored prose. Structured files
+are parser-governed, but the authored English carried inside them is scanned for
+the em-dash and banned-lexical subset: profile notes and auto-contexts, routing
+predicates and reasons, each conflict's activation, behavior, and substitute
+wording, and every schema title and description. Conflict-registry fixtures are
+deliberate rule-violating demonstrations and are excluded, the same way the
+linter masks a quotation.
 
 The standing gate is `tests/test_self_dogfood.py`: the em-dash check, every
 lexical check, scare quotes, and hedging clusters must report zero findings
 on every authored surface (plus the controlled-profile checks on the runbook
-template). It runs in the full suite and in CI, so a regression cannot ship
-silently.
+template). The same gate extracts the structured-field prose described above and
+holds it to the em-dash and banned-lexical subset. It runs in the full suite and
+in CI, so a regression cannot ship silently.
 
 ## Results by check
 
@@ -56,6 +62,7 @@ silently.
 | D-22 | Install instructions reproduce | Extraction shape, fidelity, import closure, and runtime drive proven from a fresh build; temporary-home installs re-proven in the package-health report | mechanically checked | `tests/test_install_smoke.py`; `docs/INITIAL-PACKAGE-HEALTH.md` |
 | D-23 | Public statements match evidence | Live-model claims scoped to measured evidence; capability counts derived, not asserted | independently reviewed | `docs/FUNCTIONAL-EVIDENCE.md` |
 | D-24 | Authored text contradicts the conflict registry | The composition table in the README is rendered from the registry's resolutions; no authored surface states an unresolved contradiction | mechanically checked + reviewed | `tests/test_conflicts.py`; blind reviewer pass |
+| D-26 | Authored prose inside structured rule data and schemas | Zero findings on profile notes and auto-contexts, routing predicates and reasons, conflict activation, behavior, and substitute wording, and schema titles and descriptions; conflict fixtures excluded as protected demonstrations | mechanically checked | `tests/test_self_dogfood.py` |
 
 ## Recorded exhaustive-list exceptions (check D-15)
 

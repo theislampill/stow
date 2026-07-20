@@ -43,6 +43,16 @@ def test_missing_dependency_message_is_actionable():
     assert "ruamel.yaml" in msg and "jsonschema" in msg
 
 
+def test_direct_install_is_primary_over_requirements_file():
+    """A package-only user (no repository checkout) is given the direct install
+    first; the requirements-runtime.txt file is the checkout alternative and is
+    mentioned after it."""
+    msg = validate.missing_dependency_message(ImportError("no module named ruamel"))
+    assert "pip install ruamel.yaml jsonschema" in msg
+    assert msg.index("pip install ruamel.yaml jsonschema") < msg.index(
+        "requirements-runtime.txt")
+
+
 def test_dependency_exit_returns_stable_code_3():
     sink = io.StringIO()
     code = validate.dependency_exit(ImportError("simulated"), stream=sink)

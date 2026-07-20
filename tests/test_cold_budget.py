@@ -13,6 +13,7 @@ limit, these fail even when the warm suite is green.
 
 import importlib.util
 import os
+import re
 
 import pytest
 
@@ -21,6 +22,7 @@ REPO = os.path.dirname(HERE)
 SKILL = os.path.join(REPO, "skills", "stow", "SKILL.md")
 ALWAYS_ON = os.path.join(REPO, "skills", "stow", "references", "always-on.md")
 MEASURE = os.path.join(REPO, "tools", "measure_context.py")
+DESIGN = os.path.join(REPO, "docs", "design.md")
 
 # The same ceilings the warm suite enforces, in their fallback (EST) form.
 # Kernel single-file ceiling holds in BOTH modes (test_references.py,
@@ -101,3 +103,71 @@ def test_measure_single_file_exits_zero_cold(monkeypatch, tmp_path):
     encoder = mc.get_encoder()
     assert encoder is None
     assert mc.run_single(SKILL, encoder) == 0
+
+
+# --------------------------------------------------------------------------- #
+# Documentation-truth drift gate: the two-mode budget table in docs/design.md
+# ("Always-resident path" | exact | fallback) must stay in step with a fresh
+# measurement, so the published numbers cannot go stale unnoticed.
+# --------------------------------------------------------------------------- #
+
+KERNEL_PATHS = (SKILL,)
+ORDINARY_PATHS = (SKILL, ALWAYS_ON)
+
+
+def _sum_tokens(mc, encoder, paths):
+    return sum(mc.count_tokens(_read(p), encoder) for p in paths)
+
+
+def _design_two_mode_row(label):
+    """(exact, fallback) integers from the design.md two-mode budget row whose
+    first cell contains ``label``."""
+    with open(DESIGN, encoding="utf-8") as fh:
+        for line in fh:
+            if not line.lstrip().startswith("|"):
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) < 3 or label not in cells[0]:
+                continue
+            exact = re.search(r"\d+", cells[1])
+            fallback = re.search(r"\d+", cells[2])
+            if exact and fallback:
+                return int(exact.group()), int(fallback.group())
+    raise AssertionError("no two-mode budget row for %r in docs/design.md" % label)
+
+
+def test_design_budget_table_fallback_matches_measurement(monkeypatch, tmp_path):
+    """The fallback column of the design.md two-mode table must equal a fresh
+    fallback measurement. The estimator is deterministic (pure char count), so
+    this is an exact-equality drift gate that runs on every host, CI included."""
+    mc = _force_cold(monkeypatch, tmp_path)
+    encoder = mc.get_encoder()
+    assert encoder is None
+    _k_exact, k_fallback = _design_two_mode_row("Kernel alone")
+    _o_exact, o_fallback = _design_two_mode_row("Ordinary prose turn")
+    assert _sum_tokens(mc, encoder, KERNEL_PATHS) == k_fallback, (
+        "design.md kernel fallback figure is stale (measured %d, doc says %d)"
+        % (_sum_tokens(mc, encoder, KERNEL_PATHS), k_fallback))
+    assert _sum_tokens(mc, encoder, ORDINARY_PATHS) == o_fallback, (
+        "design.md ordinary fallback figure is stale (measured %d, doc says %d)"
+        % (_sum_tokens(mc, encoder, ORDINARY_PATHS), o_fallback))
+
+
+def test_design_budget_table_exact_matches_measurement():
+    """The exact column must match the exact tokenizer when its encoding is
+    cached. On a cold host the exact tokenizer is unavailable, so the check is
+    skipped rather than measured in the wrong mode; the fallback gate above
+    still catches drift there."""
+    mc = _load_measure()
+    encoder = mc.get_encoder()
+    if encoder is None:
+        pytest.skip("exact tokenizer unavailable (cold cache); "
+                    "fallback drift gate still runs")
+    k_exact, _k_fallback = _design_two_mode_row("Kernel alone")
+    o_exact, _o_fallback = _design_two_mode_row("Ordinary prose turn")
+    assert _sum_tokens(mc, encoder, KERNEL_PATHS) == k_exact, (
+        "design.md kernel exact figure is stale (measured %d, doc says %d)"
+        % (_sum_tokens(mc, encoder, KERNEL_PATHS), k_exact))
+    assert _sum_tokens(mc, encoder, ORDINARY_PATHS) == o_exact, (
+        "design.md ordinary exact figure is stale (measured %d, doc says %d)"
+        % (_sum_tokens(mc, encoder, ORDINARY_PATHS), o_exact))

@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "490ea5b1c82112e96b7a38ea7b8f8c283fc5e3f20f1c5ff7afa9a34399f14bdb",
+  "artifact_sha256": "388089c634bf2593b2ea4ab2f716b95c9d012516aed056ec9702da0036f68c63",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping/gates.md",
@@ -116,6 +116,7 @@
     "stow/references/action-shaping.md",
     "stow/references/activation-and-precedence.md",
     "stow/references/agent-handoffs.md",
+    "stow/references/ai-writing-detection.md",
     "stow/references/always-on.md",
     "stow/references/audit-and-evidence.md",
     "stow/references/conformance.md",
@@ -160,6 +161,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 157,
+  "entry_count": 158,
   "version": "0.3.1"
 }

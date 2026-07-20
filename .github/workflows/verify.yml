@@ -93,6 +93,9 @@ jobs:
       - name: Conflict-resolution document is current
         run: python tools/gen_rule_conflicts.py --check
 
+      - name: README rule catalog is current
+        run: python tools/gen_readme_catalog.py --check
+
       # Weak / CI-backstop mode only -- see the LEAK-ENFORCEMENT NOTE at the top.
       # No `--local`; scans the whole tracked tree with generic heuristics.
       - name: Anti-leak gate (weak / CI backstop)

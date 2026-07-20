@@ -60,6 +60,7 @@ REQUIRED_GATES = (
     ("rule-index generator",     r"tools/gen_rule_index\.py\s+--check"),
     ("always-on generator",      r"tools/gen_always_on\.py\s+--check"),
     ("conflict-doc generator",   r"tools/gen_rule_conflicts\.py\s+--check"),
+    ("README catalog generator", r"tools/gen_readme_catalog\.py\s+--check"),
     ("provenance leak gate",     r"tools/check_provenance_leak\.py"),
     ("count-leak / doc-lint",    r"tests/test_count_leak\.py"),
     ("install-smoke gate",       r"tests/test_install_smoke\.py"),

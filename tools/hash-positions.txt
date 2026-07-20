@@ -16,3 +16,7 @@ wording.baseline_text_sha256
 corpus_manifest.yaml:*.corpus_exact_sha256
 manifest.json:*_sha256
 *.sha256
+# Pinned CI tool integrity: the checksum of the actionlint release archive the
+# workflow downloads and verifies. Line-scoped to actionlint tokens in the
+# workflow file; the value is still compared against known source hashes.
+verify.yml:actionlint*

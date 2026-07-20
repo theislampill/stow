@@ -5,7 +5,24 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 ## [Unreleased]
 
-Nothing yet.
+### Fixed
+
+- Corrected an invalid GitHub expression context in the verification workflow:
+  the tokenizer cache directory was set in a job-level `env:` block using the
+  `runner` context, which GitHub rejects at workflow parse before any job
+  runs. The directory is now exported from a run step via `GITHUB_ENV`.
+
+### Added
+
+- Workflow semantic validation: a pinned, checksum-verified `actionlint`
+  gate runs in CI over every workflow file, and a regression test pins the
+  expression-context placement class that caused the rejection
+  (`tests/test_workflow_contexts.py`).
+
+### Notes
+
+- No shipped STOW payload change: the packaged skill bytes and the artifact
+  digest are identical to 0.3.0.
 
 ## [0.3.0] - 2026-07-19
 

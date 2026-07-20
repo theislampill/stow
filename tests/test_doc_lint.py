@@ -55,6 +55,7 @@ def run_commands():
 # The pattern is matched against the raw shell body, so a step that invokes the
 # gate inside a longer script still counts.
 REQUIRED_GATES = (
+    ("workflow semantic validation (actionlint)", r"actionlint"),
     ("full pytest suite",        r"pytest\s+tests/(?:\s|$)"),
     ("rule-index generator",     r"tools/gen_rule_index\.py\s+--check"),
     ("always-on generator",      r"tools/gen_always_on\.py\s+--check"),

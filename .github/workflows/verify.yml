@@ -25,15 +25,22 @@ jobs:
   verify:
     runs-on: ubuntu-latest
 
-    env:
-      # One explicit cache location for the tokenizer, shared by the warm step
-      # and the test suite. Never silently populated: only the named warm step
-      # below may download into it.
-      TIKTOKEN_CACHE_DIR: ${{ runner.temp }}/tiktoken-cache
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      # Semantic workflow validation. Ordinary YAML parsing accepts context
+      # placements GitHub rejects at workflow parse, so every workflow file is
+      # checked with a pinned, checksum-verified actionlint release binary
+      # before the other gates run. Version pinned: 1.7.12.
+      - name: Workflow semantic validation (actionlint 1.7.12, pinned)
+        shell: bash
+        run: |
+          curl -fsSL -o /tmp/actionlint.tar.gz \
+            "https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz"
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  /tmp/actionlint.tar.gz" | sha256sum -c -
+          tar -C /tmp -xzf /tmp/actionlint.tar.gz actionlint
+          /tmp/actionlint .github/workflows/*.yml
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -44,6 +51,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ruamel.yaml tiktoken pytest jsonschema
+
+      # One explicit cache location for the tokenizer, shared by the warm step
+      # and the test suite. Never silently populated: only the named warm step
+      # below may download into it. Set via GITHUB_ENV from a run step because
+      # the `runner` context is not available under jobs.<job_id>.env (GitHub
+      # rejects the whole workflow at parse -- see tests/test_workflow_contexts.py).
+      - name: Configure tokenizer cache directory
+        shell: bash
+        run: echo "TIKTOKEN_CACHE_DIR=$RUNNER_TEMP/tiktoken-cache" >> "$GITHUB_ENV"
 
       # The measurement tool never downloads: with a warm cache it uses exact
       # o200k_base counts; with a cold one it uses the deterministic

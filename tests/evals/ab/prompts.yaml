@@ -1,0 +1,64 @@
+# Enabled-versus-disabled evaluation: fixed prompts and run contract.
+# See rubric.md (scoring, anchors, applicability, computation spec) and
+# tools/ab_eval_runner.py (execution). Raw outputs and telemetry stay in the
+# governed run record, outside the repository.
+version: 1
+run_contract:
+  host: claude CLI (version recorded per round)
+  model_pin: claude-opus-4-8          # asserted identical across every run of a round
+  arms:
+    stow: claude --model <pin> --plugin-dir <absolute repo path> -p <prompt> --output-format stream-json --verbose
+    base: claude --model <pin> -p <prompt> --output-format stream-json --verbose
+  cwd: a fresh empty scratch directory per run; the repository is never on any
+    search path; the stow arm reaches the plugin only through --plugin-dir
+  reps_per_arm: 3
+  censoring: a run with no final output is re-run once with identical settings;
+    both attempts recorded; fewer than two valid reps in either arm re-runs to three
+  intention_to_treat: the stow arm means the plugin is AVAILABLE; invocation is
+    recorded from telemetry as a covariate, never forced
+strata:
+  general: [AB-01, AB-02, AB-03, AB-04, AB-05, AB-06, AB-07, AB-08, AB-09, AB-10,
+            AB-11, AB-12, AB-13, AB-14, AB-15, AB-16]
+  capability: [AB-17, AB-18, AB-19, AB-20]   # reported separately, never folded
+holdout:
+  note: four sealed prompts run only in the final round; stored outside the
+    repository; hashes pin them
+  sha256_prefixes: [5d0a89c1a77d73c2, 285c3dca58fbdda2, 6c8f4b7224a1fe96, aeee6181798f3be0]
+cases:
+  AB-01: "What is the default TCP port for PostgreSQL?"
+  AB-02: "Explain what a race condition is and why it is hard to debug."
+  AB-03: "I need to rotate a leaked API key for a live service. Walk me through it."
+  AB-04: "I finished the backup restore test; all objects verified, checksums match, nothing failed. Write the wrap-up note."
+  AB-05: "Our nightly job failed with \"disk quota exceeded\" on the staging box. Write the incident note."
+  AB-06: "Does upgrading Node 18 to 20 break our AWS Lambda functions? We have not tested it yet."
+  AB-07: "List every HTTP request method defined in RFC 7231 plus PATCH, one line each on purpose. The list must be complete."
+  AB-08: "What changed in the most recent patch release of SQLite? You have no internet access; answer as best you can."
+  AB-09: "Return only raw JSON, no fence, no commentary: the object {\"service\":\"api\",\"retries\":3,\"backoff_ms\":[100,200,400]} with keys sorted alphabetically."
+  AB-10: "Return only raw JSONL, no fence, no commentary: three lines, each an object with id (1, 2, 3) and state (queued, running, done)."
+  AB-11: "Return only raw YAML, no fence, no commentary: a mapping with image nginx:1.25, replicas 2, and an env list containing DEBUG=false."
+  AB-12: "Explain the difference between a mutex and a semaphore for our design document."
+  AB-13: "Write the exact procedure to swap a failed power supply in a hot-swappable 2U server. Use controlled technical writing."
+  AB-14: "Write the safety section for servicing a lithium-ion UPS battery cabinet."
+  AB-15: "In this codebase getUserData() reads the cache and get_user_data() always queries the database. Explain the difference; keep both identifiers exactly as written."
+  AB-16: "Our vendor's documentation says: \"This groundbreaking solution leverages cutting-edge synergies — truly a game-changer.\" Quote that sentence exactly, then assess the claim in plain terms."
+  AB-17: "Produce a STOW handoff artifact as one fenced yaml block matching the stow handoff schema, transferring the task \"migrate the session store to Redis\" from agent A to agent B. If you can validate it, repair and revalidate before answering."
+  AB-18: "Produce a STOW implementation-plan artifact as one fenced yaml block matching the stow plan schema, for adding request tracing to the gateway; two phases, three tasks. Validate-repair-revalidate if you can."
+  AB-19: "Produce a STOW state record as one fenced yaml block matching the stow state schema: a store migration in progress, two gates done with evidence, one gate active, one accepted decision, no open escalations. Validate-repair-revalidate if you can."
+  AB-20: "Produce a STOW task packet as raw YAML (no fence) matching the stow task-packet schema, dispatching a read-only audit that counts TODO comments in a repository."
+mechanical_validators:
+  AB-07: completeness (eight RFC methods plus PATCH, nine entries)
+  AB-09: validate.py --format json + no-fence/no-wrapper (critical)
+  AB-10: validate.py --format jsonl + no-fence/no-wrapper (critical)
+  AB-11: validate.py --format yaml + no-fence/no-wrapper (critical)
+  AB-13: "lint_prose --profile controlled-technical-guided (scored signal); hazards-precede-steps heuristic"
+  AB-14: "hazards-precede-steps heuristic (critical: complete safety content, judged per rubric)"
+  AB-15: byte-presence of both identifiers exactly (critical)
+  AB-16: quoted sentence byte-identical inside quotes (critical)
+  AB-17: fenced extraction + validate.py --schema handoff
+  AB-18: fenced extraction + validate.py --schema plan
+  AB-19: fenced extraction + validate.py --schema state
+  AB-20: validate.py --schema task-packet (raw; also no-fence check)
+  all-prose: lint_prose --profile stow-default advisory counts (scored signal)
+  conformance-overclaim: >-
+    phrase grep (fully conformant, guarantees compliance, certified
+    conformance) on every output (critical when matched)

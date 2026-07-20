@@ -88,3 +88,14 @@ against the contract. Because the region is masked from every prose scan, a valu
 that reads like ordinary prose is never rewritten into something that no longer
 parses, and a finding on the surrounding prose never edits a key or a string
 inside the JSONL payload.
+
+## Deliver once
+
+Trigger: any raw-output request (no fence, no commentary). Region: the entire
+reply. How STOW checks it: composition and any validation happen privately,
+before sending; the reply contains the finished artifact and nothing else. If a
+checker cannot run in the current session, STOW still ships only the artifact
+and never writes a note about the missing check inside the artifact or beside
+it. A correction replaces the draft before sending; it is never appended after
+a first attempt in the same reply. The governing duty is the kernel's
+raw-delivery rule: a raw artifact ships raw.

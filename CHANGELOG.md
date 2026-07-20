@@ -23,6 +23,10 @@ Public identity normalization and rule-catalog completion.
 - Corpus fidelity claims now describe the public model truthfully: modules are
   hash-locked and internally consistent; per-module wording metadata records
   which modules carry identity-neutralized wording.
+- Strengthened raw-artifact delivery guidance from measured evaluation
+  findings: the always-on router row and the format references now state that
+  a raw artifact is composed once and shipped alone, with no
+  draft-then-correction and no validation notes in the reply.
 - Version 0.3.1 (the packaged corpus changed); the artifact was rebuilt and
   its digest re-recorded.
 

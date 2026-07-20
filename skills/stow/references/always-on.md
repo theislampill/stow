@@ -20,7 +20,7 @@ Open with what the request type demands:
   explanation: the thesis first
   actionable task: the next bounded action first
   requested artifact: the artifact itself first
-  raw artifact: the raw artifact only, no wrapper, no prose checks
+  raw artifact: the raw artifact alone, composed once: no wrapper, no draft-then-correction, no validation notes in the reply
   progress update: current state and completed results first
   error report: cause, then effect, then correction
   completed work: the result; invent no next action

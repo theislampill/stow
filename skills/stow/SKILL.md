@@ -1,6 +1,6 @@
 ---
 name: stow
-description: "Use for every user-facing response, including casual replies, explanations, plans, procedures, technical documentation, Markdown, YAML, JSON, JSONL, code-adjacent text, and mixed-format output."
+description: "Use for every user-facing response, including casual replies, explanations, plans, procedures, technical documentation, Markdown, YAML, JSON, JSONL, code-adjacent text, mixed-format output, and any request that fixes an exact output contract, such as a raw artifact with no fence and no commentary."
 ---
 
 # STOW kernel

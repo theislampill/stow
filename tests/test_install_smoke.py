@@ -210,6 +210,8 @@ def test_every_runtime_module_runs_import_closed(installed):
     # themselves shipped in the artifact. A module with no drive entry is a new,
     # un-smoke-tested runtime surface and fails here by KeyError.
     drives = {
+        "query_rules.py": (
+            ["STOW-ACT-001"], 0, "STOW-ACT-001"),
         "validate.py": (
             ["--format", "yaml", installed.path("stow", "rules", "registry.yaml")],
             0, "VALID"),

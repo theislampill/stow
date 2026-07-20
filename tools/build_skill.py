@@ -28,7 +28,7 @@ plus the product version from the plugin manifest; no build-environment
 strings, so the manifest is reproducible across hosts).
 
 The ``runtime/`` subtree ships an ALLOWLIST -- exactly ``validate.py``,
-``lint_prose.py``, and ``profiles.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
+``lint_prose.py``, ``profiles.py``, and ``query_rules.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
 incidental files never enter the archive.
 """
 
@@ -50,7 +50,7 @@ ARTIFACT_NAME = "STOW.skill"
 
 # Only these runtime modules are packaged; everything else under runtime/ is
 # dropped (the shipped runtime surface is a fixed, auditable allowlist).
-RUNTIME_ALLOW = frozenset({"validate.py", "lint_prose.py", "profiles.py"})
+RUNTIME_ALLOW = frozenset({"validate.py", "lint_prose.py", "profiles.py", "query_rules.py"})
 
 # Deterministic ZIP entry metadata.
 ZIP_DATE_TIME = (1980, 1, 1, 0, 0, 0)   # the DOS/ZIP epoch -- no wall-clock time

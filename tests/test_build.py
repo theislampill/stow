@@ -37,6 +37,7 @@ PATTERNS_PATH = os.path.abspath(os.path.join(REPO, os.pardir, "leak-patterns-pri
 
 TOP = "stow"
 RUNTIME_ALLOW = {"stow/runtime/validate.py", "stow/runtime/lint_prose.py",
+                 "stow/runtime/query_rules.py",
                  "stow/runtime/profiles.py"}
 HARD_CEILING = 1500
 
@@ -241,7 +242,7 @@ def test_runtime_modules_are_import_closed(built):
     modules = sorted(
         os.path.join(runtime_dir, f)
         for f in os.listdir(runtime_dir) if f.endswith(".py"))
-    assert len(modules) == 3
+    assert len(modules) == 4
 
     for module_path in modules:
         proc = _run_import_closure(module_path)

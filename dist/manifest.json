@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "eb24e4f1159b23e6a49275496044516eee6bf5131cfa8ca27c8b51a2e2cd1a87",
+  "artifact_sha256": "a7737f1d59e4b138ca84bfbc1c0a0d0814f0ca5064561d469e09f3eb5517a9b1",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -48,12 +48,15 @@
     "stow/references/safety-instructions.md",
     "stow/references/technical-clarity.md",
     "stow/references/user-facing-output.md",
+    "stow/rules/artifact-classes.yaml",
     "stow/rules/conflicts.yaml",
     "stow/rules/profiles.json",
     "stow/rules/registry.schema.json",
     "stow/rules/registry.yaml",
+    "stow/rules/routing.yaml",
     "stow/runtime/lint_prose.py",
     "stow/runtime/profiles.py",
+    "stow/runtime/query_rules.py",
     "stow/runtime/validate.py",
     "stow/schemas/event.schema.json",
     "stow/schemas/evidence-record.schema.json",
@@ -71,6 +74,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 68,
+  "entry_count": 71,
   "version": "0.3.1"
 }

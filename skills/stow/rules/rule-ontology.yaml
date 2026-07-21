@@ -1,0 +1,153 @@
+# COLD sidecar. Additive overlay over the frozen registry. Read on demand only;
+# never on the per-response hot path. Never edits registry.yaml.
+schema_version: 1
+rules:
+  STOW-WRD-001: { plane: output, domain: terminology-and-grammar, family: approved-vocabulary }
+  STOW-WRD-002: { plane: output, domain: terminology-and-grammar, family: restricted-word-meaning-and-form }
+  STOW-WRD-003: { plane: output, domain: terminology-and-grammar, family: restricted-word-meaning-and-form }
+  STOW-WRD-004: { plane: output, domain: terminology-and-grammar, family: approved-form-preference }
+  STOW-WRD-005: { plane: output, domain: terminology-and-grammar, family: technical-noun-admission }
+  STOW-WRD-006: { plane: output, domain: terminology-and-grammar, family: technical-noun-admission }
+  STOW-WRD-007: { plane: output, domain: terminology-and-grammar, family: technical-word-class-boundary }
+  STOW-WRD-008: { plane: output, domain: terminology-and-grammar, family: technical-noun-formation }
+  STOW-WRD-009: { plane: output, domain: terminology-and-grammar, family: technical-noun-formation }
+  STOW-WRD-010: { plane: output, domain: terminology-and-grammar, family: technical-noun-formation }
+  STOW-WRD-011: { plane: output, domain: terminology-and-grammar, family: terminology-consistency }
+  STOW-WRD-012: { plane: output, domain: terminology-and-grammar, family: approved-form-preference }
+  STOW-WRD-013: { plane: output, domain: terminology-and-grammar, family: technical-word-class-boundary }
+  STOW-WRD-014: { plane: output, domain: terminology-and-grammar, family: spelling-convention }
+  STOW-MWN-001: { plane: output, domain: terminology-and-grammar, family: multiword-noun-length }
+  STOW-MWN-002: { plane: output, domain: terminology-and-grammar, family: multiword-noun-length }
+  STOW-VRB-001: { plane: output, domain: terminology-and-grammar, family: verb-form-restriction }
+  STOW-VRB-002: { plane: output, domain: terminology-and-grammar, family: verb-tense-restriction }
+  STOW-VRB-003: { plane: output, domain: terminology-and-grammar, family: verb-form-restriction }
+  STOW-VRB-004: { plane: output, domain: terminology-and-grammar, family: verb-tense-restriction }
+  STOW-VRB-005: { plane: output, domain: terminology-and-grammar, family: verb-form-restriction }
+  STOW-VRB-006: { plane: output, domain: terminology-and-grammar, family: voice-selection }
+  STOW-VRB-007: { plane: output, domain: terminology-and-grammar, family: verb-not-nominalization }
+  STOW-SEN-001: { plane: output, domain: prose-and-presentation, family: concrete-sentence-form }
+  STOW-SEN-002: { plane: output, domain: terminology-and-grammar, family: no-contractions }
+  STOW-SEN-003: { plane: output, domain: prose-and-presentation, family: vertical-list-form }
+  STOW-SEN-004: { plane: output, domain: prose-and-presentation, family: sentence-linking }
+  STOW-SEN-005: { plane: output, domain: terminology-and-grammar, family: article-usage }
+  STOW-PRC-001: { plane: measurement, domain: procedures-and-descriptions, family: procedural-word-count-limit }
+  STOW-PRC-002: { plane: output, domain: procedures-and-descriptions, family: instruction-sentence-construction }
+  STOW-PRC-003: { plane: output, domain: procedures-and-descriptions, family: instruction-sentence-construction }
+  STOW-PRC-004: { plane: output, domain: procedures-and-descriptions, family: instruction-sentence-construction }
+  STOW-PRC-005: { plane: output, domain: procedures-and-descriptions, family: procedural-word-count-limit }
+  STOW-DSC-001: { plane: output, domain: procedures-and-descriptions, family: descriptive-flow-and-structure }
+  STOW-DSC-002: { plane: output, domain: procedures-and-descriptions, family: descriptive-flow-and-structure }
+  STOW-DSC-003: { plane: measurement, domain: procedures-and-descriptions, family: descriptive-word-count-limit }
+  STOW-DSC-004: { plane: output, domain: procedures-and-descriptions, family: paragraph-topic-structure }
+  STOW-DSC-005: { plane: output, domain: procedures-and-descriptions, family: paragraph-topic-structure }
+  STOW-DSC-006: { plane: measurement, domain: procedures-and-descriptions, family: paragraph-topic-structure }
+  STOW-SAF-001: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
+  STOW-SAF-002: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
+  STOW-SAF-003: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
+  STOW-PCT-001: { plane: output, domain: prose-and-presentation, family: prose-punctuation-conventions }
+  STOW-PCT-002: { plane: output, domain: prose-and-presentation, family: prose-punctuation-conventions }
+  STOW-PCT-003: { plane: output, domain: prose-and-presentation, family: prose-punctuation-conventions }
+  STOW-PCT-004: { plane: measurement, domain: procedures-and-descriptions, family: word-count-measurement }
+  STOW-PCT-005: { plane: measurement, domain: procedures-and-descriptions, family: word-count-measurement, read_regions: [prose, identifiers] }
+  STOW-PCT-006: { plane: measurement, domain: procedures-and-descriptions, family: word-count-measurement, read_regions: [prose, quoted-text, identifiers, titles, placards, labels, proper-nouns] }
+  STOW-PCT-007: { plane: measurement, domain: procedures-and-descriptions, family: word-count-measurement }
+  STOW-STY-001: { plane: output, domain: terminology-and-grammar, family: meaning-preserving-rewrite }
+  STOW-STY-002: { plane: output, domain: terminology-and-grammar, family: restricted-word-meaning-and-form }
+  STOW-STY-003: { plane: output, domain: terminology-and-grammar, family: restricted-word-meaning-and-form }
+  STOW-STY-004: { plane: output, domain: terminology-and-grammar, family: terminology-consistency }
+  STOW-GEN-001: { plane: output, domain: terminology-and-grammar, family: grammatical-particle-precision }
+  STOW-GEN-002: { plane: output, domain: terminology-and-grammar, family: grammatical-particle-precision }
+  STOW-GEN-003: { plane: output, domain: terminology-and-grammar, family: pronoun-referent-clarity }
+  STOW-GEN-004: { plane: output, domain: terminology-and-grammar, family: pronoun-referent-clarity }
+  STOW-GEN-005: { plane: output, domain: terminology-and-grammar, family: borrowed-word-pitfalls }
+  STOW-GEN-006: { plane: output, domain: terminology-and-grammar, family: borrowed-word-pitfalls }
+  STOW-GEN-007: { plane: output, domain: terminology-and-grammar, family: inclusive-language }
+  STOW-GEN-008: { plane: output, domain: terminology-and-grammar, family: possessive-usage }
+  STOW-ACT-001: { plane: output, domain: action-progress-state, family: action-first-opening }
+  STOW-ACT-002: { plane: output, domain: action-progress-state, family: step-list-formatting }
+  STOW-ACT-003: { plane: output, domain: action-progress-state, family: progress-cluster }
+  STOW-ACT-004: { plane: output, domain: action-progress-state, family: response-scope-discipline }
+  STOW-ACT-005: { plane: output, domain: action-progress-state, family: progress-cluster }
+  STOW-ACT-006: { plane: output, domain: action-progress-state, family: outcome-reporting-accuracy }
+  STOW-ACT-007: { plane: output, domain: action-progress-state, family: progress-cluster }
+  STOW-ACT-008: { plane: output, domain: action-progress-state, family: outcome-reporting-accuracy }
+  STOW-ACT-009: { plane: output, domain: action-progress-state, family: step-list-formatting }
+  STOW-ACT-010: { plane: output, domain: action-progress-state, family: response-scope-discipline }
+  STOW-ACT-011: { plane: output, domain: action-progress-state, family: step-list-formatting }
+  STOW-PRO-001: { plane: output, domain: prose-and-presentation, family: em-dash-ban }
+  STOW-PRO-002: { plane: evidence, domain: evidence-and-integrity, family: grounded-claim-specificity, read_regions: [prose, code, structured-data] }
+  STOW-PRO-003: { plane: output, domain: prose-and-presentation, family: heading-parenthetical-ban }
+  STOW-PRO-004: { plane: output, domain: prose-and-presentation, family: synthetic-prose-markers }
+  STOW-PRO-005: { plane: evidence, domain: evidence-and-integrity, family: grounded-claim-specificity }
+  STOW-PRO-006: { plane: output, domain: prose-and-presentation, family: prose-structural-discipline }
+  STOW-PRO-007: { plane: output, domain: prose-and-presentation, family: prose-structural-discipline }
+  STOW-PRO-008: { plane: output, domain: prose-and-presentation, family: prose-structural-discipline }
+  STOW-PRO-009: { plane: output, domain: prose-and-presentation, family: rhetorical-emphasis-restraint }
+  STOW-PRO-010: { plane: output, domain: prose-and-presentation, family: rhetorical-emphasis-restraint }
+  STOW-PRO-011: { plane: output, domain: prose-and-presentation, family: synthetic-prose-markers }
+  STOW-PRO-012: { plane: output, domain: prose-and-presentation, family: synthetic-opener-ban }
+  STOW-PRO-013: { plane: output, domain: prose-and-presentation, family: research-rigor-tone }
+  STOW-PRO-014: { plane: output, domain: prose-and-presentation, family: research-rigor-tone }
+  STOW-PRO-015: { plane: output, domain: prose-and-presentation, family: research-rigor-tone }
+  STOW-PRO-016: { plane: output, domain: prose-and-presentation, family: heading-concreteness }
+  STOW-PRO-017: { plane: evidence, domain: evidence-and-integrity, family: fabrication-ban, read_regions: [prose, code, structured-data] }
+  STOW-PRO-018: { plane: evidence, domain: evidence-and-integrity, family: fabrication-ban, read_regions: [prose, code, structured-data] }
+  STOW-PRO-019: { plane: evidence, domain: evidence-and-integrity, family: fabrication-ban, read_regions: [prose, code, structured-data] }
+  STOW-PRO-020: { plane: output, domain: prose-and-presentation, family: synthetic-prose-markers }
+  STOW-PRO-021: { plane: output, domain: prose-and-presentation, family: synthetic-prose-markers }
+  STOW-PRO-022: { plane: output, domain: prose-and-presentation, family: synthetic-prose-markers }
+  STOW-PRO-023: { plane: evidence, domain: evidence-and-integrity, family: quotation-fidelity, read_regions: [prose, quoted-text] }
+  STOW-PRO-024: { plane: evidence, domain: evidence-and-integrity, family: research-process-discretion, read_regions: [prose, structured-data] }
+  STOW-EVD-001: { plane: evidence, domain: evidence-and-integrity, family: input-verification-before-reliance, read_regions: [prose, code, structured-data, tool-result] }
+  STOW-EVD-002: { plane: evidence, domain: evidence-and-integrity, family: unverified-reading-restraint, read_regions: [prose, code, structured-data] }
+  STOW-EVD-003: { plane: evidence, domain: evidence-and-integrity, family: claim-weight-calibration, read_regions: [prose, code, structured-data] }
+  STOW-EVD-004: { plane: evidence, domain: evidence-and-integrity, family: fabricated-operation-report-ban, read_regions: [prose, code, structured-data] }
+  STOW-AUT-001: { plane: authority, domain: contract-and-authority, family: embedded-instruction-authority, read_regions: [prose, code, structured-data, quoted-text, tool-result, log] }
+  STOW-AUT-002: { plane: evidence, domain: evidence-and-integrity, family: material-statement-classification, read_regions: [prose, structured-data] }
+  STOW-AUT-003: { plane: evidence, domain: evidence-and-integrity, family: decision-attribution-integrity, read_regions: [prose, structured-data] }
+  STOW-ART-001: { plane: artifact-operation, domain: structured-artifacts-and-interchange, family: artifact-revision-safety, read_regions: [prose, code, structured-data, config] }
+relations:
+  - { type: related-to, a: STOW-AUT-003, b: STOW-AUT-002 }
+  - { type: related-to, a: STOW-ART-001, b: STOW-EVD-001 }
+  - { type: see-also, a: STOW-EVD-004, b: STOW-PRO-017 }
+  - { type: see-also, a: STOW-EVD-004, b: STOW-PRO-018 }
+  - { type: see-also, a: STOW-EVD-004, b: STOW-PRO-019 }
+  - { type: specializes, a: STOW-WRD-002, b: STOW-STY-002 }
+  - { type: specializes, a: STOW-WRD-003, b: STOW-STY-002 }
+  - { type: related-to, a: STOW-WRD-002, b: STOW-WRD-003 }
+  - { type: overlaps, a: STOW-VRB-001, b: STOW-WRD-004 }
+  - { type: related-to, a: STOW-WRD-013, b: STOW-VRB-007 }
+  - { type: cross-references, a: STOW-WRD-013, b: STOW-VRB-003 }
+  - { type: specializes, a: STOW-WRD-011, b: STOW-STY-004 }
+  - { type: related-to, a: STOW-DSC-002, b: STOW-STY-004 }
+  - { type: related-to, a: STOW-DSC-002, b: STOW-WRD-011 }
+  - { type: specializes, a: STOW-PRC-001, b: STOW-SEN-001 }
+  - { type: specializes, a: STOW-DSC-003, b: STOW-SEN-001 }
+  - { type: tag, a: STOW-PCT-004, b: STOW-PCT-005 }
+  - { type: tag, a: STOW-PCT-005, b: STOW-PCT-006 }
+  - { type: tag, a: STOW-PCT-006, b: STOW-PCT-007 }
+  - { type: related-to, a: STOW-SAF-002, b: STOW-PRC-003 }
+  - { type: related-to, a: STOW-SAF-002, b: STOW-PRC-004 }
+  - { type: tag, a: STOW-ACT-003, b: STOW-ACT-005 }
+  - { type: tag, a: STOW-ACT-005, b: STOW-ACT-007 }
+  - { type: related-to, a: STOW-ACT-003, b: STOW-ACT-007 }
+  - { type: tag, a: STOW-PRO-004, b: STOW-PRO-011 }
+  - { type: tag, a: STOW-PRO-011, b: STOW-PRO-020 }
+  - { type: tag, a: STOW-PRO-020, b: STOW-PRO-021 }
+  - { type: tag, a: STOW-PRO-021, b: STOW-PRO-022 }
+  - { type: see-also, a: STOW-PRO-014, b: STOW-PRO-004 }
+  - { type: specializes, a: STOW-GEN-004, b: STOW-GEN-003 }
+  - { type: parent-of, a: STOW-MWN-001, b: STOW-MWN-002 }
+  - { type: exception-to, a: STOW-MWN-002, b: STOW-MWN-001 }
+  - { type: parent-of, a: STOW-VRB-002, b: STOW-VRB-004 }
+  - { type: parent-of, a: STOW-WRD-005, b: STOW-WRD-006 }
+  - { type: parent-of, a: STOW-STY-002, b: STOW-STY-003 }
+  - { type: exception-to, a: STOW-PRC-005, b: STOW-PRC-001 }
+  - { type: parent-of, a: STOW-DSC-004, b: STOW-DSC-005 }
+  - { type: parent-of, a: STOW-DSC-004, b: STOW-DSC-006 }
+  - { type: measurement-for, a: STOW-DSC-006, b: STOW-DSC-004 }
+  - { type: parent-of, a: STOW-PRO-013, b: STOW-PRO-014 }
+  - { type: parent-of, a: STOW-PRO-013, b: STOW-PRO-015 }
+  - { type: related-to, a: STOW-SAF-001, b: STOW-SAF-002 }
+  - { type: related-to, a: STOW-SAF-002, b: STOW-SAF-003 }
+  - { type: related-to, a: STOW-SAF-001, b: STOW-SAF-003 }

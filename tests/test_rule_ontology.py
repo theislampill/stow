@@ -1,9 +1,13 @@
 import os
+import sys
 from ruamel.yaml import YAML
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 REG = os.path.join(REPO, "skills", "stow", "rules", "registry.yaml")
 ONT = os.path.join(REPO, "skills", "stow", "rules", "rule-ontology.yaml")
+
+sys.path.insert(0, HERE)
+from test_rule_ontology_read_regions import READ_REGIONS  # single source of truth for the 19
 
 def _load(p):
     y = YAML(typ="safe")
@@ -13,11 +17,9 @@ def _load(p):
 REG_IDS = [r["id"] for r in _load(REG)["records"]]
 PLANES = {"output","measurement","safety","evidence","authority","artifact-operation"}
 PLANE_COUNTS = {"output":79,"measurement":7,"safety":3,"evidence":13,"authority":1,"artifact-operation":1}
-NINETEEN = {
- "STOW-SAF-001","STOW-SAF-002","STOW-SAF-003","STOW-PCT-005","STOW-PCT-006",
- "STOW-EVD-001","STOW-EVD-002","STOW-EVD-003","STOW-EVD-004","STOW-ART-001",
- "STOW-AUT-001","STOW-AUT-002","STOW-AUT-003","STOW-PRO-002","STOW-PRO-017",
- "STOW-PRO-018","STOW-PRO-019","STOW-PRO-023","STOW-PRO-024"}
+DOMAINS = {"terminology-and-grammar","prose-and-presentation","procedures-and-descriptions","safety","evidence-and-integrity","structured-artifacts-and-interchange","action-progress-state","contract-and-authority"}
+REL_TYPES = {"related-to","see-also","specializes","overlaps","cross-references","tag","parent-of","exception-to","measurement-for"}
+NINETEEN = set(READ_REGIONS)
 
 def test_every_registry_id_has_one_ontology_entry():
     ont = _load(ONT)["rules"]
@@ -47,3 +49,11 @@ def test_relations_reference_valid_ids_and_never_self():
     for e in data["relations"]:
         assert e["a"] in ids and e["b"] in ids
         assert e["a"] != e["b"]
+
+def test_domains_from_enum():
+    ont = _load(ONT)["rules"]
+    assert {v["domain"] for v in ont.values()} <= DOMAINS
+
+def test_relation_types_from_enum():
+    data = _load(ONT)
+    assert {e["type"] for e in data["relations"]} <= REL_TYPES

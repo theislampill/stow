@@ -1,5 +1,18 @@
 # COLD sidecar. Additive overlay over the frozen registry. Read on demand only;
 # never on the per-response hot path. Never edits registry.yaml.
+#
+# Vocabulary legend (comments only; the data below draws from these closed sets):
+#   plane (6 values): output, measurement, safety, evidence, authority,
+#     artifact-operation
+#   domain (8 values): terminology-and-grammar, prose-and-presentation,
+#     procedures-and-descriptions, safety, evidence-and-integrity,
+#     structured-artifacts-and-interchange, action-progress-state,
+#     contract-and-authority
+#   relation type (9 values): related-to, see-also, specializes, overlaps,
+#     cross-references, tag, parent-of, exception-to, measurement-for
+# read_regions appears only on the records whose read-surface exceeds
+# enforcement-scope; its token lists are pinned in
+# tests/test_rule_ontology_read_regions.py.
 schema_version: 1
 rules:
   STOW-WRD-001: { plane: output, domain: terminology-and-grammar, family: approved-vocabulary }

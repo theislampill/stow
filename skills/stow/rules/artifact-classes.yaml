@@ -93,6 +93,9 @@ classes:
       - tests/test_conflicts.py
       - tests/test_routing.py
       - tests/test_artifact_classes.py
+      - tests/test_rule_ontology.py
+      - tests/test_rule_ontology_families.py
+      - tests/test_rule_ontology_read_regions.py
     files:
       - skills/stow/rules/artifact-classes.yaml
       - skills/stow/rules/conflicts.yaml

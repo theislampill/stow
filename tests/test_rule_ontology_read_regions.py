@@ -6,8 +6,8 @@ def _load(p):
     y = YAML(typ="safe")
     with open(p, encoding="utf-8") as fh: return y.load(fh)
 
-# Expected read_regions per ONTOLOGY-DESIGN.md section 3. SAF-002 = [prose] (prose-form,
-# excludes structured-data per the explicit "NOT uniformly widened" directive).
+# Authoritative read_regions pin for the ontology overlay; values are the source of truth.
+# SAF-002 = [prose] (prose-form; excludes structured-data, distinct from SAF-001/003).
 READ_REGIONS = {
   "STOW-SAF-001": ["prose", "code", "structured-data"],
   "STOW-SAF-002": ["prose"],

@@ -100,6 +100,7 @@ classes:
       - skills/stow/rules/registry.schema.json
       - skills/stow/rules/registry.yaml
       - skills/stow/rules/routing.yaml
+      - skills/stow/rules/rule-ontology.yaml
 
   runtime-code:
     description: "The shipped runtime allowlist: validator, linter, profile resolver, rule lookup helper."

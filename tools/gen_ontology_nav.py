@@ -34,14 +34,20 @@ README = os.path.join(REPO, "README.md")
 # except when they open the label.
 _CONNECTORS = frozenset({"and", "of", "the", "in", "for", "to", "on"})
 
+# Segments whose cased form is not a plain capitalization, e.g. an acronym.
+ACRONYMS = {"ai": "AI"}
+
 
 def _label(slug):
     """Turn a hyphenated slug into a readable heading, e.g.
-    ``evidence-and-integrity`` -> ``Evidence and Integrity``."""
+    ``evidence-and-integrity`` -> ``Evidence and Integrity`` and
+    ``ai-stylistic-tells`` -> ``AI Stylistic Tells``."""
     words = slug.split("-")
     out = []
     for index, word in enumerate(words):
-        if index > 0 and word in _CONNECTORS:
+        if word in ACRONYMS:
+            out.append(ACRONYMS[word])
+        elif index > 0 and word in _CONNECTORS:
             out.append(word)
         else:
             out.append(word.capitalize())

@@ -81,6 +81,38 @@ def test_every_rule_id_appears_exactly_once_in_the_region():
             "%s appears more than once in the navigation region" % rid)
 
 
+def test_exact_rendered_headings_are_pinned():
+    # The acronym-cased family heading must not regress to plain title case.
+    assert "**AI Stylistic Tells**" in NAV_REGION
+    assert "**Ai Stylistic Tells**" not in NAV_REGION
+    # A domain summary with its exact rendered text.
+    assert "<summary><b>Terminology and Grammar</b></summary>" in NAV_REGION
+
+
+def test_region_is_structurally_well_formed():
+    assert NAV_REGION.count("<details>") == NAV_REGION.count("</details>")
+    assert NAV_REGION.count("<summary>") == NAV_REGION.count("</summary>")
+    # Eight domains, each its own <details> block with one summary.
+    assert NAV_REGION.count("<details>") == 8
+    assert NAV_REGION.count("<summary>") == 8
+
+
+def test_domain_summaries_appear_in_sorted_order():
+    domains = sorted({fields["domain"] for fields in RULES.values()})
+    offsets = []
+    for domain in domains:
+        label = " ".join(
+            "AI" if w == "ai" else w.capitalize() if (i == 0 or w not in
+            ("and", "of", "the", "in", "for", "to", "on")) else w
+            for i, w in enumerate(domain.split("-")))
+        marker = "<summary><b>%s</b></summary>" % label
+        assert marker in NAV_REGION, "missing summary for %r" % domain
+        offsets.append(NAV_REGION.index(marker))
+    # Sorted-by-slug domains must render in strictly increasing position.
+    assert offsets == sorted(offsets), (
+        "domain summaries are not in sorted order: %r" % offsets)
+
+
 def test_nav_region_has_no_count_leak():
     findings = test_count_leak.scan_prose_text(NAV_REGION)
     assert findings == [], "count leak in the ontology navigation region: %r" % findings

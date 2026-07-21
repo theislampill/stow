@@ -482,7 +482,7 @@ A second view of the same primary rules, grouped by domain and then by family in
 <details>
 <summary><b>Prose and Presentation</b></summary>
 
-**Ai Stylistic Tells**
+**AI Stylistic Tells**
 
 | Rule | Title |
 |---|---|

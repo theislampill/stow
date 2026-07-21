@@ -42,7 +42,7 @@ rules:
   STOW-DSC-005: { plane: output, domain: procedures-and-descriptions, family: paragraph-structure }
   STOW-DSC-006: { plane: measurement, domain: procedures-and-descriptions, family: paragraph-structure }
   STOW-SAF-001: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
-  STOW-SAF-002: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
+  STOW-SAF-002: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose] }
   STOW-SAF-003: { plane: safety, domain: safety, family: safety-instruction-anatomy, read_regions: [prose, code, structured-data] }
   STOW-PCT-001: { plane: output, domain: prose-and-presentation, family: punctuation-mechanics }
   STOW-PCT-002: { plane: output, domain: prose-and-presentation, family: punctuation-mechanics }

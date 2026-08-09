@@ -18,7 +18,6 @@ Truthfulness model (per the runtime-enforcement matrix):
 import json
 import os
 import sys
-from collections import Counter
 
 from jsonschema import Draft202012Validator
 from ruamel.yaml import YAML
@@ -53,14 +52,6 @@ NAMED_CALLABLES = set(lint_prose.IMPLEMENTED_VALIDATORS)
 MECHANIZED_KINDS = {"deterministic", "parser", "heuristic"}
 VALID_STATUS = {"callable", "review-fallback", "planned"}
 
-# Per-domain record counts (reference snapshot; must stay unchanged after the
-# additive enrichment).
-EXPECTED_DOMAIN_COUNTS = {
-    "WRD": 14, "MWN": 2, "VRB": 7, "SEN": 5, "PRC": 5, "DSC": 6,
-    "SAF": 3, "PCT": 7, "STY": 4, "GEN": 8, "ACT": 11, "PRO": 24,
-}
-
-
 def _load_yaml(path):
     yaml = YAML(typ="safe")
     with open(path, encoding="utf-8") as fh:
@@ -75,10 +66,6 @@ def _load_json(path):
 REGISTRY = _load_yaml(REGISTRY_PATH)
 SCHEMA = _load_json(SCHEMA_PATH)
 RECORDS = REGISTRY["records"]
-
-
-def _domain(rid):
-    return rid.split("-")[1]
 
 
 def _predicate_candidate(rec):
@@ -203,15 +190,12 @@ def test_always_on_selector_keeps_universal_and_subregion_boundaries():
 
 
 # --------------------------------------------------------------------------- #
-# Invariants -- primary_total + per-domain counts unchanged; contracts outside
+# Derived primary total; contracts outside the primary record population
 # --------------------------------------------------------------------------- #
 
-def test_primary_total_and_domain_counts_unchanged():
-    assert len(RECORDS) == 96
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
-    got = Counter(_domain(r["id"]) for r in RECORDS)
-    assert dict(got) == EXPECTED_DOMAIN_COUNTS
-    assert sum(EXPECTED_DOMAIN_COUNTS.values()) == 96
+def test_primary_total_tracks_current_records():
+    assert RECORDS
+    assert REGISTRY["generated_counts"]["primary_total"] == len(RECORDS)
 
 
 def test_contracts_catalog_kept_outside_primary_total():
@@ -221,6 +205,6 @@ def test_contracts_catalog_kept_outside_primary_total():
     assert ids == ["output-contract", "handoff", "task-packet",
                    "evidence-record", "state"]
     assert len(ids) == 5
-    # meta-contracts are counted separately from the 96 primary records
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+    # meta-contracts are counted separately from the current primary records
+    assert REGISTRY["generated_counts"]["primary_total"] == len(RECORDS)
     assert "contracts" not in REGISTRY["generated_counts"]

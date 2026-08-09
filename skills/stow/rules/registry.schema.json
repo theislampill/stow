@@ -12,13 +12,12 @@
       "additionalProperties": false,
       "required": ["primary_total"],
       "properties": {
-        "primary_total": {"const": 96}
+        "primary_total": {"type": "integer", "minimum": 1}
       }
     },
     "records": {
       "type": "array",
-      "minItems": 96,
-      "maxItems": 96,
+      "minItems": 1,
       "items": {"$ref": "#/$defs/record"}
     },
     "contracts": {

@@ -57,7 +57,7 @@ The strict profile is locked because the inputs it needs (the controlled diction
 
 ## Rule classes at a glance
 
-The registry indexes 96 primary rules under STOW's own functional taxonomy. The registry defines each rule's operational metadata; the corpus module behind it carries the full guidance.
+At this audited reconciliation starting point, the registry indexes 96 primary rules under STOW's own functional taxonomy. The registry defines each rule's operational metadata; the corpus module behind it carries the full guidance.
 
 <!-- RULE-CLASSES:BEGIN -->
 
@@ -432,7 +432,7 @@ python -m pytest tests/ -q
 python tools/check_provenance_leak.py --local
 ```
 
-`generated_counts.primary_total: 96` is an invariant asserted by the test suite. Rewriting existing rule wording is deferred to a governed comparative phase; until that phase runs, treat shipped rule text as fixed.
+`generated_counts.primary_total` must equal the current record population. The declared value identifies the audited reconciliation starting point, not a required terminal count. A governed row-disposition phase must assign every starting rule id a `KEEP`, `SIMPLIFY`, `MERGE`, `MOVE`, or `DROP` decision before changing that population. Until comparative rewrite work runs, treat protected baseline wording as fixed.
 
 ## Known limitations
 

@@ -8,7 +8,7 @@ repository.
 
 ## What was checked, per property
 
-- **Reachability, all 96 rules.** Every registry record resolves; every
+- **Reachability, all 96 then-current starting rules.** Every registry record resolves; every
   corpus anchor exists exactly once in its module; every baseline statement
   is byte-present in its anchored section with explanation beyond it; every
   module hash matches the drift-lock manifest.
@@ -23,8 +23,8 @@ repository.
 The activation results are historical, single-host behavioral evidence; they do
 not prove automatic selection for every rule, prompt, model, or host.
 - **Application observations.** A fresh-context model given each anchored section produced
-  a compliant artifact for all 96 rules and identified and corrected a
-  planted violation for all 96. Blind reviewers, shown artifacts without rule
+  a compliant artifact for all 96 then-current starting rules and identified
+  and corrected a planted violation for all 96 starting rules. Blind reviewers, shown artifacts without rule
   ids, independently named the exact violated rule for 67 rules and quoted
   the offending span; the shortfall is an attribution limit of the blind
   evaluation, not a rule failure: in most cases the reviewer flagged the

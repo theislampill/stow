@@ -297,19 +297,21 @@ entries:
       without the committed count and the human-readable index being kept in
       sync, so the stated rule count silently drifts from the real record set.
     defense: >
-      The registry is the single source of truth: the primary total and the
-      per-domain counts are pinned, and the human-readable rule index is
-      regenerated from the registry and diffed, so any drift fails a check.
+      The registry is the single source of truth: the primary total must equal
+      the current record population, and the human-readable rule index is
+      regenerated from the registry and diffed, so inconsistent drift fails a
+      check without freezing the population itself.
     disposition:
       label: already-covered
       rationale: >
         The index generator's --check mode regenerates the index into memory and
         exits nonzero on any diff from the committed file, and the registry tests
-        pin the primary total and per-domain counts, so adding or dropping a rule
-        without updating both fails.
+        require the declared total to equal the current record population, so
+        adding or dropping a rule without updating the derived surfaces fails.
       evidence: >
         tools/gen_rule_index.py --check; tests/test_registry.py::
-        test_exactly_96_primary_records and ::test_domain_counts_and_total.
+        test_current_records_are_primary_and_total_matches_population and
+        ::test_domain_population_sums_to_primary_total.
     gate: "python tools/gen_rule_index.py --check"
 
   # ---------------------------------------------------------------------- #
@@ -337,7 +339,7 @@ entries:
       evidence: >
         tests/test_adversarial.py::test_readme_rule_count_matches_registry
         (added here); plus tools/gen_rule_index.py --check and
-        tests/test_registry.py::test_domain_counts_and_total for the
+        tests/test_registry.py::test_domain_population_sums_to_primary_total for the
         registry->index leg.
     gate: "tests/test_adversarial.py::test_readme_rule_count_matches_registry"
 

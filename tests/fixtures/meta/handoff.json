@@ -11,8 +11,8 @@
       "evidence_ref": "skills/stow/rules/registry.yaml"
     },
     {
-      "claim": "Registry count invariant holds.",
-      "evidence_ref": "tests/test_registry.py::test_primary_total"
+      "claim": "The declared registry total matches the current records.",
+      "evidence_ref": "tests/test_registry.py::test_current_records_are_primary_and_total_matches_population"
     }
   ],
   "not_done": [
@@ -21,7 +21,7 @@
   ],
   "constraints": [
     "Committed surfaces stay source-name-free.",
-    "The primary registry count is invariant."
+    "The declared primary total must match the current record population."
   ],
   "next_action": "Author the corpus modules and wire the verbatim gate.",
   "artifacts": [

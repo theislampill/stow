@@ -1,0 +1,512 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stow.local/schemas/rule-dispositions.schema.json",
+  "title": "STOW starting-rule disposition ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ledger_status",
+    "id_policy",
+    "starting_population",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "ledger_status": {
+      "const": "baseline-captured-proposals"
+    },
+    "id_policy": {
+      "const": "permanent-tombstones"
+    },
+    "starting_population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "captured_on",
+        "size",
+        "ids"
+      ],
+      "properties": {
+        "source": {
+          "const": "skills/stow/rules/registry.yaml"
+        },
+        "captured_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "size": {
+          "const": 96
+        },
+        "ids": {
+          "type": "array",
+          "minItems": 96,
+          "maxItems": 96,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/rule_id"
+          }
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 96,
+      "maxItems": 96,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
+  },
+  "$defs": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^STOW-[A-Z]{3}-[0-9]{3}$"
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference",
+        "result",
+        "freshness",
+        "limits"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "registry-archaeology",
+            "deterministic-test",
+            "behavioural-challenge",
+            "owner-decision",
+            "implementation-review"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "supports-proposal",
+            "passing-baseline",
+            "pending",
+            "accepted",
+            "inconclusive"
+          ]
+        },
+        "freshness": {
+          "enum": [
+            "baseline-captured",
+            "fresh",
+            "pending"
+          ]
+        },
+        "limits": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "positive",
+        "paired_negative",
+        "status"
+      ],
+      "properties": {
+        "positive": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^BC-0[1-8]$"
+          }
+        },
+        "paired_negative": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^BC-0[1-8]$"
+          }
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "complete",
+            "inconclusive"
+          ]
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hot_path_context",
+        "cold_reads",
+        "tool_runtime",
+        "maintenance",
+        "dependencies"
+      ],
+      "properties": {
+        "hot_path_context": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "cold_reads": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tool_runtime": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "maintenance": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "merge_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "rule_ids"
+      ],
+      "properties": {
+        "kind": {
+          "const": "rule-set"
+        },
+        "rule_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/rule_id"
+          }
+        }
+      }
+    },
+    "move_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "destinations"
+      ],
+      "properties": {
+        "kind": {
+          "const": "reference-surface"
+        },
+        "destinations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "activation_route"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^references/[a-z0-9-]+\\.md$"
+              },
+              "activation_route": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "family",
+        "starting_maturity",
+        "starting_enforcement",
+        "starting_validator",
+        "layer",
+        "observed_phenomenon",
+        "independent_harm",
+        "applicability",
+        "legitimate_counterexample",
+        "false_positive_risk",
+        "mechanism",
+        "cost",
+        "disposition",
+        "decision_rationale",
+        "implementation_consequence",
+        "evidence",
+        "behavioural_coverage",
+        "deterministic_verification",
+        "decision_state",
+        "closure_state",
+        "uncertainty"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_maturity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_enforcement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_validator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "layer": {
+          "enum": [
+            "G1",
+            "G2",
+            "G3",
+            "G4"
+          ]
+        },
+        "observed_phenomenon": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independent_harm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legitimate_counterexample": {
+          "type": "string",
+          "minLength": 1
+        },
+        "false_positive_risk": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "mechanism": {
+          "enum": [
+            "guidance",
+            "heuristic-detector",
+            "deterministic-predicate",
+            "delivery-gate",
+            "build-package-proof",
+            "none"
+          ]
+        },
+        "cost": {
+          "$ref": "#/$defs/cost"
+        },
+        "disposition": {
+          "enum": [
+            "KEEP",
+            "SIMPLIFY",
+            "MERGE",
+            "MOVE",
+            "DROP"
+          ]
+        },
+        "decision_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/merge_target"
+            },
+            {
+              "$ref": "#/$defs/move_target"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "behavioural_coverage": {
+          "$ref": "#/$defs/coverage"
+        },
+        "deterministic_verification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "decision_state": {
+          "enum": [
+            "proposed",
+            "accepted"
+          ]
+        },
+        "closure_state": {
+          "enum": [
+            "pending-behavioural-challenge",
+            "pending-decision-review",
+            "closed",
+            "inconclusive"
+          ]
+        },
+        "uncertainty": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "MERGE"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target"
+            ],
+            "properties": {
+              "target": {
+                "$ref": "#/$defs/merge_target"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "MOVE"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target"
+            ],
+            "properties": {
+              "target": {
+                "$ref": "#/$defs/move_target"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "enum": [
+                  "KEEP",
+                  "SIMPLIFY",
+                  "DROP"
+                ]
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "target"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layer": {
+                "const": "G1"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "behavioural_coverage": {
+                "properties": {
+                  "positive": {
+                    "minItems": 1
+                  },
+                  "paired_negative": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "deterministic_verification": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

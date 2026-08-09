@@ -1774,6 +1774,7 @@ records:
           conformance.
         subject_revision: 1
         proves_validator: procedural-sentence-max-20-words
+        proof_scope: compliance
     behavioural_coverage:
       positive:
         - BC-05
@@ -2159,6 +2160,7 @@ records:
           conformance.
         subject_revision: 1
         proves_validator: descriptive-sentence-max-25-words
+        proof_scope: compliance
     behavioural_coverage:
       positive:
         - BC-06
@@ -2542,6 +2544,7 @@ records:
           conformance.
         subject_revision: 1
         proves_validator: no-semicolon
+        proof_scope: compliance
     behavioural_coverage:
       positive:
         - BC-05
@@ -3467,6 +3470,7 @@ records:
           conformance.
         subject_revision: 1
         proves_validator: no-latin-abbreviations
+        proof_scope: compliance
     behavioural_coverage:
       positive:
         - BC-05
@@ -4029,7 +4033,7 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: list-max-5-items
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: an ordinary action list exceeds five items. Bounded repair:
       group or defer actions unless the list is necessarily exhaustive.'
     independent_harm: A long default action queue dilutes priority, although exhaustive lists can legitimately
@@ -4038,7 +4042,7 @@ records:
     legitimate_counterexample: Exhaustive evidence, reference inventories, safety content, contract-required
       lists.
     false_positive_risk: medium
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4066,10 +4070,17 @@ records:
         reference: tests/test_profiles.py::test_target_behavior_matrix
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: list-max-5-items
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-02#STOW-ACT-009'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-02
@@ -4080,8 +4091,7 @@ records:
       - *id005
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-010
     title: No preamble, recap, or sign-off
     family: action-shaping
@@ -4197,7 +4207,7 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-em-dash
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: an em dash appears despite an explicit style contract that excludes
       it. Bounded repair: use punctuation permitted by that contract.'
     independent_harm: Violating an explicit punctuation contract damages voice fidelity; banning the mark
@@ -4205,7 +4215,7 @@ records:
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: A deliberate house style that permits em dashes remains permitted.
     false_positive_risk: high
-    mechanism: deterministic-predicate
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4235,10 +4245,17 @@ records:
         reference: tests/test_lint_prose.py::test_em_dash_fires_under_every_profile
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-em-dash
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4249,8 +4266,7 @@ records:
       - *id006
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -4374,14 +4390,14 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-intensifiers
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: an intensifier substitutes for evidence of importance. Bounded
       repair: state the fact that establishes magnitude or urgency.'
     independent_harm: Intensity without evidence manufactures importance or certainty.
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: An intensity claim tied to a stated fact stays.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4410,10 +4426,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-intensifiers
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4424,8 +4447,7 @@ records:
       - *id007
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -4701,7 +4723,7 @@ records:
     starting_maturity: provisional
     starting_enforcement: heuristic
     starting_validator: no-scare-quotes
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: ordinary words receive distancing quotation marks. Bounded repair:
       reserve quotation marks for actual quotations, terms, or deliberate voice.'
     independent_harm: Scare quotes insinuate distance or doubt without explaining it; legitimate quotations
@@ -4710,7 +4732,7 @@ records:
     legitimate_counterexample: A deliberate, contextually functional construction in an explicitly requested
       voice may be appropriate.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4738,10 +4760,17 @@ records:
         reference: tests/test_lint_prose.py::test_punctuation_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-scare-quotes
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-010'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4752,15 +4781,14 @@ records:
       - *id008
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-011
     title: No filler phrases
     family: prose-integrity
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-filler-phrases
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: an opening or transition contributes no proposition. Bounded
       repair: delete it or replace it with the needed claim.'
     independent_harm: Filler delays the claim and can simulate structure without adding information.
@@ -4768,7 +4796,7 @@ records:
     legitimate_counterexample: A deliberate, contextually functional construction in an explicitly requested
       voice may be appropriate.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4796,10 +4824,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-filler-phrases
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-03#STOW-PRO-011'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4810,22 +4845,21 @@ records:
       - *id009
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-012
     title: Generic audience framing
     family: prose-integrity
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-whether-youre-opener
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: generic audience framing appears although the audience distinction
       changes nothing. Bounded repair: state the common instruction directly.'
     independent_harm: Generic audience framing spends words on a distinction that does not alter the answer.
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: An audience distinction that changes the advice remains permitted.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -4854,10 +4888,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-whether-youre-opener
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-012'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4868,8 +4909,7 @@ records:
       - *id010
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -4996,14 +5036,14 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-weasel-words
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: stacked generic qualifiers obscure the actual uncertainty. Bounded
       repair: state the known boundary and the specific unknown.'
     independent_harm: Generic hedging hides which proposition is uncertain and why.
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: Justified uncertainty and bounded capability statements remain permitted.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -5033,10 +5073,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-weasel-words
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-015'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -5047,8 +5094,7 @@ records:
       - *id011
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -5290,7 +5336,7 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-ai-transitions
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: a formulaic transition appears without a needed discourse relation.
       Bounded repair: use a connector only when it clarifies that relation.'
     independent_harm: Formulaic connectors imply a relation that may not exist, while functional transitions
@@ -5298,7 +5344,7 @@ records:
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: Ordinary connectors with a clear discourse function remain permitted.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -5326,10 +5372,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-ai-transitions
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-020'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5340,15 +5393,14 @@ records:
       - *id012
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-021
     title: Prefer verbs that name the exact action
     family: prose-integrity
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-ai-verbs
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: an abstract stock verb replaces the exact action. Bounded repair:
       name the actual operation.'
     independent_harm: Stock abstract verbs obscure the operation the reader must understand or perform.
@@ -5356,7 +5408,7 @@ records:
     legitimate_counterexample: Ordinary technical, financial, literal, and established domain uses remain
       permitted.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -5386,10 +5438,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-ai-verbs
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-021'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5400,8 +5459,7 @@ records:
       - *id013
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -5412,14 +5470,14 @@ records:
     starting_maturity: provisional
     starting_enforcement: deterministic
     starting_validator: no-academic-tells
-    layer: G2
+    layer: G1
     observed_phenomenon: 'Observed failure pattern: stock academic phrasing inflates a simple relation. Bounded
       repair: state the relation in direct words.'
     independent_harm: Inflated phrasing makes simple causal, temporal, or topical relations harder to see.
     applicability: The response contains prose sentences outside code, quoted text, and structured data.
     legitimate_counterexample: Established academic phrasing with a clear function remains permitted.
     false_positive_risk: high
-    mechanism: heuristic-detector
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: low
       cold_reads:
@@ -5449,10 +5507,17 @@ records:
         reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
         result: passing-baseline
         freshness: baseline-captured
-        limits: Proves the named detector behavior, not final-output custody or universal semantic
-          conformance.
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
         subject_revision: 1
         proves_validator: no-academic-tells
+        proof_scope: advisory-signal-only
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-022'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5463,8 +5528,7 @@ records:
       - *id014
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:

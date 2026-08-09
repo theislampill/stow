@@ -136,6 +136,12 @@
           "type": "string",
           "minLength": 1
         },
+        "proof_scope": {
+          "enum": [
+            "compliance",
+            "advisory-signal-only"
+          ]
+        },
         "positive_cases": {
           "type": "array",
           "minItems": 1,
@@ -151,23 +157,51 @@
           "items": {
             "$ref": "#/$defs/challenge_id"
           }
+        },
+        "receipt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "protocol_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualification": {
+          "const": "qualifying-pass"
+        },
+        "rule_observation": {
+          "const": "PASS"
         }
       }
     },
     "accepted_behavioural_evidence": {
       "type": "object",
-      "$comment": "The schema enforces paired-case shape. tests/test_rule_dispositions.py semantic_errors is authoritative for current-revision and enclosing-coverage equality.",
+      "$comment": "The schema binds accepted evidence to opaque digests and paired-case shape. Final audit must externally rehash and validate the supplied private receipt; schema validation does not prove existence or custody of that receipt.",
       "required": [
         "kind",
+        "reference",
         "result",
         "freshness",
         "subject_revision",
         "positive_cases",
-        "paired_negative_cases"
+        "paired_negative_cases",
+        "receipt_sha256",
+        "candidate_sha256",
+        "protocol_revision",
+        "qualification",
+        "rule_observation"
       ],
       "properties": {
         "kind": {
           "const": "behavioural-challenge"
+        },
+        "reference": {
+          "type": "string",
+          "pattern": "^receipt:[a-z0-9][a-z0-9._-]*$"
         },
         "result": {
           "const": "accepted"
@@ -186,6 +220,24 @@
         "paired_negative_cases": {
           "type": "array",
           "minItems": 1
+        },
+        "receipt_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "protocol_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualification": {
+          "const": "qualifying-pass"
+        },
+        "rule_observation": {
+          "const": "PASS"
         }
       }
     },
@@ -427,6 +479,7 @@
         "mechanism": {
           "enum": [
             "guidance",
+            "guidance-with-heuristic-detector",
             "heuristic-detector",
             "deterministic-predicate",
             "delivery-gate",

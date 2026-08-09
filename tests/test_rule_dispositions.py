@@ -120,6 +120,9 @@ EXPECTED_G2_PROOFS = {
     "STOW-DSC-003": ("descriptive-sentence-max-25-words", "tests/test_lint_prose.py::test_descriptive_sentence_cap_is_25_words"),
     "STOW-PCT-001": ("no-semicolon", "tests/test_lint_prose.py::test_semicolon_is_reported_only_under_the_controlled_technical_profile"),
     "STOW-GEN-006": ("no-latin-abbreviations", "tests/test_lint_prose.py::test_punctuation_check_is_red_on_its_fixture"),
+}
+
+EXPECTED_G1_SIGNAL_PROOFS = {
     "STOW-ACT-009": ("list-max-5-items", "tests/test_profiles.py::test_target_behavior_matrix"),
     "STOW-PRO-001": ("no-em-dash", "tests/test_lint_prose.py::test_em_dash_fires_under_every_profile"),
     "STOW-PRO-004": ("no-intensifiers", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
@@ -145,6 +148,24 @@ DIAGNOSTIC_UNCERTAINTY = (
 SURVIVING_G1_DISPOSITIONS = {"KEEP", "SIMPLIFY", "MOVE"}
 
 
+def _accepted_behavioural_receipt(candidate, row):
+    return {
+        "kind": "behavioural-challenge",
+        "reference": "receipt:bounded-paired-run",
+        "result": "accepted",
+        "freshness": "fresh",
+        "limits": "Bounded paired evidence only; external receipt verification remains required.",
+        "subject_revision": candidate["subject_revision"],
+        "positive_cases": list(row["behavioural_coverage"]["positive"]),
+        "paired_negative_cases": list(row["behavioural_coverage"]["paired_negative"]),
+        "receipt_sha256": "a" * 64,
+        "candidate_sha256": "b" * 64,
+        "protocol_revision": "g1-behavioural-v1",
+        "qualification": "qualifying-pass",
+        "rule_observation": "PASS",
+    }
+
+
 def _yaml(path: Path):
     parser = YAML(typ="safe")
     with path.open(encoding="utf-8") as stream:
@@ -166,6 +187,44 @@ def ledger():
     return _yaml(LEDGER_PATH)
 
 
+def _copy_semantic_root(tmp_path):
+    root = tmp_path
+    rules = root / "skills" / "stow" / "rules"
+    references = root / "skills" / "stow" / "references"
+    rules.mkdir(parents=True)
+    references.mkdir(parents=True)
+    for name in ("registry.yaml", "routing.yaml"):
+        (rules / name).write_text(
+            (ROOT / "skills" / "stow" / "rules" / name).read_text(encoding="utf-8"),
+            encoding="utf-8",
+        )
+    for path in (ROOT / "skills" / "stow" / "references").iterdir():
+        if path.is_file():
+            (references / path.name).write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+    return root
+
+
+def _write_registry(root, registry):
+    emitter = YAML()
+    registry["generated_counts"]["primary_total"] = len(registry["records"])
+    with (root / "skills" / "stow" / "rules" / "registry.yaml").open(
+        "w", encoding="utf-8"
+    ) as stream:
+        emitter.dump(registry, stream)
+
+
+def _accept_g2(candidate, rule_id):
+    row = next(record for record in candidate["records"] if record["id"] == rule_id)
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    proof = row["deterministic_verification"][0]
+    proof["result"] = "accepted"
+    proof["freshness"] = "fresh"
+    proof["subject_revision"] = candidate["subject_revision"]
+    proof["proof_scope"] = "compliance"
+    return row
+
+
 def semantic_errors(candidate, root: Path = ROOT):
     errors = []
     records = candidate["records"]
@@ -182,6 +241,7 @@ def semantic_errors(candidate, root: Path = ROOT):
     registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
     if registry["generated_counts"]["primary_total"] != len(registry["records"]):
         errors.append("active registry count disagrees with primary_total")
+    active_registry_ids = {record["id"] for record in registry["records"]}
 
     routing = _yaml(root / "skills" / "stow" / "rules" / "routing.yaml")
     routes = {route["mode"]: route for route in routing["routes"]}
@@ -236,12 +296,23 @@ def semantic_errors(candidate, root: Path = ROOT):
         if row["decision_state"] == "proposed" and row["closure_state"] == "closed":
             errors.append(f"{row['id']} proposal cannot be closed")
 
+        terminal = row["decision_state"] == "accepted" or row["closure_state"] == "closed"
+        if terminal and disposition in {"MERGE", "DROP"} and row["id"] in active_registry_ids:
+            errors.append(f"{row['id']} terminal retired source remains in active registry")
+        if terminal and disposition in SURVIVING_G1_DISPOSITIONS and row["id"] not in active_registry_ids:
+            errors.append(f"{row['id']} terminal survivor is absent from active registry")
+
         behavioural_evidence = [
             evidence for evidence in row["evidence"]
             if evidence["kind"] == "behavioural-challenge"
             and evidence["freshness"] == "fresh"
             and evidence["result"] == "accepted"
             and evidence.get("subject_revision") == candidate["subject_revision"]
+            and evidence.get("qualification") == "qualifying-pass"
+            and evidence.get("rule_observation") == "PASS"
+            and evidence.get("protocol_revision")
+            and evidence.get("receipt_sha256")
+            and evidence.get("candidate_sha256")
         ]
 
         if row["layer"] == "G1":
@@ -250,9 +321,8 @@ def semantic_errors(candidate, root: Path = ROOT):
                 errors.append(f"{row['id']} lacks paired G1 coverage")
             paired_behavioural_evidence = [
                 evidence for evidence in behavioural_evidence
-                if set(evidence.get("positive_cases", [])) == set(coverage["positive"])
-                and set(evidence.get("paired_negative_cases", []))
-                == set(coverage["paired_negative"])
+                if evidence.get("positive_cases", []) == coverage["positive"]
+                and evidence.get("paired_negative_cases", []) == coverage["paired_negative"]
             ]
             requires_behavioural_evidence = disposition in SURVIVING_G1_DISPOSITIONS
             if (
@@ -267,6 +337,20 @@ def semantic_errors(candidate, root: Path = ROOT):
             ):
                 if coverage["status"] != "complete" or not paired_behavioural_evidence:
                     errors.append(f"{row['id']} accepted or terminal G1 claim lacks completed fresh evidence")
+            if row["id"] in EXPECTED_G1_SIGNAL_PROOFS:
+                expected_validator, expected_reference = EXPECTED_G1_SIGNAL_PROOFS[row["id"]]
+                signal_proofs = [
+                    (
+                        evidence.get("proves_validator"),
+                        evidence["reference"],
+                        evidence.get("proof_scope"),
+                    )
+                    for evidence in row["deterministic_verification"]
+                ]
+                if signal_proofs != [
+                    (expected_validator, expected_reference, "advisory-signal-only")
+                ]:
+                    errors.append(f"{row['id']} advisory signal is misclassified as compliance proof")
         elif not row["deterministic_verification"]:
             errors.append(f"{row['id']} lacks deterministic verification")
         elif not all(
@@ -277,13 +361,27 @@ def semantic_errors(candidate, root: Path = ROOT):
         elif row["id"] in EXPECTED_G2_PROOFS:
             expected_validator, expected_reference = EXPECTED_G2_PROOFS[row["id"]]
             actual_proofs = [
-                (evidence.get("proves_validator"), evidence["reference"])
+                (
+                    evidence.get("proves_validator"),
+                    evidence["reference"],
+                    evidence.get("proof_scope"),
+                )
                 for evidence in row["deterministic_verification"]
             ]
             if row["starting_validator"] != expected_validator:
                 errors.append(f"{row['id']} starting validator changed")
-            if actual_proofs != [(expected_validator, expected_reference)]:
+            if actual_proofs != [(expected_validator, expected_reference, "compliance")]:
                 errors.append(f"{row['id']} deterministic proof is not bound to its validator")
+            if terminal and not any(
+                evidence["kind"] == "deterministic-test"
+                and evidence["result"] == "accepted"
+                and evidence["freshness"] == "fresh"
+                and evidence.get("subject_revision") == candidate["subject_revision"]
+                and evidence.get("proves_validator") == expected_validator
+                and evidence.get("proof_scope") == "compliance"
+                for evidence in row["deterministic_verification"]
+            ):
+                errors.append(f"{row['id']} terminal G2 state lacks fresh current named compliance proof")
 
         if row["layer"] in {"G3", "G4"}:
             errors.append(f"{row['id']} introduces an unsupported {row['layer']} claim")
@@ -314,6 +412,26 @@ def semantic_errors(candidate, root: Path = ROOT):
     for rule_id in merge_graph:
         if not resolves(rule_id):
             errors.append(f"{rule_id} merge graph is cyclic or resolves to a dead end")
+
+    def resolves_to_active_sink(rule_id, seen=None):
+        seen = set() if seen is None else seen
+        if rule_id in seen or rule_id not in by_id:
+            return False
+        row = by_id[rule_id]
+        if row["disposition"] == "DROP":
+            return False
+        if row["disposition"] != "MERGE":
+            return rule_id in active_registry_ids
+        return all(
+            resolves_to_active_sink(target_id, seen | {rule_id})
+            for target_id in merge_graph.get(rule_id, [])
+        )
+
+    for rule_id in merge_graph:
+        row = by_id[rule_id]
+        terminal = row["decision_state"] == "accepted" or row["closure_state"] == "closed"
+        if terminal and not resolves_to_active_sink(rule_id):
+            errors.append(f"{rule_id} terminal merge does not resolve to an active registry sink")
     return errors
 
 
@@ -374,16 +492,8 @@ def test_terminal_surviving_g1_state_requires_matching_fresh_evidence(
     wrong_revision = copy.deepcopy(ledger)
     row = wrong_revision["records"][g1_index]
     row["behavioural_coverage"]["status"] = "complete"
-    row["evidence"].append({
-        "kind": "behavioural-challenge",
-        "reference": "private-run-receipt",
-        "result": "accepted",
-        "freshness": "fresh",
-        "limits": "Bounded paired evidence only.",
-        "subject_revision": wrong_revision["subject_revision"] + 1,
-        "positive_cases": list(row["behavioural_coverage"]["positive"]),
-        "paired_negative_cases": list(row["behavioural_coverage"]["paired_negative"]),
-    })
+    row["evidence"].append(_accepted_behavioural_receipt(wrong_revision, row))
+    row["evidence"][-1]["subject_revision"] = wrong_revision["subject_revision"] + 1
     assert list(validator.iter_errors(wrong_revision)) == []
     assert semantic_errors(wrong_revision)
 
@@ -408,7 +518,7 @@ def test_arbitrary_or_mismatched_receipt_is_not_paired_evidence(schema, ledger):
     row["closure_state"] = "closed"
     row["evidence"].append({
         "kind": "behavioural-challenge",
-        "reference": "private-run-receipt",
+        "reference": "receipt:unbound",
         "result": "accepted",
         "freshness": "fresh",
         "limits": "Unbound receipt.",
@@ -421,17 +531,61 @@ def test_arbitrary_or_mismatched_receipt_is_not_paired_evidence(schema, ledger):
     receipt = next(
         record for record in mismatched["records"] if record["id"] == row["id"]
     )["evidence"][-1]
+    receipt.update(_accepted_behavioural_receipt(mismatched, row))
     receipt["positive_cases"] = ["BC-06"]
     receipt["paired_negative_cases"] = ["BC-06"]
     assert list(validator.iter_errors(mismatched)) == []
     assert semantic_errors(mismatched)
 
 
-@pytest.mark.parametrize("disposition", ["MERGE", "DROP"])
-def test_terminal_retired_g1_source_does_not_require_fabricated_behavioural_evidence(
-    schema, ledger, disposition
+def test_accepted_behavioural_evidence_is_bound_to_opaque_receipt_and_candidate(
+    schema, ledger
 ):
     validator = Draft202012Validator(schema)
+    candidate = copy.deepcopy(ledger)
+    row = next(
+        row for row in candidate["records"]
+        if row["layer"] == "G1" and row["disposition"] == "KEEP"
+    )
+    row["behavioural_coverage"]["status"] = "complete"
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    row["evidence"].append(_accepted_behavioural_receipt(candidate, row))
+
+    assert list(validator.iter_errors(candidate)) == []
+    assert semantic_errors(candidate) == []
+
+    for field in (
+        "receipt_sha256",
+        "candidate_sha256",
+        "protocol_revision",
+        "qualification",
+        "rule_observation",
+    ):
+        missing = copy.deepcopy(candidate)
+        missing_row = next(record for record in missing["records"] if record["id"] == row["id"])
+        missing_row["evidence"][-1].pop(field)
+        assert list(validator.iter_errors(missing)), field
+        assert semantic_errors(missing), field
+
+    uppercase_digest = copy.deepcopy(candidate)
+    uppercase_row = next(
+        record for record in uppercase_digest["records"] if record["id"] == row["id"]
+    )
+    uppercase_row["evidence"][-1]["receipt_sha256"] = "A" * 64
+    assert list(validator.iter_errors(uppercase_digest))
+
+    accepted_schema = schema["$defs"]["accepted_behavioural_evidence"]
+    assert "externally rehash" in accepted_schema["$comment"]
+    assert "does not prove existence" in accepted_schema["$comment"]
+
+
+@pytest.mark.parametrize("disposition", ["MERGE", "DROP"])
+def test_terminal_retired_g1_source_does_not_require_fabricated_behavioural_evidence(
+    schema, ledger, disposition, tmp_path
+):
+    validator = Draft202012Validator(schema)
+    root = _copy_semantic_root(tmp_path)
     candidate = copy.deepcopy(ledger)
     row = next(
         row for row in candidate["records"]
@@ -442,7 +596,43 @@ def test_terminal_retired_g1_source_does_not_require_fabricated_behavioural_evid
 
     assert not any(evidence["result"] == "accepted" for evidence in row["evidence"])
     assert list(validator.iter_errors(candidate)) == []
-    assert semantic_errors(candidate) == []
+    assert semantic_errors(candidate, root=root)
+
+    registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
+    registry["records"] = [record for record in registry["records"] if record["id"] != row["id"]]
+    _write_registry(root, registry)
+    assert semantic_errors(candidate, root=root) == []
+
+
+def test_terminal_survivor_must_remain_in_active_registry(tmp_path, ledger):
+    root = _copy_semantic_root(tmp_path)
+    candidate = copy.deepcopy(ledger)
+    row = _accept_g2(candidate, "STOW-PRC-001")
+
+    assert semantic_errors(candidate, root=root) == []
+
+    registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
+    registry["records"] = [record for record in registry["records"] if record["id"] != row["id"]]
+    _write_registry(root, registry)
+    assert any("terminal survivor is absent" in error for error in semantic_errors(candidate, root=root))
+
+
+def test_terminal_merge_must_resolve_to_active_registry_sink(tmp_path, ledger):
+    root = _copy_semantic_root(tmp_path)
+    candidate = copy.deepcopy(ledger)
+    row = next(record for record in candidate["records"] if record["id"] == "STOW-PRO-004")
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    target_id = row["target"]["rule_ids"][0]
+
+    registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
+    registry["records"] = [record for record in registry["records"] if record["id"] != row["id"]]
+    _write_registry(root, registry)
+    assert semantic_errors(candidate, root=root) == []
+
+    registry["records"] = [record for record in registry["records"] if record["id"] != target_id]
+    _write_registry(root, registry)
+    assert any("does not resolve to an active registry sink" in error for error in semantic_errors(candidate, root=root))
 
 
 def test_surviving_merge_target_still_requires_accepted_behavioural_evidence(schema, ledger):
@@ -502,6 +692,65 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
         )
         for row in g2_rows
     )
+
+
+def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
+    rows = {row["id"]: row for row in ledger["records"]}
+
+    assert {row["id"] for row in ledger["records"] if row["layer"] == "G2"} == set(
+        EXPECTED_G2_PROOFS
+    )
+    for rule_id, (validator_name, reference) in EXPECTED_G1_SIGNAL_PROOFS.items():
+        row = rows[rule_id]
+        assert row["layer"] == "G1"
+        assert row["mechanism"] == "guidance-with-heuristic-detector"
+        assert [(proof["proves_validator"], proof["reference"]) for proof in row["deterministic_verification"]] == [
+            (validator_name, reference)
+        ]
+        assert all(
+            proof["proof_scope"] == "advisory-signal-only"
+            for proof in row["deterministic_verification"]
+        )
+        assert "not compliance proof" in row["deterministic_verification"][0]["limits"]
+        assert row["behavioural_coverage"]["status"] == "pending"
+        assert row["decision_state"] == "proposed"
+        assert row["closure_state"] != "closed"
+        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+
+    misclassified = copy.deepcopy(ledger)
+    row = next(record for record in misclassified["records"] if record["id"] == "STOW-PRO-011")
+    row["deterministic_verification"][0]["proof_scope"] = "compliance"
+    assert semantic_errors(misclassified)
+
+
+@pytest.mark.parametrize("rule_id", sorted(EXPECTED_G2_PROOFS))
+def test_terminal_g2_requires_current_fresh_accepted_named_proof(schema, ledger, rule_id):
+    validator = Draft202012Validator(schema)
+
+    baseline_only = copy.deepcopy(ledger)
+    row = next(record for record in baseline_only["records"] if record["id"] == rule_id)
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    assert semantic_errors(baseline_only)
+
+    valid = copy.deepcopy(ledger)
+    _accept_g2(valid, rule_id)
+    assert list(validator.iter_errors(valid)) == []
+    assert semantic_errors(valid) == []
+
+    mutations = {
+        "pending result": ("result", "pending"),
+        "baseline freshness": ("freshness", "baseline-captured"),
+        "pending freshness": ("freshness", "pending"),
+        "stale revision": ("subject_revision", valid["subject_revision"] + 1),
+        "wrong validator": ("proves_validator", "unrelated-validator"),
+        "signal-only scope": ("proof_scope", "advisory-signal-only"),
+    }
+    for label, (field, value) in mutations.items():
+        candidate = copy.deepcopy(valid)
+        candidate_row = next(record for record in candidate["records"] if record["id"] == rule_id)
+        candidate_row["deterministic_verification"][0][field] = value
+        assert semantic_errors(candidate), label
 
 
 def test_diagnostic_evidence_cannot_satisfy_surviving_g1_terminal_gate(schema, ledger):
@@ -650,17 +899,19 @@ def test_g2_proof_is_bound_to_the_named_validator(ledger):
     assert set(EXPECTED_G2_PROOFS) == {row["id"] for row in ledger["records"] if row["layer"] == "G2"}
     for rule_id, (validator, reference) in EXPECTED_G2_PROOFS.items():
         proofs = rows[rule_id]["deterministic_verification"]
-        assert [(proof["proves_validator"], proof["reference"]) for proof in proofs] == [(validator, reference)]
+        assert [
+            (proof["proves_validator"], proof["reference"], proof["proof_scope"])
+            for proof in proofs
+        ] == [(validator, reference, "compliance")]
 
     unrelated = copy.deepcopy(ledger)
-    row = next(row for row in unrelated["records"] if row["id"] == "STOW-PRO-001")
-    row["deterministic_verification"][0]["reference"] = "tests/test_lint_prose.py::test_em_dash_fires_under_every_profile"
-    row["deterministic_verification"][0]["proves_validator"] = "no-intensifiers"
+    row = next(row for row in unrelated["records"] if row["id"] == "STOW-PRC-001")
+    row["deterministic_verification"][0]["proves_validator"] = "no-semicolon"
     assert semantic_errors(unrelated)
 
     unrelated_node = copy.deepcopy(ledger)
-    row = next(row for row in unrelated_node["records"] if row["id"] == "STOW-PRO-004")
-    row["deterministic_verification"][0]["reference"] = "tests/test_lint_prose.py::test_em_dash_fires_under_every_profile"
+    row = next(row for row in unrelated_node["records"] if row["id"] == "STOW-DSC-003")
+    row["deterministic_verification"][0]["reference"] = "tests/test_lint_prose.py::test_punctuation_check_is_red_on_its_fixture"
     assert semantic_errors(unrelated_node)
 
 

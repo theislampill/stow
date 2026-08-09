@@ -80,7 +80,9 @@ the two rule-family groups. Evaluation notes: one detector enumeration.
 
 ## What this report does not claim
 
-The gate continuously checks its declared observable subset. The
+The deterministic claim audit covers only the surfaces enumerated in
+`docs/claim-ledger.json`; it does not establish whole-runtime or whole-guidance
+closure. The
 semantic checks rest on fresh-context reviews recorded in the run record and
 on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-time
 judgments, not standing guarantees. Live-model conformance under the

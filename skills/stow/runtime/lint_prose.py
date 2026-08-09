@@ -20,11 +20,13 @@ MASK LAYERS. Three layers exist because different checks need different amounts
 of the text left visible:
 
   ``mask_protected``  fences + block quotes + inline code/URL/path/identifier.
-                      The general-purpose layer. Punctuation and structural
+                      The general-purpose layer. Scare-quote, length, and list
                       checks run here.
   ``mask_prose``      ``mask_protected`` plus inline quoted spans. Every LEXICAL
                       (term-table) check runs here, so a banned term that is
-                      being quoted rather than used is never flagged.
+                      being quoted rather than used is never flagged. The
+                      em-dash, semicolon, and contraction checks also use this
+                      layer so attributed text remains outside their scope.
   ``mask_latin``      fences + block quotes + inline code/URL/path only. The
                       identifier mask would eat ``e.g.`` and ``i.e.``, so the
                       Latin-abbreviation check runs one layer shallower.
@@ -614,7 +616,7 @@ def check_punctuation(text, profile_record):
     out = []
 
     out.extend(_scan(
-        _EM_DASH_RE, protected, "em-dash", "STOW-PRO-001",
+        _EM_DASH_RE, prose, "em-dash", "STOW-PRO-001",
         "em-dash (U+2014); review punctuation against the applicable style contract"))
 
     if profiles.check_active("semicolon", profile_record):

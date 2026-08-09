@@ -215,6 +215,11 @@ def test_ledger_shape_and_surfaces_are_closed():
     guarded = data["guarded_surfaces"]
     assert guarded == sorted(set(guarded)), "guarded surfaces must be sorted and unique"
     assert data["coverage_surfaces"] == guarded
+    assert data["coverage_boundary"] == (
+        "The deterministic claim audit covers only the surfaces enumerated in "
+        "docs/claim-ledger.json; it does not establish whole-runtime or "
+        "whole-guidance closure."
+    )
     assert set(data["claim_candidate_patterns"]) == ALLOWED_FAMILIES
     assert all(data["claim_candidate_patterns"][family]
                for family in ALLOWED_FAMILIES)
@@ -489,6 +494,18 @@ def test_format_references_do_not_claim_an_unnamed_delivery_gate():
         assert "G2" in text, path
         assert "named host" in text, path
         assert "actual final candidate" in text, path
+
+
+def test_markdown_reference_does_not_overclaim_current_word_count_semantics():
+    markdown = _read("skills/stow/references/format-markdown.md")
+    for overclaim in (
+        "counts that placeholder as one token",
+        "counts a recognized token as one word",
+    ):
+        assert overclaim not in markdown
+    assert "excluded or blanked by the current advisory scan" in markdown
+    assert "exact one-token semantics" in markdown
+    assert "not implemented by that scan" in markdown
 
 
 def test_self_dogfood_distinguishes_advisory_findings_from_repository_gating():

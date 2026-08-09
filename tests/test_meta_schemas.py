@@ -15,6 +15,7 @@ generic STOW-native data.
 import copy
 import hashlib
 import importlib.util
+import io
 import json
 import os
 import subprocess
@@ -74,6 +75,18 @@ def fixture_obj(schema_id):
     return json.loads(fixture_text(schema_id))
 
 
+def fixture_yaml(schema_id="task-packet"):
+    """Render one valid fixture as YAML for named-schema boundary tests."""
+    buffer = io.StringIO()
+    validate._new_yaml().dump(fixture_obj(schema_id), buffer)
+    rendered = buffer.getvalue()
+    return rendered.split("---\n", 1)[1]
+
+
+def fixture_yaml_with_duplicate_goal():
+    return "goal: Duplicate goal.\n" + fixture_yaml()
+
+
 def run_obj(schema_id, obj):
     """Validate an in-memory instance against a named schema."""
     return validate.validate_schema(schema_id, json.dumps(obj), "inmem.json")
@@ -113,6 +126,65 @@ def test_valid_fixture_passes(schema_id):
     result = validate.validate_schema(schema_id, fixture_text(schema_id),
                                       fixture_path(schema_id))
     assert result.ok is True, result.errors
+
+
+@pytest.mark.parametrize("suffix", [".yaml", ".yml"])
+def test_named_schema_yaml_rejects_duplicate_raw_keys_before_schema_validation(suffix):
+    result = validate.validate_schema(
+        "task-packet", fixture_yaml_with_duplicate_goal(), "packet" + suffix)
+    assert result.ok is False
+    assert any("duplicate key" in error for error in result.errors), result.errors
+
+
+@pytest.mark.parametrize("suffix", [".yaml", ".yml"])
+def test_named_schema_yaml_rejects_leading_bom_before_schema_validation(suffix):
+    result = validate.validate_schema(
+        "task-packet", validate.BOM + fixture_yaml(), "packet" + suffix)
+    assert result.ok is False
+    assert any("leading BOM" in error for error in result.errors), result.errors
+
+
+@pytest.mark.parametrize(
+    "body, expected",
+    [
+        (fixture_yaml_with_duplicate_goal, "duplicate key"),
+        (lambda: validate.BOM + fixture_yaml(), "leading BOM"),
+    ],
+)
+def test_named_schema_fenced_yaml_applies_structural_validation(body, expected):
+    markdown = "Before.\n```yaml\n%s```\nAfter.\n" % body()
+    result = validate.validate_schema("task-packet", markdown, "packet.md")
+    assert result.ok is False
+    assert any(expected in error for error in result.errors), result.errors
+
+
+@pytest.mark.parametrize(
+    "text, expected",
+    [
+        (fixture_yaml_with_duplicate_goal, "duplicate key"),
+        (lambda: validate.BOM + fixture_yaml(), "leading BOM"),
+    ],
+)
+def test_named_schema_yaml_fallback_applies_structural_validation(text, expected):
+    result = validate.validate_schema("task-packet", text(), "packet.data")
+    assert result.ok is False
+    assert any(expected in error for error in result.errors), result.errors
+
+
+def test_named_schema_yaml_rejects_multiple_documents_before_schema_validation():
+    text = fixture_yaml() + "---\n" + fixture_yaml()
+    result = validate.validate_schema("task-packet", text, "packet.yaml")
+    assert result.ok is False
+    assert any("exactly one YAML document" in error for error in result.errors), result.errors
+
+
+@pytest.mark.parametrize("suffix", [".json", ".jsonl"])
+def test_named_schema_json_modes_remain_strict_about_leading_bom(suffix):
+    text = validate.BOM + json.dumps(fixture_obj("task-packet"))
+    result = validate.validate_schema("task-packet", text, "packet" + suffix)
+    assert result.ok is False
+    assert any("BOM" in error or "JSON parse error" in error
+               for error in result.errors), result.errors
 
 
 # --------------------------------------------------------------------------- #

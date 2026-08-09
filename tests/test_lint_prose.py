@@ -269,6 +269,23 @@ def test_em_dash_fires_under_every_profile():
         assert_flags(text, "em-dash", profile=profile)
 
 
+@pytest.mark.parametrize("quoted", [
+    'The report said "The cache is cold — restart it."',
+    "The report said “The cache is cold — restart it.”",
+])
+def test_em_dash_ignores_inline_quotation(quoted):
+    assert_clean(quoted, "em-dash")
+
+
+def test_em_dash_flags_surrounding_prose_outside_an_inline_quotation():
+    quoted = 'The report said "The cache is cold — restart it."'
+    mixed = quoted + " The operator — not the report — owns the decision."
+    found = hits(mixed, "em-dash")
+    assert len(found) == 2
+    assert all(advisory.col > mixed.index('"', mixed.index('"') + 1) + 1
+               for advisory in found)
+
+
 def test_technical_clarity_findings_match_stow_default():
     """technical-clarity adds guidance, not mechanical checks: identical
     findings to the default profile on the same input."""

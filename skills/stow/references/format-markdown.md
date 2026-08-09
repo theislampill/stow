@@ -72,12 +72,13 @@ Two guidance rules hold across every construct below:
   prose.
 - **Region:** quoted text. Excluded from the lexical prose rules.
 - **How STOW checks it:** G1 guidance excludes the quoted span from spelling
-  changes (see corpus/words/usage.md#STOW-WRD-014). The G2 linter masks a
-  recognized quotation in its scan copy and counts that placeholder as one token
-  for length (see
-  corpus/punctuation.md#STOW-PCT-006). Fidelity to the source and the block layout
-  for a long quotation require review or a named host comparator over the actual
-  final candidate; see corpus/prose-integrity/rules.md#STOW-PRO-023.
+  changes (see corpus/words/usage.md#STOW-WRD-014). Recognized quotations are
+  excluded or blanked by the current advisory scan where its mask applies. The
+  exact one-token semantics in corpus/punctuation.md#STOW-PCT-006 are not
+  implemented by that scan; they remain model- and authority-bound guidance.
+  Fidelity to the source and the block layout for a long quotation require
+  review or a named host comparator over the actual final candidate; see
+  corpus/prose-integrity/rules.md#STOW-PRO-023.
 
 ## Paths, identifiers, schema keys, and bare literals
 
@@ -85,8 +86,10 @@ Two guidance rules hold across every construct below:
   alphanumeric identifier appearing in prose, whether or not it sits in backticks.
 - **Region:** identifier. Protected.
 - **How STOW checks it:** G1 guidance excludes the token from renaming,
-  re-casing, or rewording. The G2 linter counts a recognized token as one word
-  (see corpus/punctuation.md#STOW-PCT-006). Recognition of a bare, un-fenced
+  re-casing, or rewording. Recognized identifier spans are excluded or blanked
+  by the current advisory scan. The exact one-token semantics in
+  corpus/punctuation.md#STOW-PCT-006 are not implemented by that scan; they
+  remain model- and authority-bound guidance. Recognition of a bare, un-fenced
   literal is the finite syntax task described in `references/protected-regions.md`.
   General byte fidelity requires a named host comparator over the actual final
   candidate and authoritative source bytes.

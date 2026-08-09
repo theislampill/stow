@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "coverage_boundary": "The deterministic claim audit covers only the surfaces enumerated in docs/claim-ledger.json; it does not establish whole-runtime or whole-guidance closure.",
   "coverage_surfaces": [
     ".claude-plugin/plugin.json",
     "README.md",
@@ -430,6 +431,13 @@
       "statement": "Masking is advisory preprocessing; it is not semantic classification or final-output preservation.",
       "families": ["preservation"],
       "layer": "G2"
+    },
+    {
+      "id": "CLM-050",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "The deterministic claim audit covers only the surfaces enumerated in `docs/claim-ledger.json`; it does not establish whole-runtime or whole-guidance closure.",
+      "families": ["guarantee", "determinism"],
+      "layer": "G4"
     }
   ],
   "forbidden_claim_patterns": [

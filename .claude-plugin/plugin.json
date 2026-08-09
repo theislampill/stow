@@ -1,7 +1,7 @@
 {
   "name": "stow",
   "version": "0.3.6",
-  "description": "Writing-discipline skill that governs every response: obeys the exact output contract, keeps supplied literals byte-for-byte exact unless editing a literal is the task, validates structured regions, holds terminology steady, and shapes clear prose with no fabricated detail.",
+  "description": "Writing-discipline guidance with callable checks for closed structured-data, term-map, and advisory prose contracts; host selection and final-response custody remain external.",
   "author": {
     "name": "theislampill"
   }

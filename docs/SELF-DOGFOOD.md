@@ -1,7 +1,7 @@
 # Self-dogfood report
 
-Does STOW's own authored output follow the rules STOW tells other output to
-follow? This report answers that with evidence: every check names the test,
+Does STOW's own authored output satisfy selected checks and recorded reviews?
+This report answers that bounded question: every check names the test,
 command, or review that backs it. Classes: **mechanically checked** (a
 committed test enforces it), **independently reviewed** (a fresh-context
 reviewer verified it), **exempt** (a declared profile or protected-region
@@ -26,12 +26,13 @@ wording, and every schema title and description. Conflict-registry fixtures are
 deliberate rule-violating demonstrations and are excluded, the same way the
 linter masks a quotation.
 
-The standing gate is `tests/test_self_dogfood.py`: the em-dash check, every
+The standing G2 gate is `tests/test_self_dogfood.py`: the em-dash check, every
 lexical check, scare quotes, and hedging clusters must report zero findings
 on every authored surface (plus the controlled-profile checks on the runbook
 template). The same gate extracts the structured-field prose described above and
 holds it to the em-dash and banned-lexical subset. It runs in the full suite and
-in CI, so a regression cannot ship silently.
+in CI, so those exact observable regressions fail the repository gate. Passing
+does not establish semantic prose quality or delivery acceptance.
 
 ## Results by check
 
@@ -59,7 +60,7 @@ in CI, so a regression cannot ship silently.
 | D-20 | Meta-code examples validate | Every shipped template validates through the documented CLI | mechanically checked | `tests/test_meta_templates.py` |
 | D-25 | Templates stay timeless and current | The templates are fictional worked examples; gates assert they embed no real repo commit hash, no retired capability literal, and no completed work described as pending, and that YAML template comments obey the em-dash and lexical checks | mechanically checked | `tests/test_meta_templates.py`, `tests/test_self_dogfood.py` |
 | D-21 | Documented commands run | Generators, validators, linter, build, and measurement commands all execute in the suite; README examples marked for validation pass the runtime | mechanically checked | suite-wide; `tests/test_readme_catalog.py` |
-| D-22 | Install instructions reproduce | Extraction shape, fidelity, import closure, and runtime drive proven from a fresh build; temporary-home installs re-proven in the package-health report | mechanically checked | `tests/test_install_smoke.py`; `docs/INITIAL-PACKAGE-HEALTH.md` |
+| D-22 | Install instructions reproduce | Extraction shape, fidelity, import closure, and sampled runtime calls checked from a fresh build; temporary-home installs checked in the package-health report | mechanically checked | `tests/test_install_smoke.py`; `docs/INITIAL-PACKAGE-HEALTH.md` |
 | D-23 | Public statements match evidence | Live-model claims scoped to measured evidence; capability counts derived, not asserted | independently reviewed | `docs/FUNCTIONAL-EVIDENCE.md` |
 | D-24 | Authored text contradicts the conflict registry | The composition table in the README is rendered from the registry's resolutions; no authored surface states an unresolved contradiction | mechanically checked + reviewed | `tests/test_conflicts.py`; blind reviewer pass |
 | D-26 | Authored prose inside structured rule data and schemas | Zero findings on profile notes and auto-contexts, routing predicates and reasons, conflict activation, behavior, and substitute wording, and schema titles and descriptions; conflict fixtures excluded as protected demonstrations | mechanically checked | `tests/test_self_dogfood.py` |
@@ -79,7 +80,7 @@ the two rule-family groups. Evaluation notes: one detector enumeration.
 
 ## What this report does not claim
 
-The gate proves the deterministic subset mechanically and continuously. The
+The gate continuously checks its declared observable subset. The
 semantic checks rest on fresh-context reviews recorded in the run record and
 on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-
 time judgments, not standing guarantees. Live-model conformance under the

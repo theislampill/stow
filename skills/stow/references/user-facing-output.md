@@ -37,7 +37,7 @@ region it governs, how STOW checks it, and the corpus source to read.
 
 ## Progressive disclosure
 
-- **Trigger:** any user-facing response; enforced more tightly when prose is
+- **Trigger:** any user-facing response; the guidance is more specific when prose is
   present.
 - **Region:** the opening, the closing, and any inline sidebar.
 - **How STOW checks:** `no-preamble-or-signoff` flags an intent-announcing

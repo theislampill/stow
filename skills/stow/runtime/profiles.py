@@ -3,8 +3,9 @@
 
 This module is PACKAGED into the shipped skill. It is import-closed: it
 imports only the Python standard library. It is the single runtime authority
-on profile identity, aliasing, lock state, auto-activation precedence, and
-which profile-gated lint checks are active under which profile. The data
+on profile identity, aliasing, lock state, routing precedence data, and which
+profile-gated lint checks are active under which profile. It does not inspect
+request text or choose a profile by meaning. The data
 lives in ``rules/profiles.json`` beside the packaged rule registry; this
 module only loads and answers questions about it.
 
@@ -90,7 +91,7 @@ def check_active(check, profile_record):
 
 
 def auto_order(data=None):
-    """Auto-activation precedence, most specific first."""
+    """Return host/model routing precedence data, most specific first."""
     data = data or load_profiles()
     return list(data.get("auto_precedence", []))
 

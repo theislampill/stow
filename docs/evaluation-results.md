@@ -5,9 +5,12 @@
 ### Scope (honest)
 
 These are **fixture / parser / routing / detector-contract tests**, not proof of
-live model behaviour. There is **no model-invocation harness** in this project. A
-detector receives a hand-authored *answer string* and returns a boolean: the
-value of that case's `red_assertion` for that answer.
+live model behaviour. This section does not invoke the separate live A/B
+harness. A detector receives a hand-authored *answer string* and returns a
+boolean: the value of that case's `red_assertion` for that answer.
+
+These fixture results test detector contracts over authored strings; they do not
+show that STOW generated, repaired, preserved, or delivered the fixtures.
 
 Convention:
 
@@ -17,7 +20,7 @@ Convention:
 The catalog encodes what user-facing output looks like **without** STOW
 governance. For each deterministic case we author a short `no-STOW` answer that
 exhibits the failure and confirm its detector returns `False`. That is the RED
-baseline: the property STOW would later enforce is currently violated. GREEN
+baseline: the fixture's target property is currently violated. GREEN
 (post-STOW) is out of scope for P1 and is not asserted.
 
 Artifacts:
@@ -164,7 +167,7 @@ anti-leak gate (`tools/check_provenance_leak.py --local`).
 ### Scope (honest)
 
 Same scope as P1: these are **fixture / detector-contract tests**, not proof of
-live model behaviour. There is **no model-invocation harness** in this project.
+live model behaviour. They do not invoke the separate live A/B harness.
 Where P1 authored a `no-STOW` answer per deterministic case and confirmed its
 `red_assertion` evaluates `False` (RED), P5 authors the **opposite** -- a
 STOW-compliant answer per case -- and confirms the same detector now returns
@@ -229,12 +232,11 @@ Aggregate: **RED 27 / 27 `False` -> GREEN 27 / 27 `True`.** The delta test asser
 the pair `(no_stow, stow)` yields exactly `(False, True)` for every case, so each
 GREEN result is caused by the compliant answer, not by an always-`True` detector.
 
-### Protected-region byte-identity (SO / CA)
+### Fixture-literal identity (SO / CA)
 
-For the cases whose governing behaviour is an inviolable protected region, an
-extra assertion confirms the protected span is **byte-identical** to the
-runner's own source constant in the STOW fixture (identical to the exact thing
-the detector protects, not a re-typed copy):
+For selected cases, an extra assertion confirms that the authored fixture
+contains the runner's own source constant. This is a fixed-fixture detector
+check, not a final-output custody or general preservation mechanism:
 
 | id | protected span | source constant asserted |
 |----|----------------|--------------------------|

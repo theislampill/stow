@@ -9,8 +9,8 @@ STOW emits YAML only when the caller asks for YAML. That output is a
 machine-readable, structured-data surface, not prose. Every record in the
 registry excludes `structured-data` from its scope, so the controlled-technical
 and presentation rules do **not** scan the keys, structure, or scalar tokens of
-a YAML document. What governs the surface instead is a mechanical serialization
-contract, enforced deterministically by the packaged checker
+a YAML document. The surface instead has a mechanical serialization
+contract, checked deterministically by the packaged G2 checker
 `runtime/validate.py` (`python runtime/validate.py --format yaml <file>`). Run
 it on the exact bytes you are about to return and deliver only on exit 0.
 Semantics are YAML 1.2 core (safe) schema.

@@ -1,21 +1,16 @@
 # Protected regions (mask first, scan second)
 
-Protected regions are spans of a response that STOW must read but must not
-rewrite on its own: code, quotations, machine identifiers, and serialized data.
-STOW preserves a supplied literal unless the user's task is to edit that literal;
-the prose and style rules never independently rewrite one. Before any
-prose rule or lexical scan runs, STOW replaces each protected span with an
-opaque placeholder, applies every rule to the masked surface, then restores the
-original spans byte-for-byte. This ordering is a STOW-native invariant, not a
-rule derived from any corpus, so no `corpus_ref` citation applies.
+Protected regions are spans the generation guidance tells a writer not to edit
+on its own: code, quotations, machine identifiers, and serialized data. The
+shipped implementation is narrower. `runtime/lint_prose.py` blanks recognized
+spans in an in-memory copy before its advisory scans and never edits the input.
+This behavior is STOW-authored, so no `corpus_ref` citation applies.
 
-This is why the controlled-technical rules (the word, sentence, procedure,
-description, punctuation, and style families) and the presentation-layer lexical
-scans (the prose-integrity and action-shaping families) never corrupt a code
-block, a quoted line, a schema key, a file path, or a URL: by the time a scanner
-sees the text, those spans are no longer text it can edit. A masked span is a
-single opaque token to every scanner. It is not rewritten, not searched for
-banned words or characters, and not split on word or sentence boundaries.
+The masking functions cover their documented fence, inline-code, block-quote,
+URL, path, and identifier patterns. Spaces replace matched characters while line
+and column geometry stays stable. Different advisory checks use the masking
+layer suited to that check, so the implementation is a finite syntax recognizer,
+not a semantic partition of arbitrary text.
 
 The exclusion is declared per rule in `skills/stow/rules/registry.yaml` under
 `scope.exclude` (every prose record excludes `code`, `structured-data`,
@@ -23,24 +18,23 @@ The exclusion is declared per rule in `skills/stow/rules/registry.yaml` under
 for well-formedness by `skills/stow/runtime/validate.py`, which reads them but
 never mutates them.
 
-## The invariant
+## Guidance and runtime behavior
 
-1. **Mask.** Detect every protected span and swap it for a placeholder token.
-2. **Scan.** Run the controlled-technical rules and the lexical scans over the
-   masked surface only. Placeholders are inert: they match no banned pattern and
-   carry no editable prose.
-3. **Restore.** Put every original span back exactly as written. A prose or
-   style rule never paraphrases, re-spells, re-cases, or re-punctuates a
-   protected span on its own; only a task that itself edits that literal changes
-   it, and that edit is the contract band acting, not a presentation rule.
+1. **Bound.** Generation guidance uses visible delimiters and the declared
+   output contract to identify protected material.
+2. **Mask for advisory scans.** The linter blanks only the span patterns its
+   code recognizes and scans the copy.
+3. **Keep custody external.** A host that requires byte fidelity must compare
+   the actual final candidate with the authoritative literals and block a
+   mismatch.
 
-A rule may still act on the region *around* a placeholder (spacing, a following
-period, sentence length), but never on the masked content itself.
+A linter finding may still refer to the text around a blanked span. The linter
+does not rewrite either the span or its surroundings.
 
 ## Region taxonomy
 
-Each entry gives the observable trigger, the region that gets masked, and how
-STOW detects and protects it. Grouped by the `scope.exclude` class it maps to.
+Each entry gives the observable trigger, the region the linter attempts to
+mask, and the advisory effect. It is grouped by `scope.exclude` class.
 
 ### Code (`scope.exclude: code`)
 
@@ -89,10 +83,12 @@ STOW detects and protects it. Grouped by the `scope.exclude` class it maps to.
   spelling, or word-choice rule mutates a link, and word-length scanners see a
   single unit.
 
-## Why this holds
+## Claim boundary
 
-Because masking runs first and unconditionally, correctness of the protected
-content does not depend on any individual rule being careful. Even a rule that
-would otherwise rewrite a sentence operates only on the masked surface, and the
-restore step guarantees the original code, quotation, key, path, or URL comes
-back exactly as the author wrote it.
+The shipped linter masks a finite set of recognizable spans before advisory
+scanning; because it is read-only, it performs no restoration step and proves no
+general final-output byte preservation.
+
+Byte-preserving generation remains G1 guidance unless a named host owns the
+actual final candidate, compares it with authoritative bytes, blocks mismatch,
+and rechecks after any permitted repair.

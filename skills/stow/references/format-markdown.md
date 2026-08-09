@@ -60,9 +60,10 @@ Two invariants hold across every construct below:
   document, and any fenced block whose info string is a data format (for example
   `json`, `yaml`, or `jsonl`).
 - **Region:** one independent serialization region per block.
-- **How STOW checks it:** validate each region against its own format reference
-  (`references/format-json.md`, `references/format-yaml.md`, or
-  `references/format-jsonl.md`) and through `runtime/validate.py` before delivery.
+- **How STOW checks it:** each supported region has its own closed format
+  contract (`references/format-json.md`, `references/format-yaml.md`, or
+  `references/format-jsonl.md`), and `runtime/validate.py` can return a G2
+  verdict for caller-supplied bytes. Delivery custody is external.
   No prose rule renames a key, reorders a mapping, or edits a value. A failure in
   one region is isolated to that region.
 
@@ -111,13 +112,14 @@ Two invariants hold across every construct below:
   each item is checked as editable prose against the active profile and
   presentation rules.
 
-## Validation gate
+## Review and G2 checks
 
-Before delivery, confirm each of these for the Markdown document:
+The generation guidance asks the writer to confirm each item. The runtime can
+check embedded supported data, but it has no general final-output comparator:
 
 - prose edits are confined to editable-prose regions;
-- every fence, inline-code span, quotation, path, identifier, and schema key is
-  byte-identical to its intended value;
+- a named host compares contract-fixed literals with their authoritative values
+  when byte fidelity is required;
 - every embedded structured-data region parses and schema-checks on its own
   through `runtime/validate.py`;
 - the top output contract is obeyed: a raw artifact ships raw, with no added

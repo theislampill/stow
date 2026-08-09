@@ -3,8 +3,8 @@
 A JSONL output region is a stream of records where each non-empty line holds one
 complete, independently parseable JSON value. This page is a scanned surface, not
 rule text. It tells a reviewer *when* the contract applies, *which* region of the
-output it governs, and *how* STOW checks it. The mechanics of the contract are a
-STOW-native serialization invariant enforced by
+output it covers, and *how* STOW checks it. The mechanics of the contract are a
+STOW-native serialization contract checked by
 `skills/stow/runtime/validate.py`, not a rule derived from any corpus, so no
 `corpus_ref` citation applies to the contract itself. Where a governed rule meets
 the JSONL boundary, the normative statement lives only in the cited `corpus_ref`
@@ -12,7 +12,7 @@ file. Read the corpus for the wording, never this page.
 
 ## The contract
 
-The observable properties `validate.py` enforces for a JSONL region:
+The observable properties `validate.py` checks for a supplied JSONL region:
 
 - **One JSON value per non-empty line.** Each line is parsed on its own as a
   single complete JSON value.

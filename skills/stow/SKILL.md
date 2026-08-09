@@ -22,7 +22,7 @@ When two bands conflict, the higher wins. Corruption is a lower band altering, d
 
 ## 2. Classify output regions
 
-A response mixes prose, procedure, data, code, quotes, and identifiers. Region boundaries follow the delimiters already in the text: fences, quotes, list layout, and structured-data syntax. Split the response into regions and apply each rule only to the region its scope names. A prose rule never rewrites code, data, quotes, or identifiers; a formatting rule never enters prose.
+A response can mix prose, procedure, data, code, quotes, and identifiers. Use delimiters already in the text, such as fences, quotes, list layout, and structured-data syntax, to bound regions. Apply each rule only to the region its scope names. This is generation guidance, not a semantic classifier in the shipped runtime.
 
 ## 3. Integrity rules (always on)
 
@@ -30,7 +30,7 @@ A response mixes prose, procedure, data, code, quotes, and identifiers. Region b
 - Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact, unless the request asks for that literal to be edited, an exception the contract band already outranks.
 - Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
-- Validate every structured region before delivery via runtime/validate.py. If it fails to parse or schema-check, repair and revalidate; never deliver an invalid artifact.
+- Treat structured validity as a delivery requirement. When the runtime can be called, give the actual candidate to runtime/validate.py. A host has a delivery gate only if it blocks invalid or unreadable results, permits the repair, and revalidates the repaired candidate.
 
 ## 4. User-facing output
 
@@ -45,7 +45,7 @@ A response mixes prose, procedure, data, code, quotes, and identifiers. Region b
 
 Load a reference only when its predicate is true.
 
-- ANY user-facing prose turn -> references/always-on.md, the operational always-on checks. Excluded inside protected regions: a raw JSON, JSONL, YAML, or code artifact loads none of them.
+- user-facing prose turn -> references/always-on.md, the operational prose guidance. A model or host applies this route; raw JSON, JSONL, YAML, and code regions are excluded.
 - raw JSON -> references/format-json.md
 - JSONL -> references/format-jsonl.md
 - YAML -> references/format-yaml.md
@@ -68,13 +68,13 @@ Load a reference only when its predicate is true.
 
 For one rule, use runtime/query_rules.py <ID> when it can run; otherwise follow the bounded lookup in references/rule-index.md.
 
-## 6. Final validation gate
+## 6. Final review checklist
 
 Before delivery, confirm:
 
 - the top contract is obeyed;
 - literals are unchanged unless their editing was the task;
-- every structured region parses and schema-checks;
+- every structured region was checked when a callable check was available;
 - nothing unsupported was added and nothing required was dropped;
 - only predicate-matched references were loaded.
 

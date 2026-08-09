@@ -1,10 +1,10 @@
 # Activation and precedence
 
-STOW governs one model response by reading it as a set of output regions and
-applying each rule only inside the region it owns, at the precedence band where
-it sits. This page is the map that ties those two ideas together: the precedence
-ladder, how a response is split into regions, and how the registry's
-`precedence` field lands on the ladder.
+STOW guides a model or host to treat one response as a set of output regions and
+to apply each rule only inside the region it owns, at the precedence band where
+it sits. This page maps the precedence ladder, the intended region boundaries,
+and the registry's `precedence` field. The shipped runtime has no general
+semantic region classifier.
 
 This is a scanned surface, not rule text. It names rules by their registry id
 and title (both STOW-authored) and points to each rule's `corpus_ref`; it never
@@ -37,21 +37,18 @@ Bands, highest to lowest:
 8. **STOW presentation preferences.** Surface-shaping and prose-integrity
    defaults.
 
-**Invariant:** a lower band never corrupts an output governed by a higher band.
-When two rules touch the same span, the higher band wins and the lower-band rule
-yields for that span; it does not partially apply. A rule also never reaches
-outside its own region (next section). The registry encodes the known collisions
-ahead of time under each record's `conflicts[]`, always resolved toward the
-higher band.
+**Instructional invariant:** a lower band must not alter an output fixed by a
+higher band. When two rules touch the same span, the higher band wins and the
+lower-band rule yields for that span. The registry records known collisions;
+enforcement outside callable checks remains model- or host-mediated.
 
 ## Output-region classification
 
 A single response mixes regions: editable prose, a procedure, a description,
 structured data, code, quotations, and identifiers can all appear in one reply.
-Each rule declares `scope.include` (the regions it governs), `scope.exclude`
-(the regions it must never touch), and an `activation.predicate` (whether it is
-live at all). STOW classifies each span into a region, then applies only the
-rules whose include-region matches and whose predicate holds.
+Each rule declares `scope.include`, `scope.exclude`, and an
+`activation.predicate`. A model or host assigns the region and decides whether
+the predicate holds; the metadata then says which guidance is applicable.
 
 Regions and the band that owns each:
 
@@ -67,10 +64,9 @@ Regions and the band that owns each:
 
 Nearly every controlled-technical and presentation record carries the same
 `scope.exclude: [code, structured-data, quoted-text, identifiers]`. That uniform
-exclusion is the invariant in data form: those regions belong to higher bands (3
-and 4), so a band 7 or band 8 prose rule is structurally forbidden from touching
-them. The mask-then-scan ordering in `protected-regions.md` enforces it
-mechanically.
+exclusion is the guidance in data form. The advisory linter mechanically masks
+its finite recognized span types before scanning; that does not establish final
+output preservation by a model or host.
 
 ## Mapping the registry `precedence` field onto the ladder
 

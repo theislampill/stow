@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "comment": "Single source of truth for STOW profile identity, activation, and runtime check gating. Consumed by runtime/profiles.py (shipped), the generators, and the tests. Checks absent from a profile's lint_checks map are always-on and never profile-gated.",
+  "comment": "Single source of truth for STOW profile identity, model or host routing cues, and runtime check gating. runtime/profiles.py resolves explicit identifiers and does not classify request meaning. Checks absent from a profile's lint_checks map are always-on and never profile-gated.",
   "auto_precedence": [
     "controlled-technical-guided",
     "technical-clarity",

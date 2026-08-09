@@ -1,15 +1,15 @@
 # STOW
 
-STOW is a writing-discipline skill that governs what a model emits. It treats every reply as a set of typed regions (prose, procedure, structured data, code, quotes, identifiers) and applies a fixed rule set so each region stays correct for what it is.
+STOW is a writing-discipline specification and packaged skill. When a host selects it, the guidance helps a model distinguish prose, procedures, structured data, code, quotations, and identifiers. Callable checkers decide only their closed input contracts; STOW does not universally control a model's final response.
 
 ## STOW in one minute
 
-- **What it does.** STOW is designed to be selected on every user-facing turn; when the host invokes it, the compact kernel loads. The kernel classifies the reply into regions, applies always-on integrity and output-shaping checks to the prose, and pulls deeper references only when a named predicate is true.
-- **What it governs.** User-facing prose (answers, explanations, procedures), agent-to-agent coordination artifacts (handoffs, plans, audits, runbooks, state records, task packets, event streams), and structured payloads (JSON, JSONL, YAML) held to a parse-and-validate contract.
-- **What it protects.** Code, commands, paths, identifiers, quoted text, and data values are protected literals: STOW preserves them byte-for-byte unless the user's task is to edit that literal, and the prose and style rules never independently rewrite one. **Executable source code is protected by default and is not STOW's primary writing target.** If you install STOW expecting it to restyle your source code, it will not, by design.
-- **How always-on works.** Any user-facing prose turn loads the operational checks in `references/always-on.md`. Each check carries its rule id, its applicability condition, and its principal exception, and the module opens with a request-mode router: an informational question leads with the answer, an actionable task with the next bounded action, completed work with the result and no invented follow-up, a raw artifact with the raw artifact alone.
-- **How profiles work.** Profiles only make rules stricter, and only where they apply. The default profile imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules; the controlled profile activates them for executable procedures and safety instructions.
-- **How meta-code fits.** Coordination artifacts are governed by schemas and templates, not by taste. The shipped validator checks any instance against its schema, and the documented loop is validate, repair, revalidate.
+- **What it does.** When a host invokes STOW, the compact kernel supplies region and precedence guidance. Named predicates tell the model or host which cold reference is relevant; the repository does not contain a semantic request classifier that performs those reads automatically.
+- **What it covers.** The guidance addresses user-facing prose, coordination artifacts, and structured payloads. Separate callable checkers cover specific parse, schema, term-map, and advisory prose contracts.
+- **What it protects.** The generation guidance tells the writer not to alter supplied code, commands, paths, identifiers, quotations, or data values unless editing that literal is the task. The advisory linter masks a finite recognizable subset while scanning; STOW has no general final-output byte comparator.
+- **How ordinary guidance works.** For editable user-facing prose, the activation map points to `references/always-on.md`. Its rule identifiers, applicability conditions, exceptions, and request-mode router remain instructions that a model or host must apply.
+- **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
+- **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
 
 ## Install
 
@@ -36,7 +36,7 @@ Verify the install by running the packaged validator from the installed path:
 python ~/.claude/skills/stow/runtime/validate.py --format json some-file.json
 ```
 
-A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py` and `profiles.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
+A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py`, `profiles.py`, and `validate_terms.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
 
 ## Profiles at a glance
 
@@ -44,14 +44,14 @@ Profiles are declared in one shipped data file, `skills/stow/rules/profiles.json
 
 | Profile | Status | What it does |
 |---|---|---|
-| `stow-default` | Active by default for editable prose | Always-on integrity and user-facing output governance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
-| `technical-clarity` | Auto-active for technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; meta-code artifacts bind here; the linter tags its output with the profile. See `references/technical-clarity.md`. |
-| `controlled-technical-guided` | Auto-active for executable procedures and safety instructions, or on request (alias: `controlled-technical`) | Applies the controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. Dictionary-dependent checks are reported as unavailable. |
+| `stow-default` | Resolver default when the caller supplies no id | General integrity and user-facing output guidance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
+| `technical-clarity` | Available explicitly; routing cues name technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; the linter tags its output with the profile. See `references/technical-clarity.md`. |
+| `controlled-technical-guided` | Available explicitly; routing cues name procedures and safety instructions (alias: `controlled-technical`) | Applies the available controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. Dictionary-dependent checks are reported as unavailable. |
 | `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing profile. Not shipped and **must never be claimed**. Selecting it on the linter exits with an error naming the lock. |
 
-Raw and protected artifacts are their own mode, not a profile: raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths load no prose checks at all. The output ships byte-exact and only the applicable parser or schema validator runs.
+Raw and protected artifacts are their own declared mode, not a profile. The guidance says to omit prose checks for raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths. A host must identify the mode and retain custody of the candidate; the resolver does neither.
 
-When more than one profile matches, the declared auto-precedence decides: `controlled-technical-guided` over `technical-clarity` over `stow-default`. Punctuation across profiles: the em dash is banned in editable prose under every profile; the semicolon and contractions are permitted (never required) under `stow-default` and `technical-clarity` and prohibited under `controlled-technical-guided`, where the substitute for either banned character is a period, comma, colon, or two sentences.
+When a model or host finds more than one routing cue applicable, the declared precedence is `controlled-technical-guided` over `technical-clarity` over `stow-default`. For an explicitly resolved profile, the em-dash advisory runs for editable prose under every profile; the semicolon and contraction advisories are off under `stow-default` and `technical-clarity` and on under `controlled-technical-guided`.
 
 The strict profile is locked because the inputs it needs (the controlled dictionary, the approved terminology set, and the full validation suite) are out of scope for this release. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
 
@@ -374,11 +374,11 @@ python skills/stow/runtime/validate.py --schema handoff my-handoff.md
 python skills/stow/runtime/validate.py --schema handoff my-handoff.md
 ```
 
-The first run names every violation; the loop ends when the run prints `VALID`.
+The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.
 
 ## Validators
 
-**`runtime/validate.py`** is the delivery gate. Two mutually exclusive modes:
+**`runtime/validate.py`** is a G2 parser and schema detector with two mutually exclusive modes:
 
 ```
 python skills/stow/runtime/validate.py --format {json,jsonl,yaml} <file>
@@ -393,7 +393,11 @@ Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2`
 python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw] [--exhaustive-list-ok]
 ```
 
-The profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks protected regions (fenced blocks, inline code, block quotes, URLs, paths, identifiers) so their contents are never flagged.
+The caller-supplied profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks its finite recognized set of fenced blocks, inline code, block quotes, URLs, paths, and identifiers. Findings and zero findings remain advisory.
+
+**`runtime/validate_terms.py`** is a G2 detector for an explicit closed term map and caller-labeled editable or protected segments. It cannot establish that those labels are semantically correct.
+
+`runtime/validate.py` and `runtime/validate_terms.py` are G2 detectors, not delivery gates by themselves. A G3 host workflow must hold the actual final candidate, block invalid and unknown results, permit only authorized repairs, and revalidate before delivery.
 
 **`runtime/query_rules.py`** is a packaged, standard-library-only lookup helper. Given a rule id it prints the registry record, the profiles that include the rule (by selector, category prefix, or guidance list), the per-record and composition conflicts that name it, and the anchored corpus section.
 
@@ -405,15 +409,15 @@ It is an acceleration for manual rule lookups; no kernel path depends on it, and
 
 ## Architecture
 
-Three tiers, loaded from most general to most specific. A response is answered from the kernel alone unless a predicate calls for more.
+Three tiers are available from most general to most specific. The kernel tells the model or host to use a cold reference only when its predicate applies; file presence does not prove a live read.
 
 - **Kernel** (`skills/stow/SKILL.md`): precedence, the region model, the integrity rules, and the activation map.
-- **References** (`skills/stow/references/`): mid-tier guidance, each file loaded only when its predicate is true.
-- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor; loaded only when a rule audit or deep application cites it.
+- **References** (`skills/stow/references/`): cold mid-tier guidance, each with a named predicate.
+- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor and is read only for a bounded audit or deep application.
 
-Precedence runs in eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. A lower band never corrupts a higher one.
+Precedence guidance uses eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. It instructs lower-band shaping to yield to a higher band.
 
-Measure current context footprints with `python tools/measure_context.py <file>`; the tool records its measurement method and never downloads anything.
+Measure static file-bundle footprints with `python tools/measure_context.py <file>`. The result is not live-host telemetry for reads, latency, tool calls, or repair work.
 
 ## Extension and governance
 
@@ -432,13 +436,16 @@ python tools/check_provenance_leak.py --local
 
 ## Known limitations
 
-- **Prose linters are advisory and report-only.** `lint_prose.py` always exits 0 on findings. The structured-output validator is the only hard gate.
+- **Prose linters are advisory and report-only.** `lint_prose.py` exits 0 on findings and even treats unreadable input as no blocking prose verdict. The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.
 - **Most registry rules are not callable.** Fourteen rules have callable validators today. The large majority are either review-fallback (a model applies them by reading them) or planned (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
-- **Host-dependent skill selection.** The skill is invoked per turn by the host model. Live evidence shows it selects on task-shaped, technical, and meta-code turns and can skip trivial or raw one-liners; on a non-invoked turn, only the external parser and schema gates apply.
+- **Host-dependent skill selection.** Historical evidence from one pinned host per round observed invocation on some task-shaped, technical, and meta-code turns and skips on some short prompts. It does not establish selection behavior for another prompt, model, or host.
 - **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks. Behavioral evidence is measured and documented, not promised.
 - **Lexical advisories ignore a requested register.** An explicitly requested casual or creative voice governs the register, but lexical advisories still fire on the result; advisories never override the contract band.
 - **The strict profile is locked** and must never be claimed.
-- **Generated structured artifacts need the validate-repair-revalidate loop.** Models approximate schemas from prose; the shipped validator is the ground truth, and the documented loop closes the gap.
+- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.
+- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.
+- **Static budget figures are proxies.** They measure declared files with one tokenizer or a character formula, not live host reads, tokens, latency, tool calls, or repair cost.
+- **Portability is file-level.** The packaged schemas, templates, and scripts use ordinary formats; live behavior on a second agent harness remains unverified.
 
 ## Troubleshooting
 

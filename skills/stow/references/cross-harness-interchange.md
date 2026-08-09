@@ -1,13 +1,17 @@
 # Cross-harness interchange
 
-A **cross-harness interchange envelope** lets an artifact produced under one
-harness be consumed under another (a different agent runtime, a CI bot, a human
-tool) without loss. It is a self-describing wrapper: what kind of artifact it
+A **cross-harness interchange envelope** is a packaged file format intended for
+an artifact passed to another agent runtime, CI bot, or human tool. It is a
+self-describing wrapper: what kind of artifact it
 carries, which schema and version validate it, its content type, an integrity
 hash, and the payload inline or by reference. This page also governs the
 **machine-readable event stream** (the append-only, line-oriented log of what
 happened during a run) because the stream is the interchange format for runtime
 history and reuses the existing JSONL contract.
+
+The schema, template, and standalone checks establish file-level portability
+only. No second live harness has been exercised, so live interchange behavior,
+state continuity, and lossless transfer remain unverified.
 
 This page is a scanned surface, not rule text. For the wording of any governed
 prose rule named below, open its cited `corpus_ref` module.
@@ -60,9 +64,9 @@ integrity.value`; `artifact_type` is in the catalog; `schema_id` resolves to a
 shipped schema, and if non-null the payload validates against it; for an event
 stream, every line parses, there is no wrapping array, timestamps are monotonic
 non-decreasing, and each `type` is core vocabulary or `x-` prefixed. Line
-failures are reported as `line N: <reason>`. **Cold-reader gate:** a receiver on
-another harness can validate the payload against the named schema with no
-out-of-band knowledge (the interoperability acceptance test).
+failures are reported as `line N: <reason>`. A receiver that implements the
+same packaged schema can perform the same closed check without repository-local
+state; that conditional file contract is not evidence of a live second harness.
 
 ## Lifecycle-ownership boundary
 

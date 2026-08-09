@@ -2,7 +2,7 @@
 
 This reference governs how STOW may describe its own output against the underlying controlled-technical writing standard. It is application guidance, not a restatement of any rule. For the normative text of a cited rule, open its `corpus_ref`.
 
-STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in v0.1**: the controlled dictionary, the approved terminology set, the official directives, and the full validation suite do not ship. Because those inputs are absent, STOW must never state that its output fully conforms to the controlled-technical writing standard on the basis of the rule set alone. The correct phrasing is that output is *guided by the controlled-technical rules*, with the unavailable checks named.
+STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in this release**: the controlled dictionary, the approved terminology set, the official directives, and the full validation suite do not ship. Because those inputs are absent, STOW must never state that its output fully conforms to the controlled-technical writing standard on the basis of the rule set alone. The correct phrasing is that output is *guided by the controlled-technical rules*, with the unavailable checks named.
 
 Each group below lists: the observable **Trigger**, the output **Region** it applies to, how STOW **Checks** it (or why the check is unavailable), and a `corpus_ref` **Reference** for the full rule text.
 
@@ -24,7 +24,7 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 
 - **Trigger:** surface features STOW can read directly: words per sentence, sentences per paragraph, length of a multi-word noun, presence of a semicolon, presence of a contraction or an omitted word, and the token-counting mechanics those measures rely on.
 - **Region:** procedural, descriptive, and all-prose regions; excludes code, structured data, quoted text, and identifiers.
-- **Check:** STOW measures these deterministically over the rendered prose and flags any item outside the bound the rule sets. Results support a guided assessment only. Passing them does not establish conformance, because the dictionary-dependent rules in Group 2 stay unverified.
+- **Check:** callable checks measure their declared observable properties over caller-supplied prose; other items remain review guidance. Results support a guided assessment only. Passing them does not establish conformance, because the dictionary-dependent rules in Group 2 stay unverified.
 - **Reference:** see corpus/procedures.md#STOW-PRC-001, corpus/procedures.md#STOW-PRC-005, corpus/descriptions.md#STOW-DSC-003, corpus/descriptions.md#STOW-DSC-006, corpus/multiword-nouns.md#STOW-MWN-001, corpus/punctuation.md#STOW-PCT-001, corpus/punctuation.md#STOW-PCT-004, corpus/punctuation.md#STOW-PCT-006, corpus/sentences.md#STOW-SEN-002.
 
 ## 4. Grammar and construction checks: PARTIAL (best-effort, guided)

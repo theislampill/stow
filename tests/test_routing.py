@@ -134,6 +134,17 @@ def test_contextual_prose_quality_route_is_profile_neutral():
     assert route["profile"] is None
 
 
+def test_canonical_term_map_route_is_cold_and_uses_its_validator():
+    route = next(
+        route for route in ROUTES
+        if route["mode"] == "canonical-term-map")
+    assert route["predicate"] == "explicit canonical-term map"
+    assert route["references"] == ["references/canonical-terms.md"]
+    assert route["profile"] is None
+    assert route["corpus"] is None
+    assert route["validator"] == "python runtime/validate_terms.py"
+
+
 # --------------------------------------------------------------------------- #
 # Gate (a) -- section-5 reference paths and routing references agree both ways
 # --------------------------------------------------------------------------- #

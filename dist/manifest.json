@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "9c96061db201d1bc80f1d5d3100b7b67a8bdc5785fcaf8540c3b17268140ad73",
+  "artifact_sha256": "4a789270397fd476cd6539aa61c63e3e475f1462cd4429f7694f98a8207a7ba1",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -29,6 +29,7 @@
     "stow/references/ai-writing-detection.md",
     "stow/references/always-on.md",
     "stow/references/audit-and-evidence.md",
+    "stow/references/canonical-terms.md",
     "stow/references/conformance.md",
     "stow/references/continuity-and-state.md",
     "stow/references/controlled-technical-writing.md",
@@ -59,6 +60,7 @@
     "stow/runtime/profiles.py",
     "stow/runtime/query_rules.py",
     "stow/runtime/validate.py",
+    "stow/runtime/validate_terms.py",
     "stow/schemas/event.schema.json",
     "stow/schemas/evidence-record.schema.json",
     "stow/schemas/handoff.schema.json",
@@ -75,6 +77,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 72,
+  "entry_count": 74,
   "version": "0.3.6"
 }

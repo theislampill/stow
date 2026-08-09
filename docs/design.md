@@ -145,8 +145,8 @@ figure also fits under its exact figure.
 
 | Always-resident path | Exact tokenizer | Conservative fallback |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1053 | 1446 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 1872 | 2571 |
+| Kernel alone (`SKILL.md`) | 1066 | 1464 |
+| Ordinary prose turn (kernel + `references/always-on.md`) | 1885 | 2589 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and

@@ -67,6 +67,8 @@ NATIVE_ARCH_REFS = frozenset({
     "format-markdown.md",
     # Profile architecture description; carries no rule content of its own.
     "technical-clarity.md",
+    # Closed-map term validation is STOW-native runtime architecture.
+    "canonical-terms.md",
 })
 
 # The exact greppable kernel line that forbids eager reference/corpus loading.

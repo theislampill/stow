@@ -100,6 +100,14 @@ routes:
     corpus: null
     validator: python runtime/lint_prose.py
 
+  - mode: canonical-term-map
+    predicate: "explicit canonical-term map"
+    references:
+      - references/canonical-terms.md
+    profile: null
+    corpus: null
+    validator: python runtime/validate_terms.py
+
   - mode: protected-regions
     predicate: "mixed prose and literals"
     references:

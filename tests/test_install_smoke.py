@@ -10,7 +10,7 @@ The gate proves four end-to-end properties of a fresh install:
 * SHAPE     -- the artifact extracts to a single top-level ``stow/`` root.
 * FIDELITY  -- the installed bytes equal the source bytes (the build's only text
                transform is LF normalisation) for SKILL.md, a corpus module, and
-               both runtime modules.
+               representative runtime modules.
 * CLOSURE   -- each shipped ``runtime/*.py`` runs in a subprocess whose
                ``sys.path`` is the extracted tree only (the repo root is asserted
                absent), driving its real CLI to a sane exit.
@@ -138,6 +138,7 @@ def test_installed_bytes_equal_source_bytes(installed):
         "stow/SKILL.md",
         _sample_corpus_arcname(installed.names),
         "stow/runtime/validate.py",
+        "stow/runtime/validate_terms.py",
         "stow/runtime/lint_prose.py",
     ]
     for arcname in sample_arcnames:
@@ -209,12 +210,25 @@ def test_every_runtime_module_runs_import_closed(installed):
     # Each shipped runtime module is driven through its real CLI on inputs that
     # themselves shipped in the artifact. A module with no drive entry is a new,
     # un-smoke-tested runtime surface and fails here by KeyError.
+    term_map = installed.inputs("terms.json")
+    term_segments = installed.inputs("segments.json")
+    _write(term_map, (
+        '{"schema_version":1,"case_sensitive":true,"entries":['
+        '{"canonical":"preferred term","forbidden_variants":"legacy term",'
+        '"match":"literal"}]}\n'))
+    _write(term_segments, (
+        '{"schema_version":1,"segments":['
+        '{"kind":"editable","text":"Use preferred term."}]}\n'))
+
     drives = {
         "query_rules.py": (
             ["STOW-ACT-001"], 0, "STOW-ACT-001"),
         "validate.py": (
             ["--format", "yaml", installed.path("stow", "rules", "registry.yaml")],
             0, "VALID"),
+        "validate_terms.py": (
+            ["--map", term_map, "--segments", term_segments],
+            0, "COMPLIANT"),
         "lint_prose.py": (
             [installed.path("stow", "SKILL.md")],
             0, "lint_prose"),
@@ -259,3 +273,22 @@ def test_installed_validator_rejects_a_malformed_file(installed):
         ["--format", "json", bad])
     assert proc.returncode == 1, proc.stdout + proc.stderr
     assert "INVALID" in proc.stderr
+
+
+def test_installed_term_validator_rejects_a_forbidden_variant(installed):
+    term_map = installed.inputs("decision-terms.json")
+    term_segments = installed.inputs("decision-segments.json")
+    _write(term_map, (
+        '{"schema_version":1,"case_sensitive":true,"entries":['
+        '{"canonical":"preferred term","forbidden_variants":"legacy term",'
+        '"match":"literal"}]}\n'))
+    _write(term_segments, (
+        '{"schema_version":1,"segments":['
+        '{"kind":"editable","text":"Use legacy term."}]}\n'))
+
+    proc = _run_closed(
+        installed, ("stow", "runtime", "validate_terms.py"),
+        ["--map", term_map, "--segments", term_segments])
+
+    assert proc.returncode == 1, proc.stdout + proc.stderr
+    assert '"status":"NONCOMPLIANT"' in proc.stdout

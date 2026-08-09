@@ -36,6 +36,7 @@ classes:
       - skills/stow/references/agent-handoffs.md
       - skills/stow/references/ai-writing-detection.md
       - skills/stow/references/audit-and-evidence.md
+      - skills/stow/references/canonical-terms.md
       - skills/stow/references/conformance.md
       - skills/stow/references/continuity-and-state.md
       - skills/stow/references/controlled-technical-writing.md
@@ -99,9 +100,10 @@ classes:
       - skills/stow/rules/routing.yaml
 
   runtime-code:
-    description: "The shipped runtime allowlist: validator, linter, profile resolver, rule lookup helper."
+    description: "The shipped runtime allowlist: validators, linter, profile resolver, rule lookup helper."
     checks:
       - tests/test_structured_output.py
+      - tests/test_validate_terms.py
       - tests/test_lint_prose.py
       - tests/test_profiles.py
       - tests/test_query_rules.py
@@ -110,6 +112,7 @@ classes:
       - skills/stow/runtime/query_rules.py
       - skills/stow/runtime/profiles.py
       - skills/stow/runtime/validate.py
+      - skills/stow/runtime/validate_terms.py
 
   schema:
     description: "JSON Schemas for meta-code artifacts and the output contract."

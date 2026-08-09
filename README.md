@@ -109,28 +109,28 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-PRO-001` | Ban the em dash | editable prose under every profile; exception: under the controlled profile the semicolon is also banned; use a period, comma, colon, or two sentences | Callable |
+| `STOW-PRO-001` | Use em dashes only under an explicit style contract | an explicit style contract governs punctuation; exception: a deliberate house style that permits em dashes remains permitted | Callable |
 | `STOW-PRO-002` | Require attributable numbers | any numeric claim; exception: no attributable source: omit the number rather than invent one | Review-fallback |
 | `STOW-PRO-003` | No parentheticals in headings | Section headings | Planned |
 | `STOW-PRO-004` | No empty intensifiers | All prose (always on) | Callable |
 | `STOW-PRO-005` | End claims on a concrete detail | factual claims in editable prose; exception: a conceptual definition satisfies this with a precise, checkable statement | Review-fallback |
-| `STOW-PRO-006` | No repeated points | All prose (always on) | Review-fallback |
+| `STOW-PRO-006` | Functionless semantic repetition | a later statement repeats an earlier meaning without adding function; exception: functional repetition for correction, safety, navigation, emphasis, or stable terminology remains permitted | Review-fallback |
 | `STOW-PRO-007` | Vary structure | several consecutive blocks share one layout; exception: never vary above a length cap or across recurring terminology | Planned |
 | `STOW-PRO-008` | Reference without narrating | All prose (always on) | Planned |
 | `STOW-PRO-009` | No urgency without a reason | All prose (always on) | Review-fallback |
 | `STOW-PRO-010` | No scare quotes on ordinary words | All prose (always on) | Callable |
 | `STOW-PRO-011` | No filler phrases | All prose (always on) | Callable |
-| `STOW-PRO-012` | Ban the whether-you-are opener | All prose (always on) | Callable |
-| `STOW-PRO-013` | Write like a researcher | the default register; exception: an explicitly requested casual or creative voice governs; facts stay real | Review-fallback |
-| `STOW-PRO-014` | No synthetic enthusiasm | All prose (always on) | Planned |
-| `STOW-PRO-015` | No weasel words | All prose (always on) | Callable |
+| `STOW-PRO-012` | Generic audience framing | generic audience framing does not change the guidance; exception: an audience distinction that changes the advice remains permitted | Callable |
+| `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
+| `STOW-PRO-014` | Unearned enthusiasm | enthusiasm is not supported by the result or requested voice; exception: evidence-backed enthusiasm or an expressive requested voice remains permitted | Planned |
+| `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Callable |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
 | `STOW-PRO-017` | No fabricated scenarios | All prose (always on) | Review-fallback |
 | `STOW-PRO-018` | No fabricated history | All prose (always on) | Review-fallback |
 | `STOW-PRO-019` | No fabricated attributions | All prose (always on) | Review-fallback |
-| `STOW-PRO-020` | No AI transition phrases | All prose (always on) | Callable |
-| `STOW-PRO-021` | No AI verbs | All prose (always on) | Callable |
-| `STOW-PRO-022` | No academic AI tells | All prose (always on) | Callable |
+| `STOW-PRO-020` | Review formulaic transitions | a listed transition may be formulaic in its sentence context; exception: ordinary connectors with a clear discourse function remain permitted | Callable |
+| `STOW-PRO-021` | Prefer verbs that name the exact action | a matched verb does not name the exact action in context; exception: ordinary technical, financial, literal, and established domain uses remain permitted | Callable |
+| `STOW-PRO-022` | Review stock academic phrasing | a listed phrase may obscure the claim it introduces; exception: established academic phrasing with a clear function remains permitted | Callable |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
 | `STOW-PRO-024` | No research-process narration | process diary that changes no conclusion; exception: a limitation or failed verification that changes the answer is disclosed in one clause | Review-fallback |
 

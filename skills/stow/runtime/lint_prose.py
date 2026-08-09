@@ -401,23 +401,23 @@ IMPLEMENTED_VALIDATORS = frozenset({
 
 _BUCKET_CHECKS = (
     ("verbs", "ai-verb", "STOW-PRO-021",
-     "overused verb %r; use the plain equivalent"),
+     "matched verb %r; review whether it names the exact action in context"),
     ("transitions", "ai-transition", "STOW-PRO-020",
-     "transition phrase %r; join the sentences or cut the connector"),
+     "matched transition %r; review whether it serves a clear discourse function"),
     ("filler", "filler-phrase", "STOW-PRO-011",
-     "filler phrase %r; delete it and start on the point"),
+     "matched filler phrase %r; review whether it adds information"),
     ("intensifiers", "intensifier", "STOW-PRO-004",
-     "empty intensifier %r; prove it with a fact or cut it"),
+     "matched intensifier %r; review whether a stated fact supports it"),
     ("academic", "academic-tell", "STOW-PRO-022",
-     "academic tell %r; use the plain equivalent"),
+     "matched stock phrase %r; review its function in context"),
     ("structural", "whether-youre-opener", "STOW-PRO-012",
-     "banned opener %r; state the point directly"),
+     "matched audience opener %r; review whether the distinction changes the guidance"),
     ("hedge_phrases", "weasel-phrase", "STOW-PRO-015",
-     "hedging phrase %r; either it does or it does not"),
+     "matched uncertainty phrase %r; review whether evidence requires it"),
     ("adjectives", "overused-adjective", None,
-     "overused adjective %r; use a specific alternative"),
+     "matched adjective %r; review whether evidence supports the evaluation"),
     ("metaphors", "metaphorical-noun", None,
-     "noun %r reads as metaphor here; a literal use is fine"),
+     "matched noun %r; review whether its use is literal or informative"),
 )
 
 
@@ -597,7 +597,7 @@ def check_hedging(text, tables):
             words = ", ".join(sorted({h.group(0).lower() for h in hits}))
             out.append(Advisory(
                 lineno, hits[0].start() + 1, "hedging",
-                "hedging cluster (%s); consider stating the point plainly"
+                "uncertainty cluster (%s); review whether each qualifier is evidence-grounded"
                 % words, rule_id="STOW-PRO-015"))
     return out
 
@@ -606,8 +606,8 @@ def check_punctuation(text, profile_record):
     """(b) PUNCTUATION / STRUCTURE.
 
     ``profile_record`` is a resolved profile record; each profile-gated check
-    asks the resolver whether it is active. The em-dash and scare-quote checks
-    are always-on and never gated.
+    asks the resolver whether it is active. The em-dash and scare-quote
+    detectors are profile-independent advisories.
     """
     protected = mask_protected(text)
     prose = mask_prose(text)
@@ -615,7 +615,7 @@ def check_punctuation(text, profile_record):
 
     out.extend(_scan(
         _EM_DASH_RE, protected, "em-dash", "STOW-PRO-001",
-        "em-dash (U+2014); consider a comma, colon, parentheses, or a rewrite"))
+        "em-dash (U+2014); review punctuation against the applicable style contract"))
 
     if profiles.check_active("semicolon", profile_record):
         out.extend(_scan(

@@ -6,8 +6,8 @@ pin, in both directions:
 
   * the resolver's shape and semantics (ids, aliases, lock, precedence);
   * the target behavior matrix for every profile-gated check;
-  * scope fidelity: every CALLABLE registry record that is not always-on is
-    silent outside its owning profile (the leakage class this pass removed);
+  * scope fidelity: controlled-profile callable records stay within that
+    profile, while contextual advisory matchers remain profile-independent;
   * predicate drift: the resolver's controlled include set equals the set of
     registry records whose activation predicate names the controlled profile.
 
@@ -189,7 +189,8 @@ def test_raw_structured_artifact_is_never_prose_linted():
 
 
 # --------------------------------------------------------------------------- #
-# Scope fidelity -- callable but not always-on => silent outside its profile
+# Scope fidelity -- controlled-profile checks stay gated; contextual advisory
+# matchers remain callable without joining the ordinary generation selector.
 # --------------------------------------------------------------------------- #
 
 # Tripping fixture per profile-gated CALLABLE validator. A new callable,
@@ -206,10 +207,10 @@ def _gated_callable_records():
     out = []
     for record in RECORDS:
         enforcement = record.get("enforcement", {})
-        activation = record.get("activation", {})
         if enforcement.get("status") != "callable":
             continue
-        if activation.get("always_on_for_prose"):
+        predicate = (record.get("activation", {}).get("predicate") or "")
+        if not predicate.startswith(CONTROLLED_PREDICATE_PREFIX):
             continue
         out.append(record)
     return out
@@ -236,6 +237,24 @@ def test_no_profile_leakage_for_gated_callable_checks(validator):
     found = [a for a in lint_prose.lint(text, profile=GUIDED, tables=TABLES)
              if a.rule == rule]
     assert found, "%s did not fire under its owning profile" % validator
+
+
+CONTEXTUAL_ADVISORY_FIXTURES = {
+    "no-em-dash": (EM_DASH, "em-dash"),
+    "no-ai-transitions": ("Moreover, the cache is cold.", "ai-transition"),
+    "no-ai-verbs": ("The fund's leverage ratio changed.", "ai-verb"),
+    "no-academic-tells": ("Run the flush prior to restart.", "academic-tell"),
+}
+
+
+@pytest.mark.parametrize("validator", sorted(CONTEXTUAL_ADVISORY_FIXTURES))
+def test_contextual_advisory_matchers_remain_callable_across_profiles(validator):
+    text, rule = CONTEXTUAL_ADVISORY_FIXTURES[validator]
+    for profile in (DEFAULT, CLARITY, GUIDED):
+        found = [a for a in lint_prose.lint(text, profile=profile, tables=TABLES)
+                 if a.rule == rule]
+        assert found, "%s missing under %s" % (validator, profile)
+        assert all("review" in advisory.message for advisory in found)
 
 
 # --------------------------------------------------------------------------- #

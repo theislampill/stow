@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "04cd2ddd64177caaee71883f29bbbf4477ee8be73dbb50a1b57b4b12768912f4",
+  "artifact_sha256": "815b13e26191de292421227feefef67f06e10433e5491a219e14b90138397124",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -34,6 +34,7 @@
     "stow/references/controlled-technical-writing.md",
     "stow/references/cross-harness-interchange.md",
     "stow/references/descriptions.md",
+    "stow/references/descriptive-prose.md",
     "stow/references/format-json.md",
     "stow/references/format-jsonl.md",
     "stow/references/format-markdown.md",
@@ -74,6 +75,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 71,
+  "entry_count": 72,
   "version": "0.3.6"
 }

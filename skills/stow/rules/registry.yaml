@@ -2712,7 +2712,7 @@ records:
     ordinal: '1'
     record_class: primary
     category: prose-integrity
-    title: Ban the em dash
+    title: Use em dashes only under an explicit style contract
     wording:
       baseline_kind: verbatim
       baseline_text: "**No emdashes.** The character is banned. Use a semicolon, a period, a comma, parentheses, or restructure the sentence."
@@ -2734,9 +2734,9 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
-      applicability: "editable prose under every profile"
-      exception: "under the controlled profile the semicolon is also banned; use a period, comma, colon, or two sentences"
+      always_on_for_prose: false
+      applicability: an explicit style contract governs punctuation
+      exception: a deliberate house style that permits em dashes remains permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -2908,7 +2908,7 @@ records:
     ordinal: '6'
     record_class: primary
     category: prose-integrity
-    title: No repeated points
+    title: Functionless semantic repetition
     wording:
       baseline_kind: verbatim
       baseline_text: "**No repeated talking points.** Say it once. Duplicates are padding."
@@ -2931,6 +2931,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
+      applicability: a later statement repeats an earlier meaning without adding function
+      exception: functional repetition for correction, safety, navigation, emphasis, or stable terminology remains permitted
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -3140,7 +3142,7 @@ records:
     ordinal: '12'
     record_class: primary
     category: prose-integrity
-    title: Ban the whether-you-are opener
+    title: Generic audience framing
     wording:
       baseline_kind: verbatim
       baseline_text: "**Never start a sentence with \"Whether you're.\"**"
@@ -3163,6 +3165,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
+      applicability: generic audience framing does not change the guidance
+      exception: an audience distinction that changes the advice remains permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -3177,7 +3181,7 @@ records:
     ordinal: '13'
     record_class: primary
     category: prose-integrity
-    title: Write like a researcher
+    title: Evidence-grounded requested voice
     wording:
       baseline_kind: verbatim
       baseline_text: "**Write like a researcher, not a copywriter.** Direct, specific, well-grounded. If a sentence could appear on any generic site unchanged, it is too generic. Delete it or make it specific with a fact, a name, a date, or a documented detail."
@@ -3200,8 +3204,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
-      applicability: "the default register"
-      exception: "an explicitly requested casual or creative voice governs; facts stay real"
+      applicability: the response uses the default or explicitly requested voice
+      exception: the requested voice governs while factual claims remain evidence-grounded
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -3216,7 +3220,7 @@ records:
     ordinal: '14'
     record_class: primary
     category: prose-integrity
-    title: No synthetic enthusiasm
+    title: Unearned enthusiasm
     wording:
       baseline_kind: verbatim
       baseline_text: "**No synthetic enthusiasm.** Do not add exclamation marks or cheerleading. State the facts. The evidence carries the weight."
@@ -3239,6 +3243,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
+      applicability: enthusiasm is not supported by the result or requested voice
+      exception: evidence-backed enthusiasm or an expressive requested voice remains permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -3253,7 +3259,7 @@ records:
     ordinal: '15'
     record_class: primary
     category: prose-integrity
-    title: No weasel words
+    title: Grounded uncertainty
     wording:
       baseline_kind: verbatim
       baseline_text: "**No weasel words.** \"Helps ensure\", \"may be able to\", \"can potentially\"; either it does or it does not. Commit or cut."
@@ -3276,6 +3282,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
+      applicability: uncertainty appears without an evidence boundary
+      exception: justified uncertainty and bounded capability statements remain permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -3440,7 +3448,7 @@ records:
     ordinal: '20'
     record_class: primary
     category: prose-integrity
-    title: No AI transition phrases
+    title: Review formulaic transitions
     wording:
       baseline_kind: verbatim
       baseline_text: "**No AI transition phrases.** Banned: \"Furthermore\", \"Moreover\", \"Notwithstanding\", \"That being said\", \"At its core\", \"In essence\", \"It is worth noting that\", \"In the landscape of\", \"To put it simply.\" Use plain connectors: also, and, but, however, still."
@@ -3462,7 +3470,9 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      always_on_for_prose: false
+      applicability: a listed transition may be formulaic in its sentence context
+      exception: ordinary connectors with a clear discourse function remain permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -3477,7 +3487,7 @@ records:
     ordinal: '21'
     record_class: primary
     category: prose-integrity
-    title: No AI verbs
+    title: Prefer verbs that name the exact action
     wording:
       baseline_kind: verbatim
       baseline_text: "**No AI verbs.** Banned: delve, leverage, utilize, facilitate, foster, bolster, underscore, unveil, navigate (metaphorical), streamline, endeavour, ascertain, elucidate. Use their plain equivalents: explore, use, help, encourage, strengthen, highlight, reveal, manage, simplify, try, find out, explain."
@@ -3499,7 +3509,9 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      always_on_for_prose: false
+      applicability: a matched verb does not name the exact action in context
+      exception: ordinary technical, financial, literal, and established domain uses remain permitted
     precedence: presentation
     enforcement:
       kind: deterministic
@@ -3518,7 +3530,7 @@ records:
     ordinal: '22'
     record_class: primary
     category: prose-integrity
-    title: No academic AI tells
+    title: Review stock academic phrasing
     wording:
       baseline_kind: verbatim
       baseline_text: "**No academic AI tells.** Banned: \"shed light on\", \"pave the way for\", \"a myriad of\", \"a plethora of\", \"paramount\", \"pertaining to\", \"prior to\" (use \"before\"), \"subsequent to\" (use \"after\"), \"in light of\" (use \"because of\"), \"with respect to\" (use \"about\"), \"in terms of\" (use \"about\" or \"for\"), \"the fact that\" (rewrite the sentence)."
@@ -3540,7 +3552,9 @@ records:
     activation:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      always_on_for_prose: false
+      applicability: a listed phrase may obscure the claim it introduces
+      exception: established academic phrasing with a clear function remains permitted
     precedence: presentation
     enforcement:
       kind: deterministic

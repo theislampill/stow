@@ -80,27 +80,27 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-ACT-009 | Bound action lists to five items | action-shaping | presentation |
 | STOW-ACT-010 | No preamble, recap, or sign-off | action-shaping | presentation |
 | STOW-ACT-011 | Lists, not tables, for action sequences | action-shaping | presentation |
-| STOW-PRO-001 | Ban the em dash | prose-integrity | presentation |
+| STOW-PRO-001 | Use em dashes only under an explicit style contract | prose-integrity | presentation |
 | STOW-PRO-002 | Require attributable numbers | prose-integrity | presentation |
 | STOW-PRO-003 | No parentheticals in headings | prose-integrity | presentation |
 | STOW-PRO-004 | No empty intensifiers | prose-integrity | presentation |
 | STOW-PRO-005 | End claims on a concrete detail | prose-integrity | presentation |
-| STOW-PRO-006 | No repeated points | prose-integrity | presentation |
+| STOW-PRO-006 | Functionless semantic repetition | prose-integrity | presentation |
 | STOW-PRO-007 | Vary structure | prose-integrity | presentation |
 | STOW-PRO-008 | Reference without narrating | prose-integrity | presentation |
 | STOW-PRO-009 | No urgency without a reason | prose-integrity | presentation |
 | STOW-PRO-010 | No scare quotes on ordinary words | prose-integrity | presentation |
 | STOW-PRO-011 | No filler phrases | prose-integrity | presentation |
-| STOW-PRO-012 | Ban the whether-you-are opener | prose-integrity | presentation |
-| STOW-PRO-013 | Write like a researcher | prose-integrity | presentation |
-| STOW-PRO-014 | No synthetic enthusiasm | prose-integrity | presentation |
-| STOW-PRO-015 | No weasel words | prose-integrity | presentation |
+| STOW-PRO-012 | Generic audience framing | prose-integrity | presentation |
+| STOW-PRO-013 | Evidence-grounded requested voice | prose-integrity | presentation |
+| STOW-PRO-014 | Unearned enthusiasm | prose-integrity | presentation |
+| STOW-PRO-015 | Grounded uncertainty | prose-integrity | presentation |
 | STOW-PRO-016 | Concrete, descriptive headings | prose-integrity | presentation |
 | STOW-PRO-017 | No fabricated scenarios | prose-integrity | presentation |
 | STOW-PRO-018 | No fabricated history | prose-integrity | presentation |
 | STOW-PRO-019 | No fabricated attributions | prose-integrity | presentation |
-| STOW-PRO-020 | No AI transition phrases | prose-integrity | presentation |
-| STOW-PRO-021 | No AI verbs | prose-integrity | presentation |
-| STOW-PRO-022 | No academic AI tells | prose-integrity | presentation |
+| STOW-PRO-020 | Review formulaic transitions | prose-integrity | presentation |
+| STOW-PRO-021 | Prefer verbs that name the exact action | prose-integrity | presentation |
+| STOW-PRO-022 | Review stock academic phrasing | prose-integrity | presentation |
 | STOW-PRO-023 | Quote sources accurately | prose-integrity | presentation |
 | STOW-PRO-024 | No research-process narration | prose-integrity | presentation |

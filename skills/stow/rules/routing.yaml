@@ -132,6 +132,14 @@ routes:
     corpus: null
     validator: null
 
+  - mode: descriptive-prose-review
+    predicate: "contextual prose-quality review"
+    references:
+      - references/descriptive-prose.md
+    profile: stow-default
+    corpus: null
+    validator: python runtime/lint_prose.py
+
   - mode: precedence-and-region
     predicate: "precedence or region question"
     references:

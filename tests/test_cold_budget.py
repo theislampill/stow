@@ -30,7 +30,7 @@ DESIGN = os.path.join(REPO, "docs", "design.md")
 # caps mirror test_always_on.py's fallback-mode caps.
 KERNEL_CEILING = 1500
 ALWAYS_ON_EST_CAP = 1750
-ORDINARY_EST_CAP = 3100
+ORDINARY_EST_CAP = 3026
 
 
 def _load_measure():

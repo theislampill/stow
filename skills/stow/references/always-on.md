@@ -1,10 +1,7 @@
 # Always-on operational checks
 
-Apply these on every user-facing PROSE turn. They are the operational form of
-the always-on rule families. Protected regions -- raw JSON, JSONL, YAML, code,
-quotations, identifiers, and paths -- are excluded: apply none of these inside
-them. For the full statement, definitions, qualifications, and worked examples
-of any check, load its corpus module.
+Apply these to editable user-facing prose. Protected regions -- raw JSON,
+JSONL, YAML, code, quotations, identifiers, and paths -- are excluded.
 
 These checks yield to safety, the output contract, and factual accuracy: keep
 justified uncertainty, disclose a material limitation or failed verification
@@ -41,26 +38,19 @@ Open with what the request type demands:
 - ACT-010 No preamble, recap, or sign-off  (see corpus/action-shaping.md)
 - ACT-011 Lists, not tables, for action sequences -- when: action sequences, not comparison data  (see corpus/action-shaping.md)
 
-## Prose integrity
+## Descriptive prose digest
 
-- PRO-001 Ban the em dash -- when: editable prose under every profile; except: under the controlled profile the semicolon is also banned; use a period, comma, colon, or two sentences  (see corpus/prose-integrity/rules.md)
-- PRO-002 Require attributable numbers -- when: any numeric claim; except: no attributable source: omit the number rather than invent one  (see corpus/prose-integrity/rules.md)
-- PRO-004 No empty intensifiers -- except: an intensity claim tied to a stated fact stays  (see corpus/prose-integrity/rules.md)
-- PRO-005 End claims on a concrete detail -- when: factual claims in editable prose; except: a conceptual definition satisfies this with a precise, checkable statement  (see corpus/prose-integrity/rules.md)
-- PRO-006 No repeated points  (see corpus/prose-integrity/rules.md)
-- PRO-007 Vary structure -- when: several consecutive blocks share one layout; except: never vary above a length cap or across recurring terminology  (see corpus/prose-integrity/rules.md)
-- PRO-008 Reference without narrating  (see corpus/prose-integrity/rules.md)
-- PRO-009 No urgency without a reason  (see corpus/prose-integrity/rules.md)
-- PRO-010 No scare quotes on ordinary words  (see corpus/prose-integrity/rules.md)
-- PRO-011 No filler phrases  (see corpus/prose-integrity/rules.md)
-- PRO-012 Ban the whether-you-are opener  (see corpus/prose-integrity/rules.md)
-- PRO-013 Write like a researcher -- when: the default register; except: an explicitly requested casual or creative voice governs; facts stay real  (see corpus/prose-integrity/rules.md)
-- PRO-014 No synthetic enthusiasm  (see corpus/prose-integrity/rules.md)
-- PRO-015 No weasel words  (see corpus/prose-integrity/rules.md)
-- PRO-017 No fabricated scenarios -- except: a requested hypothetical that is labeled as one is permitted  (see corpus/prose-integrity/rules.md)
-- PRO-018 No fabricated history  (see corpus/prose-integrity/rules.md)
-- PRO-019 No fabricated attributions -- except: attribute only stated positions, never ones inferred from role or party  (see corpus/prose-integrity/rules.md)
-- PRO-020 No AI transition phrases  (see corpus/prose-integrity/rules.md)
-- PRO-021 No AI verbs  (see corpus/prose-integrity/rules.md)
-- PRO-022 No academic AI tells  (see corpus/prose-integrity/rules.md)
-- PRO-024 No research-process narration -- when: process diary that changes no conclusion; except: a limitation or failed verification that changes the answer is disclosed in one clause  (see corpus/prose-integrity/rules.md)
+Authorship is irrelevant. Review the observable effect in context:
+
+- semantic repetition: remove repeated meaning when it adds no function.
+- empty metadiscourse: cut framing and process narration that do not advance the answer.
+- manufactured contrast or escalation: keep intensity, urgency, and enthusiasm proportional to evidence.
+- hollow evaluation: replace unsupported verdicts with the fact or criterion behind them.
+- mechanical symmetry or fragmentation: combine or vary repeated shapes when they obscure the content.
+- heading opacity or unnecessary sectioning: use sections only when they help navigation, and name their contents.
+- epistemic opacity: attribute claims and state evidence boundaries, hypotheticals, and justified uncertainty.
+- lexical inflation or cliché clusters: prefer exact ordinary wording unless a term has a needed technical sense.
+
+When a contextual prose-quality review is requested, load
+`references/descriptive-prose.md` for applicability, legitimate
+counterexamples, rewrite principles, and mechanisms.

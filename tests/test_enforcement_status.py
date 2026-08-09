@@ -81,9 +81,8 @@ def _domain(rid):
     return rid.split("-")[1]
 
 
-def _selector_always_on(rec):
-    """The activation selector: always-user-facing OR the unconditional-prose
-    predicate. Sub-region-gated conditional predicates are excluded."""
+def _predicate_candidate(rec):
+    """Records the earlier predicate-only selector would have included."""
     act = rec["activation"]
     if act["kind"] == "always-user-facing":
         return True
@@ -182,18 +181,18 @@ def test_every_record_has_always_on_flag_boolean():
         assert isinstance(val, bool), "%s -> %r" % (r["id"], val)
 
 
-def test_always_on_flag_matches_selector():
-    for r in RECORDS:
-        assert r["activation"]["always_on_for_prose"] is _selector_always_on(r), \
-            r["id"]
-
-
-def test_always_on_count_matches_selector():
+def test_always_on_flag_matches_selector_with_contextual_advisory_exclusions():
     flagged = {r["id"] for r in RECORDS if r["activation"]["always_on_for_prose"]}
-    selected = {r["id"] for r in RECORDS if _selector_always_on(r)}
-    assert flagged == selected
-    # 11 always-user-facing (ACT) + 21 unconditional-prose (PRO) = 32.
-    assert len(flagged) == 32
+    candidates = {r["id"] for r in RECORDS if _predicate_candidate(r)}
+    contextual_advisories = {
+        "STOW-PRO-001", "STOW-PRO-020", "STOW-PRO-021", "STOW-PRO-022",
+    }
+    assert candidates - flagged == contextual_advisories
+    assert flagged - candidates == set()
+
+
+def test_always_on_selector_keeps_universal_and_subregion_boundaries():
+    flagged = {r["id"] for r in RECORDS if r["activation"]["always_on_for_prose"]}
     # every always-user-facing record is always-on-for-prose
     for r in RECORDS:
         if r["activation"]["kind"] == "always-user-facing":

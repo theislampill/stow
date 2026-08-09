@@ -97,14 +97,21 @@ def test_act_001_membership_all_three_profiles():
     assert "controlled-technical-guided" in section
 
 
-def test_pro_001_membership_all_three_profiles():
-    """An always-on prose-integrity rule joins every prose-selector profile,
-    through the selector, not a category prefix (PRO is not a prefix selector)."""
-    _code, out, _err = _run("STOW-PRO-001")
+def test_pro_006_membership_all_three_profiles():
+    """An active prose rule joins every prose-selector profile."""
+    _code, out, _err = _run("STOW-PRO-006")
     section = _profiles_section(out)
     assert "stow-default" in section
     assert "technical-clarity" in section
     assert "controlled-technical-guided" in section
+
+
+def test_pro_001_is_a_contextual_advisory_not_profile_membership():
+    """A callable matcher can remain available without joining the hot path."""
+    _code, out, _err = _run("STOW-PRO-001")
+    assert _profiles_section(out).strip() == "none"
+    assert "enforcement status: callable" in out
+    assert "explicit style contract" in out
 
 
 def test_prc_001_membership_guided_only():

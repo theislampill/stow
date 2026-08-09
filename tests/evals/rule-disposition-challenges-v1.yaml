@@ -178,10 +178,10 @@ scenario_packs:
       be isolated, which is something that operators do in order to facilitate safe maintenance; note: don't alter
       `PV-17`, the blue colour mark, or \"OPEN SLOWLY\". After that, check it and record it and update the log,
       etc."
-    paired_negative_control: "If pressure is below 20 kPa, inspect the purge valve.\n\nDo these steps:\n\n1. Isolate
+    paired_negative_control: "If pressure is below 20 kPa, inspect the purge valve.\n\nSteps:\n\n1. Isolate
       control `PV-17`.\n2. Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN
       SLOWLY\".\n4. Record 20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance
-      log.\n\nNote: The high-pressure state (after isolation) remains in the record."
+      log.\n\nNote: The high-pressure state (the pressure is low) remains in the record."
     positive_coverage:
       - STOW-WRD-001
       - STOW-WRD-002
@@ -299,10 +299,6 @@ scenario_packs:
       - STOW-VRB-005
       - STOW-SEN-004
       - STOW-SEN-005
-      - STOW-PCT-004
-      - STOW-PCT-005
-      - STOW-PCT-006
-      - STOW-PCT-007
       - STOW-GEN-005
     required_observations:
       - Score pathology suppression in the edited pathology arm.
@@ -329,24 +325,22 @@ scenario_packs:
         - '`PV-17`'
         - '"OPEN SLOWLY"'
       approved_vocabulary:
-        - after
         - and
         - below
         - blue
         - color
         - confirm
         - control
-        - do
         - high-pressure
         - if
         - in
         - inspect
         - is
         - isolate
-        - isolation
         - kpa
         - label
         - log
+        - low
         - maintenance
         - mark
         - note
@@ -360,7 +354,6 @@ scenario_packs:
         - steps
         - that
         - the
-        - these
         - valve
         - visible
     word_count_contract:
@@ -379,8 +372,8 @@ scenario_packs:
           text: If pressure is below 20 kPa, inspect the purge valve.
           count: 10
         - id: list-lead
-          text: 'Do these steps:'
-          count: 3
+          text: 'Steps:'
+          count: 1
         - id: identifier
           text: Isolate control `PV-17`.
           count: 3
@@ -391,8 +384,30 @@ scenario_packs:
           text: Record 20, `PV-17`, "OPEN SLOWLY", and North Plant.
           count: 6
         - id: parenthetical-hyphenated
-          text: 'Note: The high-pressure state (after isolation) remains in the record.'
+          text: 'Note: The high-pressure state (the pressure is low) remains in the record.'
           count: 9
+    counting_observability:
+      pathology_arm:
+        expected_not_observable:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        reason: The rewrite request does not require the model to return its word-count calculation.
+      negative_control_arm:
+        deterministic_construction:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        false_positive_preservation:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        reason: The committed control and expected calculations provide a deterministic construction for
+          preservation scoring; they do not prove that a model performed the count.
+      model_output_semantic_count: NOT_OBSERVABLE_UNLESS_COUNT_REQUESTED_OR_RETURNED
   - id: BC-06
     name: Controlled system description
     task_prompt: Edit the system description so a maintainer can recover the subjects and relationships.

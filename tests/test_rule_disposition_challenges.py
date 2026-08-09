@@ -27,6 +27,12 @@ def challenge_errors(data):
     if not required_verbs <= set(authority.get("approved_action_verbs", [])):
         errors.append("negative-control action verb is outside the closed authority")
     controlled_text = pack["paired_negative_control"]
+    if "Steps:" not in controlled_text or "Do these steps:" in controlled_text:
+        errors.append("negative control uses an action-like list lead")
+    if "(the pressure is low)" not in controlled_text or "(after isolation)" in controlled_text:
+        errors.append("negative control uses a nominalized parenthetical")
+    if {"do", "isolation"} & set(authority.get("approved_vocabulary", [])):
+        errors.append("obsolete action or nominalization remains in the authority")
     for literal in authority.get("protected_literals", []):
         controlled_text = controlled_text.replace(literal, " ")
     for term in (authority.get("technical_terms", {}).get("site_name", ""),):
@@ -49,7 +55,7 @@ def challenge_errors(data):
     calculations = contract.get("expected_calculations", [])
     expected_counts = {
         "condition": 10,
-        "list-lead": 3,
+        "list-lead": 1,
         "identifier": 3,
         "quotation": 6,
         "atomic-classes": 6,
@@ -61,6 +67,19 @@ def challenge_errors(data):
     control = pack["paired_negative_control"]
     if any(item.get("text", "") not in control for item in calculations):
         errors.append("expected calculation is not present in the negative control")
+    counting_ids = {f"STOW-PCT-{number:03d}" for number in range(4, 8)}
+    observability = pack.get("counting_observability", {})
+    if set(pack["expected_not_observable"]) & counting_ids:
+        errors.append("counting observability is ambiguously pack-wide")
+    if set(observability.get("pathology_arm", {}).get("expected_not_observable", [])) != counting_ids:
+        errors.append("pathology arm counting boundary is incomplete")
+    negative = observability.get("negative_control_arm", {})
+    if set(negative.get("deterministic_construction", [])) != counting_ids:
+        errors.append("negative-control construction boundary is incomplete")
+    if set(negative.get("false_positive_preservation", [])) != counting_ids:
+        errors.append("negative-control preservation boundary is incomplete")
+    if observability.get("model_output_semantic_count") != "NOT_OBSERVABLE_UNLESS_COUNT_REQUESTED_OR_RETURNED":
+        errors.append("model-output counting limitation is not explicit")
     return errors
 
 
@@ -105,6 +124,11 @@ def test_controlled_negative_control_closes_authority_and_counting_contract():
     pack = next(pack for pack in bad_count["scenario_packs"] if pack["id"] == "BC-05")
     pack["word_count_contract"]["expected_calculations"][0]["count"] = 11
     assert challenge_errors(bad_count)
+
+    ambiguous_observability = copy.deepcopy(data)
+    pack = next(pack for pack in ambiguous_observability["scenario_packs"] if pack["id"] == "BC-05")
+    pack["counting_observability"]["negative_control_arm"]["deterministic_construction"].pop()
+    assert challenge_errors(ambiguous_observability)
 
 
 def test_prompts_do_not_reveal_the_evaluation_frame():

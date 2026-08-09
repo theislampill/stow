@@ -116,6 +116,72 @@ def test_valid_fixture_passes(schema_id):
 
 
 # --------------------------------------------------------------------------- #
+# Markdown schema-fence grammar
+# --------------------------------------------------------------------------- #
+
+@pytest.mark.parametrize("language", ["yaml", "YAML", "json", "JsOn"])
+def test_markdown_schema_fence_accepts_only_exact_case_insensitive_opener(language):
+    info, body = validate._extract_fenced_block(
+        "Before.\n  ```%s  \nkey: value\n  ```  \nAfter.\n" % language)
+    assert info == language.lower()
+    assert body == "key: value"
+
+
+@pytest.mark.parametrize("opener", ["``` yaml", "```yaml extra", "````yaml"])
+def test_markdown_schema_fence_rejects_nonexact_opener(opener):
+    with pytest.raises(ValueError):
+        validate._extract_fenced_block(
+            "%s\nkey: value\n%s\n" % (opener, "`" * (4 if opener.startswith("````") else 3)))
+
+
+def test_markdown_schema_fence_rejects_eof_before_exact_closer():
+    with pytest.raises(ValueError, match="clos|unterminated"):
+        validate._extract_fenced_block("```yaml\nkey: value\n")
+
+
+@pytest.mark.parametrize("false_closer", ["``` trailing", "````"])
+def test_markdown_schema_fence_rejects_nonexact_closer(false_closer):
+    with pytest.raises(ValueError):
+        validate._extract_fenced_block(
+            "```yaml\nkey: value\n%s\n" % false_closer)
+
+
+@pytest.mark.parametrize("nested_opener", ["```json", "~~~json"])
+def test_markdown_schema_fence_rejects_nested_info_fence(nested_opener):
+    with pytest.raises(ValueError, match="inside"):
+        validate._extract_fenced_block(
+            "```yaml\nkey: value\n%s\n{}\n```\n" % nested_opener)
+
+
+def test_markdown_schema_fence_rejects_multiple_schema_blocks():
+    with pytest.raises(ValueError, match="exactly one"):
+        validate._extract_fenced_block(
+            "```yaml\nkey: value\n```\n\n```json\n{}\n```\n")
+
+
+def test_markdown_schema_fence_allows_one_closed_unrelated_block():
+    info, body = validate._extract_fenced_block(
+        "```text\nnot schema data\n```\n\n```yaml\nkey: value\n```\n")
+    assert info == "yaml"
+    assert body == "key: value"
+
+
+def test_markdown_schema_fence_allows_longer_unrelated_closer():
+    info, body = validate._extract_fenced_block(
+        "```text\nnot schema data\n````\n\n```yaml\nkey: value\n```\n")
+    assert info == "yaml"
+    assert body == "key: value"
+
+
+@pytest.mark.parametrize("unclosed_opener", ["```python", "~~~python"])
+def test_markdown_schema_fence_rejects_unclosed_unrelated_block_after_schema(
+        unclosed_opener):
+    with pytest.raises(ValueError, match="unrelated|fenced block|unterminated"):
+        validate._extract_fenced_block(
+            "```yaml\nkey: value\n```\n\n%s\nprint('open')\n" % unclosed_opener)
+
+
+# --------------------------------------------------------------------------- #
 # Invalid instances fail schema validation (one mutation per schema)
 # --------------------------------------------------------------------------- #
 

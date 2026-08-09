@@ -82,6 +82,19 @@ def _term_list(value, label):
     return tuple(value)
 
 
+def _regex_flags(case_sensitive):
+    return 0 if case_sensitive else re.IGNORECASE
+
+
+def _terms_equivalent(first, second, case_sensitive):
+    """Use the scan regex semantics to compare two declared term owners."""
+    flags = _regex_flags(case_sensitive)
+    first_pattern = re.compile(re.escape(first), flags)
+    second_pattern = re.compile(re.escape(second), flags)
+    return (first_pattern.fullmatch(second) is not None
+            and second_pattern.fullmatch(first) is not None)
+
+
 def validate_map(value):
     """Validate and normalize a map object for scanning."""
     _require_exact_object(value, MAP_KEYS, "map")
@@ -92,7 +105,7 @@ def validate_map(value):
         raise InputError("map entries must be a nonempty list")
 
     case_sensitive = value["case_sensitive"]
-    seen = {}
+    seen = []
     normalized = []
     for index, entry in enumerate(value["entries"]):
         label = "map entry %d" % index
@@ -100,19 +113,20 @@ def validate_map(value):
         canonical_terms = _term_list(entry["canonical"], label + " canonical")
         variants = _term_list(
             entry["forbidden_variants"], label + " forbidden_variants")
-        if entry["match"] not in MATCH_KINDS:
+        if (not isinstance(entry["match"], str)
+                or entry["match"] not in MATCH_KINDS):
             raise InputError("%s match must be literal or token" % label)
 
         for role, terms in (("canonical", canonical_terms),
                             ("forbidden variant", variants)):
             for term in terms:
-                collision_key = term if case_sensitive else term.casefold()
-                if collision_key in seen:
-                    prior_role, prior_term = seen[collision_key]
-                    raise InputError(
-                        "map term collision between %s %r and %s %r"
-                        % (prior_role, prior_term, role, term))
-                seen[collision_key] = (role, term)
+                for prior_role, prior_term in seen:
+                    if _terms_equivalent(
+                            prior_term, term, case_sensitive):
+                        raise InputError(
+                            "map term collision between %s %r and %s %r"
+                            % (prior_role, prior_term, role, term))
+                seen.append((role, term))
 
         canonical = (entry["canonical"] if isinstance(entry["canonical"], str)
                      else list(canonical_terms))
@@ -137,7 +151,8 @@ def validate_segments(value):
     for index, segment in enumerate(segments):
         label = "candidate segment %d" % index
         _require_exact_object(segment, SEGMENT_KEYS, label)
-        if segment["kind"] not in SEGMENT_KINDS:
+        if (not isinstance(segment["kind"], str)
+                or segment["kind"] not in SEGMENT_KINDS):
             raise InputError("%s kind must be editable or protected" % label)
         if not isinstance(segment["text"], str):
             raise InputError("%s text must be a string" % label)
@@ -155,8 +170,7 @@ def _compile_variant(variant, match_kind, case_sensitive):
     expression = re.escape(variant)
     if match_kind == "token":
         expression = prefix + expression + suffix
-    flags = 0 if case_sensitive else re.IGNORECASE
-    return re.compile(expression, flags)
+    return re.compile(expression, _regex_flags(case_sensitive))
 
 
 def evaluate(mapping, candidate):
@@ -185,7 +199,7 @@ def evaluate(mapping, candidate):
     findings.sort(key=lambda item: (
         item["segment_index"], item["start"], item["end"],
         item["forbidden_variant"],
-        json.dumps(item["canonical"], ensure_ascii=False, sort_keys=True)))
+        json.dumps(item["canonical"], ensure_ascii=True, sort_keys=True)))
     status = "NONCOMPLIANT" if findings else "COMPLIANT"
     return {"status": status, "findings": findings}
 
@@ -199,7 +213,7 @@ def evaluate_files(map_path, segments_path):
 
 def _emit(result):
     sys.stdout.write(json.dumps(
-        result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+        result, ensure_ascii=True, sort_keys=True, separators=(",", ":")))
     sys.stdout.write("\n")
 
 

@@ -43,10 +43,13 @@ def _segments(*segments):
     return {"schema_version": 1, "segments": list(segments)}
 
 
-def _run_files(map_path, segments_path, isolated=False):
+def _run_files(map_path, segments_path, isolated=False, stdout_encoding=None):
     interpreter = [sys.executable]
     if isolated:
         interpreter.extend(["-I", "-S"])
+    env = dict(os.environ)
+    if stdout_encoding is not None:
+        env["PYTHONIOENCODING"] = stdout_encoding
     return subprocess.run(
         interpreter + [
             VALIDATE_TERMS,
@@ -55,6 +58,7 @@ def _run_files(map_path, segments_path, isolated=False):
         ],
         capture_output=True,
         text=True,
+        env=env,
     )
 
 
@@ -69,6 +73,17 @@ def _run(tmp_path, mapping, candidate, isolated=False):
 def _result(proc):
     assert proc.stderr == ""
     return json.loads(proc.stdout)
+
+
+def _unknown_result(proc):
+    assert proc.returncode == 2
+    assert proc.stderr == ""
+    assert proc.stdout.count("\n") == 1
+    result = json.loads(proc.stdout)
+    assert set(result) == {"error", "findings", "status"}
+    assert result["status"] == "UNKNOWN"
+    assert result["findings"] == []
+    return result
 
 
 def test_compliant_result_is_stdlib_only_and_has_no_findings(tmp_path):
@@ -233,6 +248,32 @@ def test_case_normalized_map_collisions_are_unknown(tmp_path, entries):
     assert "collision" in result["error"].lower()
 
 
+def test_regex_equivalent_case_insensitive_owners_are_unknown(tmp_path):
+    mapping = _base_map(
+        case_sensitive=False,
+        entries=[
+            {
+                "canonical": "alpha term",
+                "forbidden_variants": "i",
+                "match": "literal",
+            },
+            {
+                "canonical": "beta term",
+                "forbidden_variants": "ı",
+                "match": "literal",
+            },
+        ],
+    )
+    proc = _run(
+        tmp_path,
+        mapping,
+        _segments({"kind": "editable", "text": "clean"}),
+    )
+
+    result = _unknown_result(proc)
+    assert "collision" in result["error"].lower()
+
+
 def test_malformed_map_is_unknown(tmp_path):
     map_path = tmp_path / "terms.json"
     segments_path = tmp_path / "segments.json"
@@ -302,6 +343,77 @@ def test_invalid_map_shapes_are_unknown(tmp_path, mapping):
 
     assert proc.returncode == 2
     assert _result(proc)["status"] == "UNKNOWN"
+
+
+@pytest.mark.parametrize(
+    "bad_match",
+    [["literal"], {"value": "literal"}],
+    ids=["array", "object"],
+)
+def test_array_or_object_match_is_one_unknown_json_result(tmp_path, bad_match):
+    mapping = _base_map(entries=[{
+        "canonical": "preferred",
+        "forbidden_variants": "legacy",
+        "match": bad_match,
+    }])
+
+    proc = _run(
+        tmp_path,
+        mapping,
+        _segments({"kind": "editable", "text": "clean"}),
+    )
+
+    _unknown_result(proc)
+
+
+@pytest.mark.parametrize(
+    "bad_kind",
+    [["editable"], {"value": "editable"}],
+    ids=["array", "object"],
+)
+def test_array_or_object_kind_is_one_unknown_json_result(tmp_path, bad_kind):
+    proc = _run(
+        tmp_path,
+        _base_map(),
+        _segments({"kind": bad_kind, "text": "clean"}),
+    )
+
+    _unknown_result(proc)
+
+
+def test_non_ascii_finding_is_one_json_result_under_cp1252_stdout(tmp_path):
+    map_path = tmp_path / "unicode-terms.json"
+    segments_path = tmp_path / "unicode-segments.json"
+    _write_json(map_path, _base_map(entries=[{
+        "canonical": "正規",
+        "forbidden_variants": "旧",
+        "match": "literal",
+    }]))
+    _write_json(
+        segments_path,
+        _segments({"kind": "editable", "text": "旧"}),
+    )
+
+    proc = _run_files(
+        map_path,
+        segments_path,
+        stdout_encoding="cp1252",
+    )
+
+    assert proc.returncode == 1
+    assert proc.stderr == ""
+    assert proc.stdout.count("\n") == 1
+    assert all(ord(character) < 128 for character in proc.stdout)
+    assert json.loads(proc.stdout) == {
+        "findings": [{
+            "canonical": "正規",
+            "end": 1,
+            "forbidden_variant": "旧",
+            "segment_index": 0,
+            "start": 0,
+        }],
+        "status": "NONCOMPLIANT",
+    }
 
 
 def test_repair_requires_revalidation_to_reach_compliant(tmp_path):

@@ -17,6 +17,9 @@ segments labeled `editable` and emits one JSON object:
 - `UNKNOWN`, exit two: the map or candidate was invalid, ambiguous, missing, or
   otherwise unobservable.
 
+JSON strings use ASCII escapes, so the result is independent of the host stdout
+encoding. A JSON parser recovers the original Unicode strings.
+
 Each finding reports a zero-based segment index, the declared canonical value,
 the forbidden variant, and start-inclusive, end-exclusive character offsets.
 A list-valued canonical declaration remains a list in the finding. The runtime
@@ -33,7 +36,11 @@ The version is `1`, the case flag is boolean, and entries is nonempty. Each
 entry has exactly `canonical`, `forbidden_variants`, and `match`. The term
 fields are a nonempty string or a nonempty list of nonempty strings. Match is
 `literal` or `token`. Duplicate terms and collisions under the declared case
-mode make the result `UNKNOWN`.
+mode make the result `UNKNOWN`. Case-sensitive terms compare exactly.
+Case-insensitive terms use mutual escaped full matches under Python
+`re.IGNORECASE`, the same equivalence semantics used during scanning. This
+keeps ownership validation aligned with matching while preserving original-text
+offsets.
 
 The candidate object has exactly `schema_version` and `segments`. The version
 is `1`, and segments is nonempty. Each segment has exactly `kind` and `text`.

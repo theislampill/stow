@@ -145,6 +145,11 @@ DIAGNOSTIC_UNCERTAINTY = (
     "The adjudication is diagnostic-only and does not satisfy the required accepted "
     "behavioral challenge."
 )
+RETIRED_G1_UNCERTAINTY = (
+    "The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not "
+    "require its own model call. Acceptance depends on decision review and the implemented "
+    "registry or merge post-state."
+)
 SURVIVING_G1_DISPOSITIONS = {"KEEP", "SIMPLIFY", "MOVE"}
 
 
@@ -333,6 +338,15 @@ def semantic_errors(candidate, root: Path = ROOT):
                 and row["closure_state"] != "pending-behavioural-challenge"
             ):
                 errors.append(f"{row['id']} must remain pending behavioural challenge")
+            if (
+                not requires_behavioural_evidence
+                and row["decision_state"] == "proposed"
+                and (
+                    row["closure_state"] != "pending-decision-review"
+                    or row["uncertainty"] != RETIRED_G1_UNCERTAINTY
+                )
+            ):
+                errors.append(f"{row['id']} retired source must await decision and registry post-state")
             if (
                 requires_behavioural_evidence
                 and coverage["status"] == "complete"
@@ -688,7 +702,12 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
             "subject_revision": ledger["subject_revision"],
         }
         assert evidence["reference"].endswith(f"#{row['id']}")
-        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+        expected_uncertainty = (
+            DIAGNOSTIC_UNCERTAINTY
+            if row["disposition"] in SURVIVING_G1_DISPOSITIONS
+            else RETIRED_G1_UNCERTAINTY
+        )
+        assert row["uncertainty"] == expected_uncertainty
         assert row["behavioural_coverage"]["status"] == "pending"
         assert row["decision_state"] == "proposed"
         assert row["closure_state"] != "closed"
@@ -734,6 +753,37 @@ def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_chal
     assert semantic_errors(candidate)
 
 
+def test_proposed_retired_g1_awaits_decision_and_registry_post_state(ledger):
+    retired = [
+        row for row in ledger["records"]
+        if row["layer"] == "G1"
+        and row["disposition"] in {"MERGE", "DROP"}
+        and row["decision_state"] == "proposed"
+    ]
+    assert retired
+    for row in retired:
+        assert row["closure_state"] == "pending-decision-review", row["id"]
+        assert row["uncertainty"] == RETIRED_G1_UNCERTAINTY, row["id"]
+        assert "does not require its own model call" in row["uncertainty"]
+        assert "required accepted behavioral challenge" not in row["uncertainty"]
+
+    wrong_state = copy.deepcopy(ledger)
+    row = next(
+        record for record in wrong_state["records"]
+        if record["layer"] == "G1" and record["disposition"] in {"MERGE", "DROP"}
+    )
+    row["closure_state"] = "pending-behavioural-challenge"
+    assert semantic_errors(wrong_state)
+
+    wrong_uncertainty = copy.deepcopy(ledger)
+    row = next(
+        record for record in wrong_uncertainty["records"]
+        if record["layer"] == "G1" and record["disposition"] in {"MERGE", "DROP"}
+    )
+    row["uncertainty"] = DIAGNOSTIC_UNCERTAINTY
+    assert semantic_errors(wrong_uncertainty)
+
+
 def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
     rows = {row["id"]: row for row in ledger["records"]}
 
@@ -755,7 +805,12 @@ def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
         assert row["behavioural_coverage"]["status"] == "pending"
         assert row["decision_state"] == "proposed"
         assert row["closure_state"] != "closed"
-        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+        expected_uncertainty = (
+            DIAGNOSTIC_UNCERTAINTY
+            if row["disposition"] in SURVIVING_G1_DISPOSITIONS
+            else RETIRED_G1_UNCERTAINTY
+        )
+        assert row["uncertainty"] == expected_uncertainty
 
     misclassified = copy.deepcopy(ledger)
     row = next(record for record in misclassified["records"] if record["id"] == "STOW-PRO-011")

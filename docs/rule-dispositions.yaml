@@ -338,8 +338,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -398,8 +398,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -457,8 +457,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -634,8 +634,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -800,8 +800,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -858,8 +858,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -1032,8 +1032,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -1091,8 +1091,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -1209,8 +1209,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -1268,8 +1268,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -1495,8 +1495,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -2107,8 +2107,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -2278,8 +2278,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -2608,8 +2608,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-PCT-003
     title: Use parentheses only for the approved purposes.
     family: punctuation
@@ -3023,8 +3023,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -3141,8 +3141,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -3198,8 +3198,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-GEN-002
     title: Check the preposition with for ambiguity and rewrite when unclear.
     family: general
@@ -3358,8 +3358,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -3587,8 +3587,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-ACT-001
     title: Action-first response opening
     family: action-shaping
@@ -3743,8 +3743,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -4091,7 +4091,7 @@ records:
       - *id005
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-ACT-010
     title: No preamble, recap, or sign-off
     family: action-shaping
@@ -4143,8 +4143,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -4382,8 +4382,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-PRO-004
     title: No empty intensifiers
     family: prose-integrity
@@ -4447,7 +4447,7 @@ records:
       - *id007
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -4658,8 +4658,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -4781,7 +4781,7 @@ records:
       - *id008
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
   - id: STOW-PRO-011
     title: No filler phrases
     family: prose-integrity
@@ -4909,7 +4909,7 @@ records:
       - *id010
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -5024,8 +5024,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -5459,7 +5459,7 @@ records:
       - *id013
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -5528,7 +5528,7 @@ records:
       - *id014
     decision_state: proposed
     closure_state: pending-decision-review
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:
@@ -5647,8 +5647,8 @@ records:
       status: pending
     deterministic_verification: []
     decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    closure_state: pending-decision-review
+    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
     target:
       kind: rule-set
       rule_ids:

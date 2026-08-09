@@ -136,7 +136,7 @@ routes:
     predicate: "contextual prose-quality review"
     references:
       - references/descriptive-prose.md
-    profile: stow-default
+    profile: null
     corpus: null
     validator: python runtime/lint_prose.py
 

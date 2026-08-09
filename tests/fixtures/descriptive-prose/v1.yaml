@@ -15,7 +15,7 @@ controls:
     kind: technical
     text: "The fund's leverage ratio changed after the quarterly close."
     expected_advisories:
-      - ai-verb
+      - action-verb-pattern
 
   - id: natural-procedural
     kind: procedural
@@ -31,7 +31,7 @@ controls:
     kind: deliberate-human-style
     text: "Moreover, the analyst will leverage the cache prior to the restart—an intentional house-style sentence."
     expected_advisories:
-      - academic-tell
-      - ai-transition
-      - ai-verb
+      - academic-phrase-pattern
+      - transition-pattern
+      - action-verb-pattern
       - em-dash

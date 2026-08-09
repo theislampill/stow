@@ -124,10 +124,10 @@ def test_terms_come_from_the_file_not_from_the_code():
     )
     tables = lint_prose.parse_banned_lists(substitute)
     assert tables["verbs"] == ["frobnicate"]
-    assert_flags("We frobnicate the buffer.", "ai-verb", tables=tables)
+    assert_flags("We frobnicate the buffer.", "action-verb-pattern", tables=tables)
     # 'delve' ships in the real table but not in this substitute one.
-    assert_clean("We delve into the buffer.", "ai-verb", tables=tables)
-    assert_flags("We delve into the buffer.", "ai-verb", tables=TABLES)
+    assert_clean("We delve into the buffer.", "action-verb-pattern", tables=tables)
+    assert_flags("We delve into the buffer.", "action-verb-pattern", tables=TABLES)
 
 
 def test_missing_term_table_is_not_an_error():
@@ -161,11 +161,11 @@ def test_template_placeholders_are_truncated_not_dropped():
 # --------------------------------------------------------------------------- #
 
 LEXICAL_CASES = [
-    ("ai-verb",             "The team will leverage the cache.",        "STOW-PRO-021"),
-    ("ai-transition",       "Furthermore, the cache is cold.",          "STOW-PRO-020"),
+    ("action-verb-pattern", "The team will leverage the cache.",        "STOW-PRO-021"),
+    ("transition-pattern",  "Furthermore, the cache is cold.",          "STOW-PRO-020"),
     ("filler-phrase",       "In conclusion, the cache is cold.",        "STOW-PRO-011"),
     ("intensifier",         "The cache is extremely cold.",             "STOW-PRO-004"),
-    ("academic-tell",       "Run the flush prior to the restart.",      "STOW-PRO-022"),
+    ("academic-phrase-pattern", "Run the flush prior to the restart.",  "STOW-PRO-022"),
     ("whether-youre-opener", "Whether you're new here, run the flush.", "STOW-PRO-012"),
     ("weasel-phrase",       "It should be noted that the cache is cold.", "STOW-PRO-015"),
     ("overused-adjective",  "The parser is robust.",                    None),
@@ -207,7 +207,7 @@ def test_overlapping_terms_report_once():
     # hedging-phrase list; the longest match at a position wins, once.
     found = [a for a in lint_prose.lint(
         "It is worth noting that the cache is cold.", tables=TABLES)
-        if a.rule in ("ai-transition", "weasel-phrase")]
+        if a.rule in ("transition-pattern", "weasel-phrase")]
     assert len(found) == 1
 
 
@@ -419,7 +419,7 @@ def test_exhaustive_list_permission_suppresses_the_list_cap_only():
     assert_flags(six, "list-length")
     assert_clean(six, "list-length", exhaustive_lists_ok=True)
     dirty = six + "\nFurthermore, the cache is cold.\n"
-    assert_flags(dirty, "ai-transition", exhaustive_lists_ok=True)
+    assert_flags(dirty, "transition-pattern", exhaustive_lists_ok=True)
 
 
 def test_structured_artifact_type_suppresses_every_prose_check():
@@ -460,8 +460,8 @@ def test_mask_latin_keeps_dotted_words_that_mask_protected_removes():
 
 def test_unterminated_fence_masks_to_end_of_file():
     text = "Intro.\n\n```\nFurthermore, we leverage it.\n"
-    assert_clean(text, "ai-verb")
-    assert_clean(text, "ai-transition")
+    assert_clean(text, "action-verb-pattern")
+    assert_clean(text, "transition-pattern")
 
 
 def test_clean_prose_produces_no_advisories():
@@ -598,6 +598,35 @@ def test_json_output_is_machine_readable(tmp_path, capsys):
     assert payload["report_only"] is True
     assert payload["findings"]
     assert {f["severity"] for f in payload["findings"]} == {"advisory"}
+
+
+def test_public_pattern_names_are_neutral_and_keep_registry_ids(tmp_path, capsys):
+    import json
+    path = tmp_path / "patterns.md"
+    path.write_text(
+        "Furthermore, the team will leverage the cache prior to restart.\n",
+        encoding="utf-8")
+    expected = {
+        "STOW-PRO-020": "transition-pattern",
+        "STOW-PRO-021": "action-verb-pattern",
+        "STOW-PRO-022": "academic-phrase-pattern",
+    }
+
+    assert lint_prose.main([str(path), "--format", "json"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    observed = {
+        finding["rule_id"]: finding["rule"]
+        for finding in payload["findings"]
+        if finding["rule_id"] in expected
+    }
+    assert observed == expected
+
+    assert lint_prose.main([str(path)]) == 0
+    out = capsys.readouterr().out
+    for rule in expected.values():
+        assert "[%s]" % rule in out
+    for legacy in ("ai-verb", "ai-transition", "academic-tell"):
+        assert "[%s]" % legacy not in out
 
 
 def test_text_output_names_the_tool_and_the_rule_ids(tmp_path, capsys):

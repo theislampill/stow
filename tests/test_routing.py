@@ -126,6 +126,14 @@ def test_routing_loads_and_has_routes():
     assert "raw-artifact-exclusion" in modes, "raw-artifact exclusion route missing"
 
 
+def test_contextual_prose_quality_route_is_profile_neutral():
+    route = next(
+        route for route in ROUTES
+        if route["mode"] == "descriptive-prose-review"
+    )
+    assert route["profile"] is None
+
+
 # --------------------------------------------------------------------------- #
 # Gate (a) -- section-5 reference paths and routing references agree both ways
 # --------------------------------------------------------------------------- #

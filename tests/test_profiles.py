@@ -241,9 +241,9 @@ def test_no_profile_leakage_for_gated_callable_checks(validator):
 
 CONTEXTUAL_ADVISORY_FIXTURES = {
     "no-em-dash": (EM_DASH, "em-dash"),
-    "no-ai-transitions": ("Moreover, the cache is cold.", "ai-transition"),
-    "no-ai-verbs": ("The fund's leverage ratio changed.", "ai-verb"),
-    "no-academic-tells": ("Run the flush prior to restart.", "academic-tell"),
+    "no-ai-transitions": ("Moreover, the cache is cold.", "transition-pattern"),
+    "no-ai-verbs": ("The fund's leverage ratio changed.", "action-verb-pattern"),
+    "no-academic-tells": ("Run the flush prior to restart.", "academic-phrase-pattern"),
 }
 
 

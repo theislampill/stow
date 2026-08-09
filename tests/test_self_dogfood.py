@@ -41,8 +41,9 @@ GUIDED = "controlled-technical-guided"
 # every surface below. (list-length is deliberately absent.)
 GATED_RULES = frozenset({
     "em-dash", "intensifier", "scare-quote", "filler-phrase",
-    "whether-youre-opener", "weasel-phrase", "ai-transition", "ai-verb",
-    "academic-tell", "metaphorical-noun", "overused-adjective", "hedging",
+    "whether-youre-opener", "weasel-phrase", "transition-pattern",
+    "action-verb-pattern", "academic-phrase-pattern", "metaphorical-noun",
+    "overused-adjective", "hedging",
 })
 GATED_RULES_GUIDED = GATED_RULES | frozenset({
     "semicolon", "contraction",
@@ -116,7 +117,8 @@ YAML_TEMPLATE_FILES = ("task-packet.yaml", "event-stream.jsonl")
 # The deterministic prose checks meaningful for a short comment line.
 COMMENT_GATED_RULES = frozenset({
     "em-dash", "intensifier", "filler-phrase", "whether-youre-opener",
-    "weasel-phrase", "ai-transition", "ai-verb", "academic-tell",
+    "weasel-phrase", "transition-pattern", "action-verb-pattern",
+    "academic-phrase-pattern",
 })
 
 
@@ -169,7 +171,8 @@ def test_yaml_template_comments_pass_lexical_subset(name):
 # lexical.
 STRUCTURED_FIELD_RULES = frozenset({
     "em-dash", "intensifier", "filler-phrase", "whether-youre-opener",
-    "weasel-phrase", "ai-transition", "ai-verb", "academic-tell",
+    "weasel-phrase", "transition-pattern", "action-verb-pattern",
+    "academic-phrase-pattern",
     "metaphorical-noun", "overused-adjective", "hedging",
 })
 

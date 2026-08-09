@@ -400,15 +400,15 @@ IMPLEMENTED_VALIDATORS = frozenset({
 
 
 _BUCKET_CHECKS = (
-    ("verbs", "ai-verb", "STOW-PRO-021",
+    ("verbs", "action-verb-pattern", "STOW-PRO-021",
      "matched verb %r; review whether it names the exact action in context"),
-    ("transitions", "ai-transition", "STOW-PRO-020",
+    ("transitions", "transition-pattern", "STOW-PRO-020",
      "matched transition %r; review whether it serves a clear discourse function"),
     ("filler", "filler-phrase", "STOW-PRO-011",
      "matched filler phrase %r; review whether it adds information"),
     ("intensifiers", "intensifier", "STOW-PRO-004",
      "matched intensifier %r; review whether a stated fact supports it"),
-    ("academic", "academic-tell", "STOW-PRO-022",
+    ("academic", "academic-phrase-pattern", "STOW-PRO-022",
      "matched stock phrase %r; review its function in context"),
     ("structural", "whether-youre-opener", "STOW-PRO-012",
      "matched audience opener %r; review whether the distinction changes the guidance"),

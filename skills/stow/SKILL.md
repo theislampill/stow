@@ -12,7 +12,7 @@ Eight bands, highest to lowest. Invariant: a lower rule never corrupts a higher 
 1. system: safety and system directives.
 2. contract: the exact output contract the request implies.
 3. serialization: every structured region must parse and validate.
-4. literals: protected literals pass through unchanged.
+4. literal exclusions: G1 tells the writer not to edit protected literals.
 5. accuracy: no fabricated specificity; keep justified uncertainty.
 6. terminology: one term per concept, used consistently.
 7. profile: controlled-technical writing profile, when requested.
@@ -27,7 +27,7 @@ A response can mix prose, procedure, data, code, quotes, and identifiers. Use de
 ## 3. Integrity rules (always on)
 
 - Obey the exact output contract. A raw artifact ships raw: no prose wrapper, no code fence, no commentary.
-- Protect literals: identifiers, quotes, code, paths, and data values stay byte-for-byte exact, unless the request asks for that literal to be edited, an exception the contract band already outranks.
+- Protect literals: G1 tells the writer not to edit identifiers, quotes, code, paths, or data values unless the request asks for that literal to be edited. This instruction is not a byte comparator over the actual final candidate.
 - Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
 - Treat structured validity as a delivery requirement. When the runtime can be called, give the actual candidate to runtime/validate.py. A host has a delivery gate only if it blocks invalid or unreadable results, permits the repair, and revalidates the repaired candidate.
@@ -73,7 +73,7 @@ For one rule, use runtime/query_rules.py <ID> when it can run; otherwise follow 
 Before delivery, confirm:
 
 - the top contract is obeyed;
-- literals are unchanged unless their editing was the task;
+- the G1 literal exclusions were followed;
 - every structured region was checked when a callable check was available;
 - nothing unsupported was added and nothing required was dropped;
 - only predicate-matched references were loaded.

@@ -61,15 +61,17 @@ checks it. Unless noted, the checker is `runtime/validate.py`.
 ## Where the prose rules stop
 
 Trigger: STOW producing YAML while a controlled-technical profile is active.
-Region: keys, identifiers, and quoted literals are protected and immutable;
-scalar tokens generally are structured data, not prose. How checked: they are
-not scanned or rewritten. Do not rename a key or identifier, and do not edit
-quoted text, to satisfy a lexical or presentation preference. The precedence
-that fixes this boundary (serialization validity and protected literals
-outrank presentation-layer lexical preferences, which skip protected regions)
-is carried on the governing records; see `corpus/words/usage.md#STOW-WRD-014`,
+Region: keys, identifiers, quoted literals, and scalar tokens are structured
+data rather than editable prose. G1 guidance tells the writer not to rename a
+key or identifier or edit quoted text for a lexical preference. The G2 linter
+excludes only recognized syntax from its read-only advisory scan, while
+`runtime/validate.py` can return a parse verdict for a supplied YAML payload.
+Neither mechanism proves preservation in the actual final candidate. General
+preservation requires a named host to compare the actual final candidate with
+authoritative bytes, block a mismatch, and revalidate after any permitted
+repair. The governing records are `corpus/words/usage.md#STOW-WRD-014`,
 `corpus/punctuation.md#STOW-PCT-006`, and
-`corpus/prose-integrity/rules.md#STOW-PRO-021` for the full statements.
+`corpus/prose-integrity/rules.md#STOW-PRO-021`.
 
 ## Deliver once
 

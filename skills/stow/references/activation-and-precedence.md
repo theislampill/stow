@@ -56,10 +56,12 @@ Regions and the band that owns each:
   descriptive (`descriptive-prose`), safety (`safety-prose`), or user-facing
   (`user-facing-output`). Governed by bands 5 through 8.
 - **Structured data** (`structured-data`) and **code** (`code`): owned by band
-  3. Validated for well-formedness by `skills/stow/runtime/validate.py`, never
-  rewritten by a prose rule.
+  3. G1 guidance excludes these regions from prose edits. For supported
+  caller-supplied structured data, `skills/stow/runtime/validate.py` can return
+  a bounded G2 verdict.
 - **Quotations** (`quoted-text`) and **identifiers** (`identifiers`): owned by
-  band 4, immutable.
+  band 4. G1 guidance excludes them from prose edits; the G2 advisory linter
+  masks only the finite syntax it recognizes in its read-only scan copy.
 - **Safety notices**: owned by band 1, independent of any active profile.
 
 Nearly every controlled-technical and presentation record carries the same
@@ -67,6 +69,10 @@ Nearly every controlled-technical and presentation record carries the same
 exclusion is the guidance in data form. The advisory linter mechanically masks
 its finite recognized span types before scanning; that does not establish final
 output preservation by a model or host.
+
+General byte fidelity requires a named host to compare the actual final
+candidate with authoritative bytes, block a mismatch, and recheck after any
+permitted repair.
 
 ## Mapping the registry `precedence` field onto the ladder
 
@@ -159,8 +165,11 @@ every one resolves by the higher band winning. The load-bearing cases:
 - **Protected regions vs a presentation or profile lexical rule.** `STOW-PRO-021`
   and the profile lexical rules `STOW-WRD-014` and `STOW-PCT-006` yield inside
   `quoted-text`, `identifiers`, and `structured-data`: bands 3 and 4 outrank
-  bands 7 and 8, so keys, identifiers, and quoted text are never re-spelled or
-  re-cased. See corpus/prose-integrity/rules.md#STOW-PRO-021,
+  bands 7 and 8. The G1 instruction tells the writer to leave keys, identifiers,
+  and quoted text outside lexical edits. The G2 linter excludes only recognized
+  spans from its read-only scan. General preservation requires a named host to
+  compare the actual final candidate with authoritative bytes, block a mismatch,
+  and recheck after any permitted repair. See corpus/prose-integrity/rules.md#STOW-PRO-021,
   corpus/words/usage.md#STOW-WRD-014, corpus/punctuation.md#STOW-PCT-006.
 - **Factual accuracy vs an estimate preference.** `STOW-ACT-006` yields to
   `STOW-PRO-002`: band 5 forbids presenting an unsupported number as fact, so an

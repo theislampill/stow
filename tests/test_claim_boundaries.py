@@ -7,9 +7,11 @@ Protected corpus and baseline wording are deliberately outside the scan.
 """
 
 import ast
+import io
 import json
 import os
 import re
+import tokenize
 
 import pytest
 
@@ -92,6 +94,55 @@ def _json_strings(value):
             yield from _json_strings(item)
 
 
+def _python_claim_strings(text, tree):
+    """Yield Python prose intended for readers, excluding runtime data."""
+    doc_nodes = (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)
+    for node in ast.walk(tree):
+        if isinstance(node, doc_nodes):
+            docstring = ast.get_docstring(node, clean=False)
+            if docstring:
+                yield docstring
+
+    visible_names = set()
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        for keyword in node.keywords:
+            if keyword.arg not in {"description", "epilog", "help"}:
+                continue
+            if isinstance(keyword.value, ast.Constant) and isinstance(
+                    keyword.value.value, str):
+                yield keyword.value.value
+            elif isinstance(keyword.value, ast.Name):
+                visible_names.add(keyword.value.id)
+
+    for node in ast.walk(tree):
+        targets = []
+        value = None
+        if isinstance(node, ast.Assign):
+            targets = node.targets
+            value = node.value
+        elif isinstance(node, ast.AnnAssign):
+            targets = [node.target]
+            value = node.value
+        if value is None or not any(
+                isinstance(target, ast.Name) and target.id in visible_names
+                for target in targets):
+            continue
+        try:
+            visible_value = ast.literal_eval(value)
+        except (ValueError, TypeError):
+            continue
+        if isinstance(visible_value, str):
+            yield visible_value
+
+    for token in tokenize.generate_tokens(io.StringIO(text).readline):
+        if token.type == tokenize.COMMENT:
+            comment = token.string.lstrip("#").strip()
+            if comment:
+                yield comment
+
+
 def _claim_units(surface, text):
     """Yield claim-bearing units from one guarded surface, or fail closed."""
     try:
@@ -105,11 +156,10 @@ def _claim_units(surface, text):
             return
         if surface.endswith(".py"):
             tree = ast.parse(text, filename=surface)
-            for node in ast.walk(tree):
-                if isinstance(node, ast.Constant) and isinstance(node.value, str):
-                    yield from _sentences(node.value)
+            for string in _python_claim_strings(text, tree):
+                yield from _sentences(string)
             return
-    except (json.JSONDecodeError, SyntaxError) as error:
+    except (json.JSONDecodeError, SyntaxError, tokenize.TokenError) as error:
         raise ValueError("cannot parse guarded claim surface %s" % surface) from error
     raise ValueError("unsupported guarded claim surface %s" % surface)
 
@@ -231,6 +281,28 @@ def test_each_semantic_family_fails_closed_when_unmapped(family, sentence):
 
 
 @pytest.mark.parametrize(
+    ("family", "sentence"),
+    [
+        ("preservation", "STOW keeps every protected literal byte-for-byte unchanged."),
+        ("selection", "Every relevant reference loads by itself."),
+        (
+            "validation",
+            "The checker rejects every invalid final response before it is sent.",
+        ),
+        ("guarantee", "STOW makes every response conform."),
+        ("preservation", "Quoted text is never re-cased."),
+        ("selection", "The relevant reference loads on its own."),
+        ("validation", "The checker blocks the final response before delivery."),
+        ("guarantee", "STOW makes every response comply."),
+    ],
+)
+def test_semantic_equivalent_claims_fail_closed_when_unmapped(family, sentence):
+    findings = _unmapped_claims("README.md", sentence, _ledger())
+    assert findings
+    assert family in findings[0]["families"]
+
+
+@pytest.mark.parametrize(
     ("surface", "text"),
     [
         ("README.md", "STOW ensures every final response is correct."),
@@ -244,12 +316,36 @@ def test_each_semantic_family_fails_closed_when_unmapped(family, sentence):
         ),
         (
             "skills/stow/runtime/profiles.py",
-            'CLAIM = "STOW enforces all prose rules."\n',
+            '# STOW ensures every final response is correct.\nVALUE = 1\n',
         ),
     ],
 )
 def test_claim_extraction_fails_closed_on_every_guarded_surface_type(surface, text):
     assert _unmapped_claims(surface, text, _ledger())
+
+
+def test_python_user_visible_help_and_named_scope_strings_are_scanned():
+    text = '''\
+"""A bounded command."""
+import argparse
+SCOPE = "STOW makes every response conform."
+parser = argparse.ArgumentParser(epilog=SCOPE)
+parser.add_argument("--mode", help="STOW ensures every final response is correct.")
+'''
+    findings = _unmapped_claims("tools/ab_eval_runner.py", text, _ledger())
+    assert len(findings) == 2
+    assert all("guarantee" in finding["families"] for finding in findings)
+
+
+def test_python_detector_and_fixture_data_literals_are_not_claim_units():
+    text = '''\
+OVERCLAIM = ("fully conformant", "guarantees compliance")
+FIXTURE = "STOW ensures every final response is correct."
+'''
+    units = list(_claim_units("tools/ab_eval_runner.py", text))
+    assert "guarantees compliance" not in units
+    assert "STOW ensures every final response is correct." not in units
+    assert _unmapped_claims("tools/ab_eval_runner.py", text, _ledger()) == []
 
 
 def test_an_exact_family_compatible_mapping_closes_a_candidate():
@@ -354,6 +450,23 @@ def test_residual_preservation_language_is_bounded_to_guidance_and_scan_exclusio
     assert "G1" in protected and "G2" in protected
     assert "named host" in protected
 
+    activation = _read("skills/stow/references/activation-and-precedence.md")
+    yaml_format = _read("skills/stow/references/format-yaml.md")
+    for overclaim in (
+        "keys, identifiers, and quoted text are never re-spelled or re-cased",
+        "keys, identifiers, and quoted literals are protected and immutable",
+        "they are not scanned or rewritten",
+    ):
+        assert overclaim not in "\n".join((activation, yaml_format))
+    for path, text in (
+        ("activation-and-precedence.md", activation),
+        ("format-yaml.md", yaml_format),
+    ):
+        assert "G1" in text, path
+        assert "G2" in text, path
+        assert "named host" in text, path
+        assert "actual final candidate" in text, path
+
 
 def test_format_references_do_not_claim_an_unnamed_delivery_gate():
     surfaces = {
@@ -396,6 +509,8 @@ def test_conformance_version_label_is_not_stale():
 def test_historical_parse_metric_is_distinguished_from_current_exact_content_check():
     evidence = _read("docs/FUNCTIONAL-EVIDENCE.md")
     assert "historical" in evidence.lower()
+    assert "historical 8 of 9 YAML result" not in evidence
+    assert "historical raw-output result" in evidence
     assert "then-current YAML parse predicate" in evidence
     assert "current exact-content predicate" in evidence
     assert "not used to recompute" in evidence

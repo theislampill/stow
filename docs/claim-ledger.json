@@ -64,17 +64,22 @@
   "claim_candidate_patterns": {
     "guarantee": [
       "\\b(?:STOW|skill|guidance|validator|checker|linter|repository|runtime|plugin|test)\\b.{0,80}\\b(?:guarantees?|ensures?|enforces?)\\b",
-      "\\b(?:guarantees?|ensures?|enforces?)\\b.{0,80}\\b(?:every|all|response|output|compliance|conformance|prose|rules?)\\b"
+      "\\b(?:guarantees?|ensures?|enforces?)\\b.{0,80}\\b(?:every|all|response|output|compliance|conformance|prose|rules?)\\b",
+      "\\b(?:STOW|skill|guidance|validator|checker|linter|runtime|plugin)\\b[^.!?]{0,80}\\b(?:makes?|renders?)\\b[^.!?]{0,80}\\b(?:responses?|outputs?)\\b[^.!?]{0,40}\\b(?:comply|compliant|conform|conformant|correct)\\b"
     ],
     "selection": [
-      "\\b(?:must|always(?!-)|automatic\\w*)\\b[^.!?]{0,120}\\b(?:select(?:s|ed|ing|ion)?|load(?:s|ed|ing)?|activat(?:e|es|ed|ing|ion)|classif(?:y|ies|ied|ying|ication)|reference|profile)\\b"
+      "\\b(?:must|always(?!-)|automatic\\w*)\\b[^.!?]{0,120}\\b(?:select(?:s|ed|ing|ion)?|load(?:s|ed|ing)?|activat(?:e|es|ed|ing|ion)|classif(?:y|ies|ied|ying|ication)|reference|profile)\\b",
+      "\\breferences?\\b[^.!?]{0,60}\\bloads?\\b[^.!?]{0,40}\\b(?:by itself|on (?:its|their) own|automatically)\\b"
     ],
     "validation": [
       "\\bdelivery gate\\b",
-      "\\bvalidat\\w*\\b(?!-).{0,120}\\b(?:actual final candidate|final response|before delivery|delivery acceptance|correctness|repair|byte preservation|restoration)\\b"
+      "\\bvalidat\\w*\\b(?!-).{0,120}\\b(?:actual final candidate|final response|before delivery|delivery acceptance|correctness|repair|byte preservation|restoration)\\b",
+      "\\b(?:checker|validator|runtime|STOW)\\b[^.!?]{0,60}\\b(?:rejects?|blocks?)\\b[^.!?]{0,80}\\b(?:invalid\\s+)?(?:final\\s+)?(?:responses?|outputs?|candidates?)\\b[^.!?]{0,80}\\bbefore (?:it is )?(?:sent|delivered|delivery)\\b"
     ],
     "preservation": [
-      "\\b(?:preserv\\w*|restor\\w*)\\b.{0,120}\\b(?:byte|verbatim|literal|exact|unchanged|output|candidate|artifact|identifier|quotation|quote)\\b"
+      "\\b(?:preserv\\w*|restor\\w*)\\b.{0,120}\\b(?:byte|verbatim|literal|exact|unchanged|output|candidate|artifact|identifier|quotation|quote)\\b",
+      "\\b(?:STOW|skill|guidance|checker|linter|runtime)\\b[^.!?]{0,80}\\b(?:keeps?|leaves?)\\b[^.!?]{0,100}\\b(?:protected\\s+)?(?:literals?|quotes?|quotations?|identifiers?|code|structured data)\\b[^.!?]{0,100}\\b(?:byte-for-byte\\s+)?(?:unchanged|immutable|verbatim|never re-spelled|never re-cased)\\b",
+      "\\b(?:keys?|identifiers?|quoted (?:text|literals?)|literals?)\\b[^.!?]{0,120}\\b(?:immutable|unchanged|verbatim|never\\s+(?:re-spelled|re-cased|rewritten))\\b"
     ],
     "determinism": [
       "\\bdetermin\\w*\\b.{0,120}\\b(?:classif\\w*|output|selection|preserv\\w*|govern\\w*|verdict|token|behavio\\w*|reply|request|response)\\b"
@@ -370,10 +375,45 @@
     },
     {
       "id": "CLM-042",
-      "surface": "tools/ab_eval_runner.py",
-      "statement": "guarantees compliance",
-      "families": ["guarantee"],
-      "layer": "G4"
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "General byte fidelity requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and recheck after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-043",
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "General preservation requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and recheck after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-044",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "Neither mechanism proves preservation in the actual final candidate.",
+      "families": ["preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-045",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "General preservation requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and revalidate after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-046",
+      "surface": "skills/stow/SKILL.md",
+      "statement": "- Protect literals: G1 tells the writer not to edit identifiers, quotes, code, paths, or data values unless the request asks for that literal to be edited.",
+      "families": ["preservation"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-047",
+      "surface": "skills/stow/SKILL.md",
+      "statement": "This instruction is not a byte comparator over the actual final candidate.",
+      "families": ["preservation"],
+      "layer": "G1"
     }
   ],
   "forbidden_claim_patterns": [

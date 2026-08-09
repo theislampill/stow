@@ -132,6 +132,18 @@ EXPECTED_G2_PROOFS = {
     "STOW-PRO-022": ("no-academic-tells", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
 }
 
+DIAGNOSTIC_RUN_ID = "G1-BHV-20260809-V7D"
+DIAGNOSTIC_LIMITS = (
+    "Non-qualifying diagnostic only: all source calls failed deterministic validation; "
+    "cluster association is not accepted paired evidence or causal rule proof."
+)
+DIAGNOSTIC_UNCERTAINTY = (
+    "Fresh paired outputs were generated, but every call failed deterministic validation. "
+    "The adjudication is diagnostic-only and does not satisfy the required accepted "
+    "behavioral challenge."
+)
+SURVIVING_G1_DISPOSITIONS = {"KEEP", "SIMPLIFY", "MOVE"}
+
 
 def _yaml(path: Path):
     parser = YAML(typ="safe")
@@ -236,10 +248,24 @@ def semantic_errors(candidate, root: Path = ROOT):
             coverage = row["behavioural_coverage"]
             if not coverage["positive"] or not coverage["paired_negative"]:
                 errors.append(f"{row['id']} lacks paired G1 coverage")
-            if coverage["status"] == "complete" and not behavioural_evidence:
+            paired_behavioural_evidence = [
+                evidence for evidence in behavioural_evidence
+                if set(evidence.get("positive_cases", [])) == set(coverage["positive"])
+                and set(evidence.get("paired_negative_cases", []))
+                == set(coverage["paired_negative"])
+            ]
+            requires_behavioural_evidence = disposition in SURVIVING_G1_DISPOSITIONS
+            if (
+                requires_behavioural_evidence
+                and coverage["status"] == "complete"
+                and not paired_behavioural_evidence
+            ):
                 errors.append(f"{row['id']} complete G1 coverage lacks fresh matching evidence")
-            if row["decision_state"] == "accepted" or row["closure_state"] == "closed":
-                if coverage["status"] != "complete" or not behavioural_evidence:
+            if (
+                requires_behavioural_evidence
+                and (row["decision_state"] == "accepted" or row["closure_state"] == "closed")
+            ):
+                if coverage["status"] != "complete" or not paired_behavioural_evidence:
                     errors.append(f"{row['id']} accepted or terminal G1 claim lacks completed fresh evidence")
         elif not row["deterministic_verification"]:
             errors.append(f"{row['id']} lacks deterministic verification")
@@ -322,9 +348,15 @@ def test_ledger_semantics_close_cross_surface_gaps(ledger):
     assert semantic_errors(ledger) == []
 
 
-def test_terminal_state_requires_matching_fresh_evidence(schema, ledger):
+@pytest.mark.parametrize("disposition", sorted(SURVIVING_G1_DISPOSITIONS))
+def test_terminal_surviving_g1_state_requires_matching_fresh_evidence(
+    schema, ledger, disposition
+):
     validator = Draft202012Validator(schema)
-    g1_index = next(i for i, row in enumerate(ledger["records"]) if row["layer"] == "G1")
+    g1_index = next(
+        i for i, row in enumerate(ledger["records"])
+        if row["layer"] == "G1" and row["disposition"] == disposition
+    )
 
     proposed_closed = copy.deepcopy(ledger)
     proposed_closed["records"][g1_index]["closure_state"] = "closed"
@@ -349,7 +381,10 @@ def test_terminal_state_requires_matching_fresh_evidence(schema, ledger):
         "freshness": "fresh",
         "limits": "Bounded paired evidence only.",
         "subject_revision": wrong_revision["subject_revision"] + 1,
+        "positive_cases": list(row["behavioural_coverage"]["positive"]),
+        "paired_negative_cases": list(row["behavioural_coverage"]["paired_negative"]),
     })
+    assert list(validator.iter_errors(wrong_revision)) == []
     assert semantic_errors(wrong_revision)
 
     matching = copy.deepcopy(wrong_revision)
@@ -359,6 +394,134 @@ def test_terminal_state_requires_matching_fresh_evidence(schema, ledger):
     row["closure_state"] = "closed"
     assert list(validator.iter_errors(matching)) == []
     assert semantic_errors(matching) == []
+
+
+def test_arbitrary_or_mismatched_receipt_is_not_paired_evidence(schema, ledger):
+    validator = Draft202012Validator(schema)
+    arbitrary = copy.deepcopy(ledger)
+    row = next(
+        row for row in arbitrary["records"]
+        if row["layer"] == "G1" and row["disposition"] == "KEEP"
+    )
+    row["behavioural_coverage"]["status"] = "complete"
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    row["evidence"].append({
+        "kind": "behavioural-challenge",
+        "reference": "private-run-receipt",
+        "result": "accepted",
+        "freshness": "fresh",
+        "limits": "Unbound receipt.",
+        "subject_revision": arbitrary["subject_revision"],
+    })
+    assert list(validator.iter_errors(arbitrary))
+    assert semantic_errors(arbitrary)
+
+    mismatched = copy.deepcopy(arbitrary)
+    receipt = next(
+        record for record in mismatched["records"] if record["id"] == row["id"]
+    )["evidence"][-1]
+    receipt["positive_cases"] = ["BC-06"]
+    receipt["paired_negative_cases"] = ["BC-06"]
+    assert list(validator.iter_errors(mismatched)) == []
+    assert semantic_errors(mismatched)
+
+
+@pytest.mark.parametrize("disposition", ["MERGE", "DROP"])
+def test_terminal_retired_g1_source_does_not_require_fabricated_behavioural_evidence(
+    schema, ledger, disposition
+):
+    validator = Draft202012Validator(schema)
+    candidate = copy.deepcopy(ledger)
+    row = next(
+        row for row in candidate["records"]
+        if row["layer"] == "G1" and row["disposition"] == disposition
+    )
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+
+    assert not any(evidence["result"] == "accepted" for evidence in row["evidence"])
+    assert list(validator.iter_errors(candidate)) == []
+    assert semantic_errors(candidate) == []
+
+
+def test_surviving_merge_target_still_requires_accepted_behavioural_evidence(schema, ledger):
+    validator = Draft202012Validator(schema)
+    candidate = copy.deepcopy(ledger)
+    merge_row = next(
+        row for row in candidate["records"]
+        if row["layer"] == "G1" and row["disposition"] == "MERGE"
+        and any(
+            next(record for record in candidate["records"] if record["id"] == target_id)["disposition"]
+            in SURVIVING_G1_DISPOSITIONS
+            for target_id in row["target"]["rule_ids"]
+        )
+    )
+    target = next(
+        row for row in candidate["records"]
+        if row["id"] in merge_row["target"]["rule_ids"]
+        and row["disposition"] in SURVIVING_G1_DISPOSITIONS
+    )
+    target["decision_state"] = "accepted"
+    target["closure_state"] = "closed"
+    target["behavioural_coverage"]["status"] = "complete"
+
+    assert list(validator.iter_errors(candidate))
+    assert semantic_errors(candidate)
+
+
+def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
+    g1_rows = [row for row in ledger["records"] if row["layer"] == "G1"]
+    g2_rows = [row for row in ledger["records"] if row["layer"] == "G2"]
+
+    for row in g1_rows:
+        diagnostic = [
+            evidence for evidence in row["evidence"]
+            if evidence["reference"].startswith(f"{DIAGNOSTIC_RUN_ID}/")
+        ]
+        assert len(diagnostic) == 1, row["id"]
+        evidence = diagnostic[0]
+        assert evidence == {
+            "kind": "behavioural-challenge",
+            "reference": evidence["reference"],
+            "result": "inconclusive",
+            "freshness": "fresh",
+            "limits": DIAGNOSTIC_LIMITS,
+            "subject_revision": ledger["subject_revision"],
+        }
+        assert evidence["reference"].endswith(f"#{row['id']}")
+        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+        assert row["behavioural_coverage"]["status"] == "pending"
+        assert row["decision_state"] == "proposed"
+        assert row["closure_state"] != "closed"
+
+    assert all(
+        not any(
+            evidence["reference"].startswith(f"{DIAGNOSTIC_RUN_ID}/")
+            for evidence in row["evidence"]
+        )
+        for row in g2_rows
+    )
+
+
+def test_diagnostic_evidence_cannot_satisfy_surviving_g1_terminal_gate(schema, ledger):
+    validator = Draft202012Validator(schema)
+    candidate = copy.deepcopy(ledger)
+    row = next(
+        row for row in candidate["records"]
+        if row["layer"] == "G1" and row["disposition"] == "KEEP"
+    )
+    row["decision_state"] = "accepted"
+    row["closure_state"] = "closed"
+    row["behavioural_coverage"]["status"] = "complete"
+
+    assert any(
+        evidence["result"] == "inconclusive"
+        and evidence["reference"].startswith(f"{DIAGNOSTIC_RUN_ID}/")
+        for evidence in row["evidence"]
+    )
+    assert list(validator.iter_errors(candidate))
+    assert semantic_errors(candidate)
 
 
 def test_baseline_captured_proposals_match_the_audited_map(ledger):

@@ -143,6 +143,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -152,8 +158,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -198,6 +203,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -207,8 +218,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -253,6 +263,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -262,8 +278,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -309,6 +324,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -318,8 +339,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -364,6 +384,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -373,8 +399,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -418,6 +443,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -427,8 +458,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -472,6 +502,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -481,8 +517,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -526,6 +561,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-008'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -535,8 +576,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -580,6 +620,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-009'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -589,8 +635,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -632,6 +677,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-010'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -641,8 +692,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-WRD-011
     title: Use one technical noun consistently for one item; do not switch synonyms mid-text.
     family: words
@@ -680,6 +730,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-011'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -689,8 +745,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-WRD-012
     title: Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one
       exists.
@@ -731,6 +786,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-012'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -740,8 +801,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -784,6 +844,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-013'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -793,8 +859,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -840,6 +905,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-WRD-014'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -849,8 +920,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -893,6 +963,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-MWN-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -902,8 +978,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-MWN-002
     title: For a technical noun longer than three words, write it in full first, then shorten or hyphenate.
     family: multiword-nouns
@@ -943,6 +1018,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-MWN-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -952,8 +1033,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -997,6 +1077,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1006,8 +1092,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -1051,6 +1136,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1060,8 +1151,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -1105,6 +1195,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1114,8 +1210,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -1159,6 +1254,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1168,8 +1269,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -1212,6 +1312,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1221,8 +1327,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -1266,6 +1371,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1275,8 +1386,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-VRB-007
     title: Describe an action with an approved verb, not a nominalization or other part of speech.
     family: verbs
@@ -1315,6 +1425,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-VRB-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1324,8 +1440,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SEN-001
     title: Write short, clear, concrete sentences suited to procedures or descriptions.
     family: sentences
@@ -1366,6 +1481,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-SEN-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1375,8 +1496,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -1421,6 +1541,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-SEN-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1430,8 +1556,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SEN-003
     title: Break complex text into a vertical list with the prescribed layout.
     family: sentences
@@ -1470,6 +1595,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-SEN-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1479,8 +1610,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SEN-004
     title: Use approved connecting words and phrases to link related sentences.
     family: sentences
@@ -1520,6 +1650,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-SEN-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1529,8 +1665,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -1575,6 +1710,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-SEN-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1584,8 +1725,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRC-001
     title: Limit each procedural sentence to a maximum of twenty words.
     family: procedures
@@ -1683,6 +1823,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PRC-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1692,8 +1838,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRC-003
     title: Write instructions in the imperative command form.
     family: procedures
@@ -1732,6 +1877,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PRC-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1741,8 +1892,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRC-004
     title: State a required condition first and separate it from the command with a comma.
     family: procedures
@@ -1780,6 +1930,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PRC-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1789,8 +1945,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRC-005
     title: Notes give information only, with a maximum of twenty-five words per sentence.
     family: procedures
@@ -1829,6 +1984,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PRC-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1838,8 +1999,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-DSC-001
     title: Introduce information gradually, one subject per sentence.
     family: descriptions
@@ -1878,6 +2038,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-06#STOW-DSC-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -1887,8 +2053,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-DSC-002
     title: Use consistent key words and phrases to give the text a logical structure.
     family: descriptions
@@ -1927,6 +2092,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-06#STOW-DSC-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -1936,8 +2107,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -2038,6 +2208,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-06#STOW-DSC-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -2047,8 +2223,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-DSC-005
     title: Give each paragraph exactly one topic.
     family: descriptions
@@ -2087,6 +2262,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-06#STOW-DSC-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -2096,8 +2277,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -2139,6 +2319,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-06#STOW-DSC-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -2148,8 +2334,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SAF-001
     title: Label each safety instruction with a word that identifies the level of risk.
     family: safety
@@ -2187,6 +2372,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-07#STOW-SAF-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-07
@@ -2196,8 +2387,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SAF-002
     title: Begin a safety instruction with a clear, accurate command or condition.
     family: safety
@@ -2234,6 +2424,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-07#STOW-SAF-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-07
@@ -2243,8 +2439,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-SAF-003
     title: State the risk or the possible result of not obeying the safety instruction.
     family: safety
@@ -2282,6 +2477,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-07#STOW-SAF-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-07
@@ -2291,8 +2492,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PCT-001
     title: Do not use the semicolon; write two separate sentences instead.
     family: punctuation
@@ -2391,6 +2591,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2400,8 +2606,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PCT-003
     title: Use parentheses only for the approved purposes.
     family: punctuation
@@ -2442,6 +2647,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2451,8 +2662,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2497,6 +2707,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2506,8 +2722,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2553,6 +2768,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2562,8 +2783,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2610,6 +2830,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2619,8 +2845,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2665,6 +2890,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-PCT-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2674,8 +2905,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2722,6 +2952,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-STY-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2731,8 +2967,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-STY-002
     title: Use each approved word with its correct restricted meaning and part of speech.
     family: style
@@ -2771,6 +3006,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-STY-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2780,8 +3021,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -2825,6 +3065,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-STY-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2834,8 +3080,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -2879,6 +3124,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-STY-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2888,8 +3139,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -2931,6 +3181,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2940,8 +3196,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-GEN-002
     title: Check the preposition with for ambiguity and rewrite when unclear.
     family: general
@@ -2979,6 +3234,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2988,8 +3249,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-GEN-003
     title: Use only approved pronouns; replace an ambiguous pronoun with its noun.
     family: general
@@ -3027,6 +3287,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3036,8 +3302,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-GEN-004
     title: Make sure the pronoun this has an unambiguous referent.
     family: general
@@ -3076,6 +3341,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3085,8 +3356,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -3129,6 +3399,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3138,8 +3414,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -3241,6 +3516,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3250,8 +3531,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-GEN-008
     title: Use the possessive correctly; if unsure, avoid it.
     family: general
@@ -3289,6 +3569,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-05#STOW-GEN-008'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3298,8 +3584,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-001
     title: Action-first response opening
     family: action-shaping
@@ -3335,6 +3620,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-001'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3344,8 +3635,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-002
     title: Numbered steps for multi-step work
     family: action-shaping
@@ -3382,6 +3672,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3391,8 +3687,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-003
     title: Close with a single concrete next step
     family: action-shaping
@@ -3430,6 +3725,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3439,8 +3740,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -3481,6 +3781,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-02#STOW-ACT-004'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-02
@@ -3490,8 +3796,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -3536,6 +3841,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-02#STOW-ACT-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-02
@@ -3545,8 +3856,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -3588,6 +3898,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-02#STOW-ACT-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-02
@@ -3597,8 +3913,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -3640,6 +3955,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3649,8 +3970,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-008
     title: Neutral error reporting
     family: action-shaping
@@ -3687,6 +4007,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-008'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3696,8 +4022,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-ACT-009
     title: Bound action lists to five items
     family: action-shaping
@@ -3794,6 +4119,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-010'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3803,8 +4134,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -3845,6 +4175,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-01#STOW-ACT-011'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3854,8 +4190,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-001
     title: Use em dashes only under an explicit style contract
     family: prose-integrity
@@ -3959,6 +4294,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-002'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -3968,8 +4309,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -4012,6 +4352,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-003'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4021,8 +4367,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-004
     title: No empty intensifiers
     family: prose-integrity
@@ -4120,6 +4465,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-03#STOW-PRO-005'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4129,8 +4480,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-006
     title: Functionless semantic repetition
     family: prose-integrity
@@ -4167,6 +4517,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-03#STOW-PRO-006'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4176,8 +4532,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-007
     title: Vary structure
     family: prose-integrity
@@ -4214,6 +4569,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-007'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4223,8 +4584,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-008
     title: Reference without narrating
     family: prose-integrity
@@ -4262,6 +4622,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-008'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4271,8 +4637,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -4314,6 +4679,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-03#STOW-PRO-009'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4323,8 +4694,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-010
     title: No scare quotes on ordinary words
     family: prose-integrity
@@ -4542,6 +4912,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-013'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -4551,8 +4927,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -4595,6 +4970,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-08#STOW-PRO-014'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4604,8 +4985,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:
@@ -4710,6 +5090,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-03#STOW-PRO-016'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4719,8 +5105,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-017
     title: No fabricated scenarios
     family: prose-integrity
@@ -4759,6 +5144,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-017'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -4768,8 +5159,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -4814,6 +5204,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-018'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -4823,8 +5219,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -4868,6 +5263,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-019'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -4877,8 +5278,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -5108,6 +5508,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-023'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -5117,8 +5523,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
       destinations:
@@ -5164,6 +5569,12 @@ records:
         freshness: baseline-captured
         limits: Records the starting claim and mechanism only; it is not fresh behavioral proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: 'G1-BHV-20260809-V7D/BC-04#STOW-PRO-024'
+        result: inconclusive
+        freshness: fresh
+        limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -5173,8 +5584,7 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: The bounded challenge has not yet measured suppression benefit or damage to already-good
-      prose.
+    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: rule-set
       rule_ids:

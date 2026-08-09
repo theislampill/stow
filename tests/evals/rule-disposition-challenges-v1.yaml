@@ -1,4 +1,5 @@
 schema_version: 1
+subject_revision: 1
 suite_status: definitions-only
 execution_boundary: Generated transcripts and scores belong in the private run root, not this repository.
 scoring:
@@ -173,20 +174,14 @@ scenario_packs:
     name: Controlled maintenance procedure
     task_prompt: Rewrite the maintenance procedure under the supplied local language authority. Preserve
       identifiers and quoted text exactly. Keep conditions, actions, and notes distinct.
-    pathology_input: "Closed authority packet:\n- Approved component noun: purge valve. It names the valve assembly
-      controlled by PV-17.\n- Approved verbs: inspect, isolate, and record. Use isolate only to mean disconnect
-      from power.\n- Use the American spelling color.\n- Treat `PV-17`, \"OPEN SLOWLY\", a parenthetical note, and
-      a hyphenated group as protected or single counting units where the local procedure contract requires it.\n\
-      \nDraft: If pressure is below 20 kPa you should be verifying the purge-valve assembly and then it should be
-      isolated, which is something that operators do in order to facilitate safe maintenance; note: don't alter
+    pathology_input: "If pressure is below 20 kPa you should be verifying the purge-valve assembly and then it should
+      be isolated, which is something that operators do in order to facilitate safe maintenance; note: don't alter
       `PV-17`, the blue colour mark, or \"OPEN SLOWLY\". After that, check it and record it and update the log,
       etc."
-    paired_negative_control: "Closed authority packet:\n- Approved component noun: purge valve. It names the valve
-      assembly controlled by PV-17.\n- Approved verbs: inspect, isolate, and record. Use isolate only to mean disconnect
-      from power.\n- Use the American spelling color.\n\nIf pressure is below 20 kPa, inspect the purge valve.\n\
-      \n1. Isolate control `PV-17`.\n2. Confirm that the blue color mark is visible.\n3. Confirm that the label
-      reads \"OPEN SLOWLY\".\n4. Record the result in the maintenance log.\n\nNote: Keep the supplied identifier
-      and label unchanged."
+    paired_negative_control: "If pressure is below 20 kPa, inspect the purge valve.\n\nDo these steps:\n\n1. Isolate
+      control `PV-17`.\n2. Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN
+      SLOWLY\".\n4. Record 20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance
+      log.\n\nNote: The high-pressure state (after isolation) remains in the record."
     positive_coverage:
       - STOW-WRD-001
       - STOW-WRD-002
@@ -313,6 +308,91 @@ scenario_packs:
       - Score pathology suppression in the edited pathology arm.
       - Score false-positive damage and voice preservation in the paired negative control.
       - Quote the output span supporting each rule observation or mark it not observable.
+    closed_authority:
+      technical_terms:
+        component: purge valve
+        control_identifier: PV-17
+        site_name: North Plant
+        display_label: OPEN SLOWLY
+        spelling: color
+      approved_action_verbs:
+        - confirm
+        - inspect
+        - isolate
+        - record
+      verb_meanings:
+        inspect: examine the purge valve
+        isolate: disconnect control PV-17 from power
+        confirm: check that a stated condition is true
+        record: write the stated result in the maintenance log
+      protected_literals:
+        - '`PV-17`'
+        - '"OPEN SLOWLY"'
+      approved_vocabulary:
+        - after
+        - and
+        - below
+        - blue
+        - color
+        - confirm
+        - control
+        - do
+        - high-pressure
+        - if
+        - in
+        - inspect
+        - is
+        - isolate
+        - isolation
+        - kpa
+        - label
+        - log
+        - maintenance
+        - mark
+        - note
+        - pressure
+        - purge
+        - reads
+        - record
+        - remains
+        - result
+        - state
+        - steps
+        - that
+        - the
+        - these
+        - valve
+        - visible
+    word_count_contract:
+      procedural_sentence_max: 20
+      list_colon_ends_sentence: true
+      parenthetical_host_words: 1
+      atomic_classes:
+        - number
+        - identifier
+        - quoted-text
+        - title
+        - proper-noun
+      hyphenated_group_words: 1
+      expected_calculations:
+        - id: condition
+          text: If pressure is below 20 kPa, inspect the purge valve.
+          count: 10
+        - id: list-lead
+          text: 'Do these steps:'
+          count: 3
+        - id: identifier
+          text: Isolate control `PV-17`.
+          count: 3
+        - id: quotation
+          text: Confirm that the label reads "OPEN SLOWLY".
+          count: 6
+        - id: atomic-classes
+          text: Record 20, `PV-17`, "OPEN SLOWLY", and North Plant.
+          count: 6
+        - id: parenthetical-hyphenated
+          text: 'Note: The high-pressure state (after isolation) remains in the record.'
+          count: 9
   - id: BC-06
     name: Controlled system description
     task_prompt: Edit the system description so a maintainer can recover the subjects and relationships.

@@ -6,6 +6,7 @@
   "additionalProperties": false,
   "required": [
     "schema_version",
+    "subject_revision",
     "ledger_status",
     "id_policy",
     "starting_population",
@@ -59,6 +60,10 @@
       "items": {
         "$ref": "#/$defs/record"
       }
+    },
+    "subject_revision": {
+      "type": "integer",
+      "minimum": 1
     }
   },
   "$defs": {
@@ -74,7 +79,8 @@
         "reference",
         "result",
         "freshness",
-        "limits"
+        "limits",
+        "subject_revision"
       ],
       "properties": {
         "kind": {
@@ -107,6 +113,14 @@
           ]
         },
         "limits": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "proves_validator": {
           "type": "string",
           "minLength": 1
         }
@@ -154,7 +168,8 @@
         "cold_reads",
         "tool_runtime",
         "maintenance",
-        "dependencies"
+        "dependencies",
+        "rationale"
       ],
       "properties": {
         "hot_path_context": {
@@ -196,6 +211,10 @@
             "type": "string",
             "minLength": 1
           }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -502,6 +521,108 @@
             "properties": {
               "deterministic_verification": {
                 "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision_state": {
+                "const": "proposed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "closure_state": {
+                "not": {
+                  "const": "closed"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "closure_state": {
+                "const": "closed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decision_state": {
+                "const": "accepted"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layer": {
+                "const": "G1"
+              },
+              "behavioural_coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "contains": {
+                  "type": "object",
+                    "required": [
+                      "kind",
+                      "result",
+                      "freshness",
+                      "subject_revision"
+                    ],
+                  "properties": {
+                      "kind": {
+                        "const": "behavioural-challenge"
+                      },
+                      "result": {
+                        "const": "accepted"
+                      },
+                    "freshness": {
+                      "const": "fresh"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layer": {
+                "const": "G1"
+              },
+              "decision_state": {
+                "const": "accepted"
+              },
+              "closure_state": {
+                "const": "closed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "behavioural_coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  }
+                }
               }
             }
           }

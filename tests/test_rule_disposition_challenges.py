@@ -1,5 +1,7 @@
 """Contract tests for the bounded paired behavioural challenge definitions."""
 
+import copy
+import re
 from pathlib import Path
 
 from ruamel.yaml import YAML
@@ -15,6 +17,51 @@ def _load():
     parser = YAML(typ="safe")
     with PATH.open(encoding="utf-8") as stream:
         return parser.load(stream)
+
+
+def challenge_errors(data):
+    errors = []
+    pack = next(pack for pack in data["scenario_packs"] if pack["id"] == "BC-05")
+    authority = pack.get("closed_authority", {})
+    required_verbs = {"confirm", "inspect", "isolate", "record"}
+    if not required_verbs <= set(authority.get("approved_action_verbs", [])):
+        errors.append("negative-control action verb is outside the closed authority")
+    controlled_text = pack["paired_negative_control"]
+    for literal in authority.get("protected_literals", []):
+        controlled_text = controlled_text.replace(literal, " ")
+    for term in (authority.get("technical_terms", {}).get("site_name", ""),):
+        controlled_text = controlled_text.replace(term, " ")
+    tokens = {token.lower() for token in re.findall(r"[A-Za-z]+(?:-[A-Za-z]+)?", controlled_text)}
+    if not tokens <= set(authority.get("approved_vocabulary", [])):
+        errors.append("negative-control vocabulary is outside the closed authority")
+    contract = pack.get("word_count_contract", {})
+    if contract.get("procedural_sentence_max") != 20:
+        errors.append("procedural cap is not fixed")
+    if contract.get("list_colon_ends_sentence") is not True:
+        errors.append("list colon boundary is not fixed")
+    if contract.get("parenthetical_host_words") != 1:
+        errors.append("parenthetical host count is not fixed")
+    if contract.get("hyphenated_group_words") != 1:
+        errors.append("hyphenated-group count is not fixed")
+    expected_classes = {"number", "identifier", "quoted-text", "title", "proper-noun"}
+    if set(contract.get("atomic_classes", [])) != expected_classes:
+        errors.append("atomic counting classes are incomplete")
+    calculations = contract.get("expected_calculations", [])
+    expected_counts = {
+        "condition": 10,
+        "list-lead": 3,
+        "identifier": 3,
+        "quotation": 6,
+        "atomic-classes": 6,
+        "parenthetical-hyphenated": 9,
+    }
+    actual_counts = {item.get("id"): item.get("count") for item in calculations}
+    if actual_counts != expected_counts or any(item.get("count", 99) > 20 for item in calculations):
+        errors.append("expected calculations are absent or exceed the cap")
+    control = pack["paired_negative_control"]
+    if any(item.get("text", "") not in control for item in calculations):
+        errors.append("expected calculation is not present in the negative control")
+    return errors
 
 
 def test_challenge_file_exists():
@@ -40,9 +87,24 @@ def test_eight_paired_natural_tasks_cover_starting_inventory():
 
 def test_controlled_pack_does_not_overclaim_rule_level_observability():
     pack = next(pack for pack in _load()["scenario_packs"] if pack["id"] == "BC-05")
-    assert "closed authority packet" in pack["pathology_input"].lower()
+    assert pack["closed_authority"]["technical_terms"]
     assert pack["expected_not_observable"]
     assert "NOT_OBSERVABLE" in pack["coverage_limit"]
+
+
+def test_controlled_negative_control_closes_authority_and_counting_contract():
+    data = _load()
+    assert challenge_errors(data) == []
+
+    missing_verb = copy.deepcopy(data)
+    pack = next(pack for pack in missing_verb["scenario_packs"] if pack["id"] == "BC-05")
+    pack["closed_authority"]["approved_action_verbs"].remove("confirm")
+    assert challenge_errors(missing_verb)
+
+    bad_count = copy.deepcopy(data)
+    pack = next(pack for pack in bad_count["scenario_packs"] if pack["id"] == "BC-05")
+    pack["word_count_contract"]["expected_calculations"][0]["count"] = 11
+    assert challenge_errors(bad_count)
 
 
 def test_prompts_do_not_reveal_the_evaluation_frame():

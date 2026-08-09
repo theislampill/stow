@@ -39,6 +39,12 @@ remain separate governed steps under the frozen rubric.
 - Named identifier and quotation presence checks: both arms clean in the final
   round.
 
+The historical 8 of 9 YAML result used the then-current YAML parse predicate.
+The current exact-content predicate in `tools/ab_eval_runner.py` was added later
+and was not used to recompute that frozen metric. The earlier number remains a
+record of the evaluation contract that produced it, not evidence that the
+current predicate passed those outputs.
+
 Identifier and quotation checks in this run tested named literals in fixed
 cases; they were not general final-output byte-preservation gates.
 

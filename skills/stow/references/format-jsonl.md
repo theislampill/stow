@@ -8,7 +8,9 @@ STOW-native serialization contract checked by
 `skills/stow/runtime/validate.py`, not a rule derived from any corpus, so no
 `corpus_ref` citation applies to the contract itself. Where a governed rule meets
 the JSONL boundary, the normative statement lives only in the cited `corpus_ref`
-file. Read the corpus for the wording, never this page.
+file. The runtime returns a bounded G2 verdict for supplied bytes; delivery
+custody remains with the caller or host. Read the corpus for the wording, never
+this page.
 
 ## The contract
 
@@ -83,19 +85,17 @@ checks it, and the `corpus_ref` for the full rule text.
 
 ## Applying it
 
-Validate the region first with the command above, then resolve any reported line
-against the contract. Because the region is masked from every prose scan, a value
-that reads like ordinary prose is never rewritten into something that no longer
-parses, and a finding on the surrounding prose never edits a key or a string
-inside the JSONL payload.
+Submit the region to the G2 checker, then resolve any reported line against the
+contract. G1 guidance excludes the region from prose edits, and the advisory
+linter masks recognized structured spans in its read-only scan copy. Neither
+mechanism proves that the actual final candidate retained the submitted bytes.
 
 ## Deliver once
 
 Trigger: any raw-output request (no fence, no commentary). Region: the entire
-reply. How STOW checks it: composition and any validation happen privately,
-before sending; the reply contains the finished artifact and nothing else. If a
-checker cannot run in the current session, STOW still ships only the artifact
-and never writes a note about the missing check inside the artifact or beside
-it. A correction replaces the draft before sending; it is never appended after
-a first attempt in the same reply. The governing duty is the kernel's
-raw-delivery rule: a raw artifact ships raw.
+reply. G1 guidance says to compose one raw artifact with no fence or commentary.
+The G2 checker can report only on bytes it receives. If it cannot run, its result
+is unknown and STOW cannot claim that the artifact was validated. A named host
+creates a G3 delivery gate only when it owns the actual final candidate, blocks
+nonzero and unreadable results, permits only authorized repairs, and revalidates
+before delivery. Validation status belongs outside the raw artifact.

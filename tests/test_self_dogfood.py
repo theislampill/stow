@@ -1,10 +1,9 @@
-"""Self-dogfood gate: STOW's own authored surfaces obey STOW's own
-deterministic checks.
+"""Self-dogfood check for selected findings on STOW's authored surfaces.
 
 Scope: the committed authored prose surfaces, each linted under its mapped
-profile through the shipped linter (whose masking already protects fenced
-blocks, inline code, block quotes, and identifiers). The gate covers the
-DETERMINISTIC subset that must be zero:
+profile through the shipped linter. The linter returns G2 advisory findings and
+does not fail delivery or a build. These pytest assertions form a G4 repository
+gate over a closed subset that must be zero:
 
   * the em-dash check (always-on),
   * every lexical term-table check (intensifiers, transitions, filler,
@@ -13,7 +12,7 @@ DETERMINISTIC subset that must be zero:
   * for the executable-procedure template only: the controlled-profile
     checks (semicolons, contractions, sentence caps).
 
-The list-length advisory is NOT in the gate: exhaustive reference
+The list-length advisory is NOT in the G4 repository gate: exhaustive reference
 enumerations are a recorded contract exception (see the conflict registry's
 exhaustive-list entry), and list intent is context a linter cannot read.
 
@@ -37,8 +36,9 @@ SCHEMAS = os.path.join(REPO, "skills", "stow", "schemas")
 CLARITY = "technical-clarity"
 GUIDED = "controlled-technical-guided"
 
-# The gate is never averaged away: these checks must report ZERO findings on
-# every surface below. (list-length is deliberately absent.)
+# The G2 advisory results are never averaged away by this G4 repository gate:
+# these checks must report ZERO findings on every surface below.
+# (list-length is deliberately absent.)
 GATED_RULES = frozenset({
     "em-dash", "intensifier", "scare-quote", "filler-phrase",
     "whether-youre-opener", "weasel-phrase", "transition-pattern",

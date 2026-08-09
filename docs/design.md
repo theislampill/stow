@@ -211,9 +211,10 @@ is not implemented. Review-fallback is judgement, not verification.
 
 The prose linters are **advisory / report-only**. `runtime/lint_prose.py` reports
 findings and exits zero by design; it is wired into CI as a smoke invocation, not
-as a gate. Nothing in this repository fails a build because prose violated a
-style rule. Where a prose property genuinely must hold, it is enforced by a real
-test (see `tests/test_count_leak.py`), not by the linter.
+as its own gate. Repository tests can assert that a selected advisory subset is
+empty on named authored surfaces; those pytest assertions are G4 repository
+gates and do not turn the linter into a G3 delivery gate. Other prose properties
+that genuinely must hold use dedicated tests such as `tests/test_count_leak.py`.
 
 This is a deliberate v0.1 position, not an oversight: shipping a checker that
 silently under-detects is worse than declaring the gap. `enforcement.status` is

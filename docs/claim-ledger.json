@@ -1,7 +1,31 @@
 {
   "schema_version": 1,
   "coverage_surfaces": [
-    "docs/INSTRUMENTALITY.md"
+    ".claude-plugin/plugin.json",
+    "README.md",
+    "docs/FUNCTIONAL-EVIDENCE.md",
+    "docs/INSTRUMENTALITY.md",
+    "docs/RULE-USABILITY.md",
+    "docs/SELF-DOGFOOD.md",
+    "docs/design.md",
+    "docs/evaluation-results.md",
+    "skills/stow/SKILL.md",
+    "skills/stow/references/activation-and-precedence.md",
+    "skills/stow/references/canonical-terms.md",
+    "skills/stow/references/conformance.md",
+    "skills/stow/references/cross-harness-interchange.md",
+    "skills/stow/references/format-json.md",
+    "skills/stow/references/format-jsonl.md",
+    "skills/stow/references/format-markdown.md",
+    "skills/stow/references/format-yaml.md",
+    "skills/stow/references/meta-code.md",
+    "skills/stow/references/protected-regions.md",
+    "skills/stow/references/technical-clarity.md",
+    "skills/stow/references/user-facing-output.md",
+    "skills/stow/rules/profiles.json",
+    "skills/stow/runtime/profiles.py",
+    "tools/ab_eval_runner.py",
+    "tools/measure_context.py"
   ],
   "guarded_surfaces": [
     ".claude-plugin/plugin.json",
@@ -37,14 +61,25 @@
     "preservation": "preserve, restore, or byte-fidelity scope",
     "determinism": "deterministic scope and its input boundary"
   },
-  "claim_candidate_patterns": [
-    "\\b(?:guarantee\\w*|ensure\\w*)\\b.{0,100}\\b(?:output|compliance|conformance|selection|preserv\\w*)\\b",
-    "\\b(?:automatic\\w*|always)\\b(?!-).{0,80}\\b(?:select\\w*|load\\w*|activat\\w*|classif\\w*)\\b",
-    "\\bdelivery gate\\b",
-    "\\b(?:preserv\\w*|restor\\w*)\\b.{0,100}\\bbyte(?:-for-byte|-exact|-identical| fidelity)?\\b",
-    "\\bdetermin\\w*\\b.{0,100}\\b(?:model output|selection|semantic classif\\w*|final-output preserv\\w*)\\b",
-    "\\bvalidat\\w*\\b.{0,100}\\b(?:actual final candidate|before delivery|delivery acceptance|byte preservation|restoration)\\b"
-  ],
+  "claim_candidate_patterns": {
+    "guarantee": [
+      "\\b(?:STOW|skill|guidance|validator|checker|linter|repository|runtime|plugin|test)\\b.{0,80}\\b(?:guarantees?|ensures?|enforces?)\\b",
+      "\\b(?:guarantees?|ensures?|enforces?)\\b.{0,80}\\b(?:every|all|response|output|compliance|conformance|prose|rules?)\\b"
+    ],
+    "selection": [
+      "\\b(?:must|always(?!-)|automatic\\w*)\\b[^.!?]{0,120}\\b(?:select(?:s|ed|ing|ion)?|load(?:s|ed|ing)?|activat(?:e|es|ed|ing|ion)|classif(?:y|ies|ied|ying|ication)|reference|profile)\\b"
+    ],
+    "validation": [
+      "\\bdelivery gate\\b",
+      "\\bvalidat\\w*\\b(?!-).{0,120}\\b(?:actual final candidate|final response|before delivery|delivery acceptance|correctness|repair|byte preservation|restoration)\\b"
+    ],
+    "preservation": [
+      "\\b(?:preserv\\w*|restor\\w*)\\b.{0,120}\\b(?:byte|verbatim|literal|exact|unchanged|output|candidate|artifact|identifier|quotation|quote)\\b"
+    ],
+    "determinism": [
+      "\\bdetermin\\w*\\b.{0,120}\\b(?:classif\\w*|output|selection|preserv\\w*|govern\\w*|verdict|token|behavio\\w*|reply|request|response)\\b"
+    ]
+  },
   "claims": [
     {
       "id": "CLM-001",
@@ -140,7 +175,7 @@
     {
       "id": "CLM-014",
       "surface": "README.md",
-      "statement": "STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.",
+      "statement": "- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.",
       "families": ["guarantee", "validation"],
       "layer": "G3"
     },
@@ -213,6 +248,132 @@
       "statement": "Run the validator against the actual final candidate in host custody.",
       "families": ["validation"],
       "layer": "G3"
+    },
+    {
+      "id": "CLM-025",
+      "surface": "README.md",
+      "statement": "`validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-026",
+      "surface": "README.md",
+      "statement": "The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.",
+      "families": ["validation"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-027",
+      "surface": "README.md",
+      "statement": "- **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks.",
+      "families": ["guarantee"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-028",
+      "surface": "README.md",
+      "statement": "- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-029",
+      "surface": "docs/RULE-USABILITY.md",
+      "statement": "Passing one blind application test does not make a semantic rule mechanically enforced, and this page makes no such claim.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-030",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "Classes: **mechanically checked** (a committed test enforces it), **independently reviewed** (a fresh-context reviewer verified it), **exempt** (a declared profile or protected-region exemption applies), **accepted deviation** (kept, with a rule-based rationale), **unresolved** (none remain within the mechanically covered scope described below; the semantic checks rest on point-in-time review).",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-031",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "The semantic checks rest on fresh-context reviews recorded in the run record and on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-time judgments, not standing guarantees.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-032",
+      "surface": "docs/design.md",
+      "statement": "For those modules the pre-normalization baseline is preserved outside the public tree, and the governed comparative rewrite gate still measures any future candidate against that preserved baseline.",
+      "families": ["preservation"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-033",
+      "surface": "docs/design.md",
+      "statement": "Repository tests can assert that a selected advisory subset is empty on named authored surfaces; those pytest assertions are G4 repository gates and do not turn the linter into a G3 delivery gate.",
+      "families": ["validation"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-034",
+      "surface": "docs/design.md",
+      "statement": "It ran on one pinned host model per round, invocation is telemetry rather than forced, and the evaluators share a model family with the generators, so the result is a set of deltas on a single host, not a guarantee that every model and harness behaves the same way.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-035",
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "- **Punctuation** (`STOW-PCT-001`..`007`): region: prose; check: deterministic and heuristic (including the word-count token rules).",
+      "families": ["determinism"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-036",
+      "surface": "skills/stow/references/format-json.md",
+      "statement": "Validation status belongs outside the raw artifact; an authorized repair replaces the draft and is revalidated before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-037",
+      "surface": "skills/stow/references/format-jsonl.md",
+      "statement": "A named host creates a G3 delivery gate only when it owns the actual final candidate, blocks nonzero and unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-038",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "A named host creates a G3 delivery gate only when it gives the checker the actual final candidate, blocks nonzero or unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-039",
+      "surface": "skills/stow/references/format-json.md",
+      "statement": "- **Parse the actual candidate.** A named G3 host gives the actual final candidate to the parser, blocks nonzero and unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-040",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "Validation status belongs outside the raw artifact; a repair, when authorized, replaces the draft and is revalidated before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-041",
+      "surface": "skills/stow/references/protected-regions.md",
+      "statement": "Byte-preserving generation remains G1 guidance unless a named host owns the actual final candidate, compares it with authoritative bytes, blocks mismatch, and rechecks after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-042",
+      "surface": "tools/ab_eval_runner.py",
+      "statement": "guarantees compliance",
+      "families": ["guarantee"],
+      "layer": "G4"
     }
   ],
   "forbidden_claim_patterns": [

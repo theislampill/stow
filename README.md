@@ -457,7 +457,7 @@ python tools/check_provenance_leak.py --local
 
 **`--schema` says the schema is unknown.** The id is a bare filename stem: `handoff`, not `handoff.schema.json` and not a path.
 
-**STOW edited my source code.** It should not, unless editing that code was the task you set. Otherwise code is a protected literal that passes through unchanged, and the prose and style rules never rewrite it on their own. If a code region was altered when your task was not to edit it, that is a precedence violation worth reporting, not intended behavior.
+**STOW edited my source code.** G1 guidance tells the writer not to edit code unless that is the task, and the G2 linter excludes recognized code spans from its advisory scan. Neither mechanism proves that final bytes match the source. If fidelity is required, a named host must compare the actual final candidate with the authoritative source and block a mismatch. An unintended code change is a precedence violation worth reporting.
 
 **A generated file keeps coming back changed.** `references/rule-index.md`, `references/always-on.md`, `docs/rule-conflicts.md`, and the README catalog sections are generated. Edit the registry or the conflict registry and regenerate; do not hand-edit a generated region.
 

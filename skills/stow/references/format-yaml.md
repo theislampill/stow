@@ -12,18 +12,21 @@ and presentation rules do **not** scan the keys, structure, or scalar tokens of
 a YAML document. The surface instead has a mechanical serialization
 contract, checked deterministically by the packaged G2 checker
 `runtime/validate.py` (`python runtime/validate.py --format yaml <file>`). Run
-it on the exact bytes you are about to return and deliver only on exit 0.
-Semantics are YAML 1.2 core (safe) schema.
+it on a supplied file to obtain that bounded verdict. A named host creates a G3
+delivery gate only when it gives the checker the actual final candidate, blocks
+nonzero or unreadable results, permits only authorized repairs, and revalidates
+before delivery. Semantics are YAML 1.2 core (safe) schema.
 
 ## The contract
 
 Each item below is an observable trigger, the region it covers, and how STOW
 checks it. Unless noted, the checker is `runtime/validate.py`.
 
-- **Parse before delivery.** Trigger: any YAML STOW is about to return. Region:
-  the whole stream, every document in it. How checked: the checker composes the
-  input with a safe loader pinned to version 1.2; any parser failure is an
-  error and blocks delivery.
+- **Parse the supplied candidate.** Trigger: a YAML candidate submitted to the
+  checker. Region: the whole stream, every document in it. How checked: the G2
+  checker composes the input with a safe loader pinned to version 1.2; parser
+  failure produces a nonzero verdict. Only the named-host G3 conditions above
+  can make that verdict block delivery.
 
 - **Spaces, never tabs, for indentation.** Trigger: nesting a mapping or
   sequence. Region: the leading whitespace of every line. How checked: a tab in
@@ -71,10 +74,9 @@ is carried on the governing records; see `corpus/words/usage.md#STOW-WRD-014`,
 ## Deliver once
 
 Trigger: any raw-output request (no fence, no commentary). Region: the entire
-reply. How STOW checks it: composition and any validation happen privately,
-before sending; the reply contains the finished artifact and nothing else. If a
-checker cannot run in the current session, STOW still ships only the artifact
-and never writes a note about the missing check inside the artifact or beside
-it. A correction replaces the draft before sending; it is never appended after
-a first attempt in the same reply. The governing duty is the kernel's
-raw-delivery rule: a raw artifact ships raw.
+reply. G1 guidance says to compose one raw artifact with no fence or commentary.
+The G2 checker can report only on bytes it receives. If it cannot run, its result
+is unknown and STOW cannot claim that the artifact was validated. A named host
+that owns the actual final candidate may block that unknown result under the G3
+conditions above. Validation status belongs outside the raw artifact; a repair,
+when authorized, replaces the draft and is revalidated before delivery.

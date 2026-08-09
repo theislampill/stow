@@ -26,13 +26,13 @@ wording, and every schema title and description. Conflict-registry fixtures are
 deliberate rule-violating demonstrations and are excluded, the same way the
 linter masks a quotation.
 
-The standing G2 gate is `tests/test_self_dogfood.py`: the em-dash check, every
-lexical check, scare quotes, and hedging clusters must report zero findings
-on every authored surface (plus the controlled-profile checks on the runbook
-template). The same gate extracts the structured-field prose described above and
-holds it to the em-dash and banned-lexical subset. It runs in the full suite and
-in CI, so those exact observable regressions fail the repository gate. Passing
-does not establish semantic prose quality or delivery acceptance.
+The shipped linter returns G2 advisory findings and always exits successfully.
+The G4 repository gate at `tests/test_self_dogfood.py` selects a closed subset of
+those findings and asserts that it is empty on the named authored surfaces. This
+pytest assertion does not change the linter's runtime semantics. The same gate
+extracts the structured-field prose described above and checks the em-dash and
+banned-lexical subset. Passing does not establish semantic prose quality or
+delivery acceptance.
 
 ## Results by check
 
@@ -82,6 +82,6 @@ the two rule-family groups. Evaluation notes: one detector enumeration.
 
 The gate continuously checks its declared observable subset. The
 semantic checks rest on fresh-context reviews recorded in the run record and
-on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-
-time judgments, not standing guarantees. Live-model conformance under the
+on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-time
+judgments, not standing guarantees. Live-model conformance under the
 skill remains measured, not promised.

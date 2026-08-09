@@ -10,14 +10,14 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 
 - **Trigger:** the assistant is about to label, certify, or otherwise describe output as meeting the controlled-technical writing standard, or a user asks whether output conforms.
 - **Region:** assistant statements about output status, not the prose itself.
-- **Check:** STOW asserts only guided alignment. It emits no conformance certificate. Any claim of full or strict conformance is downgraded to *guided, partial*, because the strict profile is locked in v0.1. STOW names which checks ran and which are unavailable instead of making a blanket claim.
+- **Check:** STOW asserts only guided alignment. It emits no conformance certificate. Any claim of full or strict conformance is downgraded to *guided, partial*, because the strict profile is locked in this release. STOW names which checks ran and which are unavailable instead of making a blanket claim.
 - **Reference:** the profile-gated rule set as a whole; representative see corpus/words/selection.md#STOW-WRD-001.
 
 ## 2. Dictionary-dependent checks: reported UNAVAILABLE
 
 - **Trigger:** prose under an active controlled-technical profile whose evaluation would require looking a word up in the controlled dictionary, confirming its approved sense, part of speech, or inflection, testing technical-noun or technical-verb category membership, checking approved connectors, company or industry terminology, phrasal-verb admissibility, or false-friend status.
 - **Region:** all-prose, including procedural and descriptive prose; excludes code, structured data, quoted text, and identifiers.
-- **Check:** unavailable in v0.1. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked: dictionary unavailable* and never counts them toward a conformance claim.
+- **Check:** unavailable in this release. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked: dictionary unavailable* and never counts them toward a conformance claim.
 - **Reference:** see corpus/words/selection.md#STOW-WRD-001, corpus/words/approved-tables.md#STOW-WRD-005, corpus/verbs/technical-verbs.md#STOW-VRB-001, corpus/sentences.md#STOW-SEN-004, corpus/style/consistency.md#STOW-STY-002, corpus/style/economy.md#STOW-STY-003, corpus/general-practice.md#STOW-GEN-005.
 
 ## 3. Structural and mechanical checks: AVAILABLE (guided)

@@ -7,10 +7,9 @@ rules may touch each region, and *how* STOW checks the result. The normative
 statement of every rule named here lives only in its cited `corpus_ref` file.
 Read the corpus for the wording, never this page.
 
-The contract in one line: apply prose rules only to editable prose, keep every
-code fence, inline-code span, quotation, path, identifier, schema key, and
-serialized region byte-stable, and validate each embedded structured-data region
-on its own.
+The contract in one line: apply prose guidance only to editable prose, exclude
+recognized literal and serialized regions from advisory prose scans, and use a
+named host comparator when a contract requires byte fidelity.
 
 ## When this page applies
 
@@ -31,12 +30,13 @@ front-matter rules, and table pipes. Split the document at those delimiters, the
 apply each rule only to the region its scope names, exactly as the kernel
 requires (`SKILL.md` section 2).
 
-Two invariants hold across every construct below:
+Two guidance rules hold across every construct below:
 
-- A prose rule never edits code, structured data, quoted text, or an identifier.
-  These regions carry the shared scope `exclude` of every prose rule.
-- Each embedded structured-data region parses and schema-checks independently.
-  A valid prose region never excuses an invalid data region, and the reverse.
+- G1 tells the writer not to apply prose edits to code, structured data, quoted
+  text, or an identifier. These regions carry the shared scope `exclude` of
+  every prose rule.
+- A supported structured-data region can receive an independent G2 verdict.
+  A prose finding does not replace that verdict, and the reverse.
   Serialization (band 3) and literals (band 4) outrank the profile and
   presentation bands, so a lexical or shaping preference yields on any conflict.
 
@@ -44,12 +44,11 @@ Two invariants hold across every construct below:
 
 - **Trigger:** a fenced block opened by ``` or `~~~`, or an inline span between
   single backticks.
-- **Region:** protected literal. The body is byte-stable, including its spelling,
-  spacing, and punctuation.
-- **How STOW checks it:** no prose rule enters the fence or the span. The literals
-  band holds the bytes fixed; the presentation and profile lexical checks skip the
-  region entirely. This is the immutability behavior the registry records on the
-  protected-literal conflicts: see corpus/punctuation.md#STOW-PCT-006 and
+- **Region:** protected literal under G1 generation guidance.
+- **How STOW checks it:** the G2 linter excludes recognized fences and inline
+  spans from its read-only advisory scan. It does not compare the actual final
+  candidate with source bytes. This is the scope behavior the registry records
+  on the protected-literal conflicts: see corpus/punctuation.md#STOW-PCT-006 and
   corpus/words/usage.md#STOW-WRD-014.
 - When a fence's info string names a data language, also treat its body as a
   structured region (below).
@@ -63,32 +62,34 @@ Two invariants hold across every construct below:
 - **How STOW checks it:** each supported region has its own closed format
   contract (`references/format-json.md`, `references/format-yaml.md`, or
   `references/format-jsonl.md`), and `runtime/validate.py` can return a G2
-  verdict for caller-supplied bytes. Delivery custody is external.
-  No prose rule renames a key, reorders a mapping, or edits a value. A failure in
-  one region is isolated to that region.
+  verdict for caller-supplied bytes. Delivery custody is external. G1 guidance
+  excludes keys, mapping order, and values from prose edits. A detector verdict
+  applies only to the supplied region.
 
 ## Block quotes and inline quotations
 
 - **Trigger:** a `>` block quote, or quotation marks around attributed text in
   prose.
 - **Region:** quoted text. Excluded from the lexical prose rules.
-- **How STOW checks it:** the quoted span stays byte-exact, so its spelling is not
-  changed to match the prose spelling convention (see corpus/words/usage.md#STOW-WRD-014),
-  and each quotation counts as a single token for length (see
+- **How STOW checks it:** G1 guidance excludes the quoted span from spelling
+  changes (see corpus/words/usage.md#STOW-WRD-014). The G2 linter masks a
+  recognized quotation in its scan copy and counts that placeholder as one token
+  for length (see
   corpus/punctuation.md#STOW-PCT-006). Fidelity to the source and the block layout
-  for a long quotation are reviewed by the quotation check at
-  corpus/prose-integrity/rules.md#STOW-PRO-023.
+  for a long quotation require review or a named host comparator over the actual
+  final candidate; see corpus/prose-integrity/rules.md#STOW-PRO-023.
 
 ## Paths, identifiers, schema keys, and bare literals
 
 - **Trigger:** a file path, code identifier, schema key, version string, or
   alphanumeric identifier appearing in prose, whether or not it sits in backticks.
 - **Region:** identifier. Protected.
-- **How STOW checks it:** the token passes through unchanged and is not renamed,
-  re-cased, or reworded, and it counts as one word (see
-  corpus/punctuation.md#STOW-PCT-006). Recognition of a bare, un-fenced literal is
-  the job of `references/protected-regions.md`; this page only confirms that once
-  recognized, the token is out of scope for every prose rule.
+- **How STOW checks it:** G1 guidance excludes the token from renaming,
+  re-casing, or rewording. The G2 linter counts a recognized token as one word
+  (see corpus/punctuation.md#STOW-PCT-006). Recognition of a bare, un-fenced
+  literal is the finite syntax task described in `references/protected-regions.md`.
+  General byte fidelity requires a named host comparator over the actual final
+  candidate and authoritative source bytes.
 
 ## Headings
 

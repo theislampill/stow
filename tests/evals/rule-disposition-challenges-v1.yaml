@@ -181,7 +181,7 @@ scenario_packs:
     paired_negative_control: "If pressure is below 20 kPa, inspect the purge valve.\n\nSteps:\n\n1. Isolate
       control `PV-17`.\n2. Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN
       SLOWLY\".\n4. Record 20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance
-      log.\n\nNote: The high-pressure state (the pressure is low) remains in the record."
+      log.\n\nNote: The high-pressure state (the pressure is high) remains in the record."
     positive_coverage:
       - STOW-WRD-001
       - STOW-WRD-002
@@ -340,7 +340,7 @@ scenario_packs:
         - kpa
         - label
         - log
-        - low
+        - high
         - maintenance
         - mark
         - note
@@ -384,7 +384,7 @@ scenario_packs:
           text: Record 20, `PV-17`, "OPEN SLOWLY", and North Plant.
           count: 6
         - id: parenthetical-hyphenated
-          text: 'Note: The high-pressure state (the pressure is low) remains in the record.'
+          text: 'Note: The high-pressure state (the pressure is high) remains in the record.'
           count: 9
     counting_observability:
       pathology_arm:

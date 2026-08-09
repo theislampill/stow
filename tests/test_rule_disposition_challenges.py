@@ -29,8 +29,8 @@ def challenge_errors(data):
     controlled_text = pack["paired_negative_control"]
     if "Steps:" not in controlled_text or "Do these steps:" in controlled_text:
         errors.append("negative control uses an action-like list lead")
-    if "(the pressure is low)" not in controlled_text or "(after isolation)" in controlled_text:
-        errors.append("negative control uses a nominalized parenthetical")
+    if "(the pressure is high)" not in controlled_text or "(the pressure is low)" in controlled_text:
+        errors.append("negative control contradicts its high-pressure state")
     if {"do", "isolation"} & set(authority.get("approved_vocabulary", [])):
         errors.append("obsolete action or nominalization remains in the authority")
     for literal in authority.get("protected_literals", []):

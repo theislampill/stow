@@ -4265,7 +4265,7 @@ records:
     deterministic_verification:
       - *id006
     decision_state: proposed
-    closure_state: pending-decision-review
+    closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
@@ -4844,7 +4844,7 @@ records:
     deterministic_verification:
       - *id009
     decision_state: proposed
-    closure_state: pending-decision-review
+    closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-012
     title: Generic audience framing
@@ -5093,7 +5093,7 @@ records:
     deterministic_verification:
       - *id011
     decision_state: proposed
-    closure_state: pending-decision-review
+    closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
     target:
       kind: reference-surface
@@ -5392,7 +5392,7 @@ records:
     deterministic_verification:
       - *id012
     decision_state: proposed
-    closure_state: pending-decision-review
+    closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
   - id: STOW-PRO-021
     title: Prefer verbs that name the exact action

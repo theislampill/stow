@@ -327,6 +327,14 @@ def semantic_errors(candidate, root: Path = ROOT):
             requires_behavioural_evidence = disposition in SURVIVING_G1_DISPOSITIONS
             if (
                 requires_behavioural_evidence
+                and row["decision_state"] == "proposed"
+                and coverage["status"] == "pending"
+                and not behavioural_evidence
+                and row["closure_state"] != "pending-behavioural-challenge"
+            ):
+                errors.append(f"{row['id']} must remain pending behavioural challenge")
+            if (
+                requires_behavioural_evidence
                 and coverage["status"] == "complete"
                 and not paired_behavioural_evidence
             ):
@@ -692,6 +700,38 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
         )
         for row in g2_rows
     )
+
+
+def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_challenge(
+    ledger,
+):
+    for row in ledger["records"]:
+        has_current_accepted_receipt = any(
+            evidence["kind"] == "behavioural-challenge"
+            and evidence["result"] == "accepted"
+            and evidence["freshness"] == "fresh"
+            and evidence.get("subject_revision") == ledger["subject_revision"]
+            for evidence in row["evidence"]
+        )
+        if (
+            row["layer"] == "G1"
+            and row["disposition"] in SURVIVING_G1_DISPOSITIONS
+            and row["decision_state"] == "proposed"
+            and row["behavioural_coverage"]["status"] == "pending"
+            and not has_current_accepted_receipt
+        ):
+            assert row["closure_state"] == "pending-behavioural-challenge", row["id"]
+
+    candidate = copy.deepcopy(ledger)
+    row = next(
+        record for record in candidate["records"]
+        if record["layer"] == "G1"
+        and record["disposition"] in SURVIVING_G1_DISPOSITIONS
+        and record["decision_state"] == "proposed"
+        and record["behavioural_coverage"]["status"] == "pending"
+    )
+    row["closure_state"] = "pending-decision-review"
+    assert semantic_errors(candidate)
 
 
 def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):

@@ -21,6 +21,11 @@ REGISTRY = os.path.join(SKILL_DIR, "rules", "registry.yaml")
 ROUTING = os.path.join(SKILL_DIR, "rules", "routing.yaml")
 FIXTURE = os.path.join(HERE, "fixtures", "descriptive-prose", "v1.yaml")
 LINTER = os.path.join(SKILL_DIR, "runtime", "lint_prose.py")
+PROSE_REFERENCE = os.path.join(SKILL_DIR, "references", "prose-integrity.md")
+LOOKUP_REFERENCE = os.path.join(
+    SKILL_DIR, "references", "ai-writing-detection.md")
+USER_REFERENCE = os.path.join(
+    SKILL_DIR, "references", "user-facing-output.md")
 
 LEAVES = (
     "semantic repetition",
@@ -182,3 +187,38 @@ def test_closed_matches_request_contextual_review_without_defect_labels():
             for label in ("authorship", "machine-written", "human-written", "ai tell",
                           "banned opener", "overused verb", "automatic defect"):
                 assert label not in message, (control["id"], finding.message)
+
+
+def test_cold_prose_references_do_not_restore_authorship_blacklists():
+    references = {
+        "prose-integrity": _read(PROSE_REFERENCE),
+        "banned-list lookup": _read(LOOKUP_REFERENCE),
+    }
+    combined = re.sub(
+        r"\s+", " ", "\n".join(references.values()).casefold())
+    forbidden = (
+        "surface tells of machine writing",
+        "ban the em dash",
+        "no ai verbs",
+        "no ai transition phrases",
+        "zero tolerance",
+        "machine tells",
+        "run always-on",
+        "apply every lexical check mechanically",
+        "never flagged",
+    )
+    for phrase in forbidden:
+        assert phrase not in combined, phrase
+
+    assert "references/descriptive-prose.md" in references["prose-integrity"]
+    for name, text in references.items():
+        assert "advisory" in text.casefold(), name
+
+
+def test_redundant_user_facing_reference_and_route_are_removed():
+    assert not os.path.exists(USER_REFERENCE)
+    kernel = _read(KERNEL)
+    routing = _read(ROUTING)
+    assert "references/user-facing-output.md" not in kernel
+    assert "references/user-facing-output.md" not in routing
+    assert "user-facing prose turn -> references/always-on.md" in kernel

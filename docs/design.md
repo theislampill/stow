@@ -143,8 +143,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1087 | 1490 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 1906 | 2615 |
+| Kernel alone (`SKILL.md`) | 1075 | 1471 |
+| Ordinary prose turn (kernel + `references/always-on.md`) | 1894 | 2596 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and

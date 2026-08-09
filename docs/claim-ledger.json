@@ -11,6 +11,7 @@
     "docs/evaluation-results.md",
     "skills/stow/SKILL.md",
     "skills/stow/references/activation-and-precedence.md",
+    "skills/stow/references/ai-writing-detection.md",
     "skills/stow/references/canonical-terms.md",
     "skills/stow/references/conformance.md",
     "skills/stow/references/cross-harness-interchange.md",
@@ -19,9 +20,9 @@
     "skills/stow/references/format-markdown.md",
     "skills/stow/references/format-yaml.md",
     "skills/stow/references/meta-code.md",
+    "skills/stow/references/prose-integrity.md",
     "skills/stow/references/protected-regions.md",
     "skills/stow/references/technical-clarity.md",
-    "skills/stow/references/user-facing-output.md",
     "skills/stow/rules/profiles.json",
     "skills/stow/runtime/profiles.py",
     "tools/ab_eval_runner.py",
@@ -38,6 +39,7 @@
     "docs/evaluation-results.md",
     "skills/stow/SKILL.md",
     "skills/stow/references/activation-and-precedence.md",
+    "skills/stow/references/ai-writing-detection.md",
     "skills/stow/references/canonical-terms.md",
     "skills/stow/references/conformance.md",
     "skills/stow/references/cross-harness-interchange.md",
@@ -46,9 +48,9 @@
     "skills/stow/references/format-markdown.md",
     "skills/stow/references/format-yaml.md",
     "skills/stow/references/meta-code.md",
+    "skills/stow/references/prose-integrity.md",
     "skills/stow/references/protected-regions.md",
     "skills/stow/references/technical-clarity.md",
-    "skills/stow/references/user-facing-output.md",
     "skills/stow/rules/profiles.json",
     "skills/stow/runtime/profiles.py",
     "tools/ab_eval_runner.py",
@@ -414,6 +416,20 @@
       "statement": "This instruction is not a byte comparator over the actual final candidate.",
       "families": ["preservation"],
       "layer": "G1"
+    },
+    {
+      "id": "CLM-048",
+      "surface": "skills/stow/references/prose-integrity.md",
+      "statement": "A host that needs a blocking policy must define that policy separately; this repository does not supply a general prose delivery gate.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-049",
+      "surface": "skills/stow/references/ai-writing-detection.md",
+      "statement": "Masking is advisory preprocessing; it is not semantic classification or final-output preservation.",
+      "families": ["preservation"],
+      "layer": "G2"
     }
   ],
   "forbidden_claim_patterns": [

@@ -59,7 +59,6 @@ SKILL_TOKEN_CEILING = 1500
 NATIVE_ARCH_REFS = frozenset({
     "protected-regions.md",
     "activation-and-precedence.md",
-    "user-facing-output.md",
     "conformance.md",
     "format-json.md",
     "format-jsonl.md",

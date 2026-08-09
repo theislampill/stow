@@ -62,7 +62,6 @@ Load a reference only when its predicate is true.
 - prose-integrity deep guidance -> references/prose-integrity.md
 - contextual prose-quality review -> references/descriptive-prose.md
 - precedence or region question -> references/activation-and-precedence.md
-- user-facing shaping question -> references/user-facing-output.md
 - meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
 - rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
 

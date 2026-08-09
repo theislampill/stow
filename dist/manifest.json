@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "6a8d76740148ee1d9290b9a7658429e6b7d913487dd5454d20d4e1b2610299cb",
+  "artifact_sha256": "327d23de668c1e72195372210cd89b011c9a169fc1e5c0679b6bbe136038247c",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -49,7 +49,6 @@
     "stow/references/runbooks.md",
     "stow/references/safety-instructions.md",
     "stow/references/technical-clarity.md",
-    "stow/references/user-facing-output.md",
     "stow/rules/artifact-classes.yaml",
     "stow/rules/conflicts.yaml",
     "stow/rules/profiles.json",
@@ -77,6 +76,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 74,
+  "entry_count": 73,
   "version": "0.3.6"
 }

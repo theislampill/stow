@@ -55,7 +55,6 @@ classes:
       - skills/stow/references/runbooks.md
       - skills/stow/references/safety-instructions.md
       - skills/stow/references/technical-clarity.md
-      - skills/stow/references/user-facing-output.md
 
   protected-corpus:
     description: "Anchored corpus modules holding verbatim rule wording. Drift-locked."

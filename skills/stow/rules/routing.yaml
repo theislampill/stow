@@ -156,14 +156,6 @@ routes:
     corpus: null
     validator: null
 
-  - mode: user-facing-shaping
-    predicate: "user-facing shaping question"
-    references:
-      - references/user-facing-output.md
-    profile: null
-    corpus: null
-    validator: null
-
   - mode: meta-code
     predicate: "meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope)"
     references:

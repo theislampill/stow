@@ -1,20 +1,21 @@
-# Banned-list lookup for the self-check pass
+# Closed-list advisory lookup
 
-The corpus self-check pass (`corpus/prose-integrity/detection-patterns.md`) sends
-readers here for the full banned lists. This page is a pointer, not a copy:
-the lists have exactly one home and are never duplicated into a reference.
+The protected self-check material points here for the location and limits of
+the shared term lists. This page is a pointer, not a copy.
 
-Where the lists live and how to check against them:
+- **Data location.** The versioned term, phrase, and construction tables live
+  in `corpus/prose-integrity/banned-lists.md`.
+- **Callable mechanism.** `runtime/lint_prose.py` reads selected tables and
+  reports closed matches with stable rule identifiers and neutral labels.
+- **Region handling.** The linter masks a finite set of recognizable protected
+  spans before it scans. Masking is advisory preprocessing; it is not semantic
+  classification or final-output preservation.
+- **Interpretation.** A match is evidence that a declared surface pattern is
+  present. It is not evidence of authorship, poor quality, or a required rewrite.
+  Review its discourse function, density, technical sense, requested voice, and
+  legitimate counterexamples under `references/descriptive-prose.md`.
 
-- **Normative source.** The complete banned term, phrase, and construction
-  lists are the corpus module `corpus/prose-integrity/banned-lists.md`. That
-  file is the single authority; read it directly when reviewing by hand.
-- **Deterministic checking.** The packaged linter parses those same lists out
-  of the corpus file at runtime (`runtime/lint_prose.py`, which loads
-  `corpus/prose-integrity/banned-lists.md`). Run
-  `python runtime/lint_prose.py <file>` with the applicable profile to apply
-  every lexical check mechanically instead of scanning by eye.
-- **Region discipline.** The lists apply to model-authored prose only. Code,
-  quoted text, structured data, and identifiers are excluded regions and are
-  never flagged; see `references/prose-integrity.md` for the shared scan
-  region and per-rule triggers.
+The linter can miss an undesirable construction that is not in its closed
+tables and can report a legitimate use that needs no change. Its CLI does not
+block delivery. Treat every finding as an advisory lead and report only the
+observable pattern that was found.

@@ -160,27 +160,25 @@ def test_winner_ref_is_a_participant_or_band():
 
 
 # --------------------------------------------------------------------------- #
-# Required composition coverage -- the sixteen hardened pairs
+# Required composition coverage -- the fourteen active pairs
 # --------------------------------------------------------------------------- #
 
 # participant-ref pairs that must exist, one per required conflict class.
 REQUIRED_PAIRS = [
     {"STOW-ACT-001", "result-first"},            # action-first vs answer-first
-    {"STOW-ACT-003", "STOW-ACT-007"},            # next action vs completed work
-    {"STOW-ACT-009", "contract"},                # list cap vs exhaustive list
+    {"open-work-next-step", "STOW-ACT-007"},     # next action vs completed work
     {"STOW-PRO-015", "accuracy"},                # anti-hedging vs uncertainty
-    {"STOW-PRO-024", "accuracy"},                # narration vs material limitation
+    {"STOW-PRO-011", "accuracy"},                # narration vs material limitation
     {"STOW-PRO-005", "contract"},                # concrete detail vs conceptual
     {"STOW-PRO-013", "contract"},                # researcher tone vs requested voice
     {"STOW-PRO-017", "contract"},                # fabrication vs labeled hypothetical
-    {"STOW-PRO-021", "terminology"},             # banned terms vs technical senses
+    {"STOW-PRO-020", "terminology"},             # listed terms vs technical senses
     {"STOW-WRD-014", "contract"},                # regional spelling vs style directive
-    {"STOW-ACT-005", "STOW-PRO-024"},            # progress state vs narration
+    {"STOW-ACT-005", "STOW-PRO-011"},            # progress state vs narration
     {"STOW-PRC-001", "STOW-PRO-007"},            # caps vs variation
     {"STOW-WRD-011", "STOW-PRO-007"},            # terminology vs variation
     {"STOW-PCT-001", "STOW-PRO-001"},            # semicolon vs em dash
-    {"STOW-WRD-014", "STOW-PRO-021"},            # protected literals vs preferences
-    {"STOW-SAF-001", "STOW-ACT-009"},            # safety vs brevity and caps
+    {"STOW-WRD-014", "STOW-PRO-020"},            # protected literals vs preferences
 ]
 
 

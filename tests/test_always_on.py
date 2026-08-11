@@ -223,11 +223,10 @@ def test_the_known_condition_bearing_rules_carry_qualifiers():
     records MUST have a non-empty applicability or exception in the registry.
     Removing the field is a regression even if generation stays faithful."""
     required = {
-        "STOW-ACT-001", "STOW-ACT-003", "STOW-ACT-004", "STOW-ACT-005",
-        "STOW-ACT-006", "STOW-ACT-007", "STOW-PRO-002", "STOW-PRO-004",
-        "STOW-PRO-005", "STOW-PRO-006", "STOW-PRO-007", "STOW-PRO-012",
-        "STOW-PRO-013", "STOW-PRO-014", "STOW-PRO-015", "STOW-PRO-017",
-        "STOW-PRO-019", "STOW-PRO-024",
+        "STOW-ACT-001", "STOW-ACT-004", "STOW-ACT-005", "STOW-ACT-006",
+        "STOW-ACT-007", "STOW-PRO-002", "STOW-PRO-005", "STOW-PRO-006",
+        "STOW-PRO-007", "STOW-PRO-009", "STOW-PRO-011", "STOW-PRO-013",
+        "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-019",
     }
     by_id = {r["id"]: r for r in _always_on_records()}
     for rule_id in sorted(required):

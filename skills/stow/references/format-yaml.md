@@ -71,7 +71,7 @@ preservation requires a named host to compare the actual final candidate with
 authoritative bytes, block a mismatch, and revalidate after any permitted
 repair. The governing records are `corpus/words/usage.md#STOW-WRD-014`,
 `corpus/punctuation.md#STOW-PCT-006`, and
-`corpus/prose-integrity/rules.md#STOW-PRO-021`.
+`corpus/prose-integrity/rules.md#STOW-PRO-020`.
 
 ## Deliver once
 

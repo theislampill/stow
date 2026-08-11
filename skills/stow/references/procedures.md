@@ -56,12 +56,6 @@ inspect, the validator STOW runs, and the full-text citation.
 - **How STOW checks:** deterministic validator `no-semicolon`. Where this meets the presentation-layer em-dash ban (`STOW-PRO-001`), the registry conflict note directs you to use neither and pick the substitute the active profile prescribes.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-001`
 
-### STOW-PCT-002
-- **Fires when:** two directly related words in a step should read as one unit.
-- **Region:** modifiers inside step sentences.
-- **How STOW checks:** heuristic validator `hyphenate-related-words`. The word-count consequence is `STOW-PCT-007`.
-- **Full text:** `corpus/punctuation.md#STOW-PCT-002`
-
 ### STOW-PCT-003
 - **Fires when:** parentheses appear in a step or a note.
 - **Region:** step and note prose.
@@ -83,11 +77,11 @@ inspect, the validator STOW runs, and the full-text citation.
 ### STOW-PCT-006
 - **Fires when:** a step or note contains a number, identifier, quoted string, title, or proper noun.
 - **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-021` conflict note keeps that region immutable: count it, do not rewrite it.
+- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-020` conflict note keeps that region immutable: count it, do not rewrite it.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-006`
 
 ### STOW-PCT-007
 - **Fires when:** a hyphenated compound appears in a step or a note.
 - **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `hyphenated-group-counts-as-one-word`, feeding the procedural caps and pairing with `STOW-PCT-002`.
+- **How STOW checks:** deterministic validator `hyphenated-group-counts-as-one-word`, feeding the procedural caps.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-007`

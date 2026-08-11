@@ -69,7 +69,7 @@ checks it, and the `corpus_ref` for the full rule text.
   conflict the resolution is fixed: serialization validity and the protected
   literal outrank the presentation-layer lexical preference, which skips the
   protected span.
-- **Full text:** see corpus/words/usage.md#STOW-WRD-014, corpus/prose-integrity/rules.md#STOW-PRO-021,
+- **Full text:** see corpus/words/usage.md#STOW-WRD-014, corpus/prose-integrity/rules.md#STOW-PRO-020,
   and corpus/punctuation.md#STOW-PCT-006.
 
 ### JSON structural punctuation is not prose punctuation

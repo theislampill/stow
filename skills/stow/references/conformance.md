@@ -18,21 +18,36 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 - **Trigger:** prose under an active controlled-technical profile whose evaluation would require looking a word up in the controlled dictionary, confirming its approved sense, part of speech, or inflection, testing technical-noun or technical-verb category membership, checking approved connectors, company or industry terminology, phrasal-verb admissibility, or false-friend status.
 - **Region:** all-prose, including procedural and descriptive prose; excludes code, structured data, quoted text, and identifiers.
 - **Check:** unavailable in this release. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked: dictionary unavailable* and never counts them toward a conformance claim.
-- **Reference:** see corpus/words/selection.md#STOW-WRD-001, corpus/words/approved-tables.md#STOW-WRD-005, corpus/verbs/technical-verbs.md#STOW-VRB-001, corpus/sentences.md#STOW-SEN-004, corpus/style/consistency.md#STOW-STY-002, corpus/style/economy.md#STOW-STY-003, corpus/general-practice.md#STOW-GEN-005.
+- **Reference:** see corpus/words/selection.md#STOW-WRD-001,
+  corpus/words/selection.md#STOW-WRD-002,
+  corpus/words/usage.md#STOW-WRD-003, corpus/sentences.md#STOW-SEN-004,
+  corpus/style/economy.md#STOW-STY-003, and
+  corpus/general-practice.md#STOW-GEN-005.
 
 ## 3. Structural and mechanical checks: AVAILABLE (guided)
 
 - **Trigger:** surface features STOW can read directly: words per sentence, sentences per paragraph, length of a multi-word noun, presence of a semicolon, presence of a contraction or an omitted word, and the token-counting mechanics those measures rely on.
 - **Region:** procedural, descriptive, and all-prose regions; excludes code, structured data, quoted text, and identifiers.
 - **Check:** callable checks measure their declared observable properties over caller-supplied prose; other items remain review guidance. Results support a guided assessment only. Passing them does not establish conformance, because the dictionary-dependent rules in Group 2 stay unverified.
-- **Reference:** see corpus/procedures.md#STOW-PRC-001, corpus/procedures.md#STOW-PRC-005, corpus/descriptions.md#STOW-DSC-003, corpus/descriptions.md#STOW-DSC-006, corpus/multiword-nouns.md#STOW-MWN-001, corpus/punctuation.md#STOW-PCT-001, corpus/punctuation.md#STOW-PCT-004, corpus/punctuation.md#STOW-PCT-006, corpus/sentences.md#STOW-SEN-002.
+- **Reference:** see corpus/procedures.md#STOW-PRC-001,
+  corpus/procedures.md#STOW-PRC-005,
+  corpus/descriptions.md#STOW-DSC-003,
+  corpus/descriptions.md#STOW-DSC-006,
+  corpus/multiword-nouns.md#STOW-MWN-001,
+  corpus/punctuation.md#STOW-PCT-001,
+  corpus/punctuation.md#STOW-PCT-004, and
+  corpus/punctuation.md#STOW-PCT-006.
 
 ## 4. Grammar and construction checks: PARTIAL (best-effort, guided)
 
 - **Trigger:** procedural or descriptive prose where clause shape can be read from the text: whether an instruction opens in the imperative, whether a sentence carries more than one instruction, whether a leading condition is separated by a comma, which verb tense and voice appear, and whether an action is expressed as a nominalization.
 - **Region:** procedural and descriptive prose.
 - **Check:** STOW inspects sentence structure and flags likely deviations. These are judgment calls, not certified parses, so STOW reports them as guidance rather than pass or fail.
-- **Reference:** see corpus/procedures.md#STOW-PRC-002, corpus/procedures.md#STOW-PRC-003, corpus/procedures.md#STOW-PRC-004, corpus/verbs/technical-verbs.md#STOW-VRB-002, corpus/verbs/verb-forms.md#STOW-VRB-006.
+- **Reference:** see corpus/procedures.md#STOW-PRC-002,
+  corpus/procedures.md#STOW-PRC-003,
+  corpus/procedures.md#STOW-PRC-004,
+  corpus/verbs/technical-verbs.md#STOW-VRB-002, and
+  corpus/verbs/verb-forms.md#STOW-VRB-006.
 
 ## 5. Safety checks: ALWAYS ACTIVE (system precedence)
 

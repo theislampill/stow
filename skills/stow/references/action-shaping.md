@@ -1,7 +1,6 @@
 # Action-shaping reference
 
-Application guidance for the ACT rule group (`category: action-shaping`, eleven
-records `STOW-ACT-001`..`011`). These rules shape the surface form of a
+Application guidance for the active ACT rule group (`category: action-shaping`). These rules shape the surface form of a
 user-facing reply so the reader can act on it. They all carry
 `precedence: presentation` (the lowest tier, so they yield to `profile` and
 `system` rules) and `activation: always-user-facing` (they apply whenever the
@@ -31,14 +30,6 @@ the corpus citation.
 - Region: the body of any procedure or plan.
 - Check: `heuristic` validator `numbered-multistep`.
 - Full text: see corpus/action-shaping.md#STOW-ACT-002
-
-**STOW-ACT-003: Close with a single concrete next step**
-- Trigger: work remains open at the end of the turn and the final line does not
-  point to exactly one next step (or points to several).
-- Region: the last line of the reply.
-- Check: `semantic-review` (no deterministic validator); a review pass confirms
-  the closer names one concrete action.
-- Full text: see corpus/action-shaping.md#STOW-ACT-003
 
 **STOW-ACT-004: Defer secondary issues**
 - Trigger: a side observation or "by the way" aside is spliced into the main
@@ -76,20 +67,6 @@ the corpus citation.
 - Region: the line that first reports the failure.
 - Check: `deterministic` validator `no-alarm-openers`.
 - Full text: see corpus/action-shaping.md#STOW-ACT-008
-
-**STOW-ACT-009: Bound action lists to five items**
-- Trigger: an enumerated list of actions exceeds five entries.
-- Region: any action list in the reply.
-- Check: `deterministic` validator `list-max-5-items` (`limit: 5`).
-- Full text: see corpus/action-shaping.md#STOW-ACT-009
-
-**STOW-ACT-010: No preamble, recap, or sign-off**
-- Trigger: the reply opens with framing before the content or ends with a recap
-  or closing pleasantry.
-- Region: the first and last lines (the reply's framing).
-- Check: `deterministic` validator `no-preamble-or-signoff`. Pairs with
-  `STOW-ACT-001` (opening) and `STOW-ACT-003` (close).
-- Full text: see corpus/action-shaping.md#STOW-ACT-010
 
 **STOW-ACT-011: Lists, not tables, for action sequences**
 - Trigger: a table encodes steps or actions the reader is meant to perform in

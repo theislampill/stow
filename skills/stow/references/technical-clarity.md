@@ -26,7 +26,7 @@ accuracy, progressive disclosure) plus review-level discipline:
 - One term per concept, held stable across the artifact (guidance rule
   `STOW-WRD-011`).
 - Consistent wording for recurring content such as repeated steps, labels,
-  and cautions (guidance rule `STOW-STY-004`).
+  and cautions (consolidated under guidance rule `STOW-WRD-011`).
 - Stable names for artifacts, gates, and actors across turns and documents.
 - Bounded steps: each instruction names its actor, action, and completion
   condition.
@@ -34,7 +34,7 @@ accuracy, progressive disclosure) plus review-level discipline:
 - Evidence-aware claims: tie each claim to the artifact, measurement, or gate
   that supports it, and keep justified uncertainty.
 
-The two guidance rules are review-level. They activate as discipline for the
+The guidance rule is review-level. It activates as discipline for the
 writer and reviewer; no mechanical check enforces them under this profile,
 and the runtime linter reports them under `guidance_active` in its output
 rather than as findings.

@@ -330,6 +330,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-004
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -337,9 +343,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -390,6 +396,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-005
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -397,9 +409,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -449,6 +461,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-006
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -456,9 +474,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -626,6 +644,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-009
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -633,9 +657,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -792,6 +816,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-012
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -799,9 +829,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -850,6 +880,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-WRD-013
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -857,9 +893,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1024,6 +1060,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-MWN-002
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1031,9 +1073,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1083,6 +1125,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-VRB-001
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1090,9 +1138,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1201,6 +1249,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-VRB-003
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1208,9 +1262,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1260,6 +1314,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-VRB-004
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1267,9 +1327,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1487,6 +1547,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-SEN-001
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -1494,9 +1560,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -1768,8 +1834,8 @@ records:
         kind: deterministic-test
         reference:
           tests/test_lint_prose.py::test_procedural_sentence_cap_is_20_words_and_applies_to_list_items
-        result: passing-baseline
-        freshness: baseline-captured
+        result: accepted
+        freshness: fresh
         limits: Proves the named detector behavior, not final-output custody or universal semantic
           conformance.
         subject_revision: 1
@@ -1783,10 +1849,10 @@ records:
       status: pending
     deterministic_verification:
       - *id001
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Fresh deterministic proof covers the named closed predicate only. It does not establish
+      final-output custody, automatic activation, or general prose conformance.
   - id: STOW-PRC-002
     title: Write only one instruction per sentence unless actions occur at the same time.
     family: procedures
@@ -2099,6 +2165,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-DSC-002
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -2106,9 +2178,9 @@ records:
         - BC-06
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -2154,8 +2226,8 @@ records:
       - &id002
         kind: deterministic-test
         reference: tests/test_lint_prose.py::test_descriptive_sentence_cap_is_25_words
-        result: passing-baseline
-        freshness: baseline-captured
+        result: accepted
+        freshness: fresh
         limits: Proves the named detector behavior, not final-output custody or universal semantic
           conformance.
         subject_revision: 1
@@ -2169,10 +2241,10 @@ records:
       status: pending
     deterministic_verification:
       - *id002
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Fresh deterministic proof covers the named closed predicate only. It does not establish
+      final-output custody, automatic activation, or general prose conformance.
   - id: STOW-DSC-004
     title: Group related information into paragraphs, each led by a topic sentence.
     family: descriptions
@@ -2270,6 +2342,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-DSC-005
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-06
@@ -2277,9 +2355,9 @@ records:
         - BC-06
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -2538,8 +2616,8 @@ records:
         kind: deterministic-test
         reference:
           tests/test_lint_prose.py::test_semicolon_is_reported_only_under_the_controlled_technical_profile
-        result: passing-baseline
-        freshness: baseline-captured
+        result: accepted
+        freshness: fresh
         limits: Proves the named detector behavior, not final-output custody or universal semantic
           conformance.
         subject_revision: 1
@@ -2553,10 +2631,10 @@ records:
       status: pending
     deterministic_verification:
       - *id003
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Fresh deterministic proof covers the named closed predicate only. It does not establish
+      final-output custody, automatic activation, or general prose conformance.
   - id: STOW-PCT-002
     title: Use hyphens to join words that are directly related.
     family: punctuation
@@ -2600,6 +2678,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PCT-002
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2607,9 +2691,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-PCT-003
     title: Use parentheses only for the approved purposes.
     family: punctuation
@@ -3015,6 +3099,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-STY-002
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3022,9 +3112,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -3133,6 +3223,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-STY-004
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3140,9 +3236,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -3190,6 +3286,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-GEN-001
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3197,9 +3299,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-GEN-002
     title: Check the preposition with for ambiguity and rewrite when unclear.
     family: general
@@ -3350,6 +3452,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-GEN-004
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3357,9 +3465,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -3464,8 +3572,8 @@ records:
       - &id004
         kind: deterministic-test
         reference: tests/test_lint_prose.py::test_punctuation_check_is_red_on_its_fixture
-        result: passing-baseline
-        freshness: baseline-captured
+        result: accepted
+        freshness: fresh
         limits: Proves the named detector behavior, not final-output custody or universal semantic
           conformance.
         subject_revision: 1
@@ -3479,10 +3587,10 @@ records:
       status: pending
     deterministic_verification:
       - *id004
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The detector is proven only at its named observable boundary and the disposition still
-      requires acceptance.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Fresh deterministic proof covers the named closed predicate only. It does not establish
+      final-output custody, automatic activation, or general prose conformance.
   - id: STOW-GEN-007
     title: Use gender-neutral, inclusive language.
     family: general
@@ -3579,6 +3687,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-GEN-008
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -3586,9 +3700,9 @@ records:
         - BC-05
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-ACT-001
     title: Action-first response opening
     family: action-shaping
@@ -3735,6 +3849,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-ACT-003
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3742,9 +3862,9 @@ records:
         - BC-01
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -4081,6 +4201,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-ACT-009
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-02
@@ -4089,9 +4215,9 @@ records:
       status: pending
     deterministic_verification:
       - *id005
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-ACT-010
     title: No preamble, recap, or sign-off
     family: action-shaping
@@ -4135,6 +4261,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-ACT-010
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -4142,9 +4274,9 @@ records:
         - BC-01
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -4374,6 +4506,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-003
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4381,9 +4519,9 @@ records:
         - BC-08
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-PRO-004
     title: No empty intensifiers
     family: prose-integrity
@@ -4437,6 +4575,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-004
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4445,9 +4589,9 @@ records:
       status: pending
     deterministic_verification:
       - *id007
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -4650,6 +4794,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-008
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4657,9 +4807,9 @@ records:
         - BC-08
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -4678,7 +4828,7 @@ records:
     legitimate_counterexample: A deliberate, contextually functional construction in an explicitly requested
       voice may be appropriate.
     false_positive_risk: high
-    mechanism: guidance
+    mechanism: guidance-with-heuristic-detector
     cost:
       hot_path_context: medium
       cold_reads:
@@ -4713,7 +4863,8 @@ records:
       paired_negative:
         - BC-03
       status: pending
-    deterministic_verification: []
+    deterministic_verification:
+      - *id007
     decision_state: proposed
     closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
@@ -4771,6 +4922,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-010
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4779,9 +4936,9 @@ records:
       status: pending
     deterministic_verification:
       - *id008
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
   - id: STOW-PRO-011
     title: No filler phrases
     family: prose-integrity
@@ -4843,6 +5000,15 @@ records:
       status: pending
     deterministic_verification:
       - *id009
+      - kind: deterministic-test
+        reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
+        result: passing-baseline
+        freshness: baseline-captured
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
+        subject_revision: 1
+        proves_validator: no-whether-youre-opener
+        proof_scope: advisory-signal-only
     decision_state: proposed
     closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
@@ -4899,6 +5065,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-012
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4907,9 +5079,9 @@ records:
       status: pending
     deterministic_verification:
       - *id010
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -5016,6 +5188,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-014
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5023,9 +5201,9 @@ records:
         - BC-08
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -5391,6 +5569,24 @@ records:
       status: pending
     deterministic_verification:
       - *id012
+      - kind: deterministic-test
+        reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
+        result: passing-baseline
+        freshness: baseline-captured
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
+        subject_revision: 1
+        proves_validator: no-ai-verbs
+        proof_scope: advisory-signal-only
+      - kind: deterministic-test
+        reference: tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture
+        result: passing-baseline
+        freshness: baseline-captured
+        limits: Proves only the named advisory detector signal; it is not compliance proof, final-output
+          custody, or universal semantic conformance.
+        subject_revision: 1
+        proves_validator: no-academic-tells
+        proof_scope: advisory-signal-only
     decision_state: proposed
     closure_state: pending-behavioural-challenge
     uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
@@ -5449,6 +5645,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-021
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5457,9 +5659,9 @@ records:
       status: pending
     deterministic_verification:
       - *id013
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -5518,6 +5720,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-022
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -5526,9 +5734,9 @@ records:
       status: pending
     deterministic_verification:
       - *id014
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:
@@ -5639,6 +5847,12 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: implementation-review
+        reference: task8-registry-migration-e2#STOW-PRO-024
+        result: accepted
+        freshness: fresh
+        limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-04
@@ -5646,9 +5860,9 @@ records:
         - BC-04
       status: pending
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-decision-review
-    uncertainty: The execution-v7 diagnostic evidence is nonqualifying, but this retired source does not require its own model call. Acceptance depends on decision review and the implemented registry or merge post-state.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
     target:
       kind: rule-set
       rule_ids:

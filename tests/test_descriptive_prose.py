@@ -50,20 +50,14 @@ FIELDS = (
 EXPECTED_TITLES = {
     "STOW-PRO-001": "Use em dashes only under an explicit style contract",
     "STOW-PRO-006": "Functionless semantic repetition",
-    "STOW-PRO-012": "Generic audience framing",
     "STOW-PRO-013": "Evidence-grounded requested voice",
-    "STOW-PRO-014": "Unearned enthusiasm",
     "STOW-PRO-015": "Grounded uncertainty",
-    "STOW-PRO-020": "Review formulaic transitions",
-    "STOW-PRO-021": "Prefer verbs that name the exact action",
-    "STOW-PRO-022": "Review stock academic phrasing",
+    "STOW-PRO-020": "Review formulaic lexical patterns",
 }
 
 OFF_HOT_PATH = {
     "STOW-PRO-001",
     "STOW-PRO-020",
-    "STOW-PRO-021",
-    "STOW-PRO-022",
 }
 
 REQUIRED_CONTROL_KINDS = {
@@ -141,16 +135,17 @@ def test_target_registry_titles_and_qualifiers_are_contextual():
     assert "functional repetition" in records["STOW-PRO-006"]["activation"]["exception"]
     assert "requested voice" in records["STOW-PRO-013"]["activation"]["exception"]
     assert "justified uncertainty" in records["STOW-PRO-015"]["activation"]["exception"]
-    assert "technical" in records["STOW-PRO-021"]["activation"]["exception"]
+    assert "technical" in records["STOW-PRO-020"]["activation"]["exception"]
 
 
-def test_closed_matchers_leave_the_ordinary_selector_but_remain_callable():
+def test_contextual_rules_leave_the_ordinary_selector_and_keep_advisory_signals():
     records = _records()
     for rule_id in OFF_HOT_PATH:
         record = records[rule_id]
         assert record["activation"]["always_on_for_prose"] is False
-        assert record["enforcement"]["status"] == "callable"
-        assert record["enforcement"]["validator"]
+        assert record["enforcement"]["status"] == "review-fallback"
+        assert record["enforcement"]["validator"] is None
+        assert record["enforcement"]["advisory_validators"]
 
 
 def test_compact_digest_is_instrumental_and_points_to_detail():

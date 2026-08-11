@@ -48,7 +48,7 @@
       "includes": {
         "selector": "always_on_for_prose"
       },
-      "guidance_rules": ["STOW-WRD-011", "STOW-STY-004"],
+      "guidance_rules": ["STOW-WRD-011"],
       "lint_checks": {
         "semicolon": false,
         "contraction": false,

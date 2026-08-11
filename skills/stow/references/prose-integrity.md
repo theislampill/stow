@@ -16,9 +16,11 @@ Most prose-integrity rules require contextual G1 review. A listed word,
 transition, punctuation mark, heading shape, or paragraph form is not a defect
 by itself. Its function in the requested text determines whether revision helps.
 
-`runtime/lint_prose.py` is an advisory G2 detector. It reports only the closed
-patterns it implements over its masked input. Its public findings retain stable
-rule identifiers and use neutral pattern labels. It does not determine
+`runtime/lint_prose.py` supplies advisory G2 surface detectors for contextual G1
+rules. It also implements the four closed G2 compliance predicates named in the
+registry. Each check reports only the closed observation it implements over its
+masked input. Its public findings retain stable rule identifiers and use neutral
+pattern labels. It does not determine
 authorship, semantic quality, requested voice, or delivery acceptance.
 
 The CLI exits successfully even when it reports findings or cannot read the
@@ -46,10 +48,11 @@ this repository does not supply a general prose delivery gate.
 
 ## Callable advisory signals
 
-The linter can report a bounded subset of closed observations, including a
-punctuation occurrence, a listed phrase or transition, a listed action verb, a
-hedging cluster, a possible scare quote, and configured sentence or list caps.
-These reports are leads for contextual review. In particular:
+The linter can report nine bounded advisory observations: an em dash, an empty
+intensifier, a filler phrase, a formulaic `whether you're` opener, a hedging
+cluster, a listed transition, a listed action verb, a listed academic phrase,
+or a contraction under the controlled profile. These
+reports are leads for contextual review. In particular:
 
 - punctuation is not an authorship signal and remains valid under an applicable
   style contract;
@@ -59,6 +62,11 @@ These reports are leads for contextual review. In particular:
 - a hedge is valid when it represents real uncertainty;
 - a repeated layout is valid for procedures, comparisons, checklists, and other
   contract-required structures.
+
+The four blocking-capable G2 predicates are the procedural sentence cap, the
+descriptive sentence cap, the controlled-profile semicolon rule, and the Latin
+abbreviation rule. They establish only those closed properties; delivery remains
+a separate host policy.
 
 For one rule, run `python runtime/query_rules.py <ID>` when execution is
 available. Otherwise use `references/rule-index.md` to locate its registry

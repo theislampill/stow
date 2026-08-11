@@ -99,10 +99,9 @@ Two guidance rules hold across every construct below:
 - **Trigger:** an ATX (`#`) or setext heading line.
 - **Region:** the heading text is editable prose, but two presentation checks
   target headings specifically, and any literal inside the heading stays protected.
-- **How STOW checks it:** STOW inspects each heading against the parenthetical
-  constraint at corpus/prose-integrity/rules.md#STOW-PRO-003 and the concreteness
-  constraint at corpus/prose-integrity/rules.md#STOW-PRO-016. Both are flagged for the
-  author, not auto-fixed.
+- **How STOW checks it:** STOW inspects each heading against the concreteness
+  constraint at corpus/prose-integrity/rules.md#STOW-PRO-016. Findings are for
+  the author, not auto-fixes.
 
 ## Lists and tables
 

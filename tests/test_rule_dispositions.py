@@ -123,16 +123,24 @@ EXPECTED_G2_PROOFS = {
 }
 
 EXPECTED_G1_SIGNAL_PROOFS = {
-    "STOW-ACT-009": ("list-max-5-items", "tests/test_profiles.py::test_target_behavior_matrix"),
-    "STOW-PRO-001": ("no-em-dash", "tests/test_lint_prose.py::test_em_dash_fires_under_every_profile"),
-    "STOW-PRO-004": ("no-intensifiers", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-010": ("no-scare-quotes", "tests/test_lint_prose.py::test_punctuation_check_is_red_on_its_fixture"),
-    "STOW-PRO-011": ("no-filler-phrases", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-012": ("no-whether-youre-opener", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-015": ("no-weasel-words", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-020": ("no-ai-transitions", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-021": ("no-ai-verbs", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
-    "STOW-PRO-022": ("no-academic-tells", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+    "STOW-PRO-001": [
+        ("no-em-dash", "tests/test_lint_prose.py::test_em_dash_fires_under_every_profile"),
+    ],
+    "STOW-PRO-009": [
+        ("no-intensifiers", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+    ],
+    "STOW-PRO-011": [
+        ("no-filler-phrases", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+        ("no-whether-youre-opener", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+    ],
+    "STOW-PRO-015": [
+        ("no-weasel-words", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+    ],
+    "STOW-PRO-020": [
+        ("no-ai-transitions", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+        ("no-ai-verbs", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+        ("no-academic-tells", "tests/test_lint_prose.py::test_lexical_check_is_red_on_its_fixture"),
+    ],
 }
 
 DIAGNOSTIC_RUN_ID = "G1-BHV-20260809-V7D"
@@ -360,7 +368,7 @@ def semantic_errors(candidate, root: Path = ROOT):
                 if coverage["status"] != "complete" or not paired_behavioural_evidence:
                     errors.append(f"{row['id']} accepted or terminal G1 claim lacks completed fresh evidence")
             if row["id"] in EXPECTED_G1_SIGNAL_PROOFS:
-                expected_validator, expected_reference = EXPECTED_G1_SIGNAL_PROOFS[row["id"]]
+                expected_proofs = EXPECTED_G1_SIGNAL_PROOFS[row["id"]]
                 signal_proofs = [
                     (
                         evidence.get("proves_validator"),
@@ -370,7 +378,8 @@ def semantic_errors(candidate, root: Path = ROOT):
                     for evidence in row["deterministic_verification"]
                 ]
                 if signal_proofs != [
-                    (expected_validator, expected_reference, "advisory-signal-only")
+                    (validator, reference, "advisory-signal-only")
+                    for validator, reference in expected_proofs
                 ]:
                     errors.append(f"{row['id']} advisory signal is misclassified as compliance proof")
         elif not row["deterministic_verification"]:
@@ -616,13 +625,12 @@ def test_terminal_retired_g1_source_does_not_require_fabricated_behavioural_evid
     row["decision_state"] = "accepted"
     row["closure_state"] = "closed"
 
-    assert not any(evidence["result"] == "accepted" for evidence in row["evidence"])
+    assert not any(
+        evidence["kind"] == "behavioural-challenge"
+        and evidence["result"] == "accepted"
+        for evidence in row["evidence"]
+    )
     assert list(validator.iter_errors(candidate)) == []
-    assert semantic_errors(candidate, root=root)
-
-    registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
-    registry["records"] = [record for record in registry["records"] if record["id"] != row["id"]]
-    _write_registry(root, registry)
     assert semantic_errors(candidate, root=root) == []
 
 
@@ -702,15 +710,15 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
             "subject_revision": ledger["subject_revision"],
         }
         assert evidence["reference"].endswith(f"#{row['id']}")
-        expected_uncertainty = (
-            DIAGNOSTIC_UNCERTAINTY
-            if row["disposition"] in SURVIVING_G1_DISPOSITIONS
-            else RETIRED_G1_UNCERTAINTY
-        )
-        assert row["uncertainty"] == expected_uncertainty
         assert row["behavioural_coverage"]["status"] == "pending"
-        assert row["decision_state"] == "proposed"
-        assert row["closure_state"] != "closed"
+        if row["disposition"] in SURVIVING_G1_DISPOSITIONS:
+            assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+            assert row["decision_state"] == "proposed"
+            assert row["closure_state"] != "closed"
+        else:
+            assert row["decision_state"] == "accepted"
+            assert row["closure_state"] == "closed"
+            assert "retired from the active registry" in row["uncertainty"]
 
     assert all(
         not any(
@@ -753,35 +761,31 @@ def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_chal
     assert semantic_errors(candidate)
 
 
-def test_proposed_retired_g1_awaits_decision_and_registry_post_state(ledger):
+def test_retired_g1_is_closed_by_decision_and_registry_post_state(ledger):
     retired = [
         row for row in ledger["records"]
         if row["layer"] == "G1"
         and row["disposition"] in {"MERGE", "DROP"}
-        and row["decision_state"] == "proposed"
+        and row["decision_state"] == "accepted"
     ]
     assert retired
     for row in retired:
-        assert row["closure_state"] == "pending-decision-review", row["id"]
-        assert row["uncertainty"] == RETIRED_G1_UNCERTAINTY, row["id"]
-        assert "does not require its own model call" in row["uncertainty"]
-        assert "required accepted behavioral challenge" not in row["uncertainty"]
+        assert row["closure_state"] == "closed", row["id"]
+        assert "retired from the active registry" in row["uncertainty"]
+        assert not any(
+            evidence["kind"] == "behavioural-challenge"
+            and evidence["result"] == "accepted"
+            for evidence in row["evidence"]
+        )
 
     wrong_state = copy.deepcopy(ledger)
     row = next(
         record for record in wrong_state["records"]
         if record["layer"] == "G1" and record["disposition"] in {"MERGE", "DROP"}
     )
+    row["decision_state"] = "proposed"
     row["closure_state"] = "pending-behavioural-challenge"
     assert semantic_errors(wrong_state)
-
-    wrong_uncertainty = copy.deepcopy(ledger)
-    row = next(
-        record for record in wrong_uncertainty["records"]
-        if record["layer"] == "G1" and record["disposition"] in {"MERGE", "DROP"}
-    )
-    row["uncertainty"] = DIAGNOSTIC_UNCERTAINTY
-    assert semantic_errors(wrong_uncertainty)
 
 
 def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
@@ -790,13 +794,14 @@ def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
     assert {row["id"] for row in ledger["records"] if row["layer"] == "G2"} == set(
         EXPECTED_G2_PROOFS
     )
-    for rule_id, (validator_name, reference) in EXPECTED_G1_SIGNAL_PROOFS.items():
+    for rule_id, expected_proofs in EXPECTED_G1_SIGNAL_PROOFS.items():
         row = rows[rule_id]
         assert row["layer"] == "G1"
         assert row["mechanism"] == "guidance-with-heuristic-detector"
-        assert [(proof["proves_validator"], proof["reference"]) for proof in row["deterministic_verification"]] == [
-            (validator_name, reference)
-        ]
+        assert [
+            (proof["proves_validator"], proof["reference"])
+            for proof in row["deterministic_verification"]
+        ] == expected_proofs
         assert all(
             proof["proof_scope"] == "advisory-signal-only"
             for proof in row["deterministic_verification"]
@@ -805,12 +810,7 @@ def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
         assert row["behavioural_coverage"]["status"] == "pending"
         assert row["decision_state"] == "proposed"
         assert row["closure_state"] != "closed"
-        expected_uncertainty = (
-            DIAGNOSTIC_UNCERTAINTY
-            if row["disposition"] in SURVIVING_G1_DISPOSITIONS
-            else RETIRED_G1_UNCERTAINTY
-        )
-        assert row["uncertainty"] == expected_uncertainty
+        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
 
     misclassified = copy.deepcopy(ledger)
     row = next(record for record in misclassified["records"] if record["id"] == "STOW-PRO-011")
@@ -824,12 +824,10 @@ def test_terminal_g2_requires_current_fresh_accepted_named_proof(schema, ledger,
 
     baseline_only = copy.deepcopy(ledger)
     row = next(record for record in baseline_only["records"] if record["id"] == rule_id)
-    row["decision_state"] = "accepted"
-    row["closure_state"] = "closed"
+    row["deterministic_verification"][0]["freshness"] = "baseline-captured"
     assert semantic_errors(baseline_only)
 
     valid = copy.deepcopy(ledger)
-    _accept_g2(valid, rule_id)
     assert list(validator.iter_errors(valid)) == []
     assert semantic_errors(valid) == []
 
@@ -868,14 +866,18 @@ def test_diagnostic_evidence_cannot_satisfy_surviving_g1_terminal_gate(schema, l
     assert semantic_errors(candidate)
 
 
-def test_baseline_captured_proposals_match_the_audited_map(ledger):
+def test_audited_map_preserves_proposals_and_records_implemented_decisions(ledger):
     assert ledger["ledger_status"] == "baseline-captured-proposals"
     actual = {
         disposition: {row["id"] for row in ledger["records"] if row["disposition"] == disposition}
         for disposition in EXPECTED_DISPOSITIONS
     }
     assert actual == EXPECTED_DISPOSITIONS
-    assert all(row["decision_state"] == "proposed" for row in ledger["records"])
+    for row in ledger["records"]:
+        if row["disposition"] in {"MERGE", "DROP"} or row["id"] in EXPECTED_G2_PROOFS:
+            assert row["decision_state"] == "accepted"
+        else:
+            assert row["decision_state"] == "proposed"
 
 
 def test_each_proposal_has_independently_reviewable_analysis(ledger):
@@ -1073,3 +1075,33 @@ def test_active_registry_count_is_dynamic_not_pinned(tmp_path, ledger):
     with (root / "skills" / "stow" / "rules" / "registry.yaml").open("w", encoding="utf-8") as stream:
         emitter.dump(registry, stream)
     assert semantic_errors(ledger, root=root) == []
+
+
+def test_task8_deterministic_migration_is_reflected_in_registry_and_ledger(ledger):
+    registry = _yaml(REGISTRY_PATH)
+    active_ids = {record["id"] for record in registry["records"]}
+    retired_ids = EXPECTED_MERGE | EXPECTED_DROP
+
+    assert active_ids == set(STARTING_IDS) - retired_ids
+
+    rows = {row["id"]: row for row in ledger["records"]}
+    for rule_id in retired_ids:
+        assert rows[rule_id]["decision_state"] == "accepted"
+        assert rows[rule_id]["closure_state"] == "closed"
+
+    for rule_id in EXPECTED_G2_PROOFS:
+        row = rows[rule_id]
+        assert row["decision_state"] == "accepted"
+        assert row["closure_state"] == "closed"
+        proof = row["deterministic_verification"][0]
+        assert proof["result"] == "accepted"
+        assert proof["freshness"] == "fresh"
+        assert proof["subject_revision"] == ledger["subject_revision"]
+        assert proof["proof_scope"] == "compliance"
+
+    for rule_id in (EXPECTED_KEEP | EXPECTED_SIMPLIFY | EXPECTED_MOVE) - set(EXPECTED_G2_PROOFS):
+        row = rows[rule_id]
+        assert row["layer"] == "G1"
+        assert row["decision_state"] == "proposed"
+        assert row["closure_state"] == "pending-behavioural-challenge"
+        assert row["behavioural_coverage"]["status"] == "pending"

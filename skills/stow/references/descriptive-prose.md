@@ -21,7 +21,7 @@ advisory lead, not a verdict.
 - **Applicability:** Review generic audience openers, filler transitions, research narration, and section previews that add no orientation.
 - **Legitimate counterexample:** Keep a failed verification, material limitation, method, or audience distinction when it changes the conclusion or action.
 - **Rewrite principle:** State the claim or limitation directly and retain only process detail with decision value.
-- **Mechanism:** Review `corpus/prose-integrity/rules.md#STOW-PRO-008`, `corpus/prose-integrity/rules.md#STOW-PRO-011`, `corpus/prose-integrity/rules.md#STOW-PRO-012`, and `corpus/prose-integrity/rules.md#STOW-PRO-024` in context.
+- **Mechanism:** Review `corpus/prose-integrity/rules.md#STOW-PRO-011` in context; the active rule consolidates functionless framing, audience setup, and process narration.
 
 ## Manufactured contrast or escalation
 
@@ -30,7 +30,7 @@ advisory lead, not a verdict.
 - **Applicability:** Review unsupported intensifiers, urgency, dramatic pivots, and celebratory language.
 - **Legitimate counterexample:** Keep genuine correction, material contrast, measured risk, or a requested expressive voice when the facts support it.
 - **Rewrite principle:** Name the fact, consequence, or comparison that earns the emphasis, or remove the emphasis.
-- **Mechanism:** Apply semantic review with `corpus/prose-integrity/rules.md#STOW-PRO-004`, `corpus/prose-integrity/rules.md#STOW-PRO-009`, and `corpus/prose-integrity/rules.md#STOW-PRO-014`.
+- **Mechanism:** Apply semantic review with `corpus/prose-integrity/rules.md#STOW-PRO-009`; the active rule consolidates unsupported intensity, urgency, and enthusiasm.
 
 ## Hollow evaluation
 
@@ -57,7 +57,7 @@ advisory lead, not a verdict.
 - **Applicability:** Review headings that could label unrelated content and sections that contain too little distinct work.
 - **Legitimate counterexample:** Long, reference-oriented, or independently addressable material benefits from explicit section navigation.
 - **Rewrite principle:** Name the section's actual subject and merge boundaries that do not improve retrieval or sequence.
-- **Mechanism:** Use the heading checks in `corpus/prose-integrity/rules.md#STOW-PRO-003` and `corpus/prose-integrity/rules.md#STOW-PRO-016` only when headings are present.
+- **Mechanism:** Use the heading check in `corpus/prose-integrity/rules.md#STOW-PRO-016` only when headings are present.
 
 ## Epistemic opacity
 
@@ -75,4 +75,4 @@ advisory lead, not a verdict.
 - **Applicability:** Treat closed-list matches as leads and judge the term's function, density, and technical meaning in context.
 - **Legitimate counterexample:** Ordinary vocabulary, established technical senses, quotations, identifiers, and a deliberate requested voice remain valid.
 - **Rewrite principle:** Prefer the shortest term that preserves the exact meaning; keep specialized wording when a plainer substitute would lose precision.
-- **Mechanism:** Use the report-only matchers linked to `corpus/prose-integrity/rules.md#STOW-PRO-020`, `corpus/prose-integrity/rules.md#STOW-PRO-021`, and `corpus/prose-integrity/rules.md#STOW-PRO-022` as advisory leads.
+- **Mechanism:** Use the report-only matchers linked to `corpus/prose-integrity/rules.md#STOW-PRO-020` as advisory leads; the active rule owns transition, vague-verb, and stock-phrase signals.

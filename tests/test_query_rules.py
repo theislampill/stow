@@ -110,7 +110,8 @@ def test_pro_001_is_a_contextual_advisory_not_profile_membership():
     """A callable matcher can remain available without joining the hot path."""
     _code, out, _err = _run("STOW-PRO-001")
     assert _profiles_section(out).strip() == "none"
-    assert "enforcement status: callable" in out
+    assert "enforcement status: review-fallback" in out
+    assert "advisory validators: no-em-dash" in out
     assert "explicit style contract" in out
 
 

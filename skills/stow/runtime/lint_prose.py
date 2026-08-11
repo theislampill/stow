@@ -20,8 +20,7 @@ MASK LAYERS. Three layers exist because different checks need different amounts
 of the text left visible:
 
   ``mask_protected``  fences + block quotes + inline code/URL/path/identifier.
-                      The general-purpose layer. Scare-quote, length, and list
-                      checks run here.
+                      The general-purpose layer. Length checks run here.
   ``mask_prose``      ``mask_protected`` plus inline quoted spans. Every LEXICAL
                       (term-table) check runs here, so a banned term that is
                       being quoted rather than used is never flagged. The
@@ -37,10 +36,10 @@ tables and bullet lists on each run. No term list is hard-coded here. If the
 file is absent or unreadable the lexical checks silently return nothing --
 report-only means a missing input is not an error.
 
-PARTIAL CHECKS. Where only part of a rule is mechanizable (contractions, for
-instance, are detectable but the "no omitted words" half of the same rule is
-not) the finding says so and the registry status for that rule stays ``planned``.
-A partial check never upgrades a rule to ``callable``.
+PARTIAL CHECKS. Where only part of a contextual rule is mechanizable
+(contractions, for instance, are detectable but the "no omitted words" half of
+the same rule is not), the closed matcher is declared as an advisory validator.
+It never upgrades the owning G1 rule to callable compliance.
 """
 
 import argparse
@@ -386,40 +385,35 @@ def compile_terms(terms):
 IMPLEMENTED_VALIDATORS = frozenset({
     "no-em-dash",
     "no-intensifiers",
-    "no-scare-quotes",
     "no-filler-phrases",
     "no-whether-youre-opener",
     "no-weasel-words",
     "no-ai-transitions",
     "no-ai-verbs",
     "no-academic-tells",
+    "no-contractions",
     "no-semicolon",
     "no-latin-abbreviations",
-    "list-max-5-items",
     "procedural-sentence-max-20-words",
     "descriptive-sentence-max-25-words",
 })
 
 
 _BUCKET_CHECKS = (
-    ("verbs", "action-verb-pattern", "STOW-PRO-021",
+    ("verbs", "action-verb-pattern", "STOW-PRO-020",
      "matched verb %r; review whether it names the exact action in context"),
     ("transitions", "transition-pattern", "STOW-PRO-020",
      "matched transition %r; review whether it serves a clear discourse function"),
     ("filler", "filler-phrase", "STOW-PRO-011",
      "matched filler phrase %r; review whether it adds information"),
-    ("intensifiers", "intensifier", "STOW-PRO-004",
+    ("intensifiers", "intensifier", "STOW-PRO-009",
      "matched intensifier %r; review whether a stated fact supports it"),
-    ("academic", "academic-phrase-pattern", "STOW-PRO-022",
+    ("academic", "academic-phrase-pattern", "STOW-PRO-020",
      "matched stock phrase %r; review its function in context"),
-    ("structural", "whether-youre-opener", "STOW-PRO-012",
+    ("structural", "whether-youre-opener", "STOW-PRO-011",
      "matched audience opener %r; review whether the distinction changes the guidance"),
     ("hedge_phrases", "weasel-phrase", "STOW-PRO-015",
      "matched uncertainty phrase %r; review whether evidence requires it"),
-    ("adjectives", "overused-adjective", None,
-     "matched adjective %r; review whether evidence supports the evaluation"),
-    ("metaphors", "metaphorical-noun", None,
-     "matched noun %r; review whether its use is literal or informative"),
 )
 
 
@@ -438,11 +432,6 @@ _CONTRACTION_RE = re.compile(
     u"|\\b\\w+['’](?:re|ve|ll|d|m)\\b"
     u"|\\b(?:it|that|there|here|what|who|let|he|she|one|which)['’]s\\b",
     re.IGNORECASE)
-# A quoted span of one or two ordinary words, used as emphasis rather than as an
-# attributed quotation.
-_SCARE_QUOTE_RE = re.compile(
-    u"[\"“]([A-Za-z][A-Za-z\\-]*(?:\\s+[A-Za-z][A-Za-z\\-]*)?)[\"”]")
-
 _LIST_ITEM_RE = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+\S")
 _HEADING_LINE_RE = re.compile(r"^\s*#")
 _TABLE_LINE_RE = re.compile(r"^\s*\|")
@@ -452,7 +441,6 @@ _WORDISH_RE = re.compile(r"[A-Za-z0-9]")
 
 PROCEDURAL_MAX_WORDS = 20
 DESCRIPTIVE_MAX_WORDS = 25
-LIST_MAX_ITEMS = 5
 
 CONTROLLED_TECHNICAL = "controlled-technical"
 
@@ -608,10 +596,9 @@ def check_punctuation(text, profile_record):
     """(b) PUNCTUATION / STRUCTURE.
 
     ``profile_record`` is a resolved profile record; each profile-gated check
-    asks the resolver whether it is active. The em-dash and scare-quote
-    detectors are profile-independent advisories.
+    asks the resolver whether it is active. The em-dash detector is a
+    profile-independent advisory.
     """
-    protected = mask_protected(text)
     prose = mask_prose(text)
     out = []
 
@@ -635,22 +622,13 @@ def check_punctuation(text, profile_record):
             "contraction %r; write both words in full "
             "(partial check: the omitted-word half of this rule is not mechanized)"))
 
-    for lineno, line in enumerate(protected.split("\n"), start=1):
-        for match in _SCARE_QUOTE_RE.finditer(line):
-            out.append(Advisory(
-                lineno, match.start() + 1, "scare-quote",
-                "quotation marks around the ordinary word(s) %r; quote only "
-                "actual quotations from a named source" % match.group(1),
-                rule_id="STOW-PRO-010"))
     return out
 
 
-def check_lengths(text, profile_record, exhaustive_lists_ok=False):
+def check_lengths(text, profile_record):
     """(c) LENGTH CAPS, each applied only to its own region.
 
-    The two sentence caps are profile-gated. The five-item list cap is
-    always-on but yields to an explicit exhaustive-list permission (a list
-    the output contract requires to be complete is never trimmed to fit).
+    The two sentence caps are profile-gated.
     """
     masked = mask_protected(text)
     out = []
@@ -676,27 +654,6 @@ def check_lengths(text, profile_record, exhaustive_lists_ok=False):
                     message="%s sentence runs %d words (cap %d); split it"
                             % (unit.region, words, limit)))
 
-    if exhaustive_lists_ok:
-        return out
-
-    run = 0
-    indent = None
-    for lineno, line in enumerate(masked.split("\n"), start=1):
-        item = _LIST_ITEM_RE.match(line)
-        if item:
-            width = len(item.group(1))
-            if indent is None or width != indent:
-                indent, run = width, 0
-            run += 1
-            if run == LIST_MAX_ITEMS + 1:
-                out.append(Advisory(
-                    lineno, 1, "list-length",
-                    "list runs past %d items; cut, group, or split the list"
-                    % LIST_MAX_ITEMS, rule_id="STOW-ACT-009"))
-            continue
-        if not line.strip() or line[:1] in (" ", "\t"):
-            continue                       # blank or continuation keeps the run
-        indent, run = None, 0
     return out
 
 
@@ -709,15 +666,14 @@ STRUCTURED_EXTENSIONS = (".json", ".jsonl", ".yaml", ".yml")
 
 
 def lint(text, profile=None, tables=None, banned_lists_path=None,
-         artifact_type=None, exhaustive_lists_ok=False):
+         artifact_type=None):
     """Return the list of :class:`Advisory` for ``text``.
 
     ``profile`` is a profile id or alias from ``rules/profiles.json``; ``None``
     resolves to the default profile. Profile-gated checks run only where their
     owning profile activates them. ``artifact_type`` of ``"structured"`` or
     ``"raw"`` suppresses every prose check (structured data is a protected
-    region; use validate.py on it). ``exhaustive_lists_ok`` suppresses the
-    list-length advisory for contract-required exhaustive lists.
+    region; use validate.py on it).
 
     Raises :class:`profiles.ProfileError` on an unknown or locked profile —
     profile identity is a contract input, not a finding.
@@ -731,8 +687,7 @@ def lint(text, profile=None, tables=None, banned_lists_path=None,
     advisories.extend(check_punctuation(text, profile_record))
     advisories.extend(check_lexical(text, tables))
     advisories.extend(check_hedging(text, tables))
-    advisories.extend(check_lengths(
-        text, profile_record, exhaustive_lists_ok=exhaustive_lists_ok))
+    advisories.extend(check_lengths(text, profile_record))
     advisories.sort(key=lambda a: (a.line, a.col, a.rule))
     return advisories
 
@@ -763,9 +718,6 @@ def main(argv=None):
                         choices=["prose", "structured", "raw"], default=None,
                         help="override artifact detection; 'prose' forces "
                              "prose checks on a structured-looking file")
-    parser.add_argument("--exhaustive-list-ok", action="store_true",
-                        help="the output contract requires a complete list; "
-                             "suppress the list-length advisory")
     parser.add_argument("--banned-lists", default=None,
                         help="override the path to the term tables")
     parser.add_argument("--format", choices=["text", "json"], default="text")
@@ -804,8 +756,7 @@ def main(argv=None):
 
     advisories = lint(text, profile=args.profile,
                       banned_lists_path=args.banned_lists,
-                      artifact_type=artifact_type,
-                      exhaustive_lists_ok=args.exhaustive_list_ok)
+                      artifact_type=artifact_type)
 
     if args.format == "json":
         print(json.dumps({

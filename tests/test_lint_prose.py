@@ -161,15 +161,13 @@ def test_template_placeholders_are_truncated_not_dropped():
 # --------------------------------------------------------------------------- #
 
 LEXICAL_CASES = [
-    ("action-verb-pattern", "The team will leverage the cache.",        "STOW-PRO-021"),
+    ("action-verb-pattern", "The team will leverage the cache.",        "STOW-PRO-020"),
     ("transition-pattern",  "Furthermore, the cache is cold.",          "STOW-PRO-020"),
     ("filler-phrase",       "In conclusion, the cache is cold.",        "STOW-PRO-011"),
-    ("intensifier",         "The cache is extremely cold.",             "STOW-PRO-004"),
-    ("academic-phrase-pattern", "Run the flush prior to the restart.",  "STOW-PRO-022"),
-    ("whether-youre-opener", "Whether you're new here, run the flush.", "STOW-PRO-012"),
+    ("intensifier",         "The cache is extremely cold.",             "STOW-PRO-009"),
+    ("academic-phrase-pattern", "Run the flush prior to the restart.",  "STOW-PRO-020"),
+    ("whether-youre-opener", "Whether you're new here, run the flush.", "STOW-PRO-011"),
     ("weasel-phrase",       "It should be noted that the cache is cold.", "STOW-PRO-015"),
-    ("overused-adjective",  "The parser is robust.",                    None),
-    ("metaphorical-noun",   "A tapestry of parsers handles the input.", None),
 ]
 
 
@@ -215,14 +213,13 @@ def test_overlapping_terms_report_once():
 # (b) PUNCTUATION / STRUCTURE -- RED-first
 # --------------------------------------------------------------------------- #
 
-# (rule, fixture, rule_id, profile-needed-to-fire). The em-dash and scare-quote
-# checks are always-on; the Latin-abbreviation and contraction checks belong to
+# (rule, fixture, rule_id, profile-needed-to-fire). The em-dash check is
+# profile-independent; the Latin-abbreviation and contraction checks belong to
 # the controlled-technical-guided profile and fire only under it.
 PUNCT_CASES = [
     ("em-dash",            u"The cache is cold — restart it.",       "STOW-PRO-001", None),
     ("latin-abbreviation", "Flush the caches, e.g. the write cache.", "STOW-GEN-006", CT),
     ("contraction",        "The cache isn't warm yet.",              "STOW-SEN-002", CT),
-    ("scare-quote",        'The so-called "smart" cache failed.',    "STOW-PRO-010", None),
 ]
 
 
@@ -309,13 +306,6 @@ def test_latin_abbreviation_survives_the_identifier_mask():
 def test_possessive_s_is_not_reported_as_a_contraction():
     assert_clean("The controller's cache is cold.", "contraction", profile=CT)
     assert_flags("The controller's cache: it's cold.", "contraction", profile=CT)
-
-
-def test_scare_quote_ignores_a_real_quotation():
-    # A multi-word attributed quotation is not a scare quote.
-    assert_clean(
-        'The report said "the drive failed during the rebuild window".',
-        "scare-quote")
 
 
 # --- semicolon: profile-gated both directions -------------------------------- #
@@ -405,38 +395,6 @@ def test_length_caps_ignore_fenced_code():
     fenced = "```\n%s\n```\n" % _sentence(40)
     assert_clean(fenced, "descriptive-sentence-length", profile=CT)
     assert_clean(fenced, "procedural-sentence-length", profile=CT)
-
-
-def test_list_cap_is_five_items():
-    five = "".join("- item %d\n" % i for i in range(5))
-    six = "".join("- item %d\n" % i for i in range(6))
-    assert_clean(five, "list-length")
-    assert_flags(six, "list-length")
-    found = hits(six, "list-length")
-    assert len(found) == 1                      # one advisory, on the sixth item
-    assert found[0].line == 6
-    assert found[0].rule_id == "STOW-ACT-009"
-
-
-def test_list_cap_resets_between_separate_lists():
-    text = ("- a\n- b\n- c\n\nA paragraph between the lists.\n\n"
-            "- d\n- e\n- f\n")
-    assert_clean(text, "list-length")
-
-
-def test_list_cap_ignores_a_fenced_block_that_looks_like_a_list():
-    fenced = "```\n%s```\n" % "".join("- item %d\n" % i for i in range(9))
-    assert_clean(fenced, "list-length")
-
-
-def test_exhaustive_list_permission_suppresses_the_list_cap_only():
-    """A contract-required exhaustive list is never trimmed to fit the cap;
-    every other check keeps running."""
-    six = "".join("- item %d\n" % i for i in range(6))
-    assert_flags(six, "list-length")
-    assert_clean(six, "list-length", exhaustive_lists_ok=True)
-    dirty = six + "\nFurthermore, the cache is cold.\n"
-    assert_flags(dirty, "transition-pattern", exhaustive_lists_ok=True)
 
 
 def test_structured_artifact_type_suppresses_every_prose_check():
@@ -596,7 +554,7 @@ def test_every_finding_is_structured_and_advisory():
         assert isinstance(record["col"], int) and record["col"] >= 1
         assert record["rule"] and isinstance(record["rule"], str)
         assert record["explanation"] and isinstance(record["explanation"], str)
-        assert record["rule_id"] is None or record["rule_id"].startswith("STOW-")
+        assert record["rule_id"].startswith("STOW-")
 
 
 def test_findings_are_sorted_by_position():
@@ -624,23 +582,23 @@ def test_public_pattern_names_are_neutral_and_keep_registry_ids(tmp_path, capsys
         "Furthermore, the team will leverage the cache prior to restart.\n",
         encoding="utf-8")
     expected = {
-        "STOW-PRO-020": "transition-pattern",
-        "STOW-PRO-021": "action-verb-pattern",
-        "STOW-PRO-022": "academic-phrase-pattern",
+        ("STOW-PRO-020", "transition-pattern"),
+        ("STOW-PRO-020", "action-verb-pattern"),
+        ("STOW-PRO-020", "academic-phrase-pattern"),
     }
 
     assert lint_prose.main([str(path), "--format", "json"]) == 0
     payload = json.loads(capsys.readouterr().out)
     observed = {
-        finding["rule_id"]: finding["rule"]
+        (finding["rule_id"], finding["rule"])
         for finding in payload["findings"]
-        if finding["rule_id"] in expected
+        if finding["rule_id"] == "STOW-PRO-020"
     }
     assert observed == expected
 
     assert lint_prose.main([str(path)]) == 0
     out = capsys.readouterr().out
-    for rule in expected.values():
+    for _, rule in expected:
         assert "[%s]" % rule in out
     for legacy in ("ai-verb", "ai-transition", "academic-tell"):
         assert "[%s]" % legacy not in out
@@ -653,7 +611,7 @@ def test_text_output_names_the_tool_and_the_rule_ids(tmp_path, capsys):
     out = capsys.readouterr().out
     assert "lint_prose" in out
     assert "report only, exit 0" in out
-    assert "STOW-PRO-021" in out
+    assert "STOW-PRO-020" in out
     assert "advisory" in out
 
 

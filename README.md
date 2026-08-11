@@ -57,7 +57,9 @@ The strict profile is locked because the inputs it needs (the controlled diction
 
 ## Rule classes at a glance
 
-At this audited reconciliation starting point, the registry indexes 96 primary rules under STOW's own functional taxonomy. The registry defines each rule's operational metadata; the corpus module behind it carries the full guidance.
+The current registry indexes 65 primary rules under STOW's own functional
+taxonomy. The registry defines each active rule's operational metadata; the
+audit ledger preserves the original reconciliation population and retired IDs.
 
 <!-- RULE-CLASSES:BEGIN -->
 
@@ -92,47 +94,35 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 |---|---|---|---|
 | `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer, per the request-mode router | Planned |
 | `STOW-ACT-002` | Numbered steps for multi-step work | the work runs across multiple steps | Planned |
-| `STOW-ACT-003` | Close with a single concrete next step | open work remains when the turn ends; exception: when the work is complete, report the result and invent no follow-up step | Review-fallback |
 | `STOW-ACT-004` | Defer secondary issues | a secondary issue surfaces during the main task; exception: offer the deferred issue separately at the end rather than dropping it | Planned |
 | `STOW-ACT-005` | Restate progress each turn | a multi-turn task is in progress; exception: a single-turn answer needs no progress ledger | Review-fallback |
 | `STOW-ACT-006` | Concrete effort estimates | a defensible range exists for the estimate; exception: with no defensible range, omit the figure; accuracy outranks the preference | Review-fallback |
 | `STOW-ACT-007` | Surface completed outcomes | work ran and produced a result this turn | Planned |
 | `STOW-ACT-008` | Neutral error reporting | the turn reports an error | Planned |
-| `STOW-ACT-009` | Bound action lists to five items | a list of actions to take; exception: exhaustive evidence, reference inventories, safety content, contract-required lists | Callable |
-| `STOW-ACT-010` | No preamble, recap, or sign-off | All prose (always on) | Planned |
 | `STOW-ACT-011` | Lists, not tables, for action sequences | action sequences, not comparison data | Planned |
 
 </details>
 
 <details>
-<summary><b>Prose integrity</b> (PRO-001 through PRO-024)</summary>
+<summary><b>Prose integrity</b> (PRO-001 through PRO-023)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-PRO-001` | Use em dashes only under an explicit style contract | an explicit style contract governs punctuation; exception: a deliberate house style that permits em dashes remains permitted | Callable |
+| `STOW-PRO-001` | Use em dashes only under an explicit style contract | an explicit style contract governs punctuation; exception: a deliberate house style that permits em dashes remains permitted | Review-fallback |
 | `STOW-PRO-002` | Require attributable numbers | any numeric claim; exception: no attributable source: omit the number rather than invent one | Review-fallback |
-| `STOW-PRO-003` | No parentheticals in headings | Section headings | Planned |
-| `STOW-PRO-004` | No empty intensifiers | All prose (always on) | Callable |
 | `STOW-PRO-005` | End claims on a concrete detail | factual claims in editable prose; exception: a conceptual definition satisfies this with a precise, checkable statement | Review-fallback |
 | `STOW-PRO-006` | Functionless semantic repetition | a later statement repeats an earlier meaning without adding function; exception: functional repetition for correction, safety, navigation, emphasis, or stable terminology remains permitted | Review-fallback |
 | `STOW-PRO-007` | Vary structure | several consecutive blocks share one layout; exception: never vary above a length cap or across recurring terminology | Planned |
-| `STOW-PRO-008` | Reference without narrating | All prose (always on) | Planned |
-| `STOW-PRO-009` | No urgency without a reason | All prose (always on) | Review-fallback |
-| `STOW-PRO-010` | No scare quotes on ordinary words | All prose (always on) | Callable |
-| `STOW-PRO-011` | No filler phrases | All prose (always on) | Callable |
-| `STOW-PRO-012` | Generic audience framing | generic audience framing does not change the guidance; exception: an audience distinction that changes the advice remains permitted | Callable |
+| `STOW-PRO-009` | Keep emphasis proportional to evidence | emphasis, urgency, or intensity exceeds the stated evidence; exception: a material consequence or requested voice earns the emphasis | Review-fallback |
+| `STOW-PRO-011` | Remove functionless metadiscourse | framing or process language adds no information or decision value; exception: a material limitation, method, or audience distinction changes the answer | Review-fallback |
 | `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
-| `STOW-PRO-014` | Unearned enthusiasm | enthusiasm is not supported by the result or requested voice; exception: evidence-backed enthusiasm or an expressive requested voice remains permitted | Planned |
-| `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Callable |
+| `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
 | `STOW-PRO-017` | No fabricated scenarios | All prose (always on) | Review-fallback |
 | `STOW-PRO-018` | No fabricated history | All prose (always on) | Review-fallback |
 | `STOW-PRO-019` | No fabricated attributions | All prose (always on) | Review-fallback |
-| `STOW-PRO-020` | Review formulaic transitions | a listed transition may be formulaic in its sentence context; exception: ordinary connectors with a clear discourse function remain permitted | Callable |
-| `STOW-PRO-021` | Prefer verbs that name the exact action | a matched verb does not name the exact action in context; exception: ordinary technical, financial, literal, and established domain uses remain permitted | Callable |
-| `STOW-PRO-022` | Review stock academic phrasing | a listed phrase may obscure the claim it introduces; exception: established academic phrasing with a clear function remains permitted | Callable |
+| `STOW-PRO-020` | Review formulaic lexical patterns | a listed transition, verb, or stock phrase may obscure its function; exception: ordinary connectors and exact technical or domain uses remain permitted | Review-fallback |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
-| `STOW-PRO-024` | No research-process narration | process diary that changes no conclusion; exception: a limitation or failed verification that changes the answer is disclosed in one clause | Review-fallback |
 
 </details>
 
@@ -144,39 +134,29 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-WRD-001` | Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs | Controlled profile | Review-fallback |
 | `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech | Controlled profile | Planned |
 | `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | Controlled profile | Review-fallback |
-| `STOW-WRD-004` | Use only the verb and adjective forms the dictionary lists for that word | Controlled profile | Planned |
-| `STOW-WRD-005` | Admit non-dictionary words when they fit one of the technical-noun categories | Controlled profile | Review-fallback |
-| `STOW-WRD-006` | Allow an unapproved word only when it is part of a technical noun | Controlled profile | Review-fallback |
 | `STOW-WRD-007` | Do not use a technical noun as a verb; keep it a noun or adjectival modifier | Controlled profile | Planned |
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
-| `STOW-WRD-009` | When coining a technical noun, keep it short and easy to understand | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |
 | `STOW-WRD-011` | Use one technical noun consistently for one item; do not switch synonyms mid-text | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
-| `STOW-WRD-012` | Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one exists | Controlled profile | Review-fallback |
-| `STOW-WRD-013` | Do not nominalize a technical verb; its past participle may act as an adjective | Controlled profile | Planned |
 | `STOW-WRD-014` | Use American English spelling unless another official directive overrides; do not change quoted-text spelling | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Multi-word nouns</b> (MWN-001 through MWN-002)</summary>
+<summary><b>Multi-word nouns</b> (MWN-001 through MWN-001)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words | Controlled profile | Planned |
-| `STOW-MWN-002` | For a technical noun longer than three words, write it in full first, then shorten or hyphenate | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Verbs and voice</b> (VRB-001 through VRB-007)</summary>
+<summary><b>Verbs and voice</b> (VRB-002 through VRB-007)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-VRB-001` | Use only the verb forms the dictionary provides for each approved verb | Controlled profile | Planned |
 | `STOW-VRB-002` | Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions | Controlled profile | Planned |
-| `STOW-VRB-003` | Use the past participle only as an adjective, and only if it is in the dictionary | Controlled profile | Planned |
-| `STOW-VRB-004` | Do not use auxiliary verbs to build perfect, progressive, or passive complex constructions | Controlled profile | Planned |
 | `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | Controlled profile | Planned |
 | `STOW-VRB-006` | Use active voice; passive is allowed only in descriptive writing when the agent is unknown | Controlled profile | Planned |
 | `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization or other part of speech | Controlled profile | Planned |
@@ -184,12 +164,11 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 </details>
 
 <details>
-<summary><b>Sentences and paragraphs</b> (SEN-001 through SEN-005)</summary>
+<summary><b>Sentences and paragraphs</b> (SEN-002 through SEN-005)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-SEN-001` | Write short, clear, concrete sentences suited to procedures or descriptions | Controlled profile | Review-fallback |
-| `STOW-SEN-002` | Do not omit words or use contractions; write every word in full | Controlled profile | Planned |
+| `STOW-SEN-002` | Do not omit words or use contractions; write every word in full | Controlled profile | Review-fallback |
 | `STOW-SEN-003` | Break complex text into a vertical list with the prescribed layout | Controlled profile | Planned |
 | `STOW-SEN-004` | Use approved connecting words and phrases to link related sentences | Controlled profile | Planned |
 | `STOW-SEN-005` | Use articles and demonstratives before nouns where grammatically correct | Controlled profile | Planned |
@@ -215,10 +194,8 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-DSC-001` | Introduce information gradually, one subject per sentence | Controlled profile | Review-fallback |
-| `STOW-DSC-002` | Use consistent key words and phrases to give the text a logical structure | Controlled profile | Review-fallback |
 | `STOW-DSC-003` | Limit each descriptive sentence to a maximum of twenty-five words | Controlled profile | Callable |
 | `STOW-DSC-004` | Group related information into paragraphs, each led by a topic sentence | Controlled profile | Review-fallback |
-| `STOW-DSC-005` | Give each paragraph exactly one topic | Controlled profile | Review-fallback |
 | `STOW-DSC-006` | Keep every paragraph to a maximum of six sentences | Controlled profile | Planned |
 
 </details>
@@ -240,7 +217,6 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-PCT-001` | Do not use the semicolon; write two separate sentences instead | Controlled profile | Callable |
-| `STOW-PCT-002` | Use hyphens to join words that are directly related | Controlled profile | Planned |
 | `STOW-PCT-003` | Use parentheses only for the approved purposes | Controlled profile | Planned |
 | `STOW-PCT-004` | In a vertical list, a colon counts as a period for word count and ends a sentence | Controlled profile | Planned |
 | `STOW-PCT-005` | Parenthetical text counts as one word in the host sentence | Controlled profile | Planned |
@@ -250,30 +226,25 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 </details>
 
 <details>
-<summary><b>Writing style</b> (STY-001 through STY-004)</summary>
+<summary><b>Writing style</b> (STY-001 through STY-003)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-STY-001` | When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning | Controlled profile | Review-fallback |
-| `STOW-STY-002` | Use each approved word with its correct restricted meaning and part of speech | Controlled profile | Review-fallback |
 | `STOW-STY-003` | Do not combine approved words into unlisted phrasal verbs | Controlled profile | Planned |
-| `STOW-STY-004` | Use a consistent style: reuse the same terminology and wording for recurring content | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>General writing practice</b> (GEN-001 through GEN-008)</summary>
+<summary><b>General writing practice</b> (GEN-002 through GEN-007)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-GEN-001` | Prefer keeping the conjunction that to mark the clause boundary | Controlled profile | Planned |
 | `STOW-GEN-002` | Check the preposition with for ambiguity and rewrite when unclear | Controlled profile | Planned |
 | `STOW-GEN-003` | Use only approved pronouns; replace an ambiguous pronoun with its noun | Controlled profile | Planned |
-| `STOW-GEN-004` | Make sure the pronoun this has an unambiguous referent | Controlled profile | Planned |
 | `STOW-GEN-005` | Avoid false friends; confirm the English meaning of the word | Controlled profile | Review-fallback |
 | `STOW-GEN-006` | Avoid Latin abbreviations; use English words instead | Controlled profile | Callable |
 | `STOW-GEN-007` | Use gender-neutral, inclusive language | Controlled profile | Planned |
-| `STOW-GEN-008` | Use the possessive correctly; if unsure, avoid it | Controlled profile | Planned |
 
 </details>
 <!-- CATALOG:END -->
@@ -299,7 +270,6 @@ Related rules reinforce each other, narrow each other, apply in only one profile
 |---|---|---|---|
 | Informational question vs action-first opening | The answer leads | An unrequested next action opening | Lead with the next bounded action only for actionable tasks |
 | Completed work vs required next action | The result, reported plainly | An invented follow-up step | Add a next action only when open work remains |
-| Contract-required exhaustive list vs the five-item cap | The complete list | Trimming to fit the cap | The cap advisory is suppressed for exhaustive content (`--exhaustive-list-ok`) |
 | Justified uncertainty vs anti-hedging | Calibrated uncertainty, stated once with its reason | Empty hedge words | Cut hedges that carry no information; keep load-bearing doubt |
 | Material limitation vs no process narration | One clause disclosing what changes the answer | Exploration diary | State the limitation and its consequence; omit the search story |
 | Sentence variation vs controlled sentence caps | The cap | Variation above the cap | Vary length below the cap, never above it |
@@ -390,7 +360,7 @@ Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2`
 **`runtime/lint_prose.py`** is advisory and report-only. Findings never change the exit code; only an invalid invocation (an unknown or locked profile) exits nonzero.
 
 ```
-python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw] [--exhaustive-list-ok]
+python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw]
 ```
 
 The caller-supplied profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks its finite recognized set of fenced blocks, inline code, block quotes, URLs, paths, and identifiers. Findings and zero findings remain advisory.
@@ -432,12 +402,18 @@ python -m pytest tests/ -q
 python tools/check_provenance_leak.py --local
 ```
 
-`generated_counts.primary_total` must equal the current record population. The declared value identifies the audited reconciliation starting point, not a required terminal count. A governed row-disposition phase must assign every starting rule id a `KEEP`, `SIMPLIFY`, `MERGE`, `MOVE`, or `DROP` decision before changing that population. Until comparative rewrite work runs, treat protected baseline wording as fixed.
+`generated_counts.primary_total` must equal the current active record population.
+The audit ledger, not dead registry rows, preserves each starting ID and its
+`KEEP`, `SIMPLIFY`, `MERGE`, `MOVE`, or `DROP` disposition. Until comparative
+rewrite work runs, treat protected baseline wording as fixed.
 
 ## Known limitations
 
 - **Prose linters are advisory and report-only.** `lint_prose.py` exits 0 on findings and even treats unreadable input as no blocking prose verdict. The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.
-- **Most registry rules are not callable.** Fourteen rules have callable validators today. The large majority are either review-fallback (a model applies them by reading them) or planned (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
+- **Most registry rules are not mechanically decided.** Four rules have callable compliance validators today. Nine advisory surface detectors supply bounded
+  observations for G1 semantics; they do not decide contextual compliance. The
+  remainder are review-fallback or planned. A rule being in the registry does
+  not mean a program checks it.
 - **Host-dependent skill selection.** Historical evidence from one pinned host per round observed invocation on some task-shaped, technical, and meta-code turns and skips on some short prompts. It does not establish selection behavior for another prompt, model, or host.
 - **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks. Behavioral evidence is measured and documented, not promised.
 - **Lexical advisories ignore a requested register.** An explicitly requested casual or creative voice governs the register, but lexical advisories still fire on the result; advisories never override the contract band.

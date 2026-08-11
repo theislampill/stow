@@ -142,7 +142,6 @@ EM_DASH = u"The cache is cold — restart it."
 LATIN = "Flush the caches, e.g. the write cache."
 PROC_21 = "- " + " ".join(["word"] * 21) + "."
 DESC_26 = " ".join(["word"] * 26) + "."
-SIX_ITEMS = "".join("- do task %d now\n" % i for i in range(6))
 QUOTED = 'The report said "it isn\'t cold; restart it" yesterday.'
 RAW_JSON = u'{"note": "Furthermore, we leverage it — robust; e.g. etc. isn\'t"}'
 
@@ -160,9 +159,6 @@ MATRIX = [
     ("controlled-proc-cap",   PROC_21,     GUIDED,  "procedural-sentence-length", True,  {}),
     ("default-desc-cap",      DESC_26,     DEFAULT, "descriptive-sentence-length", False, {}),
     ("controlled-desc-cap",   DESC_26,     GUIDED,  "descriptive-sentence-length", True,  {}),
-    ("action-queue-advisory", SIX_ITEMS,   DEFAULT, "list-length", True,  {}),
-    ("exhaustive-list-permitted", SIX_ITEMS, DEFAULT, "list-length", False,
-     {"exhaustive_lists_ok": True}),
     ("quoted-spans-unflagged-contraction", QUOTED, GUIDED, "contraction", False, {}),
     ("quoted-spans-unflagged-semicolon",   QUOTED, GUIDED, "semicolon",   False, {}),
     ("clarity-contraction",   CONTRACTION, CLARITY, "contraction", False, {}),
@@ -288,6 +284,11 @@ def test_guidance_rules_are_registry_records_inside_the_controlled_set():
         assert rule_id in ids, "unknown guidance rule %s" % rule_id
         assert rule_id in controlled, (
             "guidance rule %s is not a controlled-family record" % rule_id)
+
+
+def test_technical_clarity_guidance_does_not_name_retired_merge_sources():
+    clarity = profiles.resolve(CLARITY)
+    assert clarity["guidance_rules"] == ["STOW-WRD-011"]
 
 
 def test_default_and_clarity_include_only_the_always_on_selector():

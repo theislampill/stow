@@ -63,10 +63,10 @@ DESCRIPTIVE_GROUPS = (
      ("STOW-PRO-006",)),
     ("empty metadiscourse",
      "cut framing and process narration that do not advance the answer",
-     ("STOW-PRO-008", "STOW-PRO-011", "STOW-PRO-012", "STOW-PRO-024")),
+     ("STOW-PRO-011",)),
     ("manufactured contrast or escalation",
      "keep intensity, urgency, and enthusiasm proportional to evidence",
-     ("STOW-PRO-004", "STOW-PRO-009", "STOW-PRO-014")),
+     ("STOW-PRO-009",)),
     ("hollow evaluation",
      "replace unsupported verdicts with the fact or criterion behind them",
      ("STOW-PRO-005", "STOW-PRO-013")),
@@ -82,7 +82,7 @@ DESCRIPTIVE_GROUPS = (
       "STOW-PRO-019")),
     ("lexical inflation or cliché clusters",
      "prefer exact ordinary wording unless a term has a needed technical sense",
-     ("STOW-PRO-010",)),
+     ()),
 )
 
 

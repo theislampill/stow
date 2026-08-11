@@ -8,13 +8,9 @@ gate over a closed subset that must be zero:
   * the em-dash check (always-on),
   * every lexical term-table check (intensifiers, transitions, filler,
     weasel phrases, verbs, academic tells, the opener),
-  * the scare-quote and hedging-cluster checks,
+  * the hedging-cluster check,
   * for the executable-procedure template only: the controlled-profile
     checks (semicolons, contractions, sentence caps).
-
-The list-length advisory is NOT in the G4 repository gate: exhaustive reference
-enumerations are a recorded contract exception (see the conflict registry's
-exhaustive-list entry), and list intent is context a linter cannot read.
 
 Never scanned: the protected corpus, rule data, runtime and tool sources,
 tests, and dist. Those are data or code surfaces, not authored prose.
@@ -38,12 +34,11 @@ GUIDED = "controlled-technical-guided"
 
 # The G2 advisory results are never averaged away by this G4 repository gate:
 # these checks must report ZERO findings on every surface below.
-# (list-length is deliberately absent.)
+# Every selected finding maps to an active registry owner.
 GATED_RULES = frozenset({
-    "em-dash", "intensifier", "scare-quote", "filler-phrase",
+    "em-dash", "intensifier", "filler-phrase",
     "whether-youre-opener", "weasel-phrase", "transition-pattern",
-    "action-verb-pattern", "academic-phrase-pattern", "metaphorical-noun",
-    "overused-adjective", "hedging",
+    "action-verb-pattern", "academic-phrase-pattern", "hedging",
 })
 GATED_RULES_GUIDED = GATED_RULES | frozenset({
     "semicolon", "contraction",
@@ -166,14 +161,12 @@ def test_yaml_template_comments_pass_lexical_subset(name):
 # masked-quote discipline the .md gate relies on.
 # --------------------------------------------------------------------------- #
 
-# em-dash + every banned-lexical check. No profile-gated or scare-quote checks:
-# these are short data strings and the scanned subset is em-dash + banned
-# lexical.
+# Em dash plus every active lexical advisory. These are short data strings, so
+# profile-gated checks are outside this subset.
 STRUCTURED_FIELD_RULES = frozenset({
     "em-dash", "intensifier", "filler-phrase", "whether-youre-opener",
     "weasel-phrase", "transition-pattern", "action-verb-pattern",
-    "academic-phrase-pattern",
-    "metaphorical-noun", "overused-adjective", "hedging",
+    "academic-phrase-pattern", "hedging",
 })
 
 # The conflict-registry keys that carry STOW-authored advisory prose. The

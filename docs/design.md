@@ -144,7 +144,7 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
 | Kernel alone (`SKILL.md`) | 1075 | 1471 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 1894 | 2596 |
+| Ordinary prose turn (kernel + `references/always-on.md`) | 1781 | 2457 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -195,19 +195,21 @@ distinction is stated plainly here.
   *would* be enforced by a mechanical checker: what class of check applies, what
   it would key on. It is a design declaration.
 - **`enforcement.status` is the *shipped* truth.** It records what runs
-  today: **fourteen rules are callable**; the bulk of the remainder are planned,
-  and the rest fall back to model review. The exact callable set is derived
+  today: **four rules are callable compliance predicates**; nine advisory surface detectors
+  support contextual G1 review; the remainder are
+  planned or fall back to model review. The exact implemented set is derived
   bidirectionally from the runtime's own `IMPLEMENTED_VALIDATORS` constant by
   `tests/test_enforcement_status.py`, so the registry can neither overclaim nor
   underclaim a validator.
 
 Read together: the majority of rules are *not* mechanically enforced in this
-release. Fourteen rules have callable checkers, and each callable checker runs
-only where its owning rule is active: the profile resolver gates the
-controlled-family checks (semicolon, contraction, Latin abbreviations, the two
-sentence caps) behind `controlled-technical-guided`, exactly as the registry's
-activation predicates declare. The planned rules have a specified mechanism that
-is not implemented. Review-fallback is judgement, not verification.
+release. Four primary rules have callable compliance predicates. Nine further
+matchers are advisory observations owned by G1 rules and do not establish their
+contextual semantics. The profile resolver gates the semicolon, contraction,
+Latin-abbreviation, and sentence-cap observations behind
+`controlled-technical-guided`, exactly as the registry activation predicates
+declare. Planned rules have no implemented validator. Review-fallback is
+judgement, not verification.
 
 The prose linters are **advisory / report-only**. `runtime/lint_prose.py` reports
 findings and exits zero by design; it is wired into CI as a smoke invocation, not

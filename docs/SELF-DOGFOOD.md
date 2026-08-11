@@ -52,7 +52,6 @@ delivery acceptance.
 | D-12 | Broken progressive disclosure | Kernel-alone rule intact; references predicate-loaded; corpus never inlined | mechanically checked | `tests/test_always_on.py`, `tests/test_references.py` |
 | D-13 | Action-first language on non-actionable contexts | Request-mode router carries per-intent openings | mechanically checked | router presence and mode tests in `tests/test_always_on.py` |
 | D-14 | Invented next actions after completed work | The closing-step rule carries its applicability condition; the completed-work resolution is a conflict-registry entry | mechanically checked | qualifier tests; `tests/test_conflicts.py` |
-| D-15 | Five-item cap applied to exhaustive reference material | Exhaustive enumerations kept complete under the contract exception | accepted deviation (recorded) | the exception list below |
 | D-16 | Suppressed justified uncertainty | Limitations sections state what is unproven; the always-on header keeps the uncertainty override | mechanically checked + reviewed | header-token test; README limitations |
 | D-17 | Hidden material limitations | Known-limitations sections carry host-selection, live-compliance, and validate-repair caveats | independently reviewed | README, `docs/REWRITE-READINESS.md` |
 | D-18 | Unclear conditions, exceptions, precedence | Every always-on check carries its condition and principal exception; collisions have terminal resolutions | mechanically checked | qualifier preservation tests; conflict registry gates |
@@ -64,19 +63,6 @@ delivery acceptance.
 | D-23 | Public statements match evidence | Live-model claims scoped to measured evidence; capability counts derived, not asserted | independently reviewed | `docs/FUNCTIONAL-EVIDENCE.md` |
 | D-24 | Authored text contradicts the conflict registry | The composition table in the README is rendered from the registry's resolutions; no authored surface states an unresolved contradiction | mechanically checked + reviewed | `tests/test_conflicts.py`; blind reviewer pass |
 | D-26 | Authored prose inside structured rule data and schemas | Zero findings on profile notes and auto-contexts, routing predicates and reasons, conflict activation, behavior, and substitute wording, and schema titles and descriptions; conflict fixtures excluded as protected demonstrations | mechanically checked | `tests/test_self_dogfood.py` |
-
-## Recorded exhaustive-list exceptions (check D-15)
-
-Each is an exhaustive reference enumeration the contract requires complete,
-per the conflict registry's exhaustive-list resolution; trimming any of them
-to five entries would misstate the material. Kernel: the precedence ladder,
-the user-facing duty list, and the activation map. README: the one-minute
-summary, the secondary-guidance list, and the limitations list. Changelog:
-release-section change lists. References: the precedence ladder and family
-catalog in the activation reference, the serialization contract enumerations
-in two format references, the banned-vocabulary catalog pointer list, and the
-profile-addition list in the clarity reference. Generated always-on module:
-the two rule-family groups. Evaluation notes: one detector enumeration.
 
 ## What this report does not claim
 

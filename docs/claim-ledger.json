@@ -330,7 +330,7 @@
     {
       "id": "CLM-035",
       "surface": "skills/stow/references/activation-and-precedence.md",
-      "statement": "- **Punctuation** (`STOW-PCT-001`..`007`): region: prose; check: deterministic and heuristic (including the word-count token rules).",
+      "statement": "- **Punctuation** (active `STOW-PCT` records): region: prose; check: deterministic and heuristic (including the word-count token rules).",
       "families": ["determinism"],
       "layer": "G2"
     },

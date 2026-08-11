@@ -49,6 +49,21 @@ import lint_prose  # noqa: E402  (packaged runtime module; import-closed)
 
 NAMED_CALLABLES = set(lint_prose.IMPLEMENTED_VALIDATORS)
 
+GENUINE_G2_IDS = {
+    "STOW-PRC-001", "STOW-DSC-003", "STOW-PCT-001", "STOW-GEN-006",
+}
+
+EXPECTED_ADVISORY_VALIDATORS = {
+    "STOW-SEN-002": {"no-contractions"},
+    "STOW-PRO-001": {"no-em-dash"},
+    "STOW-PRO-009": {"no-intensifiers"},
+    "STOW-PRO-011": {"no-filler-phrases", "no-whether-youre-opener"},
+    "STOW-PRO-015": {"no-weasel-words"},
+    "STOW-PRO-020": {
+        "no-ai-transitions", "no-ai-verbs", "no-academic-tells",
+    },
+}
+
 MECHANIZED_KINDS = {"deterministic", "parser", "heuristic"}
 VALID_STATUS = {"callable", "review-fallback", "planned"}
 
@@ -128,23 +143,30 @@ def test_mechanized_without_named_callable_is_not_callable():
 
 
 def test_implemented_validators_are_not_under_claimed():
-    """The gate runs both ways: if the shipped linter implements a validator,
-    the record naming it must say so. Prevents silently under-reporting real
-    capability the way v0.1 over-reported phantom capability."""
-    implemented = set(lint_prose.IMPLEMENTED_VALIDATORS)
-    for r in RECORDS:
-        enf = r["enforcement"]
-        if enf.get("validator") in implemented:
-            assert enf["status"] == "callable", (
-                "%s names validator %r which the shipped linter implements, "
-                "but status is %r" % (r["id"], enf["validator"], enf["status"]))
+    """Every shipped validator is claimed once as compliance or advisory."""
+    compliance = {
+        r["enforcement"]["validator"] for r in RECORDS
+        if r["enforcement"]["status"] == "callable"
+    }
+    advisory = {
+        validator for r in RECORDS
+        for validator in r["enforcement"].get("advisory_validators", [])
+    }
+    assert compliance.isdisjoint(advisory)
+    assert compliance | advisory == NAMED_CALLABLES
 
 
 def test_every_implemented_validator_is_claimed_by_a_record():
-    """No orphan checks: every implemented validator maps to a registry record."""
-    named = {r["enforcement"].get("validator") for r in RECORDS}
-    orphans = sorted(set(lint_prose.IMPLEMENTED_VALIDATORS) - named)
+    """No orphan checks: every implemented validator maps to one active record."""
+    named = [r["enforcement"].get("validator") for r in RECORDS]
+    named.extend(
+        validator for r in RECORDS
+        for validator in r["enforcement"].get("advisory_validators", [])
+    )
+    orphans = sorted(set(lint_prose.IMPLEMENTED_VALIDATORS) - set(named))
     assert not orphans, "linter implements validators no record names: %s" % orphans
+    for validator in lint_prose.IMPLEMENTED_VALIDATORS:
+        assert named.count(validator) == 1, validator
 
 
 def test_exactly_the_named_callable_is_callable():
@@ -156,6 +178,26 @@ def test_exactly_the_named_callable_is_callable():
         if r["id"] in callable_ids:
             assert r["enforcement"]["validator"] in NAMED_CALLABLES, r["id"]
     assert callable_ids, "at least one validator ships callable code today"
+
+
+def test_only_genuine_g2_predicates_are_primary_callable_rules():
+    callable_ids = {
+        r["id"] for r in RECORDS if r["enforcement"]["status"] == "callable"
+    }
+    assert callable_ids == GENUINE_G2_IDS
+
+
+def test_contextual_g1_rules_own_only_advisory_surface_validators():
+    actual = {
+        r["id"]: set(r["enforcement"].get("advisory_validators", []))
+        for r in RECORDS if r["enforcement"].get("advisory_validators")
+    }
+    assert actual == EXPECTED_ADVISORY_VALIDATORS
+    for rule_id in actual:
+        enforcement = next(r for r in RECORDS if r["id"] == rule_id)["enforcement"]
+        assert enforcement["kind"] == "semantic-review"
+        assert enforcement["validator"] is None
+        assert enforcement["status"] == "review-fallback"
 
 
 # --------------------------------------------------------------------------- #
@@ -171,9 +213,7 @@ def test_every_record_has_always_on_flag_boolean():
 def test_always_on_flag_matches_selector_with_contextual_advisory_exclusions():
     flagged = {r["id"] for r in RECORDS if r["activation"]["always_on_for_prose"]}
     candidates = {r["id"] for r in RECORDS if _predicate_candidate(r)}
-    contextual_advisories = {
-        "STOW-PRO-001", "STOW-PRO-020", "STOW-PRO-021", "STOW-PRO-022",
-    }
+    contextual_advisories = {"STOW-PRO-001", "STOW-PRO-020"}
     assert candidates - flagged == contextual_advisories
     assert flagged - candidates == set()
 
@@ -185,7 +225,7 @@ def test_always_on_selector_keeps_universal_and_subregion_boundaries():
         if r["activation"]["kind"] == "always-user-facing":
             assert r["id"] in flagged, r["id"]
     # sub-region-gated PRO records are excluded
-    for rid in ("STOW-PRO-003", "STOW-PRO-016", "STOW-PRO-023"):
+    for rid in ("STOW-PRO-016", "STOW-PRO-023"):
         assert rid not in flagged, rid
 
 

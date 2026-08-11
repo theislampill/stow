@@ -583,7 +583,7 @@ def test_readme_reports_normal_installed_skill_turn_economics_separately():
         "3.2044",
         "24676",
         "142,567",
-        "5.7775",
+        "5.7776",
         "1.0651",
         "no post-fix case reached an order-of-magnitude ratio",
         "bounded result on one codex host",

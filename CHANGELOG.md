@@ -30,7 +30,7 @@ Release candidate for the instrumentality reconciliation.
   requirement accounting and behavioral compliance.
 - Measured cumulative logical model input across every turn in a bounded normal
   installed-skill comparison. After removing checker probes and repeated hot
-  reference work, the frozen tasks ranged from 1.5651 to 5.7775 times name-only
+  reference work, the frozen tasks ranged from 1.5651 to 5.7776 times name-only
   input; no post-fix case reached an order-of-magnitude ratio. The controlled
   profile remains the material cost centre, while a subsequent turn measured
   1.0651 times its name-only counterpart.

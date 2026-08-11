@@ -117,7 +117,7 @@ frozen tasks were rerun as D'.
 | Two-turn repository status | D' | 77,437 | 59,648 | 17,789 | 77.0278% | 740 | 3 | 1 | 21.798 s |
 
 The absolute D' overhead and D'/B ratio were 54,271 and 3.2044 for ordinary
-prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7775 for
+prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7776 for
 the controlled procedure; and 27,960 and 1.5651 for the two-turn task. The
 second turn of that task was 1.0651 times its B counterpart. These are the
 **logical / architectural cost** ratios; caching does not erase their context,

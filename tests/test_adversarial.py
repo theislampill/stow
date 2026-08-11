@@ -255,7 +255,7 @@ def test_readme_rule_count_matches_registry():
     total = _registry_primary_total()
     readme = _read(README_PATH)
 
-    counts = [int(n) for n in re.findall(r"(\d+)\s+rules\b", readme)]
+    counts = [int(n) for n in re.findall(r"(?<![A-Za-z0-9])(\d+)\s+rules\b", readme)]
     counts += [int(n) for n in re.findall(r"indexes\s+(\d+)", readme)]
 
     assert counts, "README.md states no rule count to check against the registry"
@@ -263,3 +263,7 @@ def test_readme_rule_count_matches_registry():
         assert value == total, (
             "README.md advertises %d rules but the registry primary_total is %d"
             % (value, total))
+
+
+def test_layer_labels_are_not_parsed_as_rule_counts():
+    assert re.findall(r"(?<![A-Za-z0-9])(\d+)\s+rules\b", "G1 rules can fail") == []

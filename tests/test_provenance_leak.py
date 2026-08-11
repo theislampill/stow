@@ -114,9 +114,28 @@ def test_source_name_on_scanned_surface_fails():
     assert _fails("README.md", "these rules are derived from %s upstream" % HYPHEN_NAME)
 
 
-# The public tree is fully STOW-native: the source-name gate has NO path
-# exemptions. A name planted anywhere -- including corpus paths under every
-# path spelling the post-extract scan can produce -- must be caught.
+def test_exact_public_genealogy_lines_are_the_only_readme_source_name_allowance():
+    readme_path = os.path.join(REPO, "README.md")
+    with open(readme_path, encoding="utf-8") as fh:
+        readme = fh.read()
+    begin = "<!-- PUBLIC-GENEALOGY:BEGIN -->"
+    end = "<!-- PUBLIC-GENEALOGY:END -->"
+    assert begin in readme and end in readme
+    section = readme.split(begin, 1)[1].split(end, 1)[0]
+    named_lines = [
+        line for line in section.splitlines()
+        if any(rex.search(line) for rex in PATTERNS.word_res + PATTERNS.phrase_res)
+    ]
+    assert named_lines
+    for line in named_lines:
+        assert _passes("README.md", line), line
+        assert _fails("docs/design.md", line), line
+        assert _fails("README.md", line + " altered"), line
+
+
+# Outside the three exact README genealogy rows, the source-name gate has no
+# path exemptions. A name planted anywhere -- including corpus paths under
+# every path spelling the post-extract scan can produce -- must be caught.
 
 def test_source_name_inside_corpus_fails():
     assert _fails(CORPUS, "these rules are derived from %s upstream" % HYPHEN_NAME)

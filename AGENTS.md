@@ -20,13 +20,14 @@ below.
 
 ## Source-name-free surfaces
 
-Every tracked surface, including the corpus, the registry, the manifest, and
-every generated file, must be free of the names of the projects,
-organisations, or people the rules were distilled from. Public STOW artifacts
-must not identify external source projects; there are no exempt surfaces. Do
-not add any committed file whose purpose is to enumerate, search for, encode,
-or test for such identifiers: hygiene audits of this property run locally,
-outside the repository.
+Every tracked surface, including the corpus, registry, manifest, and generated
+files, must be free of the names of projects, organisations, or people from
+which rules were distilled, except for the three owner-authorized public
+genealogy rows in `README.md`. Those rows are exact-line, exact-path exceptions
+checked by digest; they authorize no other source name, location, derivation
+marker, hash, or repository surface. Do not add a broader committed source-name
+inventory. Hygiene audits of the remaining boundary run locally, outside the
+repository.
 
 ### Count-leak scope
 
@@ -58,9 +59,9 @@ gates:
   markers: distinctive source-file basenames, source URLs, source-file content
   hashes, uppercase licensing-verdict tokens, and the private marker literal. No
   file (corpus included) is exempt from Gate 1.
-- **Gate 2: source names.** Runs over every file as well. It rejects source
-  project, organisation, and person names. No surface is exempt: the public
-  tree is fully STOW-native.
+- **Gate 2: source names.** Runs over every file. It rejects source project,
+  organisation, and person names except on the three exact owner-authorized
+  `README.md` genealogy rows described above.
 
 Run the full checker locally before any push:
 `python tools/check_provenance_leak.py --local` loads the private pattern file,

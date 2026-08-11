@@ -176,16 +176,16 @@
     {
       "id": "CLM-013",
       "surface": "README.md",
-      "statement": "`runtime/validate.py` and `runtime/validate_terms.py` are G2 detectors, not delivery gates by themselves.",
-      "families": ["validation"],
-      "layer": "G2"
+      "statement": "They show the intended behaviour, not a guarantee that every model will make the same edit.",
+      "families": ["guarantee"],
+      "layer": "G1"
     },
     {
       "id": "CLM-014",
       "surface": "README.md",
-      "statement": "- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.",
-      "families": ["guarantee", "validation"],
-      "layer": "G3"
+      "statement": "Automatic skill selection is host-dependent.",
+      "families": ["selection"],
+      "layer": "G1"
     },
     {
       "id": "CLM-015",
@@ -232,16 +232,16 @@
     {
       "id": "CLM-021",
       "surface": "README.md",
-      "statement": "The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.",
+      "statement": "A validator result applies only to the supplied candidate; STOW does not automatically intercept or approve a host's final response.",
       "families": ["validation"],
       "layer": "G2"
     },
     {
       "id": "CLM-022",
       "surface": "README.md",
-      "statement": "A G3 host workflow must hold the actual final candidate, block invalid and unknown results, permit only authorized repairs, and revalidate before delivery.",
-      "families": ["validation"],
-      "layer": "G3"
+      "statement": "| `runtime/query_rules.py` | The public registry record, applicable profiles, conflicts, and corpus anchor for a rule ID | Automatic semantic routing or live host activation |",
+      "families": ["selection"],
+      "layer": "G2"
     },
     {
       "id": "CLM-023",
@@ -260,30 +260,16 @@
     {
       "id": "CLM-025",
       "surface": "README.md",
-      "statement": "`validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.",
-      "families": ["validation"],
-      "layer": "G2"
+      "statement": "- **Automatic activation is not guaranteed.** Installed skill availability, host selection, and actual reads are separate facts.",
+      "families": ["selection"],
+      "layer": "G1"
     },
     {
       "id": "CLM-026",
       "surface": "README.md",
-      "statement": "The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.",
-      "families": ["validation"],
+      "statement": "Then invoke STOW explicitly; automatic selection is host-dependent.",
+      "families": ["selection"],
       "layer": "G1"
-    },
-    {
-      "id": "CLM-027",
-      "surface": "README.md",
-      "statement": "- **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks.",
-      "families": ["guarantee"],
-      "layer": "G1"
-    },
-    {
-      "id": "CLM-028",
-      "surface": "README.md",
-      "statement": "- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.",
-      "families": ["validation"],
-      "layer": "G2"
     },
     {
       "id": "CLM-029",

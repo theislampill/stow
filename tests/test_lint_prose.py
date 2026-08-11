@@ -213,6 +213,7 @@ def test_overlapping_terms_report_once():
     "The citation is oaicite and is not resolved.",
     "The source pointer turn0search0 remains in the answer.",
     "The payload contains contentReference without a resolved target.",
+    "The generated card marker grok_card remains in the answer.",
 ])
 def test_unresolved_generated_placeholder_is_an_advisory(text):
     found = hits(text, "unresolved-generated-placeholder")
@@ -229,6 +230,23 @@ def test_unresolved_generated_placeholder_is_an_advisory(text):
 def test_unresolved_generated_placeholder_skips_examples_and_protected_regions(template):
     assert_clean(template.format("turn0search0"),
                  "unresolved-generated-placeholder")
+
+
+@pytest.mark.parametrize("text", [
+    "The field is grok_card_field.",
+    "The process is grok_carding the response.",
+])
+def test_unresolved_generated_placeholder_does_not_match_grok_card_near_matches(text):
+    assert_clean(text, "unresolved-generated-placeholder")
+
+
+def test_contextual_adjective_and_metaphor_buckets_are_guidance_only():
+    active_buckets = {bucket for bucket, _rule, _rule_id, _message in lint_prose._BUCKET_CHECKS}
+    assert {"adjectives", "metaphors"}.isdisjoint(active_buckets)
+    reference = open(os.path.join(
+        REPO, "skills", "stow", "references", "ai-writing-detection.md"),
+        encoding="utf-8").read()
+    assert "Adjective and metaphor tables remain guidance-only" in reference
 
 
 # --------------------------------------------------------------------------- #

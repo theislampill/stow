@@ -7,6 +7,9 @@ the shared term lists. This page is a pointer, not a copy.
   in `corpus/prose-integrity/banned-lists.md`.
 - **Callable mechanism.** `runtime/lint_prose.py` reads selected tables and
   reports closed matches with stable rule identifiers and neutral labels.
+- **Guidance-only tables.** Adjective and metaphor tables remain guidance-only.
+  The runtime does not match them because literal technical uses and figurative
+  uses need contextual judgment; their presence in the corpus is not a ban.
 - **Region handling.** The linter masks a finite set of recognizable protected
   spans before it scans. Masking is advisory preprocessing; it is not semantic
   classification or final-output preservation.

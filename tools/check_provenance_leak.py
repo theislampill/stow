@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Anti-leak gate for the STOW skill repository.
 
-Two gates enforce that neither the repository nor its build artifact ever
-contains a reference to the external source projects the rules were derived
-from, nor any derivation trail (source file paths, source-file content hashes,
-source URLs, licensing research).
+Two gates enforce that the repository and build artifact contain neither a
+derivation trail nor an unauthorized reference to an external source project.
+The only source-reference exception is the exact, owner-authorized README
+genealogy allowance described below.
 
 Gate 1 -- the provenance gate -- runs over EVERY file and looks for hard
 derivation markers: distinctive source-file basenames, source URLs, source-file
@@ -12,8 +12,9 @@ content hashes, uppercase licensing-verdict tokens, and the private marker
 literal.
 
 Gate 2 -- the source-name gate -- runs over EVERY file as well and looks for
-source project / organisation / person names. No surface is exempt: the
-public tree is fully STOW-native.
+source project / organisation / person names. Three exact, owner-authorized
+public-genealogy rows in README.md are allowed by line digest; no other surface
+or wording is exempt.
 
 ALL pattern data is loaded at runtime from an UNCOMMITTED private file that
 lives in the parent workspace (one level above the repository root). This module
@@ -42,6 +43,7 @@ clean result.
 """
 
 import argparse
+import hashlib
 import os
 import re
 import subprocess
@@ -61,11 +63,21 @@ HEX64_RE = re.compile(r"(?<![0-9a-fA-F])[0-9a-fA-F]{64}(?![0-9a-fA-F])")
 # Matches the private marker literal without itself containing that literal.
 PRIVATE_MARKER_RE = re.compile(r"provenance[-_]private")
 
-# (The former Gate-2 baseline/corpus exemptions were removed: the public tree
-# is fully STOW-native, so the source-name gate scans every line of every
-# file. Only Gate 1's typed content-hash positions remain exempted, below.)
+# Gate 2 scans every line. Its only exception is the exact README genealogy
+# line-digest set below. Gate 1's typed content-hash positions are separate.
 
 SKILL_PREFIXES = ("skills/stow/", "stow/")
+
+# The owner authorizes three exact public genealogy rows in README.md. Store
+# only their line digests here so the checker does not carry or broaden the
+# source-name vocabulary it is designed to detect. Any wording, path, or line
+# mutation loses the allowance. Gate-1 hashes, verdicts, and private markers
+# remain forbidden even on these rows.
+PUBLIC_GENEALOGY_LINE_HASHES = {
+    "".join(("90da7f163d089593", "fa9b3ff65822f9c4", "3307fd6c5a3b2360", "5c143ba90002158e")),
+    "".join(("808d61edb251a3aa", "c823670791724a0e", "6c90e91eafa4c6cb", "f77dfedd6a73b7ef")),
+    "".join(("a37b99d0fb7fd8e0", "d25ea808891f3807", "6967db0e80ab707e", "b5eb41fb8bb7833f")),
+}
 
 
 # --------------------------------------------------------------------------- #
@@ -220,6 +232,16 @@ def _strip_skill_prefix(norm_path):
     return norm_path
 
 
+def public_genealogy_line_allowed(path, line):
+    norm_path = _norm(path)
+    if norm_path.startswith("./"):
+        norm_path = norm_path[2:]
+    if norm_path != "README.md":
+        return False
+    digest = hashlib.sha256(line.encode("utf-8")).hexdigest()
+    return digest in PUBLIC_GENEALOGY_LINE_HASHES
+
+
 # (is_corpus_path was removed with the Gate-2 exemptions: no path class is
 # treated differently by the source-name gate anymore.)
 
@@ -242,10 +264,10 @@ class Finding:
 def scan_file(path, content, patterns, full_mode, hash_specs):
     """Return a list of Finding for one (path, content). Empty list == clean.
 
-    Gate 2 applies to EVERY line of EVERY file: the public tree is fully
-    STOW-native, so no surface -- corpus, registry, manifest, or otherwise --
-    is exempt from the source-name gate. (The content-hash position exemption
-    below is Gate 1's and unrelated.)
+    Gate 2 applies to every line of every file. Only the three exact README
+    genealogy rows named by digest are allowed; corpus, registry, manifest,
+    generated output, and all other README wording remain in scope. The
+    content-hash position exemption below belongs to Gate 1 and is unrelated.
     """
     findings = []
 
@@ -267,10 +289,10 @@ def scan_file(path, content, patterns, full_mode, hash_specs):
         # ---- Gate 1: full-mode derivation markers (all files) ------------- #
         if full_mode:
             for rex in patterns.basename_res:
-                if rex.search(line):
+                if rex.search(line) and not public_genealogy_line_allowed(path, line):
                     findings.append(Finding(path, lineno, "gate1", "source basename"))
             for rex in patterns.url_res:
-                if rex.search(line):
+                if rex.search(line) and not public_genealogy_line_allowed(path, line):
                     findings.append(Finding(path, lineno, "gate1", "source url"))
             for rex in patterns.verdict_res:
                 if rex.search(line):
@@ -282,10 +304,10 @@ def scan_file(path, content, patterns, full_mode, hash_specs):
         # ---- Gate 2: source names (every file, no exemptions) -------------- #
         if full_mode:
             for rex in patterns.word_res:
-                if rex.search(line):
+                if rex.search(line) and not public_genealogy_line_allowed(path, line):
                     findings.append(Finding(path, lineno, "gate2", "source name"))
             for rex in patterns.phrase_res:
-                if rex.search(line):
+                if rex.search(line) and not public_genealogy_line_allowed(path, line):
                     findings.append(Finding(path, lineno, "gate2", "source name"))
 
     return findings

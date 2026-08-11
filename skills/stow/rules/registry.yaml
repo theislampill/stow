@@ -1976,8 +1976,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for an audit, evidence record, acceptance decision, or verification of a numeric claim.
+      always_on_for_prose: false
       applicability: "any numeric claim"
       exception: "no attributable source: omit the number rather than invent one"
     precedence: presentation
@@ -2223,8 +2223,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for an audit, evidence record, or review of evidence-grounded requested voice.
+      always_on_for_prose: false
       applicability: the response uses the default or explicitly requested voice
       exception: the requested voice governs while factual claims remain evidence-grounded
     precedence: presentation
@@ -2262,8 +2262,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for audit or evidence review and uncertainty appears without an evidence boundary.
+      always_on_for_prose: false
       applicability: uncertainty appears without an evidence boundary
       exception: justified uncertainty and bounded capability statements remain permitted
     precedence: presentation
@@ -2340,8 +2340,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for audit or evidence review of a reported scenario or incident.
+      always_on_for_prose: false
       exception: "a requested hypothetical that is labeled as one is permitted"
     precedence: presentation
     enforcement:
@@ -2378,8 +2378,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for audit or evidence review of history or milestones.
+      always_on_for_prose: false
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -2415,8 +2415,8 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The response contains prose sentences outside code, quoted text, and structured data.
-      always_on_for_prose: true
+      predicate: The task asks for audit or evidence review of an attributed statement or position.
+      always_on_for_prose: false
       exception: "attribute only stated positions, never ones inferred from role or party"
     precedence: presentation
     enforcement:

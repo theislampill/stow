@@ -8,7 +8,7 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 
 | id | title | category | precedence |
 | --- | --- | --- | --- |
-| STOW-WRD-001 | Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists. | words | profile |
+| STOW-WRD-001 | Use dictionary-approved words; admit technical nouns and technical verbs only under a defined category supplied by project authority, and prefer an approved dictionary verb when one exists. | words | profile |
 | STOW-WRD-002 | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective. | words | profile |
 | STOW-WRD-003 | Use approved words only with their dictionary-approved, often restricted, meanings. | words | profile |
 | STOW-WRD-007 | Do not use a technical noun as a verb; keep it a noun or adjectival modifier. | words | profile |
@@ -29,7 +29,7 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-PRC-002 | Write only one instruction per sentence unless actions occur at the same time. | procedures | profile |
 | STOW-PRC-003 | Write instructions in the imperative command form. | procedures | profile |
 | STOW-PRC-004 | State a required condition first and separate it from the command with a comma. | procedures | profile |
-| STOW-PRC-005 | Notes give information only, with a maximum of twenty-five words per sentence. | procedures | profile |
+| STOW-PRC-005 | A note in a controlled procedure gives information and does not introduce an action. | procedures | profile |
 | STOW-DSC-001 | Introduce information gradually, one subject per sentence. | descriptions | profile |
 | STOW-DSC-003 | Limit each descriptive sentence to a maximum of twenty-five words. | descriptions | profile |
 | STOW-DSC-004 | Group related information into paragraphs, each led by a topic sentence. | descriptions | profile |
@@ -45,11 +45,11 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-PCT-007 | Use hyphens only between directly related words that operate as one unit; a hyphenated group counts as one word. | punctuation | profile |
 | STOW-STY-001 | When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning. | style | profile |
 | STOW-STY-003 | Do not combine approved words into unlisted phrasal verbs. | style | profile |
-| STOW-GEN-002 | Check the preposition with for ambiguity and rewrite when unclear. | general | profile |
+| STOW-GEN-002 | Rewrite a with phrase only when it has two plausible attachments. | general | profile |
 | STOW-GEN-003 | Use only approved pronouns; replace an ambiguous pronoun with its noun. | general | profile |
-| STOW-GEN-005 | Avoid false friends; confirm the English meaning of the word. | general | profile |
+| STOW-GEN-005 | Confirm a possible false friend against a supplied source-language meaning. | general | profile |
 | STOW-GEN-006 | Avoid Latin abbreviations; use English words instead. | general | profile |
-| STOW-GEN-007 | Use gender-neutral, inclusive language. | general | profile |
+| STOW-GEN-007 | When gender is unknown or irrelevant, name the role or use an inclusive reference. | general | profile |
 | STOW-ACT-001 | Action-first response opening | action-shaping | presentation |
 | STOW-ACT-002 | Numbered steps for multi-step work | action-shaping | presentation |
 | STOW-ACT-004 | Defer secondary issues | action-shaping | presentation |
@@ -62,9 +62,9 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-PRO-002 | Require attributable numbers | prose-integrity | presentation |
 | STOW-PRO-005 | End claims on a concrete detail | prose-integrity | presentation |
 | STOW-PRO-006 | Functionless semantic repetition | prose-integrity | presentation |
-| STOW-PRO-007 | Vary structure | prose-integrity | presentation |
-| STOW-PRO-009 | Keep emphasis proportional to evidence | prose-integrity | presentation |
-| STOW-PRO-011 | Remove functionless metadiscourse | prose-integrity | presentation |
+| STOW-PRO-007 | Avoid mechanical repetition that obscures function. | prose-integrity | presentation |
+| STOW-PRO-009 | Use urgency or intensified emphasis only when a decision-relevant reason is stated. | prose-integrity | presentation |
+| STOW-PRO-011 | Remove framing or process language only when it adds no information or decision value. | prose-integrity | presentation |
 | STOW-PRO-013 | Evidence-grounded requested voice | prose-integrity | presentation |
 | STOW-PRO-015 | Grounded uncertainty | prose-integrity | presentation |
 | STOW-PRO-016 | Concrete, descriptive headings | prose-integrity | presentation |

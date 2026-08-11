@@ -59,3 +59,9 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 ## Bottom line
 
 Lexical lookup does not supply terminology authority, contextual semantics, directives, complete validation, or delivery custody. STOW must not claim that any output fully conforms to the controlled-technical writing standard. Report closed lexical facts separately from guided structural and safety review, and name every unavailable boundary.
+
+For vocabulary admission, exact dictionary membership is the closed boundary;
+technical nouns, technical verbs, and canonical project terms require external
+terminology authority. For approved-word meaning, contextual sense review is
+intentionally deferred when an approved meaning is not supplied. These are
+accounted limitations, not lexical failures and not evidence of conformance.

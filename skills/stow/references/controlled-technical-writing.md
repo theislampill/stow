@@ -40,9 +40,9 @@ below as WRD (words), MWN (multi-word nouns), VRB (verbs, voice, tense), SEN
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| WRD-001 | A content word appears, including a proposed technical noun or technical verb | all prose | sparse deterministic lookup reports known approved, known not-approved, ambiguous, or unknown candidates; semantic review decides technical-term authority and replacement meaning | see corpus/words/selection.md#STOW-WRD-001 |
+| WRD-001 | Controlled vocabulary is requested and dictionary or project terminology authority is available | all prose | sparse deterministic lookup reports known approved, known not-approved, ambiguous, or unknown candidates; external terminology authority decides technical nouns, technical verbs, and canonical project terms | see corpus/words/selection.md#STOW-WRD-001 |
 | WRD-002 | An approved word is used in a part of speech or inflected form, including a past participle used as an adjective | all prose | deterministic lookup can confirm an explicitly listed form; contextual review still decides actual part of speech and role | see corpus/words/selection.md#STOW-WRD-002 |
-| WRD-003 | An approved word carries a particular sense | all prose | semantic-review · `approved-sense-only` | see corpus/words/selection.md#STOW-WRD-003 |
+| WRD-003 | An approved meaning is supplied for contextual review | all prose | contextual guidance only; lexical membership does not establish sense, so contextual sense review is intentionally deferred when the required meaning is unavailable | see corpus/words/selection.md#STOW-WRD-003 |
 | WRD-007 | A technical-noun token is functioning as a verb | all prose | parser · `no-technical-noun-as-verb` | see corpus/words/selection.md#STOW-WRD-007 |
 | WRD-008 | A technical noun is selected where a company, industry, or field term exists | all prose | heuristic · `company-term-preferred` | see corpus/words/usage.md#STOW-WRD-008 |
 | WRD-010 | A candidate technical noun looks regional, slang, or jargon | all prose | semantic-review · `no-slang-or-jargon-noun` | see corpus/words/usage.md#STOW-WRD-010 |
@@ -64,7 +64,7 @@ resolution.
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
 | VRB-002 | A verb carries tense or aspect marking | all prose | contextual guidance · allow only infinitive, imperative, simple present, simple past, simple future, and a listed past participle used as an adjective; the named parser is planned, not callable | see corpus/verbs/technical-verbs.md#STOW-VRB-002 |
-| VRB-005 | An `-ing` word appears | all prose | parser · `ing-only-as-technical-noun` | see corpus/verbs/technical-verbs.md#STOW-VRB-005 |
+| VRB-005 | An `-ing` word appears outside a declared technical noun | all prose | contextual guidance · decide whether the form is verbal, a technical noun, or a modifier; the named parser is planned, not callable | see corpus/verbs/technical-verbs.md#STOW-VRB-005 |
 | VRB-006 | A clause is in the passive voice | all prose | parser · `active-voice-required-unless-agentless-descriptive` | see corpus/verbs/verb-forms.md#STOW-VRB-006 |
 | VRB-007 | An action is expressed as a noun, or a technical verb is used in a non-verb role | all prose | contextual review · express the action with the verb; a listed past participle can act as an adjective | see corpus/verbs/verb-forms.md#STOW-VRB-007 |
 
@@ -88,8 +88,8 @@ resolution.
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| GEN-002 | The preposition `with` appears | all prose | heuristic · `with-ambiguity-check` | see corpus/general-practice.md#STOW-GEN-002 |
+| GEN-002 | A `with` phrase has two plausible attachments | all prose | contextual guidance · name the intended attachment and leave a clear `with` phrase unchanged | see corpus/general-practice.md#STOW-GEN-002 |
 | GEN-003 | A pronoun appears | all prose | parser · `approved-and-unambiguous-pronoun` | see corpus/general-practice.md#STOW-GEN-003 |
-| GEN-005 | A word resembling a cross-language cognate appears | all prose | semantic-review · `false-friend-check` | see corpus/general-practice.md#STOW-GEN-005 |
+| GEN-005 | A source-language form or intended English meaning is supplied | all prose | external meaning authority plus contextual guidance; spelling resemblance alone is not evidence of a false friend | see corpus/general-practice.md#STOW-GEN-005 |
 | GEN-006 | A Latin-derived abbreviation appears | all prose | deterministic · `no-latin-abbreviations` | see corpus/general-practice.md#STOW-GEN-006 |
-| GEN-007 | Gendered or non-inclusive wording appears | all prose | deterministic · `gender-neutral-language` | see corpus/general-practice.md#STOW-GEN-007 |
+| GEN-007 | A human role is named and gender is unknown or irrelevant | all prose | contextual guidance · name the role or use an inclusive reference; preserve gender when supplied or materially relevant | see corpus/general-practice.md#STOW-GEN-007 |

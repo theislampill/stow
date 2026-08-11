@@ -20,7 +20,7 @@ advisory lead, not a verdict.
 - **Rationale:** Process narration delays the claim and obscures the information the reader needs.
 - **Applicability:** Review generic audience openers, filler transitions, research narration, and section previews that add no orientation.
 - **Legitimate counterexample:** Keep a failed verification, material limitation, method, or audience distinction when it changes the conclusion or action.
-- **Rewrite principle:** State the claim or limitation directly and retain only process detail with decision value.
+- **Rewrite principle:** Remove framing or process language only when it adds no information or decision value. Preserve material limitations, methods, audience distinctions, progress states, and requested voice.
 - **Mechanism:** Review `corpus/prose-integrity/rules.md#STOW-PRO-011` in context; the active rule consolidates functionless framing, audience setup, and process narration.
 
 ## Manufactured contrast or escalation
@@ -29,7 +29,7 @@ advisory lead, not a verdict.
 - **Rationale:** Manufactured emphasis distorts priority and makes ordinary facts harder to weigh.
 - **Applicability:** Review unsupported intensifiers, urgency, dramatic pivots, and celebratory language.
 - **Legitimate counterexample:** Keep genuine correction, material contrast, measured risk, or a requested expressive voice when the facts support it.
-- **Rewrite principle:** Name the fact, consequence, or comparison that earns the emphasis, or remove the emphasis.
+- **Rewrite principle:** Use urgency or intensified emphasis only when a decision-relevant reason is stated. Preserve supported deadline-led commands and requested functional emphasis.
 - **Mechanism:** Apply semantic review with `corpus/prose-integrity/rules.md#STOW-PRO-009`; the active rule consolidates unsupported intensity, urgency, and enthusiasm.
 
 ## Hollow evaluation
@@ -47,7 +47,7 @@ advisory lead, not a verdict.
 - **Rationale:** Mechanical form can hide relationships, split one idea across unnecessary units, or imply false equivalence.
 - **Applicability:** Review consecutive sections, bullets, and short paragraphs that repeat one template or divide one thought without purpose.
 - **Legitimate counterexample:** Predictable structure helps recurring procedures, comparisons, checklists, and deliberate rhetorical emphasis.
-- **Rewrite principle:** Group content by meaning and vary or combine units only when that makes the relationship clearer.
+- **Rewrite principle:** Avoid mechanical repetition only when it obscures function. Preserve deliberate parallelism, recurring terminology, house style, and required layouts.
 - **Mechanism:** Apply the contextual structure review in `corpus/prose-integrity/rules.md#STOW-PRO-007` while preserving contract-required layouts.
 
 ## Heading opacity or unnecessary sectioning

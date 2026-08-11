@@ -112,9 +112,9 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-PRO-002` | Require attributable numbers | any numeric claim; exception: no attributable source: omit the number rather than invent one | Review-fallback |
 | `STOW-PRO-005` | End claims on a concrete detail | factual claims in editable prose; exception: a conceptual definition satisfies this with a precise, checkable statement | Review-fallback |
 | `STOW-PRO-006` | Functionless semantic repetition | a later statement repeats an earlier meaning without adding function; exception: functional repetition for correction, safety, navigation, emphasis, or stable terminology remains permitted | Review-fallback |
-| `STOW-PRO-007` | Vary structure | several consecutive blocks share one layout; exception: never vary above a length cap or across recurring terminology | Planned |
-| `STOW-PRO-009` | Keep emphasis proportional to evidence | emphasis, urgency, or intensity exceeds the stated evidence; exception: a material consequence or requested voice earns the emphasis | Review-fallback |
-| `STOW-PRO-011` | Remove functionless metadiscourse | framing or process language adds no information or decision value; exception: a material limitation, method, or audience distinction changes the answer | Review-fallback |
+| `STOW-PRO-007` | Avoid mechanical repetition that obscures function | consecutive repeated structures obscure the function of the content; exception: preserve deliberate parallelism, recurring terminology, house style, and required layouts | Planned |
+| `STOW-PRO-009` | Use urgency or intensified emphasis only when a decision-relevant reason is stated | urgency or intensified emphasis lacks a decision-relevant reason; exception: preserve a supported deadline-led command or requested functional emphasis | Review-fallback |
+| `STOW-PRO-011` | Remove framing or process language only when it adds no information or decision value | framing or process language adds no information or decision value; exception: preserve a material limitation, method, audience, progress state, or requested voice | Review-fallback |
 | `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
 | `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
@@ -131,9 +131,9 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-WRD-001` | Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists | Controlled profile | Review-fallback |
+| `STOW-WRD-001` | Use dictionary-approved words; admit technical nouns and technical verbs only under a defined category supplied by project authority, and prefer an approved dictionary verb when one exists | controlled vocabulary is requested and dictionary or project terminology authority is available; exception: unknown technical terms require external authority and are not rejected by lexical lookup alone | Review-fallback |
 | `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective | Controlled profile | Planned |
-| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | Controlled profile | Review-fallback |
+| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | an approved meaning is supplied for contextual review; exception: lexical membership does not establish the intended sense | Review-fallback |
 | `STOW-WRD-007` | Do not use a technical noun as a verb; keep it a noun or adjectival modifier | Controlled profile | Planned |
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |
@@ -156,8 +156,8 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-VRB-002` | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions | Controlled profile | Planned |
-| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | Controlled profile | Planned |
+| `STOW-VRB-002` | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions | controlled prose requires a bounded tense or aspect choice; exception: preserve a time relation when the source or procedure requires it | Planned |
+| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | a word ending in ing appears outside a declared technical noun; exception: project authority can classify the form as a noun term or noun modifier | Planned |
 | `STOW-VRB-006` | Use active voice; passive is allowed only in descriptive writing when the agent is unknown | Controlled profile | Planned |
 | `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective | Controlled profile | Planned |
 
@@ -184,7 +184,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-PRC-002` | Write only one instruction per sentence unless actions occur at the same time | Controlled profile | Planned |
 | `STOW-PRC-003` | Write instructions in the imperative command form | Controlled profile | Planned |
 | `STOW-PRC-004` | State a required condition first and separate it from the command with a comma | Controlled profile | Planned |
-| `STOW-PRC-005` | Notes give information only, with a maximum of twenty-five words per sentence | Controlled profile | Planned |
+| `STOW-PRC-005` | A note in a controlled procedure gives information and does not introduce an action | a note is attached to a controlled procedure; exception: a higher-precedence literal or output contract takes priority | Planned |
 
 </details>
 
@@ -217,7 +217,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-PCT-001` | Do not use the semicolon; write two separate sentences instead | Controlled profile | Callable |
-| `STOW-PCT-003` | Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives | Controlled profile | Planned |
+| `STOW-PCT-003` | Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives | parentheses appear in controlled prose; exception: protected text and the listed parenthetical purposes remain unchanged | Planned |
 | `STOW-PCT-004` | In a vertical list, a colon counts as a period for word count and ends a sentence | Controlled profile | Planned |
 | `STOW-PCT-005` | Parenthetical text counts as one word in the host sentence | Controlled profile | Planned |
 | `STOW-PCT-006` | Count a number, number with unit, abbreviation, identifier, quoted text, title or label, or proper name as one word | Controlled profile | Planned |
@@ -240,11 +240,11 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-GEN-002` | Check the preposition with for ambiguity and rewrite when unclear | Controlled profile | Planned |
+| `STOW-GEN-002` | Rewrite a with phrase only when it has two plausible attachments | a with phrase has two plausible attachments; exception: leave a clear with phrase unchanged | Planned |
 | `STOW-GEN-003` | Use only approved pronouns; replace an ambiguous pronoun with its noun | Controlled profile | Planned |
-| `STOW-GEN-005` | Avoid false friends; confirm the English meaning of the word | Controlled profile | Review-fallback |
+| `STOW-GEN-005` | Confirm a possible false friend against a supplied source-language meaning | a source-language form or intended English meaning is supplied for controlled review; exception: do not infer a false friend from spelling resemblance alone | Review-fallback |
 | `STOW-GEN-006` | Avoid Latin abbreviations; use English words instead | Controlled profile | Callable |
-| `STOW-GEN-007` | Use gender-neutral, inclusive language | Controlled profile | Planned |
+| `STOW-GEN-007` | When gender is unknown or irrelevant, name the role or use an inclusive reference | a human role is named and gender is unknown or irrelevant; exception: preserve gender when it is a supplied fact or materially relevant | Planned |
 
 </details>
 <!-- CATALOG:END -->

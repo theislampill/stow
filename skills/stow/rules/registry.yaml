@@ -10,7 +10,7 @@ records:
     ordinal: '1.1'
     record_class: primary
     category: words
-    title: Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists.
+    title: Use dictionary-approved words; admit technical nouns and technical verbs only under a defined category supplied by project authority, and prefer an approved dictionary verb when one exists.
     wording:
       baseline_kind: verbatim
       baseline_text: "Use words that are:"
@@ -33,6 +33,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: controlled vocabulary is requested and dictionary or project terminology authority is available
+      exception: unknown technical terms require external authority and are not rejected by lexical lookup alone
     precedence: profile
     enforcement:
       kind: semantic-review
@@ -107,6 +109,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: an approved meaning is supplied for contextual review
+      exception: lexical membership does not establish the intended sense
     precedence: profile
     enforcement:
       kind: semantic-review
@@ -371,6 +375,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: controlled prose requires a bounded tense or aspect choice
+      exception: preserve a time relation when the source or procedure requires it
     precedence: profile
     enforcement:
       kind: parser
@@ -408,6 +414,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: a word ending in ing appears outside a declared technical noun
+      exception: project authority can classify the form as a noun term or noun modifier
     precedence: profile
     enforcement:
       kind: parser
@@ -798,7 +806,7 @@ records:
     ordinal: '5.5'
     record_class: primary
     category: procedures
-    title: Notes give information only, with a maximum of twenty-five words per sentence.
+    title: A note in a controlled procedure gives information and does not introduce an action.
     wording:
       baseline_kind: verbatim
       baseline_text: "Write notes only to give information, not instructions."
@@ -821,6 +829,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural instructions.
       always_on_for_prose: false
+      applicability: a note is attached to a controlled procedure
+      exception: a higher-precedence literal or output contract takes priority
     precedence: profile
     enforcement:
       kind: parser
@@ -1159,6 +1169,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: parentheses appear in controlled prose
+      exception: protected text and the listed parenthetical purposes remain unchanged
     precedence: profile
     enforcement:
       kind: heuristic
@@ -1397,7 +1409,7 @@ records:
     ordinal: GR-2
     record_class: primary
     category: general
-    title: Check the preposition with for ambiguity and rewrite when unclear.
+    title: Rewrite a with phrase only when it has two plausible attachments.
     wording:
       baseline_kind: verbatim
       baseline_text: "The preposition “with”"
@@ -1420,6 +1432,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: a with phrase has two plausible attachments
+      exception: leave a clear with phrase unchanged
     precedence: profile
     enforcement:
       kind: heuristic
@@ -1471,7 +1485,7 @@ records:
     ordinal: GR-5
     record_class: primary
     category: general
-    title: Avoid false friends; confirm the English meaning of the word.
+    title: Confirm a possible false friend against a supplied source-language meaning.
     wording:
       baseline_kind: verbatim
       baseline_text: "False friends"
@@ -1494,6 +1508,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: a source-language form or intended English meaning is supplied for controlled review
+      exception: do not infer a false friend from spelling resemblance alone
     precedence: profile
     enforcement:
       kind: semantic-review
@@ -1545,7 +1561,7 @@ records:
     ordinal: GR-7
     record_class: primary
     category: general
-    title: Use gender-neutral, inclusive language.
+    title: When gender is unknown or irrelevant, name the role or use an inclusive reference.
     wording:
       baseline_kind: verbatim
       baseline_text: "Inclusive language"
@@ -1568,6 +1584,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: a human role is named and gender is unknown or irrelevant
+      exception: preserve gender when it is a supplied fact or materially relevant
     precedence: profile
     enforcement:
       kind: deterministic
@@ -2054,7 +2072,7 @@ records:
     ordinal: '7'
     record_class: primary
     category: prose-integrity
-    title: Vary structure
+    title: Avoid mechanical repetition that obscures function.
     wording:
       baseline_kind: verbatim
       baseline_text: "**Vary structure.** Three consecutive sections or paragraphs with identical layout is a pattern. Break it."
@@ -2077,8 +2095,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
-      applicability: "several consecutive blocks share one layout"
-      exception: "never vary above a length cap or across recurring terminology"
+      applicability: "consecutive repeated structures obscure the function of the content"
+      exception: "preserve deliberate parallelism, recurring terminology, house style, and required layouts"
     precedence: presentation
     enforcement:
       kind: heuristic
@@ -2099,7 +2117,7 @@ records:
     ordinal: '9'
     record_class: primary
     category: prose-integrity
-    title: Keep emphasis proportional to evidence
+    title: Use urgency or intensified emphasis only when a decision-relevant reason is stated.
     wording:
       baseline_kind: verbatim
       baseline_text: "**No performative urgency without a reason.** \"Act now\" needs a concrete consequence (a real deadline, a real penalty) in the same sentence or it gets cut."
@@ -2122,8 +2140,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
-      applicability: emphasis, urgency, or intensity exceeds the stated evidence
-      exception: a material consequence or requested voice earns the emphasis
+      applicability: urgency or intensified emphasis lacks a decision-relevant reason
+      exception: preserve a supported deadline-led command or requested functional emphasis
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -2140,7 +2158,7 @@ records:
     ordinal: '11'
     record_class: primary
     category: prose-integrity
-    title: Remove functionless metadiscourse
+    title: Remove framing or process language only when it adds no information or decision value.
     wording:
       baseline_kind: verbatim
       baseline_text: "**No filler phrases.** Banned: \"In today's world\", \"It's important to note\", \"When it comes to\", \"At the end of the day\", \"In the realm of\", \"It goes without saying\", \"This is where X comes in\", \"Look no further\", \"Our team of experts.\""
@@ -2164,7 +2182,7 @@ records:
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: true
       applicability: framing or process language adds no information or decision value
-      exception: a material limitation, method, or audience distinction changes the answer
+      exception: preserve a material limitation, method, audience, progress state, or requested voice
     precedence: presentation
     enforcement:
       kind: semantic-review

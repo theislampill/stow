@@ -45,7 +45,7 @@ inspect, the validator STOW runs, and the full-text citation.
 ### STOW-PRC-005
 - **Fires when:** a note is attached to a procedure.
 - **Region:** the note text, kept distinct from the surrounding step commands.
-- **How STOW checks:** parser validator `note-no-imperative-no-limit-max-25-words`, which pairs an imperative check against notes with a deterministic 25-word cap (again using the `PCT` token rules).
+- **How STOW checks:** contextual review asks whether the note gives information and does not introduce an action. The separate `STOW-DSC-003` sentence-length predicate supplies the 25-word cap when the note is descriptive prose. STOW does not claim that it can classify note function with a parser.
 - **Full text:** `corpus/procedures.md#STOW-PRC-005`
 
 ## Punctuation and word count in procedures (PCT)

@@ -116,7 +116,9 @@ def test_manifest_entry_count_matches_package_walk():
 def test_plugin_version_matches_top_released_changelog_section():
     version = json.loads(_read(os.path.join(".claude-plugin", "plugin.json")))["version"]
     changelog = _read("CHANGELOG.md")
-    match = re.search(r"^## \[(\d+\.\d+\.\d+)\]", changelog, re.MULTILINE)
+    semver = r"(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
+    assert re.fullmatch(semver, version), "plugin.json version is not valid SemVer"
+    match = re.search(rf"^## \[({semver})\]", changelog, re.MULTILINE)
     assert match, "no released version heading found in CHANGELOG.md"
     assert match.group(1) == version, (
         "plugin.json version %s != top released CHANGELOG section %s"

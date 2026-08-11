@@ -1,6 +1,6 @@
 {
   "name": "stow",
-  "version": "0.3.6",
+  "version": "0.4.0-rc.0",
   "description": "Writing-discipline guidance with callable checks for closed structured-data, term-map, and advisory prose contracts; host selection and final-response custody remain external.",
   "author": {
     "name": "theislampill"

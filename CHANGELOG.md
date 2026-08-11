@@ -7,6 +7,35 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.4.0-rc.0] - 2026-08-11
+
+Release candidate for the instrumentality reconciliation.
+
+### Changed
+
+- Reduced the canonical registry to semantic owners supported by the audit,
+  while retaining historical source-rule dispositions in the audit ledger.
+- Separated contextual writing guidance, advisory surface signals, and closed
+  deterministic predicates so each mechanism carries only the claim it can
+  support.
+- Reworked the ordinary writing layer around observable prose problems and
+  kept controlled-technical guidance predicate-loaded.
+
+### Added
+
+- Added complete local Issue 9 writing-requirement accounting and a generated,
+  cold controlled dictionary with sparse lookup.
+- Added bounded paired behavioral challenges for pathology suppression and
+  preservation of already-good or deliberately voiced prose.
+
+### Known limitations
+
+- Some contextual writing owners remain open after the bounded qualification;
+  the ledger records their exact evidence state.
+- Strict controlled-language conformance remains locked. Dictionary lookup does
+  not replace contextual sense decisions, project terminology authority,
+  automatic activation evidence, or final-output custody.
+
 ## [0.3.6] - 2026-07-20
 
 Production promotion after deployment acceptance and installed dogfood.

@@ -451,8 +451,15 @@ def test_clean_prose_produces_no_advisories():
 
 
 # --------------------------------------------------------------------------- #
-# Report-only contract -- exit code is ALWAYS 0
+# Report-only findings contract
 # --------------------------------------------------------------------------- #
+
+
+def test_module_contract_distinguishes_findings_from_invalid_invocation():
+    contract = lint_prose.__doc__
+    assert "findings never change the exit code" in contract.lower()
+    assert "invalid invocation" in contract.lower()
+    assert "always exits 0" not in contract.lower()
 
 DIRTY = (
     u"Furthermore, we leverage the robust tapestry of options; it's cold — bad.\n\n"

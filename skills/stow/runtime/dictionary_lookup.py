@@ -258,6 +258,44 @@ def _validate_candidate(candidate):
         raise DictionaryError("candidate has zero editable segments")
 
 
+def _scan_token_spans(text, surfaces, records):
+    """Return word spans, splitting only dictionary-declared prefixes.
+
+    The general word tokenizer deliberately excludes punctuation. A declared
+    prefix such as ``re-`` is the exception: it must remain observable both by
+    itself and when attached to a following word. Full known surfaces retain
+    precedence over prefix splitting.
+    """
+    prefix_keys = sorted({
+        key for key, locators in surfaces.items()
+        if key.endswith("-") and any(
+            records[locator]["part_of_speech"] == "prefix"
+            for locator in locators
+        )
+    }, key=len, reverse=True)
+    spans = []
+    for match in TOKEN_PATTERN.finditer(text):
+        start, end = match.span()
+        if normalize_key(text[start:end]) in surfaces:
+            spans.append((start, end))
+            continue
+        prefix_end = None
+        for prefix in prefix_keys:
+            candidate_end = start + len(prefix)
+            if candidate_end <= len(text) and normalize_key(
+                text[start:candidate_end]
+            ) == prefix:
+                prefix_end = candidate_end
+                break
+        if prefix_end is None:
+            spans.append((start, end))
+            continue
+        spans.append((start, prefix_end))
+        if prefix_end < end:
+            spans.append((prefix_end, end))
+    return spans
+
+
 def scan(data, candidate):
     _validate_candidate(candidate)
     records, headwords, forms, surfaces = _indices(data)
@@ -267,15 +305,15 @@ def scan(data, candidate):
         if segment["kind"] != "editable":
             continue
         text = segment["text"]
-        tokens = list(TOKEN_PATTERN.finditer(text))
+        tokens = _scan_token_spans(text, surfaces, records)
         position = 0
         while position < len(tokens):
             found = None
             consumed = 0
             remaining = len(tokens) - position
             for width in range(min(max_words, remaining), 0, -1):
-                start = tokens[position].start()
-                end = tokens[position + width - 1].end()
+                start = tokens[position][0]
+                end = tokens[position + width - 1][1]
                 key = normalize_key(text[start:end])
                 locators = surfaces.get(key)
                 if not locators:

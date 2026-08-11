@@ -2,9 +2,10 @@
 """Report-only prose linter.
 
 This module is PACKAGED into the shipped skill. It is import-closed: it imports
-only the Python standard library. It NEVER fails a run -- it always exits 0 and
-prints advisories. Its job is to point at prose patterns a human may want to
-reconsider, not to gate delivery. Every finding carries ``severity="advisory"``.
+only the Python standard library. Findings never change the exit code; an
+invalid invocation, such as an unknown or locked profile, exits nonzero. Its
+job is to point at prose patterns a human may want to reconsider, not to gate
+delivery. Every finding carries ``severity="advisory"``.
 
 The load-bearing behaviour is MASKING. Before any scan, protected regions are
 blanked out (replaced with spaces, preserving line and column positions) so

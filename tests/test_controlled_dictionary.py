@@ -253,6 +253,34 @@ def test_scan_consumes_approved_multiword_expression_before_inner_terms(runtime)
                for finding in result["findings"])
 
 
+@pytest.mark.parametrize("text", ["re-", "re-install"])
+def test_scan_reports_declared_not_approved_prefix_surface(runtime, text):
+    data = runtime.load_dictionary(PROJECTION)
+    result = runtime.scan(data, {
+        "schema_version": 1,
+        "segments": [{"kind": "editable", "text": text}],
+    })
+    assert result["status"] == "REVIEW"
+    assert [(finding["surface"], finding["classification"])
+            for finding in result["findings"]] == [
+        ("re-", "KNOWN_NOT_APPROVED_CANDIDATE")
+    ]
+
+
+def test_prefix_scan_preserves_base_word_and_protected_segment_boundaries(runtime):
+    data = runtime.load_dictionary(PROJECTION)
+    result = runtime.scan(data, {
+        "schema_version": 1,
+        "segments": [
+            {"kind": "editable", "text": "Accomplish-"},
+            {"kind": "protected", "text": "re-install"},
+        ],
+    })
+    assert [finding["surface"].lower() for finding in result["findings"]] == [
+        "accomplish"
+    ]
+
+
 def test_runtime_rejects_malformed_projection_semantics(runtime):
     with gzip.open(PROJECTION, "rt", encoding="utf-8") as handle:
         value = json.load(handle)

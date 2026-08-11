@@ -1,5 +1,9 @@
 # STOW instrumentality
 
+Controlled-language semantic ownership is regression-locked in
+`docs/controlled-language-coverage.yaml`; retired rule identity and disposition
+history remain in `docs/rule-dispositions.yaml`.
+
 This document separates writing guidance, callable checks, host custody, and
 package evidence. The distinction prevents a useful instruction or a passing
 checker from being reported as control over a model's final response.

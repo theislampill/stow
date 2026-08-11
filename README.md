@@ -131,13 +131,13 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-WRD-001` | Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs | Controlled profile | Review-fallback |
-| `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech | Controlled profile | Planned |
+| `STOW-WRD-001` | Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists | Controlled profile | Review-fallback |
+| `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective | Controlled profile | Planned |
 | `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | Controlled profile | Review-fallback |
 | `STOW-WRD-007` | Do not use a technical noun as a verb; keep it a noun or adjectival modifier | Controlled profile | Planned |
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |
-| `STOW-WRD-011` | Use one technical noun consistently for one item; do not switch synonyms mid-text | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
+| `STOW-WRD-011` | Use one technical noun consistently for one item, preserve key words and key phrases that organize the logic, and reuse recurring wording for the same context | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 | `STOW-WRD-014` | Use American English spelling unless another official directive overrides; do not change quoted-text spelling | Controlled profile | Planned |
 
 </details>
@@ -147,7 +147,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words | Controlled profile | Planned |
+| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation | Controlled profile | Planned |
 
 </details>
 
@@ -156,10 +156,10 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-VRB-002` | Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions | Controlled profile | Planned |
+| `STOW-VRB-002` | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions | Controlled profile | Planned |
 | `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | Controlled profile | Planned |
 | `STOW-VRB-006` | Use active voice; passive is allowed only in descriptive writing when the agent is unknown | Controlled profile | Planned |
-| `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization or other part of speech | Controlled profile | Planned |
+| `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective | Controlled profile | Planned |
 
 </details>
 
@@ -217,11 +217,11 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-PCT-001` | Do not use the semicolon; write two separate sentences instead | Controlled profile | Callable |
-| `STOW-PCT-003` | Use parentheses only for the approved purposes | Controlled profile | Planned |
+| `STOW-PCT-003` | Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives | Controlled profile | Planned |
 | `STOW-PCT-004` | In a vertical list, a colon counts as a period for word count and ends a sentence | Controlled profile | Planned |
 | `STOW-PCT-005` | Parenthetical text counts as one word in the host sentence | Controlled profile | Planned |
-| `STOW-PCT-006` | Count numbers, identifiers, quoted text, titles, and proper nouns each as one word | Controlled profile | Planned |
-| `STOW-PCT-007` | A hyphenated group of words counts as one word | Controlled profile | Planned |
+| `STOW-PCT-006` | Count a number, number with unit, abbreviation, identifier, quoted text, title or label, or proper name as one word | Controlled profile | Planned |
+| `STOW-PCT-007` | Use hyphens only between directly related words that operate as one unit; a hyphenated group counts as one word | Controlled profile | Planned |
 
 </details>
 

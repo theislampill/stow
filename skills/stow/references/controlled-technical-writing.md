@@ -31,13 +31,13 @@ below as WRD (words), MWN (multi-word nouns), VRB (verbs, voice, tense), SEN
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| WRD-001 | A content word appears in prose | all prose | semantic-review · `approved-word-lookup` | see corpus/words/selection.md#STOW-WRD-001 |
-| WRD-002 | An approved word is used in some part of speech | all prose | parser · `pos-matches-dictionary` | see corpus/words/selection.md#STOW-WRD-002 |
+| WRD-001 | A content word appears, including a proposed technical noun or technical verb | all prose | semantic review · admit a technical term only under a defined category and external terminology authority; prefer an approved dictionary verb when one exists; the dictionary lookup is not bundled | see corpus/words/selection.md#STOW-WRD-001 |
+| WRD-002 | An approved word is used in a part of speech or inflected form, including a past participle used as an adjective | all prose | contextual review · use only the dictionary-specified part of speech and listed forms; the named parser is planned, not callable | see corpus/words/selection.md#STOW-WRD-002 |
 | WRD-003 | An approved word carries a particular sense | all prose | semantic-review · `approved-sense-only` | see corpus/words/selection.md#STOW-WRD-003 |
 | WRD-007 | A technical-noun token is functioning as a verb | all prose | parser · `no-technical-noun-as-verb` | see corpus/words/selection.md#STOW-WRD-007 |
 | WRD-008 | A technical noun is selected where a company, industry, or field term exists | all prose | heuristic · `company-term-preferred` | see corpus/words/usage.md#STOW-WRD-008 |
 | WRD-010 | A candidate technical noun looks regional, slang, or jargon | all prose | semantic-review · `no-slang-or-jargon-noun` | see corpus/words/usage.md#STOW-WRD-010 |
-| WRD-011 | Two or more synonymous nouns name one referent across the text | all prose | heuristic · `consistent-term-per-referent` | see corpus/words/usage.md#STOW-WRD-011 |
+| WRD-011 | A referent, logical relation, or recurring work context is named more than once | all prose | contextual review · keep one technical noun per referent, preserve key words and key phrases that organize the logic, and reuse the same wording for the same recurring context | see corpus/words/usage.md#STOW-WRD-011 |
 | WRD-014 | A word has a spelling variant (skips quoted text) | all prose | deterministic · `american-english-spelling` | see corpus/words/usage.md#STOW-WRD-014 |
 
 WRD-011 and WRD-014 carry recorded conflict resolutions (with the presentation
@@ -48,16 +48,16 @@ resolution.
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| MWN-001 | A noun phrase built from stacked nouns or modifiers appears | all prose | parser · `multiword-noun-max-3-words` (limit 3) | see corpus/multiword-nouns.md#STOW-MWN-001 |
+| MWN-001 | A coined or approved noun phrase contains stacked nouns or modifiers | all prose | contextual review · keep it to three words and keep coined terms short and easy; if an approved term is longer, write it in full first and then use a declared short form, approved abbreviation, or clear hyphenation | see corpus/multiword-nouns.md#STOW-MWN-001 |
 
 ## VRB: verbs, voice, and tense
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| VRB-002 | A verb carries tense or aspect marking | all prose | parser · `approved-tense-only` | see corpus/verbs/technical-verbs.md#STOW-VRB-002 |
+| VRB-002 | A verb carries tense or aspect marking | all prose | contextual guidance · allow only infinitive, imperative, simple present, simple past, simple future, and a listed past participle used as an adjective; the named parser is planned, not callable | see corpus/verbs/technical-verbs.md#STOW-VRB-002 |
 | VRB-005 | An `-ing` word appears | all prose | parser · `ing-only-as-technical-noun` | see corpus/verbs/technical-verbs.md#STOW-VRB-005 |
 | VRB-006 | A clause is in the passive voice | all prose | parser · `active-voice-required-unless-agentless-descriptive` | see corpus/verbs/verb-forms.md#STOW-VRB-006 |
-| VRB-007 | An action is expressed as a noun or other part of speech | all prose | heuristic · `prefer-verb-over-nominalization` | see corpus/verbs/verb-forms.md#STOW-VRB-007 |
+| VRB-007 | An action is expressed as a noun, or a technical verb is used in a non-verb role | all prose | contextual review · express the action with the verb; a listed past participle can act as an adjective | see corpus/verbs/verb-forms.md#STOW-VRB-007 |
 
 ## SEN: sentences, lists, and articles
 

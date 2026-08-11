@@ -2660,11 +2660,13 @@ records:
       dependencies: []
       rationale: The current heuristic path names validator 'hyphenate-related-words' and requires none tool
         work plus medium hot-path context for this rule.
-    disposition: DROP
-    decision_rationale: "Drop STOW-PCT-002: Semantic 'relatedness' is not a closed hyphenation contract, and a general
-      detector would create many false positives."
-    implementation_consequence: Remove STOW-PCT-002 and any dedicated detector or reference edge after
-      dependency review; preserve the ID as a tombstone and do not replace it with a token blacklist.
+    disposition: MERGE
+    decision_rationale: "Merge STOW-PCT-002 into STOW-PCT-007. The controlled-language coverage crosswalk showed
+      that dropping the contextual use-of-hyphens invariant left unique semantics unowned. The active target already
+      owns the closed word-count treatment, so it is the smallest coherent owner for the contextual relation."
+    implementation_consequence: Retire STOW-PCT-002 as an active row, preserve its historical identity here,
+      and make STOW-PCT-007 own both the contextual directly-related-words guidance and the closed count of a
+      hyphenated group. Do not add a general hyphen detector or token blacklist.
     evidence:
       - kind: registry-archaeology
         reference: skills/stow/rules/registry.yaml#STOW-PCT-002
@@ -2684,6 +2686,12 @@ records:
         freshness: fresh
         limits: Proves the retired source is absent from the active registry and, for a merge, resolves to the recorded active sink. It does not qualify the surviving G1 target.
         subject_revision: 1
+      - kind: implementation-review
+        reference: controlled-language-crosswalk-e1#STOW-PCT-002
+        result: accepted
+        freshness: fresh
+        limits: Proves unique controlled-language semantics needed an active owner and that STOW-PCT-007 is the smallest coherent sink. It does not make the contextual hyphen relation mechanically decidable or qualify the surviving target behavior.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2694,6 +2702,10 @@ records:
     decision_state: accepted
     closure_state: closed
     uncertainty: The source rule is retired from the active registry. Its historical identity and audited disposition remain in this ledger.
+    target:
+      kind: rule-set
+      rule_ids:
+        - STOW-PCT-007
   - id: STOW-PCT-003
     title: Use parentheses only for the approved purposes.
     family: punctuation

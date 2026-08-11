@@ -51,7 +51,7 @@ EXPECTED_SIMPLIFY = (
 EXPECTED_MERGE = (
     _ids("WRD", [4, 5, 6, 9, 12, 13]) | _ids("MWN", [2])
     | _ids("VRB", [1, 3, 4]) | _ids("SEN", [1])
-    | _ids("DSC", [2, 5]) | _ids("STY", [2, 4]) | _ids("GEN", [4])
+    | _ids("DSC", [2, 5]) | _ids("PCT", [2]) | _ids("STY", [2, 4]) | _ids("GEN", [4])
     | _ids("ACT", [3, 10]) | _ids("PRO", [4, 8, 12, 14, 21, 22, 24])
 )
 EXPECTED_MOVE = (
@@ -60,7 +60,7 @@ EXPECTED_MOVE = (
     | _ids("GEN", [5]) | _ids("ACT", [4, 5, 6])
     | _ids("PRO", [1, 2, 13, 15, 17, 18, 19, 23])
 )
-EXPECTED_DROP = _ids("PCT", [2]) | _ids("GEN", [1, 8]) | _ids("ACT", [9]) | _ids("PRO", [3, 10])
+EXPECTED_DROP = _ids("GEN", [1, 8]) | _ids("ACT", [9]) | _ids("PRO", [3, 10])
 EXPECTED_DISPOSITIONS = {
     "KEEP": EXPECTED_KEEP,
     "SIMPLIFY": EXPECTED_SIMPLIFY,
@@ -83,6 +83,7 @@ EXPECTED_MERGE_TARGETS = {
     "STOW-SEN-001": ["STOW-PRC-001", "STOW-DSC-001", "STOW-DSC-003"],
     "STOW-DSC-002": ["STOW-WRD-011"],
     "STOW-DSC-005": ["STOW-DSC-004"],
+    "STOW-PCT-002": ["STOW-PCT-007"],
     "STOW-STY-002": ["STOW-WRD-002", "STOW-WRD-003"],
     "STOW-STY-004": ["STOW-WRD-011"],
     "STOW-GEN-004": ["STOW-GEN-003"],
@@ -1041,6 +1042,8 @@ def test_ledger_coverage_matches_paired_challenge_definitions(ledger):
     challenges = _yaml(ROOT / "tests" / "evals" / "rule-disposition-challenges-v1.yaml")
     packs = {pack["id"]: pack for pack in challenges["scenario_packs"]}
     for row in ledger["records"]:
+        if row["layer"] != "G1" or row["disposition"] not in SURVIVING_G1_DISPOSITIONS:
+            continue
         for scenario_id in row["behavioural_coverage"]["positive"]:
             assert row["id"] in packs[scenario_id]["positive_coverage"]
         for scenario_id in row["behavioural_coverage"]["paired_negative"]:

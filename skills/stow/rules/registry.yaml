@@ -1,4 +1,4 @@
-# STOW rule registry INDEX (P2). schema_version 1; 96 primary records.
+# STOW rule registry INDEX (P2). schema_version 1; current total is generated below.
 # baseline_text fields are VERBATIM source statements (protected content).
 # All other fields are STOW-authored and source-name-free.
 schema_version: 1
@@ -10,7 +10,7 @@ records:
     ordinal: '1.1'
     record_class: primary
     category: words
-    title: Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs.
+    title: Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists.
     wording:
       baseline_kind: verbatim
       baseline_text: "Use words that are:"
@@ -47,7 +47,7 @@ records:
     ordinal: '1.2'
     record_class: primary
     category: words
-    title: Use each approved word only in its dictionary-specified part of speech.
+    title: Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective.
     wording:
       baseline_kind: verbatim
       baseline_text: "Use approved words from the dictionary only as the specified part of speech."
@@ -232,7 +232,7 @@ records:
     ordinal: '1.11'
     record_class: primary
     category: words
-    title: Use one technical noun consistently for one item; do not switch synonyms mid-text.
+    title: Use one technical noun consistently for one item, preserve key words and key phrases that organize the logic, and reuse recurring wording for the same context.
     wording:
       baseline_kind: verbatim
       baseline_text: "Do not use different technical nouns for the same item."
@@ -311,7 +311,7 @@ records:
     ordinal: '2.1'
     record_class: primary
     category: multiword-nouns
-    title: Keep multi-word nouns to a maximum of three words.
+    title: Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation.
     wording:
       baseline_kind: verbatim
       baseline_text: "Write multi-word nouns of no more than three words."
@@ -348,7 +348,7 @@ records:
     ordinal: '3.2'
     record_class: primary
     category: verbs
-    title: Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions.
+    title: Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions.
     wording:
       baseline_kind: verbatim
       baseline_text: "Use only these verb forms and tenses of verbs:"
@@ -459,7 +459,7 @@ records:
     ordinal: '3.7'
     record_class: primary
     category: verbs
-    title: Describe an action with an approved verb, not a nominalization or other part of speech.
+    title: Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective.
     wording:
       baseline_kind: verbatim
       baseline_text: "Use an approved verb to describe an action, not a noun or other parts of speech."
@@ -1135,7 +1135,7 @@ records:
     ordinal: '8.3'
     record_class: primary
     category: punctuation
-    title: Use parentheses only for the approved purposes.
+    title: Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives.
     wording:
       baseline_kind: verbatim
       baseline_text: "You can use parentheses:"
@@ -1246,7 +1246,7 @@ records:
     ordinal: '8.6'
     record_class: primary
     category: punctuation
-    title: Count numbers, identifiers, quoted text, titles, and proper nouns each as one word.
+    title: Count a number, number with unit, abbreviation, identifier, quoted text, title or label, or proper name as one word.
     wording:
       baseline_kind: verbatim
       baseline_text: "Count each of these elements as one word:"
@@ -1285,7 +1285,7 @@ records:
     ordinal: '8.7'
     record_class: primary
     category: punctuation
-    title: A hyphenated group of words counts as one word.
+    title: Use hyphens only between directly related words that operate as one unit; a hyphenated group counts as one word.
     wording:
       baseline_kind: verbatim
       baseline_text: "Hyphenated words count as one word."

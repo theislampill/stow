@@ -1,6 +1,6 @@
 schema_version: 1
-subject_revision: 1
-suite_status: definitions-only
+subject_revision: 2
+suite_status: frozen-repaired-design
 execution_boundary: Generated transcripts and scores belong in the private run root, not this repository.
 scoring:
   scale:
@@ -43,6 +43,32 @@ evaluation_thresholds:
   maximum_control_false_positive_damage: 1
   maximum_pack_naturalness_regression: 0.5
   permitted_lost_facts_qualifications_literals_or_legitimate_features: 0
+regression_targets:
+  - id: unknown-boundary
+    case: BC-04
+    mechanism: contextual-review
+    requirement: The edited memo must still state that the maintainer's release position is unknown; legitimate paraphrase is allowed.
+  - id: unsupported-state
+    case: BC-05
+    mechanism: contextual-review
+    requirement: The edit must not invent visibility, log, or equipment-state claims that the source does not establish.
+  - id: unit-literal
+    case: BC-05
+    mechanism: exact-literal
+    requirement: Preserve the single source occurrence of `20 kPa` byte-for-byte.
+  - id: redundant-label
+    case: BC-01
+    mechanism: contextual-review
+    requirement: Do not add a label or heading to the already-clear negative control unless it improves retrieval.
+  - id: coordination-preservation
+    case: BC-06
+    mechanism: contextual-review
+    requirement: Do not replace natural coordination with repeated full subjects unless clarity materially improves.
+  - id: house-transition
+    case: BC-08
+    mechanism: fixture-specific-exact-literal
+    universal_rule: false
+    requirement: When this source uses `However,`, preserve it because the supplied house voice explicitly requires that transition in this note.
 scenario_packs:
   - id: BC-01
     name: Incident continuation
@@ -56,18 +82,14 @@ scenario_packs:
     positive_coverage:
       - STOW-ACT-001
       - STOW-ACT-002
-      - STOW-ACT-003
       - STOW-ACT-007
       - STOW-ACT-008
-      - STOW-ACT-010
       - STOW-ACT-011
     paired_negative_coverage:
       - STOW-ACT-001
       - STOW-ACT-002
-      - STOW-ACT-003
       - STOW-ACT-007
       - STOW-ACT-008
-      - STOW-ACT-010
       - STOW-ACT-011
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
@@ -91,12 +113,10 @@ scenario_packs:
       - STOW-ACT-004
       - STOW-ACT-005
       - STOW-ACT-006
-      - STOW-ACT-009
     paired_negative_coverage:
       - STOW-ACT-004
       - STOW-ACT-005
       - STOW-ACT-006
-      - STOW-ACT-009
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
     expected_not_observable: []
@@ -153,7 +173,6 @@ scenario_packs:
       - STOW-PRO-018
       - STOW-PRO-019
       - STOW-PRO-023
-      - STOW-PRO-024
     paired_negative_coverage:
       - STOW-PRO-002
       - STOW-PRO-013
@@ -162,7 +181,6 @@ scenario_packs:
       - STOW-PRO-018
       - STOW-PRO-019
       - STOW-PRO-023
-      - STOW-PRO-024
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
     expected_not_observable: []
@@ -172,130 +190,89 @@ scenario_packs:
       - Quote the output span supporting each rule observation or mark it not observable.
   - id: BC-05
     name: Controlled maintenance procedure
-    task_prompt: Rewrite the maintenance procedure under the supplied local language authority. Preserve
-      identifiers and quoted text exactly. Keep conditions, actions, and notes distinct.
-    pathology_input: "If pressure is below 20 kPa you should be verifying the purge-valve assembly and then it should
-      be isolated, which is something that operators do in order to facilitate safe maintenance; note: don't alter
-      `PV-17`, the blue colour mark, or \"OPEN SLOWLY\". After that, check it and record it and update the log,
-      etc."
-    paired_negative_control: "If pressure is below 20 kPa, inspect the purge valve.\n\nSteps:\n\n1. Isolate
-      control `PV-17`.\n2. Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN
-      SLOWLY\".\n4. Record 20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance
-      log.\n\nNote: The high-pressure state (the pressure is high) remains in the record."
+    task_prompt: Rewrite the maintenance procedure under the supplied sparse local language authority. Use
+      that authority only for the words and terms it explicitly covers; do not infer full dictionary approval.
+      Preserve every supplied identifier, quotation, unit literal, and site name exactly and with the same
+      multiplicity. Keep conditions, actions, and notes distinct. Do not convert requested actions into claims
+      that they occurred, and do not infer equipment, visibility, or log states.
+    pathology_input: "If pressure is below 20 kPa you should be verifying the emergency-purge-valve-control-assembly
+      and then the emergency-purge-valve-control-assembly should be isolated, which is something that operators do
+      in order to facilitate safe maintenance at North Plant; note: don't alter `PV-17`, the blue colour mark, or
+      \"OPEN SLOWLY\". After that, check it and record it and update the log, etc."
+    paired_negative_control: "If pressure is below 20 kPa, inspect the emergency purge valve control assembly
+      (the purge control assembly).\n\nSteps:\n\n1. Isolate the purge control assembly with control `PV-17`.\n2.
+      Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN SLOWLY\".\n4. Record
+      20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance log.\n\nNote:
+      The purge control assembly high-pressure state (the pressure is high) remains in the record."
     positive_coverage:
       - STOW-WRD-001
       - STOW-WRD-002
       - STOW-WRD-003
-      - STOW-WRD-004
-      - STOW-WRD-005
-      - STOW-WRD-006
       - STOW-WRD-007
       - STOW-WRD-008
-      - STOW-WRD-009
       - STOW-WRD-010
       - STOW-WRD-011
-      - STOW-WRD-012
-      - STOW-WRD-013
       - STOW-WRD-014
       - STOW-MWN-001
-      - STOW-MWN-002
-      - STOW-VRB-001
       - STOW-VRB-002
-      - STOW-VRB-003
-      - STOW-VRB-004
       - STOW-VRB-005
       - STOW-VRB-006
       - STOW-VRB-007
-      - STOW-SEN-001
       - STOW-SEN-002
       - STOW-SEN-003
       - STOW-SEN-004
       - STOW-SEN-005
-      - STOW-PRC-001
       - STOW-PRC-002
       - STOW-PRC-003
       - STOW-PRC-004
       - STOW-PRC-005
-      - STOW-PCT-001
-      - STOW-PCT-002
       - STOW-PCT-003
       - STOW-PCT-004
       - STOW-PCT-005
       - STOW-PCT-006
       - STOW-PCT-007
       - STOW-STY-001
-      - STOW-STY-002
       - STOW-STY-003
-      - STOW-STY-004
-      - STOW-GEN-001
       - STOW-GEN-002
       - STOW-GEN-003
-      - STOW-GEN-004
       - STOW-GEN-005
-      - STOW-GEN-006
       - STOW-GEN-007
-      - STOW-GEN-008
     paired_negative_coverage:
       - STOW-WRD-001
       - STOW-WRD-002
       - STOW-WRD-003
-      - STOW-WRD-004
-      - STOW-WRD-005
-      - STOW-WRD-006
       - STOW-WRD-007
       - STOW-WRD-008
-      - STOW-WRD-009
       - STOW-WRD-010
       - STOW-WRD-011
-      - STOW-WRD-012
-      - STOW-WRD-013
       - STOW-WRD-014
       - STOW-MWN-001
-      - STOW-MWN-002
-      - STOW-VRB-001
       - STOW-VRB-002
-      - STOW-VRB-003
-      - STOW-VRB-004
       - STOW-VRB-005
       - STOW-VRB-006
       - STOW-VRB-007
-      - STOW-SEN-001
       - STOW-SEN-002
       - STOW-SEN-003
       - STOW-SEN-004
       - STOW-SEN-005
-      - STOW-PRC-001
       - STOW-PRC-002
       - STOW-PRC-003
       - STOW-PRC-004
       - STOW-PRC-005
-      - STOW-PCT-001
-      - STOW-PCT-002
       - STOW-PCT-003
       - STOW-PCT-004
       - STOW-PCT-005
       - STOW-PCT-006
       - STOW-PCT-007
       - STOW-STY-001
-      - STOW-STY-002
       - STOW-STY-003
-      - STOW-STY-004
-      - STOW-GEN-001
       - STOW-GEN-002
       - STOW-GEN-003
-      - STOW-GEN-004
       - STOW-GEN-005
-      - STOW-GEN-006
       - STOW-GEN-007
-      - STOW-GEN-008
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
     expected_not_observable:
-      - STOW-WRD-005
-      - STOW-WRD-006
-      - STOW-WRD-012
-      - STOW-VRB-001
-      - STOW-VRB-003
       - STOW-VRB-005
       - STOW-SEN-004
       - STOW-SEN-005
@@ -305,57 +282,57 @@ scenario_packs:
       - Score false-positive damage and voice preservation in the paired negative control.
       - Quote the output span supporting each rule observation or mark it not observable.
     closed_authority:
-      technical_terms:
-        component: purge valve
-        control_identifier: PV-17
-        site_name: North Plant
-        display_label: OPEN SLOWLY
-        spelling: color
-      approved_action_verbs:
-        - confirm
-        - inspect
-        - isolate
-        - record
-      verb_meanings:
-        inspect: examine the purge valve
-        isolate: disconnect control PV-17 from power
-        confirm: check that a stated condition is true
-        record: write the stated result in the maintenance log
-      protected_literals:
-        - '`PV-17`'
-        - '"OPEN SLOWLY"'
-      approved_vocabulary:
-        - and
-        - below
-        - blue
-        - color
-        - confirm
-        - control
-        - high-pressure
-        - if
-        - in
-        - inspect
-        - is
-        - isolate
-        - kpa
-        - label
-        - log
-        - high
-        - maintenance
-        - mark
-        - note
-        - pressure
-        - purge
-        - reads
-        - record
-        - remains
-        - result
-        - state
-        - steps
-        - that
-        - the
-        - valve
-        - visible
+      exact_literal_counts:
+        pathology:
+          20 kPa: 1
+          '`PV-17`': 1
+          '"OPEN SLOWLY"': 1
+          North Plant: 1
+        negative_control:
+          20 kPa: 1
+          '`PV-17`': 2
+          '"OPEN SLOWLY"': 2
+          North Plant: 1
+      semantic_review_only:
+        - Whether a state or visibility claim is supported by the source.
+        - Whether a paraphrase preserves condition, action, and note meaning.
+      boundary: The exact literal counts are mechanical. Vocabulary, entailment, visibility, and equipment state are contextual reviewer judgments.
+    controlled_language_authority:
+      mode: sparse-fixture-authority
+      scope_boundary: These records govern only the named words and terms in this passage. They are not a complete dictionary or a strict-conformance authority.
+      dictionary_records:
+        - word: CHECK
+          part_of_speech: noun
+          approved_meaning: an inspection or test
+          forms: [check, checks]
+        - word: INSPECT
+          part_of_speech: verb
+          approved_meaning: examine carefully
+          forms: [inspect, inspects, inspected, inspected]
+        - word: ISOLATE
+          part_of_speech: verb
+          approved_meaning: separate from an operating system
+          forms: [isolate, isolates, isolated, isolated]
+        - word: RECORD
+          part_of_speech: verb
+          approved_meaning: write data or information
+          forms: [record, records, recorded, recorded]
+      terminology_records:
+        official_long_noun: emergency purge valve control assembly
+        declared_short_noun: purge control assembly
+        technical_nouns:
+          - emergency purge valve control assembly
+          - purge control assembly
+          - blue color mark
+          - maintenance log
+        technical_verbs: [inspect, isolate, record]
+      hyphenation:
+        preserve: [high-pressure]
+        repair: [emergency-purge-valve-control-assembly]
+      contextual_review_only:
+        - Whether a candidate uses a listed word with its supplied meaning and syntactic role.
+        - Whether the declared short noun preserves the intended technical referent.
+        - Whether a different word would preserve the source meaning.
     word_count_contract:
       procedural_sentence_max: 20
       list_colon_ends_sentence: true
@@ -369,14 +346,14 @@ scenario_packs:
       hyphenated_group_words: 1
       expected_calculations:
         - id: condition
-          text: If pressure is below 20 kPa, inspect the purge valve.
-          count: 10
+          text: If pressure is below 20 kPa, inspect the emergency purge valve control assembly (the purge control assembly).
+          count: 13
         - id: list-lead
           text: 'Steps:'
           count: 1
         - id: identifier
-          text: Isolate control `PV-17`.
-          count: 3
+          text: Isolate the purge control assembly with control `PV-17`.
+          count: 8
         - id: quotation
           text: Confirm that the label reads "OPEN SLOWLY".
           count: 6
@@ -384,8 +361,8 @@ scenario_packs:
           text: Record 20, `PV-17`, "OPEN SLOWLY", and North Plant.
           count: 6
         - id: parenthetical-hyphenated
-          text: 'Note: The high-pressure state (the pressure is high) remains in the record.'
-          count: 9
+          text: 'Note: The purge control assembly high-pressure state (the pressure is high) remains in the record.'
+          count: 12
     counting_observability:
       pathology_arm:
         expected_not_observable:
@@ -422,17 +399,11 @@ scenario_packs:
       \nThe battery monitor reports wear separately; it does not control relay switching."
     positive_coverage:
       - STOW-DSC-001
-      - STOW-DSC-002
-      - STOW-DSC-003
       - STOW-DSC-004
-      - STOW-DSC-005
       - STOW-DSC-006
     paired_negative_coverage:
       - STOW-DSC-001
-      - STOW-DSC-002
-      - STOW-DSC-003
       - STOW-DSC-004
-      - STOW-DSC-005
       - STOW-DSC-006
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
@@ -470,7 +441,7 @@ scenario_packs:
     name: Explicit house-style editorial note
     task_prompt: Edit the note for the stated magazine voice. Keep its deliberate punctuation, headings,
       contractions, parallel structure, qualified claim, and quoted label unless clarity truly requires a
-      change.
+      change. When the source uses `However,`, this magazine requires that exact transition in this note.
     pathology_input: "House voice: brisk but literary.\n\nThe Turning Point (and Why It Matters)\n\nThis tool isn't
       merely fast—it is, in a sense, a small revolution. Moreover, it can potentially transform every workflow.
       The \"simple\" interface is extremely intuitive! Whether you're new or experienced, it helps ensure success.
@@ -480,28 +451,12 @@ scenario_packs:
       more: its \"temporary\" brace held for nine measured hours, though one test cannot establish durability."
     positive_coverage:
       - STOW-PRO-001
-      - STOW-PRO-003
-      - STOW-PRO-004
       - STOW-PRO-007
-      - STOW-PRO-008
-      - STOW-PRO-010
-      - STOW-PRO-012
-      - STOW-PRO-014
       - STOW-PRO-020
-      - STOW-PRO-021
-      - STOW-PRO-022
     paired_negative_coverage:
       - STOW-PRO-001
-      - STOW-PRO-003
-      - STOW-PRO-004
       - STOW-PRO-007
-      - STOW-PRO-008
-      - STOW-PRO-010
-      - STOW-PRO-012
-      - STOW-PRO-014
       - STOW-PRO-020
-      - STOW-PRO-021
-      - STOW-PRO-022
     coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
       per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
     expected_not_observable: []

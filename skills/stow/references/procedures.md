@@ -59,7 +59,7 @@ inspect, the validator STOW runs, and the full-text citation.
 ### STOW-PCT-003
 - **Fires when:** parentheses appear in a step or a note.
 - **Region:** step and note prose.
-- **How STOW checks:** heuristic validator `parentheses-approved-use-only`; the admitted purposes are enumerated in the corpus page.
+- **How STOW checks:** contextual guidance permits parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives. The named heuristic is planned, not callable.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-003`
 
 ### STOW-PCT-004
@@ -75,13 +75,13 @@ inspect, the validator STOW runs, and the full-text citation.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-005`
 
 ### STOW-PCT-006
-- **Fires when:** a step or note contains a number, identifier, quoted string, title, or proper noun.
+- **Fires when:** a step or note contains a number, number with unit, abbreviation, identifier, quoted string, title or label, or proper name.
 - **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-020` conflict note keeps that region immutable: count it, do not rewrite it.
+- **How STOW checks:** contextual guidance counts each listed element as one word. The shipped counter does not yet implement every listed class, so `word-count-token-rules` remains planned rather than a callable compliance predicate. When a token sits in a protected region, preserve it rather than rewriting it to satisfy a count.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-006`
 
 ### STOW-PCT-007
-- **Fires when:** a hyphenated compound appears in a step or a note.
-- **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `hyphenated-group-counts-as-one-word`, feeding the procedural caps.
+- **Fires when:** words are joined by a hyphen in a step or note.
+- **Region:** the prose that selects the hyphenated relationship and the word-count computation for that sentence.
+- **How STOW checks:** contextual guidance permits a hyphen only between directly related words that operate as one unit. The deterministic `count_words` helper then counts that hyphenated group as one word when it feeds the callable sentence caps; it is not an independent delivery gate.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-007`

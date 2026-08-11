@@ -8,19 +8,19 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 
 | id | title | category | precedence |
 | --- | --- | --- | --- |
-| STOW-WRD-001 | Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs. | words | profile |
-| STOW-WRD-002 | Use each approved word only in its dictionary-specified part of speech. | words | profile |
+| STOW-WRD-001 | Restrict vocabulary to dictionary-approved words; admit technical nouns and technical verbs only under a defined category, and prefer an approved dictionary verb when one exists. | words | profile |
+| STOW-WRD-002 | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective. | words | profile |
 | STOW-WRD-003 | Use approved words only with their dictionary-approved, often restricted, meanings. | words | profile |
 | STOW-WRD-007 | Do not use a technical noun as a verb; keep it a noun or adjectival modifier. | words | profile |
 | STOW-WRD-008 | Prefer the technical noun already approved by your company, industry, or subject field. | words | profile |
 | STOW-WRD-010 | Do not use regional, slang, or jargon words as technical nouns. | words | profile |
-| STOW-WRD-011 | Use one technical noun consistently for one item; do not switch synonyms mid-text. | words | profile |
+| STOW-WRD-011 | Use one technical noun consistently for one item, preserve key words and key phrases that organize the logic, and reuse recurring wording for the same context. | words | profile |
 | STOW-WRD-014 | Use American English spelling unless another official directive overrides; do not change quoted-text spelling. | words | profile |
-| STOW-MWN-001 | Keep multi-word nouns to a maximum of three words. | multiword-nouns | profile |
-| STOW-VRB-002 | Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions. | verbs | profile |
+| STOW-MWN-001 | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation. | multiword-nouns | profile |
+| STOW-VRB-002 | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions. | verbs | profile |
 | STOW-VRB-005 | Use an -ing word only as a technical noun or as a modifier inside a technical noun. | verbs | profile |
 | STOW-VRB-006 | Use active voice; passive is allowed only in descriptive writing when the agent is unknown. | verbs | profile |
-| STOW-VRB-007 | Describe an action with an approved verb, not a nominalization or other part of speech. | verbs | profile |
+| STOW-VRB-007 | Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective. | verbs | profile |
 | STOW-SEN-002 | Do not omit words or use contractions; write every word in full. | sentences | profile |
 | STOW-SEN-003 | Break complex text into a vertical list with the prescribed layout. | sentences | profile |
 | STOW-SEN-004 | Use approved connecting words and phrases to link related sentences. | sentences | profile |
@@ -38,11 +38,11 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-SAF-002 | Begin a safety instruction with a clear, accurate command or condition. | safety | system |
 | STOW-SAF-003 | State the risk or the possible result of not obeying the safety instruction. | safety | system |
 | STOW-PCT-001 | Do not use the semicolon; write two separate sentences instead. | punctuation | profile |
-| STOW-PCT-003 | Use parentheses only for the approved purposes. | punctuation | profile |
+| STOW-PCT-003 | Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives. | punctuation | profile |
 | STOW-PCT-004 | In a vertical list, a colon counts as a period for word count and ends a sentence. | punctuation | profile |
 | STOW-PCT-005 | Parenthetical text counts as one word in the host sentence. | punctuation | profile |
-| STOW-PCT-006 | Count numbers, identifiers, quoted text, titles, and proper nouns each as one word. | punctuation | profile |
-| STOW-PCT-007 | A hyphenated group of words counts as one word. | punctuation | profile |
+| STOW-PCT-006 | Count a number, number with unit, abbreviation, identifier, quoted text, title or label, or proper name as one word. | punctuation | profile |
+| STOW-PCT-007 | Use hyphens only between directly related words that operate as one unit; a hyphenated group counts as one word. | punctuation | profile |
 | STOW-STY-001 | When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning. | style | profile |
 | STOW-STY-003 | Do not combine approved words into unlisted phrasal verbs. | style | profile |
 | STOW-GEN-002 | Check the preposition with for ambiguity and rewrite when unclear. | general | profile |

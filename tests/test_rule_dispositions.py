@@ -1220,3 +1220,17 @@ def test_v3_closes_qualified_rules_and_records_honest_terminal_boundaries(schema
     assert len(QUALIFIED_G1_V2 | QUALIFIED_G1_V3) == 58
     assert not ((QUALIFIED_G1_V2 | QUALIFIED_G1_V3) & set(TERMINAL_G1_BOUNDARIES))
     assert semantic_errors(ledger) == []
+
+
+def test_prc003_disposition_tracks_narrow_modality_boundary(ledger):
+    row = next(item for item in ledger["records"] if item["id"] == "STOW-PRC-003")
+    assert "source already authorizes a command" in row["applicability"]
+    assert "advice, permission, or uncertainty" in row["legitimate_counterexample"]
+    assert "preserve source force" in row["implementation_consequence"]
+    supplemental = [
+        item for item in row["evidence"]
+        if item["reference"] == "PRC003-MODALITY-20260811-V1"
+    ]
+    assert len(supplemental) == 1
+    assert supplemental[0]["kind"] == "implementation-review"
+    assert supplemental[0]["result"] == "accepted"

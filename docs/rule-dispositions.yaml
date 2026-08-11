@@ -2250,13 +2250,15 @@ records:
     starting_enforcement: parser
     starting_validator: imperative-mood
     layer: G1
-    observed_phenomenon: 'Observed failure pattern: an instruction is phrased as advice about what an actor should
-      do. Bounded repair: state the command in imperative form.'
-    independent_harm: Advice phrasing weakens the distinction between required and optional action.
-    applicability: A controlled-technical writing profile is active and the response contains procedural or
-      safety instructions.
-    legitimate_counterexample: A description that does not direct an action need not use the procedural form
-      'state the command in imperative form'.
+    observed_phenomenon: 'Observed failure pattern: a source-authorized command is weakened into advice or an
+      indirect statement. Bounded repair: retain imperative form for that command without strengthening other
+      source force.'
+    independent_harm: Weakening an authorized command can obscure a required action; strengthening advice or
+      permission can create an unauthorized obligation.
+    applicability: A controlled-technical writing profile is active and the source already authorizes a command
+      in procedural or safety instructions.
+    legitimate_counterexample: Advice, permission, or uncertainty must remain advice, permission, or uncertainty;
+      descriptive prose that does not authorize a command need not use imperative form.
     false_positive_risk: medium
     mechanism: guidance
     cost:
@@ -2269,11 +2271,10 @@ records:
       rationale: The current parser path names validator 'imperative-mood' and requires no tool work plus
         medium hot-path context for this rule.
     disposition: KEEP
-    decision_rationale: Keep STOW-PRC-003 because 'an instruction is phrased as advice about what an actor
-      should do' creates the distinct harm recorded above and is not fully represented by another proposed
-      survivor.
-    implementation_consequence: Retain STOW-PRC-003 and challenge both 'an instruction is phrased as advice
-      about what an actor should do' and the legitimate counterexample before accepting the decision.
+    decision_rationale: Keep STOW-PRC-003 only for source-authorized commands because the imperative distinction
+      remains useful when it does not alter advice, permission, or uncertainty.
+    implementation_consequence: Retain STOW-PRC-003 with the narrow source-authority qualifier, preserve source
+      force, and treat modality recognition as contextual guidance rather than a deterministic parser.
     evidence:
       - kind: registry-archaeology
         reference: skills/stow/rules/registry.yaml#STOW-PRC-003
@@ -2304,6 +2305,14 @@ records:
         protocol_revision: g1-family-cluster-v2
         qualification: qualifying-pass
         rule_observation: PASS
+      - kind: implementation-review
+        reference: PRC003-MODALITY-20260811-V1
+        result: accepted
+        freshness: fresh
+        limits: One bounded Luna Max generation plus two blinded Luna Max reviews support the narrowed advice,
+          permission, command, and uncertainty distinction; this is not a deterministic modality parser,
+          automatic-activation proof, or final-output-custody proof.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05

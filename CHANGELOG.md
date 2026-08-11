@@ -30,8 +30,9 @@ Release candidate for the instrumentality reconciliation.
 
 ### Known limitations
 
-- Some contextual writing owners remain open after the bounded qualification;
-  the ledger records their exact evidence state.
+- Three contextual writing owners remain explicitly bounded by external
+  authority or deferred semantic judgment rather than falsely closed; the
+  ledger records their exact evidence state.
 - Strict controlled-language conformance remains locked. Dictionary lookup does
   not replace contextual sense decisions, project terminology authority,
   automatic activation evidence, or final-output custody.

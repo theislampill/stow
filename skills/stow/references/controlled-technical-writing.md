@@ -19,6 +19,15 @@ regions: code, structured data, quoted text, and identifiers. Unless a row says
 otherwise, the region is *all prose*; the two exceptions are called out
 explicitly.
 
+**Sparse dictionary lookup.** When this profile is active and dictionary
+checking is useful, pass only caller-labelled editable segments to
+`runtime/dictionary_lookup.py scan --segments <file>`, then retrieve the few
+matched records. The helper reports closed membership, preserved alternatives,
+and explicitly listed forms. It does not decide part of speech, sense,
+technical-noun or technical-verb status, the correct replacement, or
+conformance. It skips caller-labelled protected segments and does not classify
+regions itself.
+
 **How to read each entry.** Every row names the *observable trigger* (the output
 feature that invokes the check), the *region*, *how STOW checks it* (the
 enforcement kind plus the named validator, with any numeric limit), and the
@@ -31,8 +40,8 @@ below as WRD (words), MWN (multi-word nouns), VRB (verbs, voice, tense), SEN
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| WRD-001 | A content word appears, including a proposed technical noun or technical verb | all prose | semantic review · admit a technical term only under a defined category and external terminology authority; prefer an approved dictionary verb when one exists; the dictionary lookup is not bundled | see corpus/words/selection.md#STOW-WRD-001 |
-| WRD-002 | An approved word is used in a part of speech or inflected form, including a past participle used as an adjective | all prose | contextual review · use only the dictionary-specified part of speech and listed forms; the named parser is planned, not callable | see corpus/words/selection.md#STOW-WRD-002 |
+| WRD-001 | A content word appears, including a proposed technical noun or technical verb | all prose | sparse deterministic lookup reports known approved, known not-approved, ambiguous, or unknown candidates; semantic review decides technical-term authority and replacement meaning | see corpus/words/selection.md#STOW-WRD-001 |
+| WRD-002 | An approved word is used in a part of speech or inflected form, including a past participle used as an adjective | all prose | deterministic lookup can confirm an explicitly listed form; contextual review still decides actual part of speech and role | see corpus/words/selection.md#STOW-WRD-002 |
 | WRD-003 | An approved word carries a particular sense | all prose | semantic-review · `approved-sense-only` | see corpus/words/selection.md#STOW-WRD-003 |
 | WRD-007 | A technical-noun token is functioning as a verb | all prose | parser · `no-technical-noun-as-verb` | see corpus/words/selection.md#STOW-WRD-007 |
 | WRD-008 | A technical noun is selected where a company, industry, or field term exists | all prose | heuristic · `company-term-preferred` | see corpus/words/usage.md#STOW-WRD-008 |

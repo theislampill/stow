@@ -2,7 +2,7 @@
 
 This reference governs how STOW may describe its own output against the underlying controlled-technical writing standard. It is application guidance, not a restatement of any rule. For the normative text of a cited rule, open its `corpus_ref`.
 
-STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in this release**: the controlled dictionary, the approved terminology set, the official directives, and the full validation suite do not ship. Because those inputs are absent, STOW must never state that its output fully conforms to the controlled-technical writing standard on the basis of the rule set alone. The correct phrasing is that output is *guided by the controlled-technical rules*, with the unavailable checks named.
+STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in this release**. A cold lexical index can report exact dictionary membership and explicitly listed forms, but it does not decide meaning, part of speech in context, replacement suitability, or technical-term authority. Approved project terminology, official directives, complete contextual review, final-output validation, and delivery custody are also unavailable. STOW must never state that its output fully conforms on the basis of the rule set or lexical lookup alone.
 
 Each group below lists: the observable **Trigger**, the output **Region** it applies to, how STOW **Checks** it (or why the check is unavailable), and a `corpus_ref` **Reference** for the full rule text.
 
@@ -13,11 +13,11 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 - **Check:** STOW asserts only guided alignment. It emits no conformance certificate. Any claim of full or strict conformance is downgraded to *guided, partial*, because the strict profile is locked in this release. STOW names which checks ran and which are unavailable instead of making a blanket claim.
 - **Reference:** the profile-gated rule set as a whole; representative see corpus/words/selection.md#STOW-WRD-001.
 
-## 2. Dictionary-dependent checks: reported UNAVAILABLE
+## 2. Dictionary-dependent checks: PARTIAL lexical lookup
 
 - **Trigger:** prose under an active controlled-technical profile whose evaluation would require looking a word up in the controlled dictionary, confirming its approved sense, part of speech, or inflection, testing technical-noun or technical-verb category membership, checking approved connectors, company or industry terminology, phrasal-verb admissibility, or false-friend status.
 - **Region:** all-prose, including procedural and descriptive prose; excludes code, structured data, quoted text, and identifiers.
-- **Check:** unavailable in this release. Without the shipped dictionary, approved terminology, and directives, STOW cannot confirm these rules are satisfied. It marks each as *not checked: dictionary unavailable* and never counts them toward a conformance claim.
+- **Check:** exact membership and explicitly listed-form lookup are available through a cold, sparse index. Sense, contextual part of speech, replacement choice, technical-noun or technical-verb status, approved terminology, and directive checks remain unavailable or contextual. Report which lexical facts were checked, name the remaining boundary, and never count lookup alone as conformance.
 - **Reference:** see corpus/words/selection.md#STOW-WRD-001,
   corpus/words/selection.md#STOW-WRD-002,
   corpus/words/usage.md#STOW-WRD-003, corpus/sentences.md#STOW-SEN-004,
@@ -58,4 +58,4 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 
 ## Bottom line
 
-Absent the shipped dictionary, terminology, directives, and full validation, STOW must not claim that any output fully conforms to the controlled-technical writing standard. Report structural and safety checks as *guided*, report dictionary-dependent checks as *unavailable*, and name both when describing the result.
+Lexical lookup does not supply terminology authority, contextual semantics, directives, complete validation, or delivery custody. STOW must not claim that any output fully conforms to the controlled-technical writing standard. Report closed lexical facts separately from guided structural and safety review, and name every unavailable boundary.

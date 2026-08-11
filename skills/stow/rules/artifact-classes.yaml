@@ -90,9 +90,11 @@ classes:
       - tests/test_conflicts.py
       - tests/test_routing.py
       - tests/test_artifact_classes.py
+      - tests/test_controlled_dictionary.py
     files:
       - skills/stow/rules/artifact-classes.yaml
       - skills/stow/rules/conflicts.yaml
+      - skills/stow/rules/controlled-dictionary.schema.json
       - skills/stow/rules/profiles.json
       - skills/stow/rules/registry.schema.json
       - skills/stow/rules/registry.yaml
@@ -106,8 +108,10 @@ classes:
       - tests/test_lint_prose.py
       - tests/test_profiles.py
       - tests/test_query_rules.py
+      - tests/test_controlled_dictionary.py
     files:
       - skills/stow/runtime/lint_prose.py
+      - skills/stow/runtime/dictionary_lookup.py
       - skills/stow/runtime/query_rules.py
       - skills/stow/runtime/profiles.py
       - skills/stow/runtime/validate.py
@@ -150,3 +154,5 @@ classes:
         generator: tools/gen_always_on.py --check
       - path: skills/stow/references/rule-index.md
         generator: tools/gen_rule_index.py --check
+      - path: skills/stow/rules/controlled-dictionary-v1.json.gz
+        generator: tools/gen_controlled_dictionary.py --check

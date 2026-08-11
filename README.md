@@ -36,7 +36,7 @@ Verify the install by running the packaged validator from the installed path:
 python ~/.claude/skills/stow/runtime/validate.py --format json some-file.json
 ```
 
-A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py`, `profiles.py`, and `validate_terms.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
+A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py`, `profiles.py`, `validate_terms.py`, and `dictionary_lookup.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
 
 ## Profiles at a glance
 
@@ -46,14 +46,14 @@ Profiles are declared in one shipped data file, `skills/stow/rules/profiles.json
 |---|---|---|
 | `stow-default` | Resolver default when the caller supplies no id | General integrity and user-facing output guidance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
 | `technical-clarity` | Available explicitly; routing cues name technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; the linter tags its output with the profile. See `references/technical-clarity.md`. |
-| `controlled-technical-guided` | Available explicitly; routing cues name procedures and safety instructions (alias: `controlled-technical`) | Applies the available controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. Dictionary-dependent checks are reported as unavailable. |
+| `controlled-technical-guided` | Available explicitly; routing cues name procedures and safety instructions (alias: `controlled-technical`) | Applies the available controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. A cold sparse dictionary lookup reports membership, alternatives, and listed forms without deciding sense or project terminology. |
 | `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing profile. Not shipped and **must never be claimed**. Selecting it on the linter exits with an error naming the lock. |
 
 Raw and protected artifacts are their own declared mode, not a profile. The guidance says to omit prose checks for raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths. A host must identify the mode and retain custody of the candidate; the resolver does neither.
 
 When a model or host finds more than one routing cue applicable, the declared precedence is `controlled-technical-guided` over `technical-clarity` over `stow-default`. For an explicitly resolved profile, the em-dash advisory runs for editable prose under every profile; the semicolon and contraction advisories are off under `stow-default` and `technical-clarity` and on under `controlled-technical-guided`.
 
-The strict profile is locked because the inputs it needs (the controlled dictionary, the approved terminology set, and the full validation suite) are out of scope for this release. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
+The strict profile remains locked. The bundled dictionary lookup establishes only closed membership and listed-form facts. Full conformance also needs contextual meaning and part-of-speech decisions, approved project terminology, applicability, validation of the actual final output, and delivery custody. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
 
 ## Rule classes at a glance
 

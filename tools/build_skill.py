@@ -53,7 +53,7 @@ ARTIFACT_NAME = "STOW.skill"
 # dropped (the shipped runtime surface is a fixed, auditable allowlist).
 RUNTIME_ALLOW = frozenset({
     "validate.py", "validate_terms.py", "lint_prose.py", "profiles.py",
-    "query_rules.py",
+    "query_rules.py", "dictionary_lookup.py",
 })
 
 # Deterministic ZIP entry metadata.

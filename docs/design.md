@@ -56,18 +56,20 @@ test suite and by continuous checks.
 
 ## Design notes
 
-### v0.1 corpus boundary
+### Controlled-language boundary
 
-The v0.1 corpus is deliberately narrow: it carries **Part-1 rule material only**.
-Everything downstream of the rules -- most notably the controlled dictionary
-(and the approved terminology set and directives that travel with it) -- is
-**out of scope for v0.1** and does not ship. Because those inputs are absent, the
-**strict / fully conformant profile is LOCKED**: STOW gives *guided* alignment
-against the Part-1 rules and never certifies full conformance. Dictionary-
-dependent checks are reported as *unavailable* rather than passed. This boundary
-is what keeps the shipped surface small and honest; widening it (importing the
-dictionary, unlocking the strict profile) is explicitly a post-v0.1 decision, not
-a gap to be quietly filled.
+The protected corpus carries rule material. A separate cold lexical index ships
+for exact dictionary membership and explicitly listed-form lookup. It is loaded
+only for controlled-technical work and returns sparse matched records; its full
+contents are never placed in model context. Examples from the local source basis
+are deliberately outside that lexical subset.
+
+The **strict / fully conformant profile remains LOCKED**. Lexical membership does
+not establish approved meaning in context, part of speech in context, a suitable
+replacement, technical-noun or technical-verb authority, approved project
+terminology, applicability, final-output validation, or delivery custody. STOW
+therefore reports guided alignment and the exact checks performed, never a
+certificate.
 
 ### The `.skill` artifact
 

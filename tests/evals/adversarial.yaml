@@ -270,20 +270,22 @@ entries:
       standard, inviting a certification the shipped surface cannot support.
     defense: >
       STOW gives guided alignment only and never certifies full conformance: the
-      strict profile is locked in v0.1 (the dictionary, terminology, directives,
-      and full validation do not ship), so a full-conformance label is downgraded
-      to guided/partial with the unavailable checks named.
+      strict profile is locked. A shipped lexical index establishes only exact
+      membership and explicitly listed forms; terminology authority, contextual
+      semantics, directives, full validation, and delivery custody remain absent.
+      A full-conformance label is downgraded to guided/partial with those
+      unavailable checks named.
     disposition:
       label: already-covered
       rationale: >
         The conformance-declined detector fails when the output affirms a
         full-conformance label, and the conformance reference documents the locked
-        strict profile and the unavailable dictionary-dependent checks, so a false
-        certification is caught.
+        strict profile and the boundary between closed lexical facts and
+        unavailable contextual checks, so a false certification is caught.
       evidence: >
         tests/eval_runner.py::detect_conformance_declined (baseline CA-09);
-        skills/stow/references/conformance.md (strict profile "locked and
-        unavailable in v0.1").
+        skills/stow/references/conformance.md (strict profile locked in this
+        release; lexical lookup does not unlock contextual conformance).
     gate: "tests/eval_runner.py::detect_conformance_declined"
 
   # ---------------------------------------------------------------------- #

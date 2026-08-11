@@ -109,6 +109,9 @@ def test_dictionary_axes_are_complete_and_tiered_without_unlocking_strict_mode()
     assert all(row["tier"] in {1, 2, 3, 4} for row in axes.values())
     assert all(row["status"] in VALID_STATUSES for row in axes.values())
     assert axes["meaning-and-part-of-speech"]["tier"] == 3
+    assert axes["approved-membership"]["status"] == "IMPLEMENTED"
+    assert axes["approved-explicit-forms"]["status"] == "IMPLEMENTED"
+    assert axes["not-approved-alternatives"]["status"] == "PARTIAL"
     assert axes["project-technical-nouns"]["status"] == "EXTERNAL_AUTHORITY_REQUIRED"
     assert axes["project-technical-verbs"]["status"] == "EXTERNAL_AUTHORITY_REQUIRED"
     assert axes["strict-conformance"]["tier"] == 4

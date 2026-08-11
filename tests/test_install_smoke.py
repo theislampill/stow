@@ -140,6 +140,8 @@ def test_installed_bytes_equal_source_bytes(installed):
         "stow/runtime/validate.py",
         "stow/runtime/validate_terms.py",
         "stow/runtime/lint_prose.py",
+        "stow/runtime/dictionary_lookup.py",
+        "stow/rules/controlled-dictionary-v1.json.gz",
     ]
     for arcname in sample_arcnames:
         assert arcname in installed.names, arcname
@@ -221,6 +223,9 @@ def test_every_runtime_module_runs_import_closed(installed):
         '{"kind":"editable","text":"Use preferred term."}]}\n'))
 
     drives = {
+        "dictionary_lookup.py": (
+            ["lookup", "accomplish"],
+            0, "KNOWN_NOT_APPROVED_CANDIDATE"),
         "query_rules.py": (
             ["STOW-ACT-001"], 0, "STOW-ACT-001"),
         "validate.py": (

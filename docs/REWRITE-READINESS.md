@@ -28,8 +28,10 @@ evidence. Historical evidence below is not current-candidate qualification.
   reports deltas across reps and rounds, not cross-host variance. The repeatable
   enabled-versus-disabled suite now exists (`tools/ab_eval_runner.py`,
   `tests/evals/ab/`); cross-host and cross-harness measurement remains unshipped.
-- The controlled dictionary is out of scope and `controlled-technical-strict`
-  stays locked; dictionary-dependent checks remain unavailable and say so.
+- A cold lexical index supports exact membership and explicitly listed forms.
+  `controlled-technical-strict` stays locked because contextual meaning,
+  terminology authority, applicability, final-output validation, and delivery
+  custody remain unavailable.
 
 ## What the rewrite phase inherits
 

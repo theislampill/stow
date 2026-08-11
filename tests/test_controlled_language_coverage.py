@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import yaml
+from ruamel.yaml import YAML
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,7 +34,7 @@ VALID_STATUSES = {
 
 
 def load_yaml(path):
-    return yaml.safe_load(path.read_text(encoding="utf-8"))
+    return YAML(typ="safe").load(path.read_text(encoding="utf-8"))
 
 
 def controlled_id(rule_id):

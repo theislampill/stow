@@ -20,6 +20,8 @@ Release candidate for the instrumentality reconciliation.
   support.
 - Reworked the ordinary writing layer around observable prose problems and
   kept controlled-technical guidance predicate-loaded.
+- Repaired the operation- and force-preservation overreach exposed by the
+  crosswalk-derived benchmark and added a bounded regression challenge.
 
 ### Added
 
@@ -27,6 +29,10 @@ Release candidate for the instrumentality reconciliation.
   cold controlled dictionary with sparse lookup.
 - Added bounded paired behavioral challenges for pathology suppression and
   preservation of already-good or deliberately voiced prose.
+- Added a four-arm, same-model controlled-language benchmark. STOW achieved the
+  highest requirement-level result; name-only conditioning was cheaper, so the
+  evidence supports bounded operationalisation rather than universal output
+  superiority.
 
 ### Known limitations
 

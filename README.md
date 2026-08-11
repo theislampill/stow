@@ -11,6 +11,19 @@ STOW is a writing-discipline specification and packaged skill. When a host selec
 - **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
 - **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
 
+## Measured operationalisation
+
+STOW turns a model-memory cue into an operational workflow. In a
+crosswalk-derived controlled-language benchmark using the same underlying
+model, the exact candidate achieved the highest requirement-level result among
+no conditioning, name-only conditioning, raw-source conditioning, and STOW.
+The benchmark exposed semantic overreach in operation and force preservation;
+that defect was repaired and regression-tested.
+
+This supports more complete operationalisation on the bounded tested
+requirement surface, not universal output superiority. Name-only conditioning
+was cheaper in the measured trial, and cross-model durability remains unproved.
+
 ## Install
 
 The built artifact `dist/STOW.skill` is a spec-compliant ZIP whose single top-level directory is `stow/`. Any standard unzip reads it. Install it into a host's skills directory so the skill resolves at `<skills-dir>/stow/SKILL.md`.

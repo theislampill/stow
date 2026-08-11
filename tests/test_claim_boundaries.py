@@ -531,3 +531,15 @@ def test_historical_parse_metric_is_distinguished_from_current_exact_content_che
     assert "then-current YAML parse predicate" in evidence
     assert "current exact-content predicate" in evidence
     assert "not used to recompute" in evidence
+
+
+def test_public_operationalisation_claim_preserves_benchmark_boundaries():
+    readme = " ".join(_read("README.md").split()).lower()
+    assert "turns a model-memory cue into an operational workflow" in readme
+    assert "highest requirement-level result" in readme
+    assert "name-only conditioning was cheaper" in readme
+    assert "semantic overreach" in readme
+    assert "repaired and regression-tested" in readme
+    assert "not universal output superiority" in readme
+    assert "cross-model durability remains unproved" in readme
+    assert "stow >" not in readme

@@ -10,7 +10,7 @@ from test_rule_dispositions import LEDGER_PATH
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PATH = ROOT / "tests" / "evals" / "rule-disposition-challenges-v1.yaml"
+PATH = ROOT / "tests" / "evals" / "rule-disposition-challenges-v2.yaml"
 
 
 def _load():
@@ -33,6 +33,8 @@ def _surviving_g1_ids():
 def challenge_errors(data):
     errors = []
     pack = next(pack for pack in data["scenario_packs"] if pack["id"] == "BC-05")
+    language_pack = next(pack for pack in data["scenario_packs"] if pack["id"] == "BC-09")
+    count_pack = next(pack for pack in data["scenario_packs"] if pack["id"] == "BC-10")
     authority = pack.get("closed_authority", {})
     controlled_text = pack["paired_negative_control"]
     if "Steps:" not in controlled_text or "Do these steps:" in controlled_text:
@@ -45,66 +47,37 @@ def challenge_errors(data):
     }
     if authority.get("exact_literal_counts") != expected_literals:
         errors.append("closed authority does not derive per-source exact literal counts")
-    language = pack.get("controlled_language_authority", {})
+    language = language_pack.get("controlled_language_authority", {})
     if language.get("mode") != "sparse-fixture-authority":
         errors.append("controlled-language authority is not sparse and fixture-bounded")
     records = {row.get("word"): row for row in language.get("dictionary_records", [])}
-    if set(records) != {"CHECK", "INSPECT", "ISOLATE", "RECORD"}:
+    if set(records) != {"APPLY", "CHECK", "INSPECT", "RECORD"}:
         errors.append("bounded dictionary records are incomplete")
     elif records["CHECK"].get("part_of_speech") != "noun" or records["INSPECT"].get("part_of_speech") != "verb":
         errors.append("bounded dictionary part-of-speech authority drifted")
-    elif records["INSPECT"].get("forms") != ["inspect", "inspects", "inspected", "inspected"]:
-        errors.append("bounded dictionary form authority drifted")
     terminology = language.get("terminology_records", {})
     if terminology.get("official_long_noun") != "emergency purge valve control assembly":
         errors.append("official long technical noun is absent")
     if terminology.get("declared_short_noun") != "purge control assembly":
         errors.append("declared short technical noun is absent")
-    hyphenation = language.get("hyphenation", {})
-    if hyphenation.get("preserve") != ["high-pressure"]:
-        errors.append("legitimate hyphen negative control is absent")
-    if hyphenation.get("repair") != ["emergency-purge-valve-control-assembly"]:
-        errors.append("over-hyphenated pathology target is absent")
-    contract = pack.get("word_count_contract", {})
-    if contract.get("procedural_sentence_max") != 20:
-        errors.append("procedural cap is not fixed")
+    contract = count_pack.get("word_count_contract", {})
     if contract.get("list_colon_ends_sentence") is not True:
         errors.append("list colon boundary is not fixed")
     if contract.get("parenthetical_host_words") != 1:
         errors.append("parenthetical host count is not fixed")
     if contract.get("hyphenated_group_words") != 1:
         errors.append("hyphenated-group count is not fixed")
-    expected_classes = {"number", "identifier", "quoted-text", "title", "proper-noun"}
+    expected_classes = {"number", "identifier", "quoted-text", "proper-noun"}
     if set(contract.get("atomic_classes", [])) != expected_classes:
         errors.append("atomic counting classes are incomplete")
-    calculations = contract.get("expected_calculations", [])
     expected_counts = {
-        "condition": 13,
-        "list-lead": 1,
-        "identifier": 8,
-        "quotation": 6,
-        "atomic-classes": 6,
-        "parenthetical-hyphenated": 12,
+        "lead": 3,
+        "parenthetical": 6,
+        "atomic": 6,
+        "hyphenated": 4,
     }
-    actual_counts = {item.get("id"): item.get("count") for item in calculations}
-    if actual_counts != expected_counts or any(item.get("count", 99) > 20 for item in calculations):
-        errors.append("expected calculations are absent or exceed the cap")
-    control = pack["paired_negative_control"]
-    if any(item.get("text", "") not in control for item in calculations):
-        errors.append("expected calculation is not present in the negative control")
-    counting_ids = {f"STOW-PCT-{number:03d}" for number in range(4, 8)}
-    observability = pack.get("counting_observability", {})
-    if set(pack["expected_not_observable"]) & counting_ids:
-        errors.append("counting observability is ambiguously pack-wide")
-    if set(observability.get("pathology_arm", {}).get("expected_not_observable", [])) != counting_ids:
-        errors.append("pathology arm counting boundary is incomplete")
-    negative = observability.get("negative_control_arm", {})
-    if set(negative.get("deterministic_construction", [])) != counting_ids:
-        errors.append("negative-control construction boundary is incomplete")
-    if set(negative.get("false_positive_preservation", [])) != counting_ids:
-        errors.append("negative-control preservation boundary is incomplete")
-    if observability.get("model_output_semantic_count") != "NOT_OBSERVABLE_UNLESS_COUNT_REQUESTED_OR_RETURNED":
-        errors.append("model-output counting limitation is not explicit")
+    if contract.get("expected_counts") != expected_counts:
+        errors.append("expected calculations are absent")
     return errors
 
 
@@ -112,10 +85,10 @@ def test_challenge_file_exists():
     assert PATH.is_file()
 
 
-def test_eight_paired_natural_tasks_cover_surviving_g1_surface():
+def test_ten_paired_natural_tasks_cover_surviving_g1_surface():
     data = _load()
     packs = data["scenario_packs"]
-    assert [pack["id"] for pack in packs] == [f"BC-{n:02d}" for n in range(1, 9)]
+    assert [pack["id"] for pack in packs] == [f"BC-{n:02d}" for n in range(1, 11)]
     covered = []
     for pack in packs:
         assert pack["task_prompt"].strip()
@@ -133,7 +106,8 @@ def test_eight_paired_natural_tasks_cover_surviving_g1_surface():
 def test_controlled_pack_does_not_overclaim_rule_level_observability():
     pack = next(pack for pack in _load()["scenario_packs"] if pack["id"] == "BC-05")
     assert pack["closed_authority"]["exact_literal_counts"]
-    assert pack["expected_not_observable"]
+    language_pack = next(pack for pack in _load()["scenario_packs"] if pack["id"] == "BC-09")
+    assert language_pack["expected_not_observable"]
     assert "NOT_OBSERVABLE" in pack["coverage_limit"]
 
 
@@ -147,17 +121,12 @@ def test_controlled_negative_control_closes_authority_and_counting_contract():
     assert challenge_errors(bad_literal_count)
 
     bad_count = copy.deepcopy(data)
-    pack = next(pack for pack in bad_count["scenario_packs"] if pack["id"] == "BC-05")
-    pack["word_count_contract"]["expected_calculations"][0]["count"] = 11
+    pack = next(pack for pack in bad_count["scenario_packs"] if pack["id"] == "BC-10")
+    pack["word_count_contract"]["expected_counts"]["lead"] = 4
     assert challenge_errors(bad_count)
 
-    ambiguous_observability = copy.deepcopy(data)
-    pack = next(pack for pack in ambiguous_observability["scenario_packs"] if pack["id"] == "BC-05")
-    pack["counting_observability"]["negative_control_arm"]["deterministic_construction"].pop()
-    assert challenge_errors(ambiguous_observability)
-
     missing_sparse_authority = copy.deepcopy(data)
-    pack = next(pack for pack in missing_sparse_authority["scenario_packs"] if pack["id"] == "BC-05")
+    pack = next(pack for pack in missing_sparse_authority["scenario_packs"] if pack["id"] == "BC-09")
     pack["controlled_language_authority"].pop("dictionary_records")
     assert challenge_errors(missing_sparse_authority)
 
@@ -188,11 +157,11 @@ def test_scoring_covers_benefit_and_false_positive_damage():
     }
     thresholds = _load()["evaluation_thresholds"]
     assert thresholds["critical_treatment_failures"] == 0
-    assert thresholds["minimum_packs_with_pathology_reduction"] == 6
+    assert thresholds["minimum_packs_with_pathology_reduction"] == 8
     assert thresholds["maximum_control_false_positive_damage"] == 1
 
 
-def test_v7_regressions_are_preregistered_at_the_right_evidence_layer():
+def test_prior_regressions_are_preregistered_at_the_right_evidence_layer():
     targets = {target["id"]: target for target in _load()["regression_targets"]}
     assert set(targets) == {
         "unknown-boundary", "unsupported-state", "unit-literal", "redundant-label",
@@ -203,3 +172,27 @@ def test_v7_regressions_are_preregistered_at_the_right_evidence_layer():
     for target_id in ("unknown-boundary", "unsupported-state", "redundant-label", "coordination-preservation"):
         assert targets[target_id]["mechanism"] == "contextual-review"
     assert targets["house-transition"]["universal_rule"] is False
+
+
+def test_repaired_design_separates_prior_overloaded_controlled_families():
+    packs = {pack["id"]: pack for pack in _load()["scenario_packs"]}
+    lexical_families = ("STOW-WRD-", "STOW-MWN-", "STOW-VRB-", "STOW-SEN-", "STOW-STY-", "STOW-GEN-")
+    assert set(packs["BC-09"]["positive_coverage"]) <= {
+        rule for rule in _surviving_g1_ids() if rule.startswith(lexical_families)
+    }
+    assert set(packs["BC-10"]["positive_coverage"]) == {
+        "STOW-PCT-004", "STOW-PCT-005", "STOW-PCT-006", "STOW-PCT-007"
+    }
+    assert len(packs["BC-05"]["positive_coverage"]) < 20
+    assert "20 kPa" in packs["BC-05"]["pathology_input"]
+    assert "However," in packs["BC-08"]["paired_negative_control"]
+    assert "and its timer" in packs["BC-06"]["paired_negative_control"]
+
+
+def test_completion_case_has_an_explicit_defensible_uncertainty_boundary():
+    pack = next(pack for pack in _load()["scenario_packs"] if pack["id"] == "BC-02")
+    for text in (pack["pathology_input"], pack["paired_negative_control"]):
+        assert "parser check passed" in text.lower()
+        assert "storage redesign" in text.lower()
+        assert "timing" in text.lower()
+        assert "tomorrow" in text.lower()

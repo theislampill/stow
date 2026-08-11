@@ -151,9 +151,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -211,9 +211,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -271,9 +271,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -528,9 +528,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -587,9 +587,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -709,9 +709,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -762,9 +762,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -949,9 +949,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1007,9 +1007,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1192,9 +1192,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1380,9 +1380,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1439,9 +1439,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1493,9 +1493,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1615,9 +1615,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1669,9 +1669,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1724,9 +1724,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -1784,9 +1784,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -2814,9 +2814,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-10
       paired_negative:
-        - BC-05
+        - BC-10
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -2875,9 +2875,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-10
       paired_negative:
-        - BC-05
+        - BC-10
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -2937,9 +2937,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-10
       paired_negative:
-        - BC-05
+        - BC-10
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -2997,9 +2997,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-10
       paired_negative:
-        - BC-05
+        - BC-10
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3059,9 +3059,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3178,9 +3178,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3359,9 +3359,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3412,9 +3412,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3530,9 +3530,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed
@@ -3648,9 +3648,9 @@ records:
         subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-05
+        - BC-09
       paired_negative:
-        - BC-05
+        - BC-09
       status: pending
     deterministic_verification: []
     decision_state: proposed

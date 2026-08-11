@@ -217,3 +217,9 @@ def test_redundant_user_facing_reference_and_route_are_removed():
     assert "references/user-facing-output.md" not in kernel
     assert "references/user-facing-output.md" not in routing
     assert "user-facing prose turn -> references/always-on.md" in kernel
+
+
+def test_description_guidance_preserves_clear_natural_coordination():
+    text = _read(os.path.join(SKILL_DIR, "references", "descriptions.md")).casefold()
+    assert "closely related subjects" in text
+    assert "repeat full subjects mechanically" in text

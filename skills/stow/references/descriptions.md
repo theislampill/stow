@@ -22,8 +22,8 @@ configured numeric limit where one applies). *Full text* = the corpus citation.
 ## Sentence-level
 
 ### STOW-DSC-001: pace of new information
-- Trigger: a descriptive sentence that carries more than one subject, or a passage that front-loads several facts before the reader has absorbed the first.
-- Check: semantic-review; validator `gradual-info-one-subject-per-sentence`. The reviewer confirms each sentence advances a single subject.
+- Trigger: a descriptive sentence that mixes unrelated subjects, or a passage that front-loads several facts before the reader has absorbed the first.
+- Check: semantic-review; validator `gradual-info-one-subject-per-sentence`. The reviewer confirms that the passage introduces one topic and its facts at a time. Closely related subjects can stay coordinated when that is clearer; do not repeat full subjects mechanically.
 - Full text: see `corpus/descriptions.md#STOW-DSC-001`.
 
 ### STOW-DSC-003: descriptive sentence length

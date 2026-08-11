@@ -857,6 +857,7 @@ records:
     activation:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains descriptive prose.
+      exception: Closely related subjects can stay coordinated when separation would repeat full subjects without improving clarity.
       always_on_for_prose: false
     precedence: profile
     enforcement:

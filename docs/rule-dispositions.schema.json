@@ -80,7 +80,9 @@
         "BC-05",
         "BC-06",
         "BC-07",
-        "BC-08"
+        "BC-08",
+        "BC-09",
+        "BC-10"
       ]
     },
     "evidence": {
@@ -255,7 +257,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^BC-0[1-8]$"
+            "pattern": "^BC-(0[1-9]|10)$"
           }
         },
         "paired_negative": {
@@ -263,7 +265,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^BC-0[1-8]$"
+            "pattern": "^BC-(0[1-9]|10)$"
           }
         },
         "status": {

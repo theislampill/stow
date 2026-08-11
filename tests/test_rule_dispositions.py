@@ -1039,7 +1039,7 @@ def test_no_g3_or_g4_rule_claims(ledger):
 
 
 def test_ledger_coverage_matches_paired_challenge_definitions(ledger):
-    challenges = _yaml(ROOT / "tests" / "evals" / "rule-disposition-challenges-v1.yaml")
+    challenges = _yaml(ROOT / "tests" / "evals" / "rule-disposition-challenges-v2.yaml")
     packs = {pack["id"]: pack for pack in challenges["scenario_packs"]}
     for row in ledger["records"]:
         if row["layer"] != "G1" or row["disposition"] not in SURVIVING_G1_DISPOSITIONS:

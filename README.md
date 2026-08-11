@@ -121,7 +121,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | `STOW-PRO-017` | No fabricated scenarios | All prose (always on) | Review-fallback |
 | `STOW-PRO-018` | No fabricated history | All prose (always on) | Review-fallback |
 | `STOW-PRO-019` | No fabricated attributions | All prose (always on) | Review-fallback |
-| `STOW-PRO-020` | Review formulaic lexical patterns | a listed transition, verb, or stock phrase may obscure its function; exception: ordinary connectors and exact technical or domain uses remain permitted | Review-fallback |
+| `STOW-PRO-020` | Review formulaic lexical patterns | a listed pattern or corrective contrast may obscure its function or reject a characterization absent from the discourse; exception: ordinary connectors, technical uses, and a discourse-present correction naming the real differentiator remain permitted | Review-fallback |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
 
 </details>
@@ -182,7 +182,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 |---|---|---|---|
 | `STOW-PRC-001` | Limit each procedural sentence to a maximum of twenty words | Controlled profile | Callable |
 | `STOW-PRC-002` | Write only one instruction per sentence unless actions occur at the same time | Controlled profile | Planned |
-| `STOW-PRC-003` | Write instructions in the imperative command form | Controlled profile | Planned |
+| `STOW-PRC-003` | Write instructions in the imperative command form | the source already authorizes a command rather than advice or a permission statement; exception: do not silently strengthen advice, permission, or uncertainty; preserve source force or request an authority decision | Planned |
 | `STOW-PRC-004` | State a required condition first and separate it from the command with a comma | Controlled profile | Planned |
 | `STOW-PRC-005` | A note in a controlled procedure gives information and does not introduce an action | a note is attached to a controlled procedure; exception: a higher-precedence literal or output contract takes priority | Planned |
 
@@ -410,7 +410,7 @@ rewrite work runs, treat protected baseline wording as fixed.
 ## Known limitations
 
 - **Prose linters are advisory and report-only.** `lint_prose.py` exits 0 on findings and even treats unreadable input as no blocking prose verdict. The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.
-- **Most registry rules are not mechanically decided.** Four rules have callable compliance validators today. Nine advisory surface detectors supply bounded
+- **Most registry rules are not mechanically decided.** Four rules have callable compliance validators today. Ten advisory surface detectors supply bounded
   observations for G1 semantics; they do not decide contextual compliance. The
   remainder are review-fallback or planned. A rule being in the registry does
   not mean a program checks it.

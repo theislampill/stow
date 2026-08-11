@@ -48,10 +48,10 @@ this repository does not supply a general prose delivery gate.
 
 ## Callable advisory signals
 
-The linter can report nine bounded advisory observations: an em dash, an empty
+The linter can report ten bounded advisory observations: an em dash, an empty
 intensifier, a filler phrase, a formulaic `whether you're` opener, a hedging
 cluster, a listed transition, a listed action verb, a listed academic phrase,
-or a contraction under the controlled profile. These
+an unresolved generated placeholder, or a contraction under the controlled profile. These
 reports are leads for contextual review. In particular:
 
 - punctuation is not an authorship signal and remains valid under an applicable

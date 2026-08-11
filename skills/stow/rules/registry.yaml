@@ -755,6 +755,8 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains procedural or safety instructions.
       always_on_for_prose: false
+      applicability: the source already authorizes a command rather than advice or a permission statement
+      exception: do not silently strengthen advice, permission, or uncertainty; preserve source force or request an authority decision
     precedence: profile
     enforcement:
       kind: parser
@@ -1697,9 +1699,9 @@ records:
         - quoted-text
         - identifiers
     activation:
-      kind: always-user-facing
-      predicate: The response is user-facing.
-      always_on_for_prose: true
+      kind: conditional
+      predicate: A secondary issue surfaces during the main task.
+      always_on_for_prose: false
       applicability: "a secondary issue surfaces during the main task"
       exception: "offer the deferred issue separately at the end rather than dropping it"
     precedence: presentation
@@ -1736,9 +1738,9 @@ records:
         - quoted-text
         - identifiers
     activation:
-      kind: always-user-facing
-      predicate: The response is user-facing.
-      always_on_for_prose: true
+      kind: conditional
+      predicate: A multi-turn task needs visible continuity state.
+      always_on_for_prose: false
       applicability: "a multi-turn task is in progress"
       exception: "a single-turn answer needs no progress ledger"
     precedence: presentation
@@ -1775,9 +1777,9 @@ records:
         - quoted-text
         - identifiers
     activation:
-      kind: always-user-facing
-      predicate: The response is user-facing.
-      always_on_for_prose: true
+      kind: conditional
+      predicate: The user needs an effort estimate and a defensible range exists.
+      always_on_for_prose: false
       applicability: "a defensible range exists for the estimate"
       exception: "with no defensible range, omit the figure; accuracy outranks the preference"
     precedence: presentation
@@ -2453,8 +2455,8 @@ records:
       kind: conditional
       predicate: The response contains prose sentences outside code, quoted text, and structured data.
       always_on_for_prose: false
-      applicability: a listed transition, verb, or stock phrase may obscure its function
-      exception: ordinary connectors and exact technical or domain uses remain permitted
+      applicability: a listed pattern or corrective contrast may obscure its function or reject a characterization absent from the discourse
+      exception: ordinary connectors, technical uses, and a discourse-present correction naming the real differentiator remain permitted
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -2466,6 +2468,7 @@ records:
         - no-ai-transitions
         - no-ai-verbs
         - no-academic-tells
+        - no-unresolved-generated-placeholders
     conflicts:
       - rule: STOW-WRD-014
         resolution: Protected regions are immutable. Do not rename keys or identifiers and do not edit quoted text; serialization validity and protected literals outrank presentation-layer lexical preferences, which skip protected regions.

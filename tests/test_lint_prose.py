@@ -209,6 +209,28 @@ def test_overlapping_terms_report_once():
     assert len(found) == 1
 
 
+@pytest.mark.parametrize("text", [
+    "The citation is oaicite and is not resolved.",
+    "The source pointer turn0search0 remains in the answer.",
+    "The payload contains contentReference without a resolved target.",
+])
+def test_unresolved_generated_placeholder_is_an_advisory(text):
+    found = hits(text, "unresolved-generated-placeholder")
+    assert found
+    assert {item.rule_id for item in found} == {"STOW-PRO-020"}
+    assert all(item.severity == "advisory" for item in found)
+
+
+@pytest.mark.parametrize("template", [
+    "`{}`",
+    'The literal token "{}" is documented here.',
+    "```text\n{}\n```",
+])
+def test_unresolved_generated_placeholder_skips_examples_and_protected_regions(template):
+    assert_clean(template.format("turn0search0"),
+                 "unresolved-generated-placeholder")
+
+
 # --------------------------------------------------------------------------- #
 # (b) PUNCTUATION / STRUCTURE -- RED-first
 # --------------------------------------------------------------------------- #

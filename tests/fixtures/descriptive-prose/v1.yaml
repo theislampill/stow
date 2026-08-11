@@ -35,3 +35,10 @@ controls:
       - transition-pattern
       - action-verb-pattern
       - em-dash
+
+paired_microchallenges:
+  - id: corrective-contrast
+    rule_id: STOW-PRO-020
+    pathology: "The issue is not merely latency. It is something deeper: architecture."
+    negative_control: "The report calls the defect a latency problem. It is not a latency problem; the request never reaches the server."
+    criterion: "Reject the corrective contrast only when the rejected characterization is absent or materially implausible; preserve a discourse-present correction that names the actual differentiator."

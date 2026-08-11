@@ -27,10 +27,10 @@ advisory lead, not a verdict.
 
 - **Description:** Intensity, urgency, contrast, or enthusiasm exceeds what the evidence and task support.
 - **Rationale:** Manufactured emphasis distorts priority and makes ordinary facts harder to weigh.
-- **Applicability:** Review unsupported intensifiers, urgency, dramatic pivots, and celebratory language.
-- **Legitimate counterexample:** Keep genuine correction, material contrast, measured risk, or a requested expressive voice when the facts support it.
-- **Rewrite principle:** Use urgency or intensified emphasis only when a decision-relevant reason is stated. Preserve supported deadline-led commands and requested functional emphasis.
-- **Mechanism:** Apply semantic review with `corpus/prose-integrity/rules.md#STOW-PRO-009`; the active rule consolidates unsupported intensity, urgency, and enthusiasm.
+- **Applicability:** Review unsupported intensifiers, urgency, dramatic pivots, celebratory language, and corrective contrasts that reject a characterization absent from the discourse or materially implausible in context.
+- **Legitimate counterexample:** Keep genuine correction, material contrast, measured risk, or a requested expressive voice when the facts support it. A discourse-present correction that names the real differentiator remains legitimate.
+- **Rewrite principle:** Use urgency or intensified emphasis only when a decision-relevant reason is stated. Remove a corrective contrast when nobody asserted or plausibly implied the rejected characterization; otherwise keep the correction and name the actual difference.
+- **Mechanism:** Apply semantic review with `corpus/prose-integrity/rules.md#STOW-PRO-009` for unsupported intensity and `corpus/prose-integrity/rules.md#STOW-PRO-020` for a stock corrective construction. These remain contextual judgments, not lexical bans.
 
 ## Hollow evaluation
 

@@ -191,6 +191,13 @@ def mask_prose(text):
         text, lambda line: _sub_blank(_QUOTE_RE, _mask_inline(line)))
 
 
+def mask_generated_placeholders(text):
+    """Mask examples and code-like spans but keep identifier-shaped markers."""
+    return _mask_blocks(
+        text,
+        lambda line: _sub_blank(_QUOTE_RE, _apply(_CODEISH_MASKS, line)))
+
+
 # --------------------------------------------------------------------------- #
 # Term tables -- parsed from banned-lists.md at runtime
 # --------------------------------------------------------------------------- #
@@ -392,6 +399,7 @@ IMPLEMENTED_VALIDATORS = frozenset({
     "no-ai-transitions",
     "no-ai-verbs",
     "no-academic-tells",
+    "no-unresolved-generated-placeholders",
     "no-contractions",
     "no-semicolon",
     "no-latin-abbreviations",
@@ -432,6 +440,9 @@ _CONTRACTION_RE = re.compile(
     u"\\b\\w+n['’]t\\b"
     u"|\\b\\w+['’](?:re|ve|ll|d|m)\\b"
     u"|\\b(?:it|that|there|here|what|who|let|he|she|one|which)['’]s\\b",
+    re.IGNORECASE)
+_UNRESOLVED_GENERATED_PLACEHOLDER_RE = re.compile(
+    r"\b(?:oaicite|contentReference|attributableIndex|turn\d+(?:search|view|fetch)\d+)\b",
     re.IGNORECASE)
 _LIST_ITEM_RE = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+\S")
 _HEADING_LINE_RE = re.compile(r"^\s*#")
@@ -593,6 +604,22 @@ def check_hedging(text, tables):
     return out
 
 
+def check_generated_placeholders(text):
+    """Report a closed set of unresolved generated-artifact markers.
+
+    The scan is advisory and uses the quotation-masked prose layer. Literal
+    examples, code, configuration, quotations, identifiers, and other protected
+    regions remain untouched. A host may block only under its own explicit
+    output contract and final-candidate custody.
+    """
+    return _scan(
+        _UNRESOLVED_GENERATED_PLACEHOLDER_RE,
+        mask_generated_placeholders(text),
+        "unresolved-generated-placeholder",
+        "STOW-PRO-020",
+        "unresolved generated placeholder %r; resolve it or preserve it only as a literal example")
+
+
 def check_punctuation(text, profile_record):
     """(b) PUNCTUATION / STRUCTURE.
 
@@ -688,6 +715,7 @@ def lint(text, profile=None, tables=None, banned_lists_path=None,
     advisories.extend(check_punctuation(text, profile_record))
     advisories.extend(check_lexical(text, tables))
     advisories.extend(check_hedging(text, tables))
+    advisories.extend(check_generated_placeholders(text))
     advisories.extend(check_lengths(text, profile_record))
     advisories.sort(key=lambda a: (a.line, a.col, a.rule))
     return advisories

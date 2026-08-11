@@ -141,6 +141,15 @@ def test_vrb_005_is_not_claimed_as_a_parser_after_the_failed_behavioural_probe()
     assert "no reliable parser is claimed" in row
 
 
+def test_imperative_guidance_does_not_silently_strength_source_modality():
+    record = _records()["STOW-PRC-003"]
+    activation = record["activation"]
+    assert "source already authorizes a command" in activation["applicability"]
+    assert "do not silently strengthen" in activation["exception"]
+    procedures = PROCEDURE_REFERENCE.read_text(encoding="utf-8")
+    assert "preserve the source force" in procedures
+
+
 def test_note_function_and_sentence_cap_have_distinct_owners():
     text = PROCEDURE_REFERENCE.read_text(encoding="utf-8")
     note_section = text.split("### STOW-PRC-005", 1)[1].split("## Punctuation", 1)[0]

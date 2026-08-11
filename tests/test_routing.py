@@ -145,6 +145,14 @@ def test_canonical_term_map_route_is_cold_and_uses_its_validator():
     assert route["validator"] == "python runtime/validate_terms.py"
 
 
+def test_action_shaping_deep_route_names_the_moved_rule_predicates():
+    route = next(route for route in ROUTES
+                 if route["mode"] == "action-shaping-deep")
+    predicate = route["predicate"].casefold()
+    for phrase in ("secondary issue", "multi-turn state", "effort estimate"):
+        assert phrase in predicate
+
+
 # --------------------------------------------------------------------------- #
 # Gate (a) -- section-5 reference paths and routing references agree both ways
 # --------------------------------------------------------------------------- #

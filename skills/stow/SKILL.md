@@ -58,7 +58,7 @@ Load a reference only when its predicate is true.
 - explicit project-term mapping -> references/canonical-terms.md
 - mixed prose and literals -> references/protected-regions.md
 - conformance claim -> references/conformance.md
-- action-shaping deep guidance -> references/action-shaping.md
+- secondary issue, multi-turn state, or effort estimate guidance -> references/action-shaping.md
 - prose-integrity deep guidance -> references/prose-integrity.md
 - contextual prose-quality review -> references/descriptive-prose.md
 - precedence or region question -> references/activation-and-precedence.md

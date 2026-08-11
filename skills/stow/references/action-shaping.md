@@ -3,9 +3,11 @@
 Application guidance for the active ACT rule group (`category: action-shaping`). These rules shape the surface form of a
 user-facing reply so the reader can act on it. They all carry
 `precedence: presentation` (the lowest tier, so they yield to `profile` and
-`system` rules) and `activation: always-user-facing` (they apply whenever the
-response is user-facing, and never inside `code`, `structured-data`,
-`quoted-text`, or `identifiers`).
+`system` rules). The ordinary payload carries the broadly applicable action
+rules. ACT-004, ACT-005, and ACT-006 stay cold until a secondary issue,
+multi-turn continuity state, or requested effort estimate makes one relevant.
+No ACT rule applies inside `code`, `structured-data`, `quoted-text`, or
+`identifiers`.
 
 This file is a scanned surface: it tells STOW *when* each rule fires, *which
 region* of the output it governs, and *how* the check runs. It does not restate

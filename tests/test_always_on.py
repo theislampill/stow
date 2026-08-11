@@ -92,6 +92,13 @@ def _always_on_records():
     return [r for r in recs if (r.get("activation") or {}).get("always_on_for_prose")]
 
 
+def _all_records():
+    yaml = YAML(typ="safe")
+    with open(REGISTRY, encoding="utf-8") as fh:
+        reg = yaml.load(fh)
+    return reg.get("records") or reg.get("rules")
+
+
 # --------------------------------------------------------------------------- #
 # 1. the module exists, is generated, and is current
 # --------------------------------------------------------------------------- #
@@ -119,6 +126,16 @@ def test_every_always_on_action_rule_is_present():
     assert records, "no records carry activation.always_on_for_prose"
     missing = [r["id"] for r in records if r["title"].strip() not in text]
     assert not missing, "always-on rules absent from the module: %s" % missing
+
+
+def test_moved_action_rules_are_not_in_the_ordinary_payload():
+    """Accepted MOVE decisions must reduce the hot path in the real registry."""
+    moved = {"STOW-ACT-004", "STOW-ACT-005", "STOW-ACT-006"}
+    records = {r["id"]: r for r in _always_on_records()}
+    assert moved.isdisjoint(records)
+    text = _read(ALWAYS_ON)
+    for rule_id in moved:
+        assert rule_id.replace("STOW-", "") not in text
 
 
 def test_module_bullet_count_matches_selector():
@@ -228,7 +245,7 @@ def test_the_known_condition_bearing_rules_carry_qualifiers():
         "STOW-PRO-007", "STOW-PRO-009", "STOW-PRO-011", "STOW-PRO-013",
         "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-019",
     }
-    by_id = {r["id"]: r for r in _always_on_records()}
+    by_id = {r["id"]: r for r in _all_records()}
     for rule_id in sorted(required):
         activation = by_id[rule_id]["activation"]
         assert activation.get("applicability") or activation.get("exception"), (

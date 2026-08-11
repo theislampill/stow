@@ -31,9 +31,9 @@ inspect, the validator STOW runs, and the full-text citation.
 - **Full text:** `corpus/procedures.md#STOW-PRC-002`
 
 ### STOW-PRC-003
-- **Fires when:** the response gives an instruction or a safety instruction.
+- **Fires when:** the source already authorizes an instruction or safety command. Do not silently strengthen advice, permission, or uncertainty into a command; preserve the source force or request an authority decision.
 - **Region:** the opening verb of each step sentence (procedural and safety scope).
-- **How STOW checks:** parser validator `imperative-mood`.
+- **How STOW checks:** planned parser validator `imperative-mood` can inspect command form only after the authority boundary is resolved. It does not decide whether source advice may become a command.
 - **Full text:** `corpus/procedures.md#STOW-PRC-003`
 
 ### STOW-PRC-004

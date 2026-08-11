@@ -145,8 +145,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1075 | 1471 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 1781 | 2457 |
+| Kernel alone (`SKILL.md`) | 1081 | 1481 |
+| Ordinary prose turn (kernel + `references/always-on.md`) | 1660 | 2303 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -197,7 +197,7 @@ distinction is stated plainly here.
   *would* be enforced by a mechanical checker: what class of check applies, what
   it would key on. It is a design declaration.
 - **`enforcement.status` is the *shipped* truth.** It records what runs
-  today: **four rules are callable compliance predicates**; nine advisory surface detectors
+  today: **four rules are callable compliance predicates**; ten advisory surface detectors
   support contextual G1 review; the remainder are
   planned or fall back to model review. The exact implemented set is derived
   bidirectionally from the runtime's own `IMPLEMENTED_VALIDATORS` constant by
@@ -205,7 +205,7 @@ distinction is stated plainly here.
   underclaim a validator.
 
 Read together: the majority of rules are *not* mechanically enforced in this
-release. Four primary rules have callable compliance predicates. Nine further
+release. Four primary rules have callable compliance predicates. Ten further
 matchers are advisory observations owned by G1 rules and do not establish their
 contextual semantics. The profile resolver gates the semicolon, contraction,
 Latin-abbreviation, and sentence-cap observations behind

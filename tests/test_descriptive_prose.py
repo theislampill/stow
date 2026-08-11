@@ -169,6 +169,22 @@ def test_versioned_controls_cover_natural_work_and_deliberate_style():
     assert all(control["text"].strip() for control in controls)
 
 
+def test_corrective_contrast_has_a_paired_contextual_microchallenge():
+    fixture = _yaml(FIXTURE)
+    cases = {case["id"]: case for case in fixture["paired_microchallenges"]}
+    case = cases["corrective-contrast"]
+    assert case["rule_id"] == "STOW-PRO-020"
+    assert "not merely" in case["pathology"]
+    assert "report calls" in case["negative_control"]
+    assert "absent or materially implausible" in case["criterion"]
+
+
+def test_corrective_contrast_is_owned_by_the_contextual_lexical_rule():
+    record = _records()["STOW-PRO-020"]
+    assert "corrective contrast" in record["activation"]["applicability"]
+    assert "discourse-present correction" in record["activation"]["exception"]
+
+
 def test_closed_matches_request_contextual_review_without_defect_labels():
     lint_prose = _module("lint_prose_for_descriptive_controls", LINTER)
     tables = lint_prose.load_banned_lists()

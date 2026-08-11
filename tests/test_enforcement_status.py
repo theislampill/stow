@@ -61,6 +61,7 @@ EXPECTED_ADVISORY_VALIDATORS = {
     "STOW-PRO-015": {"no-weasel-words"},
     "STOW-PRO-020": {
         "no-ai-transitions", "no-ai-verbs", "no-academic-tells",
+        "no-unresolved-generated-placeholders",
     },
 }
 

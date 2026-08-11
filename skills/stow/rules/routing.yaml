@@ -125,7 +125,7 @@ routes:
     validator: null
 
   - mode: action-shaping-deep
-    predicate: "action-shaping deep guidance"
+    predicate: "secondary issue, multi-turn state, or effort estimate guidance"
     references:
       - references/action-shaping.md
     profile: null

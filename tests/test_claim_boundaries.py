@@ -587,5 +587,17 @@ def test_readme_reports_normal_installed_skill_turn_economics_separately():
         "1.0651",
         "no post-fix case reached an order-of-magnitude ratio",
         "bounded result on one codex host",
+        "logical / architectural cost",
+        "cache behaviour",
+        "economic cost: not_derived",
+        "14,635",
+        "18,218",
+        "40.5540%",
+        "76.9071%",
+        "27,111",
+        "80.9837%",
+        "the measured d' package preceded the final candidate",
+        "one shipped-file difference",
+        "nine exact proxy tokens",
     ):
         assert statement in readme

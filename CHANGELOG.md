@@ -34,6 +34,12 @@ Release candidate for the instrumentality reconciliation.
   input; no post-fix case reached an order-of-magnitude ratio. The controlled
   profile remains the material cost centre, while a subsequent turn measured
   1.0651 times its name-only counterpart.
+- Separated logical input from cache behaviour and monetary cost. Native
+  receipts provide cached and uncached totals, but the active host exposes no
+  authoritative per-token price or cached-input discount, so monetary cost is
+  not derived. The measured post-fix package is preserved and differs from the
+  final candidate only in `SKILL.md`; the native receipts are not relabeled as
+  exact final-candidate measurements.
 
 ### Added
 

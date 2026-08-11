@@ -105,24 +105,32 @@ or whole-artifact inspection. The first STOW run exposed needless checker
 probing and repeated reference work; the hot path was simplified and the same
 frozen tasks were rerun as D'.
 
-| Task | Arm | Logical input | Cached input | Output | Model turns | Tool calls | Active wall time |
-|---|---|---:|---:|---:|---:|---:|---:|
-| Ordinary README edit | B | 24619 | 9,984 | 350 | 1 | 0 | 10.722 s |
-| Ordinary README edit | D' | 78,890 | 60,672 | 1,018 | 3 | 2 | 23.723 s |
-| Technical documentation edit | B | 24645 | 9,984 | 419 | 1 | 0 | 10.661 s |
-| Technical documentation edit | D' | 78,489 | 59,648 | 1,415 | 3 | 2 | 33.701 s |
-| Controlled procedure edit | B | 24676 | 9,984 | 318 | 1 | 0 | 9.136 s |
-| Controlled procedure edit | D' | 142,567 | 115,456 | 2,415 | 5 | 4 | 53.565 s |
-| Two-turn repository status | B | 49,477 | 34,304 | 223 | 2 | 0 | 9.240 s |
-| Two-turn repository status | D' | 77,437 | 59,648 | 740 | 3 | 1 | 21.798 s |
+| Task | Arm | Logical input | Cached | Uncached | Cache hit | Output | Turns | Tools | Active wall |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Ordinary README edit | B | 24619 | 9,984 | 14,635 | 40.5540% | 350 | 1 | 0 | 10.722 s |
+| Ordinary README edit | D' | 78,890 | 60,672 | 18,218 | 76.9071% | 1,018 | 3 | 2 | 23.723 s |
+| Technical documentation edit | B | 24645 | 9,984 | 14,661 | 40.5113% | 419 | 1 | 0 | 10.661 s |
+| Technical documentation edit | D' | 78,489 | 59,648 | 18,841 | 75.9954% | 1,415 | 3 | 2 | 33.701 s |
+| Controlled procedure edit | B | 24676 | 9,984 | 14,692 | 40.4604% | 318 | 1 | 0 | 9.136 s |
+| Controlled procedure edit | D' | 142,567 | 115,456 | 27,111 | 80.9837% | 2,415 | 5 | 4 | 53.565 s |
+| Two-turn repository status | B | 49,477 | 34,304 | 15,173 | 69.3332% | 223 | 2 | 0 | 9.240 s |
+| Two-turn repository status | D' | 77,437 | 59,648 | 17,789 | 77.0278% | 740 | 3 | 1 | 21.798 s |
 
 The absolute D' overhead and D'/B ratio were 54,271 and 3.2044 for ordinary
 prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7775 for
 the controlled procedure; and 27,960 and 1.5651 for the two-turn task. The
-second turn of that task was 1.0651 times its B counterpart. No post-fix case
-reached an order-of-magnitude ratio. The largest observed total was 142,567
-logical input tokens on the controlled procedure, so controlled use remains a
-material profile-specific cost rather than an always-hot ordinary cost.
+second turn of that task was 1.0651 times its B counterpart. These are the
+**logical / architectural cost** ratios; caching does not erase their context,
+latency, or agent-complexity implications. No post-fix case reached an
+order-of-magnitude ratio. The largest observed total was 142,567 logical input
+tokens on the controlled procedure, so controlled use remains a material
+profile-specific cost rather than an always-hot ordinary cost.
+
+**Cache behaviour** is reported separately in the table. The native task
+receipts expose cached and uncached input but no applicable per-token price or
+authoritative cached-input discount for this Pro-plan host. **Economic cost:
+NOT_DERIVED.** The logical ratios are therefore not presented as billing
+multipliers.
 
 D' read only the kernel for ordinary work, one matching technical reference for
 technical work, and four matching cold references for the controlled procedure;
@@ -133,6 +141,13 @@ one Codex host, not universal runtime or cross-host proof. A fresh ordinary-pros
 challenge also reopened `STOW-PRO-005`: the model twice preserved unsupported
 evaluative labels while preserving facts. The candidate therefore reports 57,
 not 58, behaviorally qualified G1 owners.
+
+The measured D' package preceded the final candidate. A preserved deterministic
+rebuild and member comparison finds exactly one shipped-file difference: only
+`SKILL.md` changed, from 1,084 to 1,075 exact proxy tokens. Routing, references,
+validators, and the other package members are identical. The nine exact proxy
+tokens delimit the static delta; they do not turn the earlier native receipts
+into an exact final-candidate measurement.
 
 ## Install
 

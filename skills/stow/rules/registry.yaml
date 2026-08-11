@@ -110,7 +110,7 @@ records:
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
       applicability: an approved meaning is supplied for contextual review
-      exception: lexical membership does not establish the intended sense
+      exception: lexical membership and listed alternatives do not establish the intended sense or an equivalent action
     precedence: profile
     enforcement:
       kind: semantic-review

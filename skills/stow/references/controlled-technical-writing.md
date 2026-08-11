@@ -28,6 +28,12 @@ technical-noun or technical-verb status, the correct replacement, or
 conformance. It skips caller-labelled protected segments and does not classify
 regions itself.
 
+A listed alternative is evidence to review, not replacement authorization.
+Before a repair, confirm that it preserves the source action, force, time
+relation, and intended meaning. If that equivalence is not established,
+preserve the source term and mark the item unresolved rather than substituting
+a different operation or weakening advice merely to remove a lexical finding.
+
 **How to read each entry.** Every row names the *observable trigger* (the output
 feature that invokes the check), the *region*, *how STOW checks it* (the
 enforcement kind plus the named validator, with any numeric limit), and the
@@ -42,7 +48,7 @@ below as WRD (words), MWN (multi-word nouns), VRB (verbs, voice, tense), SEN
 | --- | --- | --- | --- | --- |
 | WRD-001 | Controlled vocabulary is requested and dictionary or explicitly selected project terminology authority is available | all prose | sparse deterministic lookup applies protected, project, fixed-dictionary, then unresolved precedence; the project supplies approval while technical category and sense remain contextual | see corpus/words/selection.md#STOW-WRD-001 |
 | WRD-002 | An approved word is used in a part of speech or inflected form, including a past participle used as an adjective | all prose | deterministic lookup can confirm an explicitly listed form; contextual review still decides actual part of speech and role | see corpus/words/selection.md#STOW-WRD-002 |
-| WRD-003 | An approved meaning is supplied for contextual review | all prose | contextual guidance only; lexical membership does not establish sense, so contextual sense review is intentionally deferred when the required meaning is unavailable | see corpus/words/selection.md#STOW-WRD-003 |
+| WRD-003 | An approved meaning is supplied for contextual review | all prose | contextual guidance only; lexical membership and listed alternatives do not establish sense or equivalent action, so preserve the source and defer when the required meaning is unavailable | see corpus/words/selection.md#STOW-WRD-003 |
 | WRD-007 | A technical-noun token is functioning as a verb | all prose | parser · `no-technical-noun-as-verb` | see corpus/words/selection.md#STOW-WRD-007 |
 | WRD-008 | An explicitly selected project authority declares a preferred technical noun | all prose | deterministic sparse lookup reports the declaration and its nonpreferred forms; file presence and candidate status grant no authority | see corpus/words/usage.md#STOW-WRD-008 |
 | WRD-010 | A candidate technical noun looks regional, slang, or jargon | all prose | semantic-review · `no-slang-or-jargon-noun` | see corpus/words/usage.md#STOW-WRD-010 |

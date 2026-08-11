@@ -133,7 +133,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 |---|---|---|---|
 | `STOW-WRD-001` | Use dictionary-approved words; admit technical nouns and technical verbs only under a defined category supplied by project authority, and prefer an approved dictionary verb when one exists | controlled vocabulary is requested and dictionary or project terminology authority is available; exception: unknown technical terms require external authority and are not rejected by lexical lookup alone | Review-fallback |
 | `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective | Controlled profile | Planned |
-| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | an approved meaning is supplied for contextual review; exception: lexical membership does not establish the intended sense | Review-fallback |
+| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | an approved meaning is supplied for contextual review; exception: lexical membership and listed alternatives do not establish the intended sense or an equivalent action | Review-fallback |
 | `STOW-WRD-007` | Do not use a technical noun as a verb; keep it a noun or adjectival modifier | Controlled profile | Planned |
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |

@@ -29,6 +29,12 @@ rewriting that surface. This proves only the supplied declaration. Term
 category, intended sense, authority authenticity, and contextual suitability
 remain external or contextual.
 
+When the source names an operation or carries advice, permission, uncertainty,
+or a time relation, do not substitute it solely because lookup reports an
+alternative. A replacement is permitted only when contextual review establishes
+equivalent meaning and force. Otherwise preserve the source term, report the
+item as unresolved, and do not claim controlled-language conformance.
+
 Approved records can declare approved and nonpreferred forms. The scan reports
 a declared nonpreferred form with its supplied preferred form, which supports
 consistent reuse without inventing synonyms. Collisions, duplicate keys, and

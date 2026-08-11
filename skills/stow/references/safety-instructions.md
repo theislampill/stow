@@ -60,3 +60,8 @@ the correct label, the specified opening, and the explanatory clause. When STOW
 reports SAF findings, resolve them against the corpus text for each rule above,
 and remember that a system-band SAF finding takes precedence over any profile- or
 presentation-band finding on the same span.
+
+Meeting the required notice order does not authorize changing the named operation.
+If a dictionary alternative could denote a different action, preserve the source
+operation and report the lexical item as unresolved unless contextual authority
+establishes equivalence.

@@ -86,8 +86,11 @@ def test_dictionary_meaning_and_technical_term_boundaries_are_explicit_and_cold(
         "an approved meaning is supplied for contextual review"
     )
     assert records["STOW-WRD-003"]["activation"]["exception"] == (
-        "lexical membership does not establish the intended sense"
+        "lexical membership and listed alternatives do not establish the intended sense or an equivalent action"
     )
+    controlled = CONTROLLED_REFERENCE.read_text(encoding="utf-8")
+    assert "A listed alternative is evidence to review, not replacement authorization" in controlled
+    assert "preserve the source term and mark the item unresolved" in controlled
     text = " ".join(CONFORMANCE_REFERENCE.read_text(encoding="utf-8").split())
     assert "external terminology authority" in text
     assert "contextual sense review is intentionally deferred" in text
@@ -148,6 +151,14 @@ def test_imperative_guidance_does_not_silently_strength_source_modality():
     assert "do not silently strengthen" in activation["exception"]
     procedures = PROCEDURE_REFERENCE.read_text(encoding="utf-8")
     assert "preserve the source force" in procedures
+    assert "Dictionary status never authorizes changing source force" in procedures
+
+
+def test_dictionary_repair_cannot_change_a_named_safety_operation():
+    safety = (ROOT / "skills" / "stow" / "references" / "safety-instructions.md").read_text(encoding="utf-8")
+    canonical = " ".join((ROOT / "skills" / "stow" / "references" / "canonical-terms.md").read_text(encoding="utf-8").split())
+    assert "does not authorize changing the named operation" in safety
+    assert "do not substitute it solely because lookup reports an alternative" in canonical
 
 
 def test_note_function_and_sentence_cap_have_distinct_owners():

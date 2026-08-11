@@ -69,6 +69,35 @@ EXPECTED_DISPOSITIONS = {
     "DROP": EXPECTED_DROP,
 }
 
+QUALIFIED_G1_V2 = {
+    "STOW-ACT-001", "STOW-ACT-004", "STOW-ACT-005", "STOW-ACT-006",
+    "STOW-DSC-001", "STOW-DSC-004", "STOW-DSC-006", "STOW-GEN-003",
+    "STOW-MWN-001", "STOW-PCT-004", "STOW-PCT-005", "STOW-PCT-006",
+    "STOW-PCT-007", "STOW-PRC-002", "STOW-PRC-003", "STOW-PRC-004",
+    "STOW-PRO-001", "STOW-PRO-002", "STOW-PRO-005", "STOW-PRO-013",
+    "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-018", "STOW-PRO-019",
+    "STOW-PRO-020", "STOW-PRO-023", "STOW-SAF-001", "STOW-SAF-002",
+    "STOW-SAF-003", "STOW-SEN-002", "STOW-SEN-004", "STOW-SEN-005",
+    "STOW-STY-001", "STOW-STY-003", "STOW-VRB-006", "STOW-WRD-002",
+    "STOW-WRD-007", "STOW-WRD-008", "STOW-WRD-010", "STOW-WRD-011",
+    "STOW-WRD-014",
+}
+OPEN_G1_V2 = (
+    (EXPECTED_KEEP | EXPECTED_SIMPLIFY | EXPECTED_MOVE)
+    - {"STOW-PRC-001", "STOW-DSC-003", "STOW-PCT-001", "STOW-GEN-006"}
+    - QUALIFIED_G1_V2
+)
+G1_V2_RECEIPT = "receipt:g1-bhv-20260811-v2"
+G1_V2_OPEN_PREFIX = "G1-BHV-20260811-V2/"
+G1_V2_OPEN_LIMITS = (
+    "Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement "
+    "for both mapped roles; the row remains open."
+)
+G1_V2_OPEN_UNCERTAINTY = (
+    "Fresh paired evidence remains insufficient for this semantic owner; no accepted "
+    "behavioural receipt is attached."
+)
+
 EXPECTED_MERGE_TARGETS = {
     "STOW-WRD-004": ["STOW-WRD-002"],
     "STOW-WRD-005": ["STOW-WRD-001"],
@@ -172,8 +201,8 @@ def _accepted_behavioural_receipt(candidate, row):
         "subject_revision": candidate["subject_revision"],
         "positive_cases": list(row["behavioural_coverage"]["positive"]),
         "paired_negative_cases": list(row["behavioural_coverage"]["paired_negative"]),
-        "receipt_sha256": "a" * 64,
-        "candidate_sha256": "b" * 64,
+        "receipt_sha256": "sha256:" + "a" * 43,
+        "candidate_sha256": "sha256:" + "b" * 43,
         "protocol_revision": "g1-behavioural-v1",
         "qualification": "qualifying-pass",
         "rule_observation": "PASS",
@@ -506,6 +535,7 @@ def test_terminal_surviving_g1_state_requires_matching_fresh_evidence(
     g1_index = next(
         i for i, row in enumerate(ledger["records"])
         if row["layer"] == "G1" and row["disposition"] == disposition
+        and row["id"] in OPEN_G1_V2
     )
 
     proposed_closed = copy.deepcopy(ledger)
@@ -544,6 +574,7 @@ def test_arbitrary_or_mismatched_receipt_is_not_paired_evidence(schema, ledger):
     row = next(
         row for row in arbitrary["records"]
         if row["layer"] == "G1" and row["disposition"] == "KEEP"
+        and row["id"] in OPEN_G1_V2
     )
     row["behavioural_coverage"]["status"] = "complete"
     row["decision_state"] = "accepted"
@@ -578,6 +609,7 @@ def test_accepted_behavioural_evidence_is_bound_to_opaque_receipt_and_candidate(
     row = next(
         row for row in candidate["records"]
         if row["layer"] == "G1" and row["disposition"] == "KEEP"
+        and row["id"] in OPEN_G1_V2
     )
     row["behavioural_coverage"]["status"] = "complete"
     row["decision_state"] = "accepted"
@@ -600,12 +632,12 @@ def test_accepted_behavioural_evidence_is_bound_to_opaque_receipt_and_candidate(
         assert list(validator.iter_errors(missing)), field
         assert semantic_errors(missing), field
 
-    uppercase_digest = copy.deepcopy(candidate)
-    uppercase_row = next(
-        record for record in uppercase_digest["records"] if record["id"] == row["id"]
+    raw_hex_digest = copy.deepcopy(candidate)
+    raw_hex_row = next(
+        record for record in raw_hex_digest["records"] if record["id"] == row["id"]
     )
-    uppercase_row["evidence"][-1]["receipt_sha256"] = "A" * 64
-    assert list(validator.iter_errors(uppercase_digest))
+    raw_hex_row["evidence"][-1]["receipt_sha256"] = "a" * 64
+    assert list(validator.iter_errors(raw_hex_digest))
 
     accepted_schema = schema["$defs"]["accepted_behavioural_evidence"]
     assert "externally rehash" in accepted_schema["$comment"]
@@ -675,6 +707,7 @@ def test_surviving_merge_target_still_requires_accepted_behavioural_evidence(sch
         and any(
             next(record for record in candidate["records"] if record["id"] == target_id)["disposition"]
             in SURVIVING_G1_DISPOSITIONS
+            and target_id in OPEN_G1_V2
             for target_id in row["target"]["rule_ids"]
         )
     )
@@ -682,6 +715,7 @@ def test_surviving_merge_target_still_requires_accepted_behavioural_evidence(sch
         row for row in candidate["records"]
         if row["id"] in merge_row["target"]["rule_ids"]
         and row["disposition"] in SURVIVING_G1_DISPOSITIONS
+        and row["id"] in OPEN_G1_V2
     )
     target["decision_state"] = "accepted"
     target["closure_state"] = "closed"
@@ -711,11 +745,23 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
             "subject_revision": ledger["subject_revision"],
         }
         assert evidence["reference"].endswith(f"#{row['id']}")
-        assert row["behavioural_coverage"]["status"] == "pending"
-        if row["disposition"] in SURVIVING_G1_DISPOSITIONS:
-            assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+        if row["id"] in QUALIFIED_G1_V2:
+            assert row["behavioural_coverage"]["status"] == "complete"
+            assert row["decision_state"] == "accepted"
+            assert row["closure_state"] == "closed"
+            assert any(evidence["reference"] == G1_V2_RECEIPT for evidence in row["evidence"])
+        elif row["disposition"] in SURVIVING_G1_DISPOSITIONS:
+            assert row["behavioural_coverage"]["status"] == "pending"
+            assert row["uncertainty"] == G1_V2_OPEN_UNCERTAINTY
             assert row["decision_state"] == "proposed"
             assert row["closure_state"] != "closed"
+            evidence = [
+                item for item in row["evidence"]
+                if item["reference"].startswith(G1_V2_OPEN_PREFIX)
+            ]
+            assert len(evidence) == 1
+            assert evidence[0]["result"] == "inconclusive"
+            assert evidence[0]["limits"] == G1_V2_OPEN_LIMITS
         else:
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == "closed"
@@ -808,10 +854,15 @@ def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
             for proof in row["deterministic_verification"]
         )
         assert "not compliance proof" in row["deterministic_verification"][0]["limits"]
-        assert row["behavioural_coverage"]["status"] == "pending"
-        assert row["decision_state"] == "proposed"
-        assert row["closure_state"] != "closed"
-        assert row["uncertainty"] == DIAGNOSTIC_UNCERTAINTY
+        if rule_id in QUALIFIED_G1_V2:
+            assert row["behavioural_coverage"]["status"] == "complete"
+            assert row["decision_state"] == "accepted"
+            assert row["closure_state"] == "closed"
+        else:
+            assert row["behavioural_coverage"]["status"] == "pending"
+            assert row["decision_state"] == "proposed"
+            assert row["closure_state"] != "closed"
+            assert row["uncertainty"] == G1_V2_OPEN_UNCERTAINTY
 
     misclassified = copy.deepcopy(ledger)
     row = next(record for record in misclassified["records"] if record["id"] == "STOW-PRO-011")
@@ -853,6 +904,7 @@ def test_diagnostic_evidence_cannot_satisfy_surviving_g1_terminal_gate(schema, l
     row = next(
         row for row in candidate["records"]
         if row["layer"] == "G1" and row["disposition"] == "KEEP"
+        and row["id"] in OPEN_G1_V2
     )
     row["decision_state"] = "accepted"
     row["closure_state"] = "closed"
@@ -875,7 +927,11 @@ def test_audited_map_preserves_proposals_and_records_implemented_decisions(ledge
     }
     assert actual == EXPECTED_DISPOSITIONS
     for row in ledger["records"]:
-        if row["disposition"] in {"MERGE", "DROP"} or row["id"] in EXPECTED_G2_PROOFS:
+        if (
+            row["disposition"] in {"MERGE", "DROP"}
+            or row["id"] in EXPECTED_G2_PROOFS
+            or row["id"] in QUALIFIED_G1_V2
+        ):
             assert row["decision_state"] == "accepted"
         else:
             assert row["decision_state"] == "proposed"
@@ -1065,7 +1121,9 @@ def test_active_registry_count_is_dynamic_not_pinned(tmp_path, ledger):
             destination.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
 
     registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
-    registry["records"].pop()
+    removed_id = "STOW-ACT-002"
+    assert removed_id in OPEN_G1_V2
+    registry["records"] = [record for record in registry["records"] if record["id"] != removed_id]
     emitter = YAML()
 
     mismatched = copy.deepcopy(registry)
@@ -1102,7 +1160,14 @@ def test_task8_deterministic_migration_is_reflected_in_registry_and_ledger(ledge
         assert proof["subject_revision"] == ledger["subject_revision"]
         assert proof["proof_scope"] == "compliance"
 
-    for rule_id in (EXPECTED_KEEP | EXPECTED_SIMPLIFY | EXPECTED_MOVE) - set(EXPECTED_G2_PROOFS):
+    for rule_id in QUALIFIED_G1_V2:
+        row = rows[rule_id]
+        assert row["layer"] == "G1"
+        assert row["decision_state"] == "accepted"
+        assert row["closure_state"] == "closed"
+        assert row["behavioural_coverage"]["status"] == "complete"
+
+    for rule_id in OPEN_G1_V2:
         row = rows[rule_id]
         assert row["layer"] == "G1"
         assert row["decision_state"] == "proposed"

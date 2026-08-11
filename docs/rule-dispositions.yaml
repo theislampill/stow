@@ -149,6 +149,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-WRD-001
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -158,7 +165,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -209,16 +217,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -269,6 +295,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-WRD-003
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -278,7 +311,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -526,16 +560,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -585,16 +637,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -707,16 +777,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-WRD-011
     title: Use one technical noun consistently for one item; do not switch synonyms mid-text.
     family: words
@@ -760,16 +848,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-WRD-012
     title: Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one
       exists.
@@ -947,16 +1053,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -1005,16 +1129,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-MWN-002
     title: For a technical noun longer than three words, write it in full first, then shorten or hyphenate.
     family: multiword-nouns
@@ -1190,6 +1332,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-VRB-002
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -1199,7 +1348,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -1378,6 +1528,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-VRB-005
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -1387,7 +1544,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -1437,16 +1595,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-VRB-007
     title: Describe an action with an approved verb, not a nominalization or other part of speech.
     family: verbs
@@ -1491,6 +1667,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-VRB-007
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -1500,7 +1683,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-SEN-001
     title: Write short, clear, concrete sentences suited to procedures or descriptions.
     family: sentences
@@ -1613,16 +1797,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SEN-003
     title: Break complex text into a vertical list with the prescribed layout.
     family: sentences
@@ -1667,6 +1869,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-SEN-003
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -1676,7 +1885,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-SEN-004
     title: Use approved connecting words and phrases to link related sentences.
     family: sentences
@@ -1722,16 +1932,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -1782,16 +2010,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRC-001
     title: Limit each procedural sentence to a maximum of twenty words.
     family: procedures
@@ -1896,16 +2142,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-05
+        paired_negative_cases:
+          - BC-05
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-05
       paired_negative:
         - BC-05
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRC-003
     title: Write instructions in the imperative command form.
     family: procedures
@@ -1950,16 +2214,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-05
+        paired_negative_cases:
+          - BC-05
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-05
       paired_negative:
         - BC-05
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRC-004
     title: State a required condition first and separate it from the command with a comma.
     family: procedures
@@ -2003,16 +2285,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-05
+        paired_negative_cases:
+          - BC-05
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-05
       paired_negative:
         - BC-05
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRC-005
     title: Notes give information only, with a maximum of twenty-five words per sentence.
     family: procedures
@@ -2057,6 +2357,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-05#STOW-PRC-005
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2066,7 +2373,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-DSC-001
     title: Introduce information gradually, one subject per sentence.
     family: descriptions
@@ -2111,16 +2419,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-06
+        paired_negative_cases:
+          - BC-06
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-06
       paired_negative:
         - BC-06
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-DSC-002
     title: Use consistent key words and phrases to give the text a logical structure.
     family: descriptions
@@ -2288,16 +2614,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-06
+        paired_negative_cases:
+          - BC-06
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-06
       paired_negative:
         - BC-06
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-DSC-005
     title: Give each paragraph exactly one topic.
     family: descriptions
@@ -2405,16 +2749,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-06
+        paired_negative_cases:
+          - BC-06
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-06
       paired_negative:
         - BC-06
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SAF-001
     title: Label each safety instruction with a word that identifies the level of risk.
     family: safety
@@ -2458,16 +2820,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-07
+        paired_negative_cases:
+          - BC-07
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-07
       paired_negative:
         - BC-07
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SAF-002
     title: Begin a safety instruction with a clear, accurate command or condition.
     family: safety
@@ -2510,16 +2890,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-07
+        paired_negative_cases:
+          - BC-07
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-07
       paired_negative:
         - BC-07
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SAF-003
     title: State the risk or the possible result of not obeying the safety instruction.
     family: safety
@@ -2563,16 +2961,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-07
+        paired_negative_cases:
+          - BC-07
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-07
       paired_negative:
         - BC-07
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PCT-001
     title: Do not use the semicolon; write two separate sentences instead.
     family: punctuation
@@ -2752,6 +3168,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-05#STOW-PCT-003
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2761,7 +3184,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -2812,16 +3236,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-10
+        paired_negative_cases:
+          - BC-10
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-10
       paired_negative:
         - BC-10
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -2873,16 +3315,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-10
+        paired_negative_cases:
+          - BC-10
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-10
       paired_negative:
         - BC-10
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -2935,16 +3395,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-10
+        paired_negative_cases:
+          - BC-10
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-10
       paired_negative:
         - BC-10
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -2995,16 +3473,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-10
+        paired_negative_cases:
+          - BC-10
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-10
       paired_negative:
         - BC-10
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -3057,16 +3553,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-STY-002
     title: Use each approved word with its correct restricted meaning and part of speech.
     family: style
@@ -3176,16 +3690,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -3357,6 +3889,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-GEN-002
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -3366,7 +3905,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-GEN-003
     title: Use only approved pronouns; replace an ambiguous pronoun with its noun.
     family: general
@@ -3410,16 +3950,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-09
+        paired_negative_cases:
+          - BC-09
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-GEN-004
     title: Make sure the pronoun this has an unambiguous referent.
     family: general
@@ -3528,6 +4086,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-GEN-005
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -3537,7 +4102,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
     target:
       kind: reference-surface
       destinations:
@@ -3646,6 +4212,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-09#STOW-GEN-007
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -3655,7 +4228,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-GEN-008
     title: Use the possessive correctly; if unsure, avoid it.
     family: general
@@ -3756,16 +4330,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-01
+        paired_negative_cases:
+          - BC-01
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-01
       paired_negative:
         - BC-01
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-ACT-002
     title: Numbered steps for multi-step work
     family: action-shaping
@@ -3808,6 +4400,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-01#STOW-ACT-002
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -3817,7 +4416,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-ACT-003
     title: Close with a single concrete next step
     family: action-shaping
@@ -3923,16 +4523,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-02
+        paired_negative_cases:
+          - BC-02
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-02
       paired_negative:
         - BC-02
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -3983,16 +4601,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-02
+        paired_negative_cases:
+          - BC-02
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-02
       paired_negative:
         - BC-02
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -4040,16 +4676,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-02
+        paired_negative_cases:
+          - BC-02
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-02
       paired_negative:
         - BC-02
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -4097,6 +4751,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-01#STOW-ACT-007
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -4106,7 +4767,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-ACT-008
     title: Neutral error reporting
     family: action-shaping
@@ -4149,6 +4811,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-01#STOW-ACT-008
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -4158,7 +4827,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-ACT-009
     title: Bound action lists to five items
     family: action-shaping
@@ -4335,6 +5005,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-01#STOW-ACT-011
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-01
@@ -4344,7 +5021,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-001
     title: Use em dashes only under an explicit style contract
     family: prose-integrity
@@ -4400,17 +5078,35 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-08
+        paired_negative_cases:
+          - BC-08
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-08
       paired_negative:
         - BC-08
-      status: pending
+      status: complete
     deterministic_verification:
       - *id006
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -4460,16 +5156,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -4649,16 +5363,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-03
+        paired_negative_cases:
+          - BC-03
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-03
       paired_negative:
         - BC-03
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-006
     title: Functionless semantic repetition
     family: prose-integrity
@@ -4701,6 +5433,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-03#STOW-PRO-006
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4710,7 +5449,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-007
     title: Vary structure
     family: prose-integrity
@@ -4753,6 +5493,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-08#STOW-PRO-007
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-08
@@ -4762,7 +5509,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-008
     title: Reference without narrating
     family: prose-integrity
@@ -4869,6 +5617,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-03#STOW-PRO-009
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -4879,7 +5634,8 @@ records:
       - *id007
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-010
     title: No scare quotes on ordinary words
     family: prose-integrity
@@ -5004,6 +5760,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-03#STOW-PRO-011
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -5023,7 +5786,8 @@ records:
         proof_scope: advisory-signal-only
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-012
     title: Generic audience framing
     family: prose-integrity
@@ -5142,16 +5906,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -5274,17 +6056,35 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification:
       - *id011
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -5332,6 +6132,13 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V2/BC-03#STOW-PRO-016
+        result: inconclusive
+        freshness: fresh
+        limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
+          roles; the row remains open.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
@@ -5341,7 +6148,8 @@ records:
     deterministic_verification: []
     decision_state: proposed
     closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
+      receipt is attached.
   - id: STOW-PRO-017
     title: No fabricated scenarios
     family: prose-integrity
@@ -5386,16 +6194,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -5446,16 +6272,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -5505,16 +6349,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -5573,12 +6435,29 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-08
+        paired_negative_cases:
+          - BC-08
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-08
       paired_negative:
         - BC-08
-      status: pending
+      status: complete
     deterministic_verification:
       - *id012
       - kind: deterministic-test
@@ -5599,9 +6478,10 @@ records:
         subject_revision: 1
         proves_validator: no-academic-tells
         proof_scope: advisory-signal-only
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-021
     title: Prefer verbs that name the exact action
     family: prose-integrity
@@ -5798,16 +6678,34 @@ records:
         freshness: fresh
         limits: 'Non-qualifying diagnostic only: all source calls failed deterministic validation; cluster association is not accepted paired evidence or causal rule proof.'
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v2
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing candidate context in this Codex
+          host's ambient installed-skill environment; no candidate-only causality, automatic activation,
+          cross-host, final-output-custody, or strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - BC-04
+        paired_negative_cases:
+          - BC-04
+        receipt_sha256: sha256:xGWSVrgmQwqrmVTiCsQ8xjWLVzURZ-Lui5wGRibzvTw
+        candidate_sha256: sha256:dbU90mH9fDcZ78I8XBdcTTFb7Icl_Rkuni-drOfwBcc
+        protocol_revision: g1-family-cluster-v2
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
         - BC-04
       paired_negative:
         - BC-04
-      status: pending
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired outputs were generated, but every call failed deterministic validation. The adjudication is diagnostic-only and does not satisfy the required accepted behavioral challenge.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:

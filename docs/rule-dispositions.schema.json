@@ -162,11 +162,11 @@
         },
         "receipt_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
         },
         "candidate_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
         },
         "protocol_revision": {
           "type": "string",
@@ -225,11 +225,11 @@
         },
         "receipt_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
         },
         "candidate_sha256": {
           "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
         },
         "protocol_revision": {
           "type": "string",

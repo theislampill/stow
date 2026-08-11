@@ -7,9 +7,9 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
-## [0.4.0-rc.0] - 2026-08-11
+## [0.4.0] - 2026-08-11
 
-Release candidate for the instrumentality reconciliation.
+Release of the instrumentality reconciliation.
 
 ### Changed
 

@@ -5662,17 +5662,24 @@ records:
         protocol_revision: g1-family-cluster-v2
         qualification: qualifying-pass
         rule_observation: PASS
+      - kind: behavioural-challenge
+        reference: RUNTIME-INSTRUMENTALITY-20260811-V1/ordinary-readme#STOW-PRO-005
+        result: inconclusive
+        freshness: fresh
+        limits: Two unchanged normal-installed-skill Luna Max regressions retained unsupported evaluative labels when factual preservation also applied; the prior bounded qualification remains historical but does not close this interaction.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-03
       paired_negative:
         - BC-03
-      status: complete
+      status: pending
     deterministic_verification: []
-    decision_state: accepted
-    closure_state: closed
-    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
-      receipt; broader activation and custody claims remain outside scope.
+    decision_state: proposed
+    closure_state: pending-behavioural-challenge
+    uncertainty: Fresh normal-runtime evidence found repeated failure to drop unsupported evaluative labels
+      when factual preservation also applied. The smallest unresolved distinction is a paired
+      preservation-versus-hollow-evaluation challenge; no deterministic proxy is justified.
   - id: STOW-PRO-006
     title: Functionless semantic repetition
     family: prose-integrity

@@ -145,8 +145,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1081 | 1481 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 1660 | 2303 |
+| Kernel alone (`SKILL.md`) | 1075 | 1485 |
+| Ordinary prose turn (kernel; no reference read) | 1075 | 1485 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -161,19 +161,19 @@ regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 2415 | the ordinary turn + `references/technical-clarity.md` |
-| Raw JSON artifact | 2977 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Technical-clarity turn | 1830 | the ordinary turn + `references/technical-clarity.md` |
+| Raw JSON artifact | 2971 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 4794 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
-| Procedure + safety | 5542 | the procedure load path + `references/safety-instructions.md` |
+| Procedure load path | 4209 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 4957 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 
 - **Kernel alone.** The smallest declared bundle carries routing cues and
   pointers rather than the full reference bodies.
-- **Ordinary prose bundle.** The kernel points a model or host at the generated
-  always-on reference for editable prose. The sum measures those two files; it
-  does not prove the host read both.
+- **Ordinary prose bundle.** The kernel carries the compact request router and
+  descriptive digest. `references/always-on.md` remains a generated detail and
+  audit surface, loaded only for an explicit applicability or rule-audit query.
 - **Raw JSON bundle.** The intended route contains the kernel, the JSON format
   reference, and the protected-regions reference, without the prose digest.
   Actual host reads require telemetry from that host and run.

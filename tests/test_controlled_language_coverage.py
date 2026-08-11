@@ -143,15 +143,22 @@ def test_every_active_g1_owner_has_a_terminal_release_boundary():
     qualified = set(coverage["behaviourally_qualified"])
     external = set(coverage["external_authority_required"])
     deferred = set(coverage["deferred_contextual"])
-    assert len(qualified) == 58
-    assert not (qualified & external or qualified & deferred or external & deferred)
-    assert qualified | external | deferred == active_g1
+    open_contextual = set(coverage["open_contextual"])
+    assert len(qualified) == 57
+    assert open_contextual == {"STOW-PRO-005"}
+    buckets = (qualified, external, deferred, open_contextual)
+    assert all(not left & right for index, left in enumerate(buckets) for right in buckets[index + 1:])
+    assert qualified | external | deferred | open_contextual == active_g1
 
     rows = {row["id"]: row for row in dispositions["records"]}
     assert all(rows[rule_id]["closure_state"] == "closed" for rule_id in qualified)
     assert all(
         rows[rule_id]["closure_state"] == "external-authority-required"
         for rule_id in external
+    )
+    assert all(
+        rows[rule_id]["closure_state"] == "pending-behavioural-challenge"
+        for rule_id in open_contextual
     )
     assert all(
         rows[rule_id]["closure_state"] == "deferred-contextual"

@@ -1,7 +1,7 @@
 # STOW reference load graph (validated, not generated).
 #
 # This file mirrors the kernel activation map (SKILL.md section 5), the profile
-# definitions (rules/profiles.json), and the always-on request-mode router
+# definitions (rules/profiles.json), and the generated always-on detail
 # (emitted by tools/gen_always_on.py). It is a VALIDATION artifact: the kernel
 # is never generated from this file, and no runtime path reads it. Its only job
 # is to let tests/test_routing.py assert three-way agreement between the kernel
@@ -21,12 +21,19 @@ schema_version: 1
 
 routes:
   - mode: always-on-prose
-    predicate: "ANY user-facing prose turn"
+    predicate: "ordinary editable user-facing prose"
+    references: []
+    profile: stow-default
+    corpus: null
+    validator: null
+
+  - mode: always-on-detail
+    predicate: "explicit ordinary-rule applicability or rule-audit question"
     references:
       - references/always-on.md
     profile: stow-default
     corpus: null
-    validator: python runtime/lint_prose.py
+    validator: null
 
   - mode: format-json
     predicate: "raw JSON"

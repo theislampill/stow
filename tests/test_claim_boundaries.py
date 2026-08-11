@@ -566,9 +566,26 @@ def test_readme_exposes_the_reconciled_runtime_architecture():
         "16 are available in ordinary always-on prose guidance",
         "45 are cold or predicate-loaded",
         "ten advisory signals",
-        "58 of the sixty-one g1 owners are behaviorally qualified",
+        "57 of the sixty-one g1 owners are behaviorally qualified",
         "one terminates at an external project-authority boundary",
         "two are explicit contextual deferrals",
         "strict profile remains locked",
+    ):
+        assert statement in readme
+
+
+def test_readme_reports_normal_installed_skill_turn_economics_separately():
+    readme = " ".join(_read("README.md").split()).lower()
+    for statement in (
+        "normal installed-skill runtime probe",
+        "24619",
+        "78,890",
+        "3.2044",
+        "24676",
+        "142,567",
+        "5.7775",
+        "1.0651",
+        "no post-fix case reached an order-of-magnitude ratio",
+        "bounded result on one codex host",
     ):
         assert statement in readme

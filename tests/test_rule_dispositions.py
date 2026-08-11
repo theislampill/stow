@@ -74,7 +74,7 @@ QUALIFIED_G1_V2 = {
     "STOW-DSC-001", "STOW-DSC-004", "STOW-DSC-006", "STOW-GEN-003",
     "STOW-MWN-001", "STOW-PCT-004", "STOW-PCT-005", "STOW-PCT-006",
     "STOW-PCT-007", "STOW-PRC-002", "STOW-PRC-003", "STOW-PRC-004",
-    "STOW-PRO-001", "STOW-PRO-002", "STOW-PRO-005", "STOW-PRO-013",
+    "STOW-PRO-001", "STOW-PRO-002", "STOW-PRO-013",
     "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-018", "STOW-PRO-019",
     "STOW-PRO-020", "STOW-PRO-023", "STOW-SAF-001", "STOW-SAF-002",
     "STOW-SAF-003", "STOW-SEN-002", "STOW-SEN-004", "STOW-SEN-005",
@@ -94,6 +94,7 @@ QUALIFIED_G1_V3 = {
     "STOW-PCT-003", "STOW-PRC-005", "STOW-SEN-003", "STOW-VRB-002",
     "STOW-VRB-007",
 }
+REOPENED_G1 = {"STOW-PRO-005"}
 TERMINAL_G1_BOUNDARIES = {
     "STOW-WRD-001": "external-authority-required",
     "STOW-WRD-003": "deferred-contextual",
@@ -776,6 +777,10 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
             assert row["behavioural_coverage"]["status"] == "inconclusive"
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == TERMINAL_G1_BOUNDARIES[row["id"]]
+        elif row["id"] in REOPENED_G1:
+            assert row["behavioural_coverage"]["status"] == "pending"
+            assert row["decision_state"] == "proposed"
+            assert row["closure_state"] == "pending-behavioural-challenge"
         else:
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == "closed"
@@ -793,12 +798,13 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
 def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_challenge(
     ledger,
 ):
-    assert not any(
-        row["layer"] == "G1"
+    proposed = {
+        row["id"] for row in ledger["records"]
+        if row["layer"] == "G1"
         and row["disposition"] in SURVIVING_G1_DISPOSITIONS
         and row["decision_state"] == "proposed"
-        for row in ledger["records"]
-    )
+    }
+    assert proposed == REOPENED_G1
     for row in ledger["records"]:
         has_current_accepted_receipt = any(
             evidence["kind"] == "behavioural-challenge"
@@ -1181,6 +1187,13 @@ def test_task8_deterministic_migration_is_reflected_in_registry_and_ledger(ledge
         assert row["closure_state"] == "closed"
         assert row["behavioural_coverage"]["status"] == "complete"
 
+    for rule_id in REOPENED_G1:
+        row = rows[rule_id]
+        assert row["layer"] == "G1"
+        assert row["decision_state"] == "proposed"
+        assert row["closure_state"] == "pending-behavioural-challenge"
+        assert row["behavioural_coverage"]["status"] == "pending"
+
     for rule_id, closure_state in TERMINAL_G1_BOUNDARIES.items():
         row = rows[rule_id]
         assert row["layer"] == "G1"
@@ -1217,7 +1230,7 @@ def test_v3_closes_qualified_rules_and_records_honest_terminal_boundaries(schema
             for item in row["evidence"]
         )
 
-    assert len(QUALIFIED_G1_V2 | QUALIFIED_G1_V3) == 58
+    assert len(QUALIFIED_G1_V2 | QUALIFIED_G1_V3) == 57
     assert not ((QUALIFIED_G1_V2 | QUALIFIED_G1_V3) & set(TERMINAL_G1_BOUNDARIES))
     assert semantic_errors(ledger) == []
 

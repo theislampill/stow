@@ -26,11 +26,11 @@ DESIGN = os.path.join(REPO, "docs", "design.md")
 
 # The same ceilings the warm suite enforces, in their fallback (EST) form.
 # Kernel single-file ceiling holds in BOTH modes (test_references.py,
-# test_build.py, measure_context single-file). The always-on and ordinary EST
-# caps mirror test_always_on.py's fallback-mode caps.
+# test_build.py, measure_context single-file). The generated always-on detail
+# keeps a separate cold cap; an ordinary turn uses the kernel alone.
 KERNEL_CEILING = 1500
 ALWAYS_ON_EST_CAP = 1750
-ORDINARY_EST_CAP = 3026
+ORDINARY_EST_CAP = 1500
 
 
 def _load_measure():
@@ -90,7 +90,7 @@ def test_ordinary_prose_turn_bundle_fits_its_cap_cold(monkeypatch, tmp_path):
     encoder = mc.get_encoder()
     assert encoder is None
     total = (mc.count_tokens(_read(SKILL), encoder)
-             + mc.count_tokens(_read(ALWAYS_ON), encoder))
+             )
     assert total <= ORDINARY_EST_CAP, (
         "cold ordinary prose-turn bundle is %d fallback tokens, over the %d cap"
         % (total, ORDINARY_EST_CAP))
@@ -112,7 +112,7 @@ def test_measure_single_file_exits_zero_cold(monkeypatch, tmp_path):
 # --------------------------------------------------------------------------- #
 
 KERNEL_PATHS = (SKILL,)
-ORDINARY_PATHS = (SKILL, ALWAYS_ON)
+ORDINARY_PATHS = (SKILL,)
 
 
 def _sum_tokens(mc, encoder, paths):

@@ -39,7 +39,6 @@ active_g1_resolution:
     - STOW-PRC-005
     - STOW-PRO-001
     - STOW-PRO-002
-    - STOW-PRO-005
     - STOW-PRO-006
     - STOW-PRO-007
     - STOW-PRO-009
@@ -75,6 +74,8 @@ active_g1_resolution:
   deferred_contextual:
     - STOW-VRB-005
     - STOW-WRD-003
+  open_contextual:
+    - STOW-PRO-005
 
 dictionary_example_policy:
   source_columns_present: [preferred-usage, nonpreferred-usage]

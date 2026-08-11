@@ -232,7 +232,8 @@ def test_redundant_user_facing_reference_and_route_are_removed():
     routing = _read(ROUTING)
     assert "references/user-facing-output.md" not in kernel
     assert "references/user-facing-output.md" not in routing
-    assert "user-facing prose turn -> references/always-on.md" in kernel
+    assert "ordinary editable user-facing prose -> section 4 of this kernel" in kernel
+    assert "explicit ordinary-rule applicability or rule-audit question -> references/always-on.md" in kernel
 
 
 def test_description_guidance_preserves_clear_natural_coordination():

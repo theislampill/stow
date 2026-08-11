@@ -246,7 +246,7 @@
     {
       "id": "CLM-023",
       "surface": "skills/stow/SKILL.md",
-      "statement": "A host has a delivery gate only if it blocks invalid or unreadable results, permits the repair, and revalidates the repaired candidate.",
+      "statement": "A delivery gate must block, permit repair, and revalidate.",
       "families": ["validation"],
       "layer": "G3"
     },
@@ -407,14 +407,14 @@
     {
       "id": "CLM-046",
       "surface": "skills/stow/SKILL.md",
-      "statement": "- Protect literals: G1 tells the writer not to edit identifiers, quotes, code, paths, or data values unless the request asks for that literal to be edited.",
+      "statement": "- Protect identifiers, quotations, code, paths, and data values unless their literal editing is requested.",
       "families": ["preservation"],
       "layer": "G1"
     },
     {
       "id": "CLM-047",
       "surface": "skills/stow/SKILL.md",
-      "statement": "This instruction is not a byte comparator over the actual final candidate.",
+      "statement": "This G1 instruction is not a byte comparator.",
       "families": ["preservation"],
       "layer": "G1"
     },

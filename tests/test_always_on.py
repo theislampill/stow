@@ -6,13 +6,13 @@ activation architecture structurally:
 
   1. a generated operational module exists, is registry-derived, and is current;
   2. every action rule and every descriptive taxonomy leaf is represented;
-  3. the kernel routes ordinary prose turns to it and excludes protected regions;
+  3. the kernel carries ordinary guidance and keeps the generated detail cold;
   4. the ordinary-turn footprint stays bounded;
   5. the kernel still carries its byte-exact no-greedy-loading rule.
 
 HONEST SCOPE: these are structural/routing contracts over the shipped files. There
-is no model-invocation harness here, so they prove the kernel *instructs* the load
-and the module is complete -- not that a live model performed it.
+is no model-invocation harness here, so they prove the kernel and cold detail are
+complete -- not that a live model performed either behavior.
 """
 
 import importlib.util
@@ -161,22 +161,23 @@ def test_descriptive_digest_has_exactly_the_eight_named_leaves():
 
 
 # --------------------------------------------------------------------------- #
-# 3. the kernel routes ordinary prose turns here, and excludes protected regions
+# 3. the kernel carries ordinary prose guidance and keeps detail cold
 # --------------------------------------------------------------------------- #
 
-def test_kernel_activates_always_on_for_prose_turns():
+def test_kernel_keeps_generated_detail_cold_for_explicit_review():
     kernel = _read(KERNEL)
     assert "references/always-on.md" in kernel, "kernel never routes to always-on.md"
     line = next(ln for ln in kernel.splitlines() if "references/always-on.md" in ln)
-    assert re.search(r"\bprose turn\b", line, re.I), line
+    assert "explicit" in line.casefold(), line
+    assert "rule-audit" in line.casefold(), line
 
 
-def test_kernel_excludes_protected_regions_from_always_on():
-    """A raw artifact must NOT pull the prose checks in."""
+def test_kernel_excludes_protected_regions_from_ordinary_guidance():
+    """A raw artifact must not receive editable-prose guidance."""
     line = next(ln for ln in _read(KERNEL).splitlines()
-                if "references/always-on.md" in ln)
+                if "ordinary editable user-facing prose ->" in ln)
     assert re.search(r"exclud", line, re.I), line
-    for token in ("JSON", "code"):
+    for token in ("raw data", "code"):
         assert token in line, "protected-region exclusion does not name %s" % token
 
 
@@ -197,7 +198,7 @@ def test_kernel_within_ceiling():
 
 
 def test_ordinary_prose_turn_footprint_is_bounded():
-    total = _tokens(_read(KERNEL)) + _tokens(_read(ALWAYS_ON))
+    total = _tokens(_read(KERNEL))
     assert total <= ORDINARY_TURN_CAP, "ordinary prose turn costs %d tokens" % total
 
 

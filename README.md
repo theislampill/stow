@@ -7,7 +7,7 @@ STOW is a writing-discipline specification and packaged skill. When a host selec
 - **What it does.** When a host invokes STOW, the compact kernel supplies region and precedence guidance. Named predicates tell the model or host which cold reference is relevant; the repository does not contain a semantic request classifier that performs those reads automatically.
 - **What it covers.** The guidance addresses user-facing prose, coordination artifacts, and structured payloads. Separate callable checkers cover specific parse, schema, term-map, and advisory prose contracts.
 - **What it protects.** The generation guidance tells the writer not to alter supplied code, commands, paths, identifiers, quotations, or data values unless editing that literal is the task. The advisory linter masks a finite recognizable subset while scanning; STOW has no general final-output byte comparator.
-- **How ordinary guidance works.** For editable user-facing prose, the activation map points to `references/always-on.md`. Its rule identifiers, applicability conditions, exceptions, and request-mode router remain instructions that a model or host must apply.
+- **How ordinary guidance works.** The compact kernel carries the request router and ordinary descriptive digest, so normal editable prose needs no second reference read. The generated `references/always-on.md` retains rule identifiers, applicability, and exceptions as cold detail for explicit rule or applicability review.
 - **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
 - **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
 
@@ -23,7 +23,8 @@ for several source requirements.
 - Four genuine G2 predicates decide only closed properties at their declared
   input boundaries. Ten advisory signals report surface patterns; they are not
   G2 compliance predicates or delivery gates.
-- 58 of the sixty-one G1 owners are behaviorally qualified. One terminates at
+- 57 of the sixty-one G1 owners are behaviorally qualified. One remains open
+  after a preservation-versus-hollow-evaluation regression, one terminates at
   an external project-authority boundary, and two are explicit contextual
   deferrals where lexical lookup cannot safely decide meaning or grammatical
   role.
@@ -93,6 +94,45 @@ include repeated evaluation and custody context; they are not ordinary runtime
 costs. The result demonstrates bounded operationalisation, not universal output
 superiority, strict conformance, final-output custody, or cross-model proof.
 Cross-model durability remains unproved.
+
+### Normal runtime cost
+
+A separate normal installed-skill runtime probe measured cumulative logical
+model-input tokens across every turn, from task start through final answer. It
+used the same Luna Max model for name-only conditioning (B) and normal installed
+STOW use (D), without candidate custody, audit-ledger reads, benchmark packets,
+or whole-artifact inspection. The first STOW run exposed needless checker
+probing and repeated reference work; the hot path was simplified and the same
+frozen tasks were rerun as D'.
+
+| Task | Arm | Logical input | Cached input | Output | Model turns | Tool calls | Active wall time |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Ordinary README edit | B | 24619 | 9,984 | 350 | 1 | 0 | 10.722 s |
+| Ordinary README edit | D' | 78,890 | 60,672 | 1,018 | 3 | 2 | 23.723 s |
+| Technical documentation edit | B | 24645 | 9,984 | 419 | 1 | 0 | 10.661 s |
+| Technical documentation edit | D' | 78,489 | 59,648 | 1,415 | 3 | 2 | 33.701 s |
+| Controlled procedure edit | B | 24676 | 9,984 | 318 | 1 | 0 | 9.136 s |
+| Controlled procedure edit | D' | 142,567 | 115,456 | 2,415 | 5 | 4 | 53.565 s |
+| Two-turn repository status | B | 49,477 | 34,304 | 223 | 2 | 0 | 9.240 s |
+| Two-turn repository status | D' | 77,437 | 59,648 | 740 | 3 | 1 | 21.798 s |
+
+The absolute D' overhead and D'/B ratio were 54,271 and 3.2044 for ordinary
+prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7775 for
+the controlled procedure; and 27,960 and 1.5651 for the two-turn task. The
+second turn of that task was 1.0651 times its B counterpart. No post-fix case
+reached an order-of-magnitude ratio. The largest observed total was 142,567
+logical input tokens on the controlled procedure, so controlled use remains a
+material profile-specific cost rather than an always-hot ordinary cost.
+
+D' read only the kernel for ordinary work, one matching technical reference for
+technical work, and four matching cold references for the controlled procedure;
+it retrieved no dictionary records and invoked no STOW validator or linter.
+Some total tool calls were attributable to the host's separate skill-discovery
+workflow and remain included in the primary totals. This is a bounded result on
+one Codex host, not universal runtime or cross-host proof. A fresh ordinary-prose
+challenge also reopened `STOW-PRO-005`: the model twice preserved unsupported
+evaluative labels while preserving facts. The candidate therefore reports 57,
+not 58, behaviorally qualified G1 owners.
 
 ## Install
 

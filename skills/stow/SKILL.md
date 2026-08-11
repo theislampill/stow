@@ -1,60 +1,83 @@
 ---
 name: stow
-description: "Use for every user-facing response, including casual replies, explanations, plans, procedures, technical documentation, Markdown, YAML, JSON, JSONL, code-adjacent text, mixed-format output, and any request that fixes an exact output contract, such as a raw artifact with no fence and no commentary."
+description: "Apply STOW to responses and output contracts: prose, procedures, data, code."
 ---
 
 # STOW kernel
 
 ## 1. Precedence
 
-Eight bands, highest to lowest. Invariant: a lower rule never corrupts a higher output.
+Eight bands, highest first. A lower band never corrupts a higher one.
 
 1. system: safety and system directives.
 2. contract: the exact output contract the request implies.
-3. serialization: every structured region must parse and validate.
+3. serialization: structured regions must parse and validate.
 4. literal exclusions: G1 tells the writer not to edit protected literals.
 5. accuracy: no fabricated specificity; keep justified uncertainty.
 6. terminology: one term per concept, used consistently.
 7. profile: controlled-technical writing profile, when requested.
 8. presentation: user-facing shaping and prose integrity.
 
-When two bands conflict, the higher wins. Corruption is a lower band altering, dropping, or reshaping what a higher band fixed: presentation never edits a literal, terminology never breaks serialization, profile never softens a safety instruction.
+When bands conflict, the higher wins: presentation preserves literals,
+terminology preserves serialization, and profile preserves safety.
 
 ## 2. Classify output regions
 
-A response can mix prose, procedure, data, code, quotes, and identifiers. Use delimiters already in the text, such as fences, quotes, list layout, and structured-data syntax, to bound regions. Apply each rule only to the region its scope names. This is generation guidance, not a semantic classifier in the shipped runtime.
+Responses can mix prose, procedures, data, code, quotations, and identifiers.
+Use existing delimiters and apply only rules for that scope. This is guidance,
+not a shipped semantic classifier.
 
 ## 3. Integrity rules (always on)
 
 - Obey the exact output contract. A raw artifact ships raw: no prose wrapper, no code fence, no commentary.
-- Protect literals: G1 tells the writer not to edit identifiers, quotes, code, paths, or data values unless the request asks for that literal to be edited. This instruction is not a byte comparator over the actual final candidate.
+- Protect identifiers, quotations, code, paths, and data values unless their
+  literal editing is requested. This G1 instruction is not a byte comparator.
 - Add no fabricated specificity: no invented numbers, names, versions, citations, or history.
 - Keep uncertainty that is justified; do not flatten it into false confidence.
-- Treat structured validity as a delivery requirement. When the runtime can be called, give the actual candidate to runtime/validate.py. A host has a delivery gate only if it blocks invalid or unreadable results, permits the repair, and revalidates the repaired candidate.
+- Structured validity is a delivery requirement. Give the actual candidate to
+  `runtime/validate.py` when available. A delivery gate must block, permit
+  repair, and revalidate.
 
 ## 4. User-facing output
 
-- Result first. Cut preamble, filler, enthusiasm, and closers.
-- Open per the request mode; the always-on checks carry the router that fixes the opening for each intent.
-- Progressive disclosure: the essential answer first, supporting detail on demand.
+- Result first. Cut preamble, filler, and closers.
+- Match the opening: answer or thesis for information; bounded action for work;
+  artifact for artifact; state for progress; cause then effect then correction
+  for error; verified result for completion. Invent no post-completion action.
 - Keep actions bounded and visible; externalize state instead of holding it silently.
+- Number ordered multi-step instructions. Use lists rather than tables for action sequences.
+- Distinguish completed from planned or unverified work.
 - Report errors as cause -> effect -> correction.
 - Use concrete, descriptive headings.
+- Review effects, not authorship: remove semantic repetition and empty
+  metadiscourse; avoid manufactured contrast. Drop an evaluative label that has
+  no supporting fact or criterion. Avoid mechanical symmetry or fragmentation,
+  unnecessary sectioning, epistemic opacity, and
+  functionless lexical inflation. Preserve legitimate voice, uncertainty,
+  transitions, parallelism, and technical terms.
+
+Prose and guided procedures use in-model G1 guidance. Do not list the
+runtime directory; do not probe a checker with --help; do not create a temporary
+candidate; do not run the advisory prose linter unless explicitly requested or
+the host has final-candidate custody for a declared gate. For a structured
+artifact, call its named checker directly once on the actual candidate.
 
 ## 5. Reference activation map
 
-Load a reference only when its predicate is true.
+Load only predicate-matched references, in one bounded read. Do not inspect
+neighbours to discover more work.
 
-- user-facing prose turn -> references/always-on.md, the operational prose guidance. A model or host applies this route; raw JSON, JSONL, YAML, and code regions are excluded.
+- ordinary editable user-facing prose -> section 4 of this kernel; no reference read. Exclude raw data, code, quotations, identifiers, and paths.
+- explicit ordinary-rule applicability or rule-audit question -> references/always-on.md
 - raw JSON -> references/format-json.md
 - JSONL -> references/format-jsonl.md
 - YAML -> references/format-yaml.md
 - Markdown with embedded literals -> references/format-markdown.md
-- executable procedure -> references/procedures.md; its controlled rules bind under the controlled-technical-guided profile (rules/profiles.json)
+- executable procedure -> references/procedures.md under the guided profile
 - system description -> references/descriptions.md
 - hazard or damage risk -> references/safety-instructions.md
-- technical explanation, architecture description, plan, audit, runbook, or state record -> references/technical-clarity.md, the technical-clarity profile
-- controlled-technical-guided profile active or requested (alias: controlled-technical) -> references/controlled-technical-writing.md
+- technical explanation, architecture, plan, audit, runbook, or state -> references/technical-clarity.md
+- controlled-technical profile -> references/controlled-technical-writing.md
 - explicit project-term mapping -> references/canonical-terms.md
 - mixed prose and literals -> references/protected-regions.md
 - conformance claim -> references/conformance.md
@@ -62,10 +85,10 @@ Load a reference only when its predicate is true.
 - prose-integrity deep guidance -> references/prose-integrity.md
 - contextual prose-quality review -> references/descriptive-prose.md
 - precedence or region question -> references/activation-and-precedence.md
-- meta-code artifact (handoff, plan, audit, runbook, state, task packet, event stream, cross-harness envelope) -> references/meta-code.md, which routes to the specific reference, schema, and template.
-- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml, then the cited corpus/ module.
+- meta-code artifact -> references/meta-code.md
+- rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml
 
-For one rule, use runtime/query_rules.py <ID> when it can run; otherwise follow the bounded lookup in references/rule-index.md.
+For one rule, use `runtime/query_rules.py <ID>` or its bounded index lookup.
 
 ## 6. Final review checklist
 
@@ -73,7 +96,7 @@ Before delivery, confirm:
 
 - the top contract is obeyed;
 - the G1 literal exclusions were followed;
-- every structured region was checked when a callable check was available;
+- callable structured checks ran on the actual candidate when available;
 - nothing unsupported was added and nothing required was dropped;
 - only predicate-matched references were loaded.
 

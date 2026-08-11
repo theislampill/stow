@@ -19,12 +19,21 @@ Release candidate for the instrumentality reconciliation.
   deterministic predicates so each mechanism carries only the claim it can
   support.
 - Reworked the ordinary writing layer around observable prose problems and
-  kept controlled-technical guidance predicate-loaded.
+  kept controlled-technical guidance predicate-loaded. The compact kernel now
+  carries the ordinary descriptive digest; generated rule detail, technical
+  references, controlled references, dictionary data, and validators remain
+  cold until their declared predicate or output contract applies.
 - Repaired the operation- and force-preservation overreach exposed by the
   crosswalk-derived benchmark and added a bounded regression challenge.
 - Documented the exact frozen name-only-versus-STOW row comparison, the
   post-trial repair chronology, and the distinction between complete
   requirement accounting and behavioral compliance.
+- Measured cumulative logical model input across every turn in a bounded normal
+  installed-skill comparison. After removing checker probes and repeated hot
+  reference work, the frozen tasks ranged from 1.5651 to 5.7775 times name-only
+  input; no post-fix case reached an order-of-magnitude ratio. The controlled
+  profile remains the material cost centre, while a subsequent turn measured
+  1.0651 times its name-only counterpart.
 
 ### Added
 
@@ -43,9 +52,13 @@ Release candidate for the instrumentality reconciliation.
 
 ### Known limitations
 
-- Three contextual writing owners remain explicitly bounded by external
-  authority or deferred semantic judgment rather than falsely closed; the
-  ledger records their exact evidence state.
+- One prose owner remains open after two fresh Luna Max challenges retained
+  unsupported evaluative labels while preserving supplied facts. Three other
+  contextual owners terminate at an external-authority boundary or deliberate
+  semantic deferral rather than false closure; the ledger records each state.
+- The normal-runtime comparison is a four-task result from one Codex host. It
+  does not prove universal turn economics, and controlled-technical use remained
+  materially more expensive than name-only conditioning.
 - Strict controlled-language conformance remains locked. Dictionary lookup does
   not replace contextual sense decisions, project terminology authority,
   automatic activation evidence, or final-output custody.

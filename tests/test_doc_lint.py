@@ -198,8 +198,8 @@ def test_readme_callable_claim_matches_the_runtime():
     primary, advisory = _capability_counts()
     with open(os.path.join(REPO, "README.md"), encoding="utf-8") as fh:
         readme = fh.read()
-    assert "%s rules have callable compliance validators" % _SPELLED[primary] in readme
-    assert "%s advisory surface detectors" % _SPELLED[advisory] in readme
+    assert "**%s G2 predicates** decide closed properties" % _SPELLED[primary] in readme
+    assert "**%s advisory signals** report surface patterns" % _SPELLED[advisory] in readme
     assert "Exactly one rule has a callable validator" not in readme
 
 

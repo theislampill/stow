@@ -65,7 +65,6 @@ DESCRIPTIVE_LEAVES = (
     "hollow evaluation",
     "mechanical symmetry or fragmentation",
     "heading opacity or unnecessary sectioning",
-    "epistemic opacity",
     "lexical inflation or cliché clusters",
 )
 
@@ -152,7 +151,7 @@ def test_every_action_bullet_cites_its_corpus_module():
             assert re.search(r"\(see corpus/[\w./-]+\.md(?:#[\w-]+)?\)", line), line
 
 
-def test_descriptive_digest_has_exactly_the_eight_named_leaves():
+def test_descriptive_digest_has_exactly_the_named_leaves():
     text = _read(ALWAYS_ON)
     digest = text.split("## Descriptive prose digest", 1)[1]
     labels = [line[2:].split(":", 1)[0] for line in digest.splitlines()

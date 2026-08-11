@@ -535,25 +535,24 @@ def test_historical_parse_metric_is_distinguished_from_current_exact_content_che
 
 def test_public_operationalisation_claim_preserves_benchmark_boundaries():
     readme = " ".join(_read("README.md").split()).lower()
-    assert "turns a model-memory cue into an operational workflow" in readme
-    assert "reconstruct and apply the named standard from latent knowledge" in readme
-    assert "100% operational accounting is not 100% behavioral compliance" in readme
-    assert "highest requirement-level result" in readme
-    assert "name-only: 78 pass, six fail, two not_scored" in readme
-    assert "stow: 80 pass, four fail, two not_scored" in readme
-    assert "b fail / d pass" in readme
-    assert "b partial / d pass" in readme
-    assert "b pass / d fail" in readme
-    assert "b pass / d pass" in readme
-    for requirement_id in ("`6.4`", "`gr-2`", "`6.6`", "`5.3`"):
-        assert requirement_id in readme
-    assert "both name-only and stow passed the mapped dictionary" in readme
-    assert "trial 2 was not rerun" in readme
-    assert "name-only conditioning was cheaper" in readme
-    assert "semantic overreach" in readme
-    assert "repaired and regression-tested" in readme
-    assert "not universal output superiority" in readme
-    assert "cross-model durability remains unproved" in readme
+    assert "model-memory cue" in readme
+    assert "reconstruct the standard" in readme
+    for mechanism in (
+        "sparse dictionary access", "project terminology authority",
+        "profiles", "explicit limitations", "closed validators",
+    ):
+        assert mechanism in readme
+    assert "complete accounting is not complete behavioural compliance" in readme
+    assert "| name-only | 78 | 6 | 2 |" in readme
+    assert "| stow | 80 | 4 | 2 |" in readme
+    for distinction in (
+        "paragraph grouping", "ambiguous `with` relation",
+        "paragraph sentence count", "distorted advisory force",
+    ):
+        assert distinction in readme
+    assert "complete four-arm trial was not rerun" in readme
+    assert "does **not** establish universal output superiority" in readme
+    assert "cross-model proof" in readme
     assert "stow >" not in readme
 
 
@@ -562,14 +561,14 @@ def test_readme_exposes_the_reconciled_runtime_architecture():
     for statement in (
         "65 active canonical rules",
         "sixty-one g1 semantic owners",
-        "four genuine g2 predicates",
-        "16 are available in ordinary always-on prose guidance",
-        "45 are cold or predicate-loaded",
+        "ten g1 owners",
+        "fifty-one g1 owners",
+        "four g2 predicates",
         "ten advisory signals",
-        "57 of the sixty-one g1 owners are behaviorally qualified",
-        "one terminates at an external project-authority boundary",
-        "two are explicit contextual deferrals",
-        "strict profile remains locked",
+        "57 g1 owners",
+        "external project-authority boundary",
+        "explicit contextual deferrals",
+        "strict conformance",
     ):
         assert statement in readme
 
@@ -577,27 +576,15 @@ def test_readme_exposes_the_reconciled_runtime_architecture():
 def test_readme_reports_normal_installed_skill_turn_economics_separately():
     readme = " ".join(_read("README.md").split()).lower()
     for statement in (
-        "normal installed-skill runtime probe",
-        "24619",
-        "78,890",
+        "normal installed-skill use",
         "3.2044",
-        "24676",
-        "142,567",
+        "3.1848",
         "5.7776",
+        "1.5651",
         "1.0651",
-        "no post-fix case reached an order-of-magnitude ratio",
-        "bounded result on one codex host",
-        "logical / architectural cost",
-        "cache behaviour",
-        "economic cost: not_derived",
-        "14,635",
-        "18,218",
-        "40.5540%",
-        "76.9071%",
-        "27,111",
-        "80.9837%",
-        "the measured d' package preceded the final candidate",
-        "one shipped-file difference",
-        "nine exact proxy tokens",
+        "logical-input ratios, not billing multipliers",
+        "monetary cost was not derived",
+        "one codex host",
+        "cross-host economics",
     ):
         assert statement in readme

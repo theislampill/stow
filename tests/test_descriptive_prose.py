@@ -38,6 +38,8 @@ LEAVES = (
     "lexical inflation or cliché clusters",
 )
 
+COLD_ONLY_LEAVES = {"epistemic opacity"}
+
 FIELDS = (
     "Description",
     "Rationale",
@@ -152,8 +154,10 @@ def test_compact_digest_is_instrumental_and_points_to_detail():
     text = _read(os.path.join(SKILL_DIR, "references", "always-on.md"))
     digest = text.split("## Descriptive prose digest", 1)[1]
     assert "Authorship is irrelevant." in digest
-    for leaf in LEAVES:
+    for leaf in (item for item in LEAVES if item not in COLD_ONLY_LEAVES):
         assert re.search(r"^- %s:" % re.escape(leaf), digest, re.M), leaf
+    for leaf in COLD_ONLY_LEAVES:
+        assert not re.search(r"^- %s:" % re.escape(leaf), digest, re.M), leaf
     assert "references/descriptive-prose.md" in digest
     for label in ("AI", "machine-written", "human-written", "generated text"):
         assert label not in digest

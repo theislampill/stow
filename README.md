@@ -10,13 +10,13 @@ Current release: **[v0.4.0](https://github.com/theislampill/stow/releases/tag/v0
 
 ## Why STOW?
 
-A repository instruction such as `Use ASD-STE100` can be a useful and inexpensive model-memory cue. It still leaves the model to reconstruct the standard, decide what applies, remember the dictionary and exceptions, preserve project terminology, and distinguish contextual judgement from mechanical checks.
+A repository instruction that only names a controlled-language standard can be a useful and inexpensive model-memory cue. It still leaves the model to reconstruct the standard, decide what applies, remember the dictionary and exceptions, preserve project terminology, and distinguish contextual judgement from mechanical checks.
 
 STOW externalises that work and adds a broader writing policy:
 
 | Need | A name-only instruction | STOW |
 |---|---|---|
-| Anti-synthetic prose | Not part of ASD-STE100 | Context-bounded guidance for filler, hollow evaluation, fabricated specificity, formulaic transitions, needless process narration, and related pathologies |
+| Anti-synthetic prose | Outside the named controlled-language standard | Context-bounded guidance for filler, hollow evaluation, fabricated specificity, formulaic transitions, needless process narration, and related pathologies |
 | Focused output | Depends on the model's general habits | Action shaping, result-first reporting, bounded steps, tangent control, and explicit state |
 | Controlled technical writing | Reconstructed from latent knowledge | Issue 9-derived rules, sparse dictionary access, project terminology authority, profiles, and explicit limitations |
 | Protected content | Ad hoc | Precedence guidance for code, commands, paths, identifiers, quotations, and data values |
@@ -33,31 +33,33 @@ STOW has four related operating surfaces:
 |---|---|---|
 | Ordinary prose | Remove recurrent model-writing pathologies, preserve requested voice, and keep the answer focused | Compact kernel only |
 | Technical and coordination prose | Add stable terminology, explicit conditions, evidence boundaries, bounded steps, and clear status | One matching cold reference when needed |
-| Controlled technical writing | Apply the supported controlled-language rules, dictionary records, project terminology, procedure, description, safety, punctuation, and counting guidance | Controlled profile plus bounded cold references; sparse lookup only when a lexical question actually arises |
+| Controlled technical writing | Apply the supported controlled-language rules, dictionary records, project terminology, procedure, description, safety, punctuation, and counting guidance | Controlled profile plus bounded cold references; sparse lookup only when a lexical question arises |
 | Structured or protected content | Preserve raw data and validate closed formats or schemas | Raw/protected mode or an explicitly invoked validator |
 
 STOW is suited to README and documentation work, technical explanations, maintenance procedures, safety text, repository status updates, agent handoffs, and structured artefacts. It can also govern ordinary conversational prose when the user wants a more direct and less synthetic response.
 
-STOW is not intended to replace a creative style guide, infer project terminology without authority, certify strict ASD-STE100 conformance, or guarantee that a host will select the skill automatically.
+STOW is not intended to replace a creative style guide, infer project terminology without authority, certify strict controlled-language conformance, or guarantee that a host will select the skill automatically.
 
 ## Design genealogy
 
 STOW is an independent synthesis, not a dependency bundle or a one-to-one copy of any source.
 
+<!-- PUBLIC-GENEALOGY:BEGIN -->
 | Source | Contribution to STOW | Boundary |
 |---|---|---|
 | [ASD-STE100 Simplified Technical English, Issue 9](https://www.asd-ste100.org/) | The controlled-technical lineage: bounded vocabulary, technical nouns and verbs, sentence and procedure constraints, safety writing, descriptions, punctuation, and the principle of specifying observable linguistic behaviour instead of saying only “write clearly” | ASD-STE100 is owned and maintained by ASD. STOW is independent, is not endorsed by ASD, and keeps strict conformance locked |
-| [`realrossmanngroup/no_ai_slop_writing_rules`](https://github.com/realrossmanngroup/no_ai_slop_writing_rules) | A comparator catalogue of recurring synthetic-writing patterns, worked examples, structural repetition, filler, hollow claims, dramatic headings, corrective contrasts, and false-positive concerns | STOW does not import its voice profile or treat every statistical AI tell as a universal ban; useful observations survive only when they identify an independent writing problem and a legitimate countercontext |
-| [`ayghri/i-have-adhd`](https://github.com/ayghri/i-have-adhd) | An instrumentality comparator for action-first output, visible progress, bounded steps, tangent suppression, explicit exceptions, persistent guidance, and pre-send discipline | STOW adapts general focus and runtime lessons; it does not make a medical claim or force an ADHD-specific mode on every reader |
+| [`realrossmanngroup/no_ai_slop_writing_rules`](https://github.com/realrossmanngroup/no_ai_slop_writing_rules) | Observable anti-synthetic patterns, worked contrasts, structural repetition, filler, hollow claims, dramatic headings, corrective contrasts, and false-positive safeguards | STOW does not import the excluded voice profile or treat statistical AI tells as universal bans; a pattern survives only when it identifies an independent writing problem and a legitimate countercontext |
+| [`ayghri/i-have-adhd`](https://github.com/ayghri/i-have-adhd) | General focus and runtime mechanisms: action-first output, visible progress, bounded steps, tangent deferral, explicit exceptions, progressive disclosure, and pre-send discipline | STOW adopts only those transferable output-design mechanisms; it does not add a source-themed mode or a universal step cap |
+<!-- PUBLIC-GENEALOGY:END -->
 
-The resulting product is broader than Simplified Technical English and narrower than a universal prose normaliser:
+The resulting product is broader than controlled technical language and narrower than a universal prose normaliser:
 
 ```text
 anti-synthetic prose discipline
 + focused action and status shaping
 + evidence and semantic preservation
 + controlled technical writing when applicable
-+ closed validation only where the property is actually closed
++ closed validation only where the property is closed
 ```
 
 ## What STOW changes
@@ -115,6 +117,7 @@ STOW must preserve source force. Advice, permission, uncertainty, and an authori
 
 When the requested result is raw JSON, code, a command, a path, an identifier, or quoted text, lower-precedence prose preferences yield:
 
+<!-- validate:json -->
 ```json
 {"service":"api","status":"ok"}
 ```
@@ -144,6 +147,8 @@ The expected layout is:
 <skills-dir>/stow/SKILL.md
 ```
 
+These commands write or replace the `stow` directory under the selected skills directory. Back up local modifications before reinstalling; remove that directory to uninstall the skill.
+
 The repository also includes Claude plugin manifests. Hosts that consume compatible skill or plugin packages can install from the repository instead of extracting the archive manually.
 
 ### Invoke
@@ -161,6 +166,14 @@ Use STOW under the controlled-technical-guided profile. Rewrite this procedure, 
 ```
 
 Automatic skill selection is host-dependent. Installation alone does not prove that a particular host or task loaded STOW.
+
+### Smallest working flow
+
+1. Invoke STOW explicitly and name the output type or profile when it matters.
+2. Supply the draft or task plus the facts, literals, terminology authority, and voice that must survive.
+3. Review the returned candidate. Invoke a runtime helper only for a closed check that the task needs; advisory findings do not block delivery by themselves.
+
+STOW reads no repository files and runs no helper merely because it is installed. A host or agent performs only the reference reads and explicit tool calls required by the selected route. Unknown project terms remain unresolved unless the caller supplies an approved terminology surface.
 
 ### Validate a structured artefact
 
@@ -186,9 +199,9 @@ STOW uses progressive disclosure rather than one always-hot rule dump.
 
 The v0.4.0 registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
 
-- **61 G1 semantic owners** provide model-mediated guidance.
-- **16 G1 owners** are compacted into the ordinary kernel.
-- **45 G1 owners** are cold or predicate-loaded.
+- **Sixty-one G1 semantic owners** provide model-mediated guidance.
+- **Ten G1 owners** are compacted into the ordinary kernel.
+- **Fifty-one G1 owners** are cold or predicate-loaded.
 - **Four G2 predicates** decide closed properties at declared input boundaries.
 - **Ten advisory signals** report surface patterns; they do not decide contextual compliance.
 - **57 G1 owners** have qualifying behavioural evidence.
@@ -227,7 +240,7 @@ The tools are optional accelerators with explicit evidence ceilings.
 
 ### Controlled-language benchmark
 
-A frozen, crosswalk-derived comparison used the same Luna Max model across no conditioning, a name-only controlled-language instruction, raw Issue 9 source conditioning, and STOW. The benchmark accounted for **61 top-level requirements plus 25 explicit child requirements**.
+A frozen, crosswalk-derived comparison used the same Luna Max model across no conditioning, a name-only controlled-language instruction, raw Issue 9 source conditioning, and STOW. The benchmark accounted for **sixty-one top-level requirements plus 25 explicit child requirements**.
 
 | Arm | PASS | FAIL | NOT_SCORED |
 |---|---:|---:|---:|
@@ -354,9 +367,9 @@ These statuses describe the **mechanical implementation route**, not whether the
 | `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
 | `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
-| `STOW-PRO-017` | No fabricated scenarios | All prose (always on) | Review-fallback |
-| `STOW-PRO-018` | No fabricated history | All prose (always on) | Review-fallback |
-| `STOW-PRO-019` | No fabricated attributions | All prose (always on) | Review-fallback |
+| `STOW-PRO-017` | No fabricated scenarios | Conditional | Review-fallback |
+| `STOW-PRO-018` | No fabricated history | Conditional | Review-fallback |
+| `STOW-PRO-019` | No fabricated attributions | Conditional | Review-fallback |
 | `STOW-PRO-020` | Review formulaic lexical patterns | a listed pattern or corrective contrast may obscure its function or reject a characterization absent from the discourse; exception: ordinary connectors, technical uses, and a discourse-present correction naming the real differentiator remain permitted | Review-fallback |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
 

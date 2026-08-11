@@ -1202,6 +1202,23 @@ def test_task8_deterministic_migration_is_reflected_in_registry_and_ledger(ledge
         assert row["behavioural_coverage"]["status"] == "inconclusive"
 
 
+def test_accepted_move_rows_are_removed_from_ordinary_prose_activation(ledger):
+    registry = _yaml(REGISTRY_PATH)
+    by_id = {record["id"]: record for record in registry["records"]}
+    rows = {row["id"]: row for row in ledger["records"]}
+    moved_cold = {
+        "STOW-PRO-002", "STOW-PRO-013", "STOW-PRO-015",
+        "STOW-PRO-017", "STOW-PRO-018", "STOW-PRO-019",
+    }
+
+    for rule_id in moved_cold:
+        row = rows[rule_id]
+        assert row["decision_state"] == "accepted"
+        assert row["disposition"] == "MOVE"
+        assert row["target"]["destinations"]
+        assert by_id[rule_id]["activation"]["always_on_for_prose"] is False
+
+
 def test_v3_closes_qualified_rules_and_records_honest_terminal_boundaries(schema, ledger):
     validator = Draft202012Validator(schema)
     assert list(validator.iter_errors(ledger)) == []

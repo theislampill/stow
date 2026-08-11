@@ -42,7 +42,6 @@ Authorship is irrelevant. Review the observable effect in context:
 - hollow evaluation: replace unsupported verdicts with the fact or criterion behind them.
 - mechanical symmetry or fragmentation: combine or vary repeated shapes when they obscure the content.
 - heading opacity or unnecessary sectioning: use sections only when they help navigation, and name their contents.
-- epistemic opacity: attribute claims and state evidence boundaries, hypotheticals, and justified uncertainty.
 - lexical inflation or cliché clusters: prefer exact ordinary wording unless a term has a needed technical sense.
 
 When a contextual prose-quality review is requested, load

@@ -22,6 +22,9 @@ Release candidate for the instrumentality reconciliation.
   kept controlled-technical guidance predicate-loaded.
 - Repaired the operation- and force-preservation overreach exposed by the
   crosswalk-derived benchmark and added a bounded regression challenge.
+- Documented the exact frozen name-only-versus-STOW row comparison, the
+  post-trial repair chronology, and the distinction between complete
+  requirement accounting and behavioral compliance.
 
 ### Added
 
@@ -33,6 +36,10 @@ Release candidate for the instrumentality reconciliation.
   highest requirement-level result; name-only conditioning was cheaper, so the
   evidence supports bounded operationalisation rather than universal output
   superiority.
+- Added a compact public architecture summary covering active G1 and G2
+  ownership, always-on versus predicate-loaded guidance, advisory signals,
+  behavioral qualification, authority and contextual boundaries, and the
+  locked strict profile.
 
 ### Known limitations
 

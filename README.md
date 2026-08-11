@@ -11,18 +11,88 @@ STOW is a writing-discipline specification and packaged skill. When a host selec
 - **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
 - **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
 
+## Architecture at a glance
+
+The reconciled registry contains 65 active canonical rules. The count is an
+implementation shape, not a coverage target: one semantic owner can account
+for several source requirements.
+
+- Sixty-one G1 semantic owners provide model-mediated writing guidance. Of
+  these, 16 are available in ordinary always-on prose guidance and 45 are cold
+  or predicate-loaded for narrower contexts.
+- Four genuine G2 predicates decide only closed properties at their declared
+  input boundaries. Ten advisory signals report surface patterns; they are not
+  G2 compliance predicates or delivery gates.
+- 58 of the sixty-one G1 owners are behaviorally qualified. One terminates at
+  an external project-authority boundary, and two are explicit contextual
+  deferrals where lexical lookup cannot safely decide meaning or grammatical
+  role.
+- The controlled-technical strict profile remains locked. Sparse dictionary
+  lookup, contextual guidance, and bounded validators do not by themselves
+  establish strict conformance or final-output custody.
+
 ## Measured operationalisation
 
-STOW turns a model-memory cue into an operational workflow. In a
-crosswalk-derived controlled-language benchmark using the same underlying
-model, the exact candidate achieved the highest requirement-level result among
-no conditioning, name-only conditioning, raw-source conditioning, and STOW.
-The benchmark exposed semantic overreach in operation and force preservation;
-that defect was repaired and regression-tested.
+STOW turns a model-memory cue into an operational workflow. Name-only
+conditioning asks the model to reconstruct and apply the named standard from
+latent knowledge. When selected, STOW instead makes the implementation
+inspectable: profiles route applicable requirements; bounded G1 references
+carry contextual guidance and exceptions; sparse lookup exposes only relevant
+fixed-dictionary records; a caller-supplied project terminology overlay carries
+local authority; protected-region guidance separates editable from protected
+content; and G2 checks are reserved for closed properties. Contextual meaning,
+external authority, activation, and delivery custody remain explicit
+boundaries rather than hidden assumptions.
 
-This supports more complete operationalisation on the bounded tested
-requirement surface, not universal output superiority. Name-only conditioning
-was cheaper in the measured trial, and cross-model durability remains unproved.
+The frozen, crosswalk-derived Trial 2 used the same underlying model and seven
+cases across no conditioning, name-only conditioning, raw-source conditioning,
+and the exact STOW candidate. It accounted for all 86 frozen top-level and
+child-requirement rows. Complete accounting means that every row had a test
+location or an explicit boundary classification: **100% operational accounting
+is not 100% behavioral compliance.** The final all-row comparison was:
+
+| Arm | Frozen adjudication |
+|---|---:|
+| Name-only | 78 PASS, six FAIL, two NOT_SCORED |
+| STOW | 80 PASS, four FAIL, two NOT_SCORED |
+
+In compact form: **name-only: 78 PASS, six FAIL, two NOT_SCORED; STOW:
+80 PASS, four FAIL, two NOT_SCORED.** The exact B/D accounting was three
+`B FAIL / D PASS` rows, zero `B PARTIAL / D PASS` rows, one
+`B PASS / D FAIL` row, and 77 `B PASS / D PASS` rows. Three more rows failed
+in both arms and two were not scored in either. The frozen final adjudication
+did not use `PARTIAL`; the zero above is not a converted score.
+
+The four discriminating rows explain the measured difference:
+
+| Requirement | Case | Frozen result | Reviewer or adjudication rationale |
+|---|---|---|---|
+| `6.4` | Description | B FAIL / D PASS | Name-only left transfer, installation, display, valve, personnel, and sensor topics in one paragraph. STOW divided the text into related groups without adding headings. |
+| `GR-2` | Description | B FAIL / D PASS | Name-only retained an ambiguous “with” relation. STOW used “by means of” to state that the green fasteners were the installation means. |
+| `6.6` | Description | B FAIL / D PASS | The closed count found nine sentences in name-only's single paragraph and STOW paragraph counts of two, three, and four. |
+| `5.3` | Procedure | B PASS / D FAIL | Name-only preserved the advisory force. STOW's “can think about” wording weakened or distorted it. |
+
+The three D-only wins map to predicate-loaded G1 description and relation
+guidance; they are not evidence that a G2 validator caused the rewrites. Both
+name-only and STOW passed the mapped dictionary, project-terminology, and
+protected-literal rows. STOW's value on those surfaces is that the records,
+authority, applicability, and check boundaries are explicit and inspectable,
+not that Trial 2 showed a D-only win for every mechanism.
+
+Trial 2 therefore supports the bounded finding that STOW operationalised more
+of the tested requirement surface and achieved the highest requirement-level
+result. It also exposed semantic overreach in operation and force preservation.
+After the trial was frozen, the root cause was narrowed, the candidate guidance
+was repaired and regression-tested in a targeted Luna Max challenge; Trial 2
+was not rerun.
+
+Name-only conditioning was cheaper in the measured trial: its cold agent task
+used one tool call, 52,950 logical input tokens, and 212 seconds, compared with
+22 calls, 1,549,075 logical input tokens, and 783 seconds for STOW. Those figures
+include repeated evaluation and custody context; they are not ordinary runtime
+costs. The result demonstrates bounded operationalisation, not universal output
+superiority, strict conformance, final-output custody, or cross-model proof.
+Cross-model durability remains unproved.
 
 ## Install
 

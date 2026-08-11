@@ -1,203 +1,268 @@
 # STOW
 
-STOW is a writing-discipline specification and packaged skill. When a host selects it, the guidance helps a model distinguish prose, procedures, structured data, code, quotations, and identifiers. Callable checkers decide only their closed input contracts; STOW does not universally control a model's final response.
+**Focused writing governance for LLM output: anti-synthetic prose discipline, action-oriented responses, protected literals, and controlled technical writing when the task requires it.**
 
-## STOW in one minute
+STOW (Standardising Technical Output Writing) is a public writing specification and packaged Agent Skill. It helps a model produce clear user-facing prose, procedures, coordination artefacts, and structured output without turning every task into controlled English or an expensive validation workflow.
 
-- **What it does.** When a host invokes STOW, the compact kernel supplies region and precedence guidance. Named predicates tell the model or host which cold reference is relevant; the repository does not contain a semantic request classifier that performs those reads automatically.
-- **What it covers.** The guidance addresses user-facing prose, coordination artifacts, and structured payloads. Separate callable checkers cover specific parse, schema, term-map, and advisory prose contracts.
-- **What it protects.** The generation guidance tells the writer not to alter supplied code, commands, paths, identifiers, quotations, or data values unless editing that literal is the task. The advisory linter masks a finite recognizable subset while scanning; STOW has no general final-output byte comparator.
-- **How ordinary guidance works.** The compact kernel carries the request router and ordinary descriptive digest, so normal editable prose needs no second reference read. The generated `references/always-on.md` retains rule identifiers, applicability, and exceptions as cold detail for explicit rule or applicability review.
-- **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
-- **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
+STOW is not an AI-authorship detector, a generic “sound human” style randomiser, or a universal final-response enforcement layer. Most of its writing rules are contextual guidance. Its callable tools decide only closed properties at their declared input boundaries.
 
-## Architecture at a glance
+Current release: **[v0.4.0](https://github.com/theislampill/stow/releases/tag/v0.4.0)**.
 
-The reconciled registry contains 65 active canonical rules. The count is an
-implementation shape, not a coverage target: one semantic owner can account
-for several source requirements.
+## Why STOW?
 
-- Sixty-one G1 semantic owners provide model-mediated writing guidance. Of
-  these, 16 are available in ordinary always-on prose guidance and 45 are cold
-  or predicate-loaded for narrower contexts.
-- Four genuine G2 predicates decide only closed properties at their declared
-  input boundaries. Ten advisory signals report surface patterns; they are not
-  G2 compliance predicates or delivery gates.
-- 57 of the sixty-one G1 owners are behaviorally qualified. One remains open
-  after a preservation-versus-hollow-evaluation regression, one terminates at
-  an external project-authority boundary, and two are explicit contextual
-  deferrals where lexical lookup cannot safely decide meaning or grammatical
-  role.
-- The controlled-technical strict profile remains locked. Sparse dictionary
-  lookup, contextual guidance, and bounded validators do not by themselves
-  establish strict conformance or final-output custody.
+A repository instruction such as `Use ASD-STE100` can be a useful and inexpensive model-memory cue. It still leaves the model to reconstruct the standard, decide what applies, remember the dictionary and exceptions, preserve project terminology, and distinguish contextual judgement from mechanical checks.
 
-## Measured operationalisation
+STOW externalises that work and adds a broader writing policy:
 
-STOW turns a model-memory cue into an operational workflow. Name-only
-conditioning asks the model to reconstruct and apply the named standard from
-latent knowledge. When selected, STOW instead makes the implementation
-inspectable: profiles route applicable requirements; bounded G1 references
-carry contextual guidance and exceptions; sparse lookup exposes only relevant
-fixed-dictionary records; a caller-supplied project terminology overlay carries
-local authority; protected-region guidance separates editable from protected
-content; and G2 checks are reserved for closed properties. Contextual meaning,
-external authority, activation, and delivery custody remain explicit
-boundaries rather than hidden assumptions.
+| Need | A name-only instruction | STOW |
+|---|---|---|
+| Anti-synthetic prose | Not part of ASD-STE100 | Context-bounded guidance for filler, hollow evaluation, fabricated specificity, formulaic transitions, needless process narration, and related pathologies |
+| Focused output | Depends on the model's general habits | Action shaping, result-first reporting, bounded steps, tangent control, and explicit state |
+| Controlled technical writing | Reconstructed from latent knowledge | Issue 9-derived rules, sparse dictionary access, project terminology authority, profiles, and explicit limitations |
+| Protected content | Ad hoc | Precedence guidance for code, commands, paths, identifiers, quotations, and data values |
+| Mechanical checking | Usually unspecified | Closed validators for the few properties that are genuinely mechanical |
+| Inspectability | The operative policy remains mostly latent | Rules, applicability, exceptions, profiles, conflicts, evidence boundaries, and generated catalogues are public |
 
-The frozen, crosswalk-derived Trial 2 used the same underlying model and seven
-cases across no conditioning, name-only conditioning, raw-source conditioning,
-and the exact STOW candidate. It accounted for all 86 frozen top-level and
-child-requirement rows. Complete accounting means that every row had a test
-location or an explicit boundary classification: **100% operational accounting
-is not 100% behavioral compliance.** The final all-row comparison was:
+The measured single-task advantage over name-only conditioning was small, not dramatic. STOW's larger distinction is that the writing policy is versioned, inspectable, testable, and reusable instead of existing only as a sentence in context.
 
-| Arm | Frozen adjudication |
-|---|---:|
-| Name-only | 78 PASS, six FAIL, two NOT_SCORED |
-| STOW | 80 PASS, four FAIL, two NOT_SCORED |
+## Scope
 
-In compact form: **name-only: 78 PASS, six FAIL, two NOT_SCORED; STOW:
-80 PASS, four FAIL, two NOT_SCORED.** The exact B/D accounting was three
-`B FAIL / D PASS` rows, zero `B PARTIAL / D PASS` rows, one
-`B PASS / D FAIL` row, and 77 `B PASS / D PASS` rows. Three more rows failed
-in both arms and two were not scored in either. The frozen final adjudication
-did not use `PARTIAL`; the zero above is not a converted score.
+STOW has four related operating surfaces:
 
-The four discriminating rows explain the measured difference:
+| Surface | Primary job | What normally loads |
+|---|---|---|
+| Ordinary prose | Remove recurrent model-writing pathologies, preserve requested voice, and keep the answer focused | Compact kernel only |
+| Technical and coordination prose | Add stable terminology, explicit conditions, evidence boundaries, bounded steps, and clear status | One matching cold reference when needed |
+| Controlled technical writing | Apply the supported controlled-language rules, dictionary records, project terminology, procedure, description, safety, punctuation, and counting guidance | Controlled profile plus bounded cold references; sparse lookup only when a lexical question actually arises |
+| Structured or protected content | Preserve raw data and validate closed formats or schemas | Raw/protected mode or an explicitly invoked validator |
 
-| Requirement | Case | Frozen result | Reviewer or adjudication rationale |
-|---|---|---|---|
-| `6.4` | Description | B FAIL / D PASS | Name-only left transfer, installation, display, valve, personnel, and sensor topics in one paragraph. STOW divided the text into related groups without adding headings. |
-| `GR-2` | Description | B FAIL / D PASS | Name-only retained an ambiguous “with” relation. STOW used “by means of” to state that the green fasteners were the installation means. |
-| `6.6` | Description | B FAIL / D PASS | The closed count found nine sentences in name-only's single paragraph and STOW paragraph counts of two, three, and four. |
-| `5.3` | Procedure | B PASS / D FAIL | Name-only preserved the advisory force. STOW's “can think about” wording weakened or distorted it. |
+STOW is suited to README and documentation work, technical explanations, maintenance procedures, safety text, repository status updates, agent handoffs, and structured artefacts. It can also govern ordinary conversational prose when the user wants a more direct and less synthetic response.
 
-The three D-only wins map to predicate-loaded G1 description and relation
-guidance; they are not evidence that a G2 validator caused the rewrites. Both
-name-only and STOW passed the mapped dictionary, project-terminology, and
-protected-literal rows. STOW's value on those surfaces is that the records,
-authority, applicability, and check boundaries are explicit and inspectable,
-not that Trial 2 showed a D-only win for every mechanism.
+STOW is not intended to replace a creative style guide, infer project terminology without authority, certify strict ASD-STE100 conformance, or guarantee that a host will select the skill automatically.
 
-Trial 2 therefore supports the bounded finding that STOW operationalised more
-of the tested requirement surface and achieved the highest requirement-level
-result. It also exposed semantic overreach in operation and force preservation.
-After the trial was frozen, the root cause was narrowed, the candidate guidance
-was repaired and regression-tested in a targeted Luna Max challenge; Trial 2
-was not rerun.
+## Design genealogy
 
-Name-only conditioning was cheaper in the measured trial: its cold agent task
-used one tool call, 52,950 logical input tokens, and 212 seconds, compared with
-22 calls, 1,549,075 logical input tokens, and 783 seconds for STOW. Those figures
-include repeated evaluation and custody context; they are not ordinary runtime
-costs. The result demonstrates bounded operationalisation, not universal output
-superiority, strict conformance, final-output custody, or cross-model proof.
-Cross-model durability remains unproved.
+STOW is an independent synthesis, not a dependency bundle or a one-to-one copy of any source.
 
-### Normal runtime cost
+| Source | Contribution to STOW | Boundary |
+|---|---|---|
+| [ASD-STE100 Simplified Technical English, Issue 9](https://www.asd-ste100.org/) | The controlled-technical lineage: bounded vocabulary, technical nouns and verbs, sentence and procedure constraints, safety writing, descriptions, punctuation, and the principle of specifying observable linguistic behaviour instead of saying only “write clearly” | ASD-STE100 is owned and maintained by ASD. STOW is independent, is not endorsed by ASD, and keeps strict conformance locked |
+| [`realrossmanngroup/no_ai_slop_writing_rules`](https://github.com/realrossmanngroup/no_ai_slop_writing_rules) | A comparator catalogue of recurring synthetic-writing patterns, worked examples, structural repetition, filler, hollow claims, dramatic headings, corrective contrasts, and false-positive concerns | STOW does not import its voice profile or treat every statistical AI tell as a universal ban; useful observations survive only when they identify an independent writing problem and a legitimate countercontext |
+| [`ayghri/i-have-adhd`](https://github.com/ayghri/i-have-adhd) | An instrumentality comparator for action-first output, visible progress, bounded steps, tangent suppression, explicit exceptions, persistent guidance, and pre-send discipline | STOW adapts general focus and runtime lessons; it does not make a medical claim or force an ADHD-specific mode on every reader |
 
-A separate normal installed-skill runtime probe measured cumulative logical
-model-input tokens across every turn, from task start through final answer. It
-used the same Luna Max model for name-only conditioning (B) and normal installed
-STOW use (D), without candidate custody, audit-ledger reads, benchmark packets,
-or whole-artifact inspection. The first STOW run exposed needless checker
-probing and repeated reference work; the hot path was simplified and the same
-frozen tasks were rerun as D'.
+The resulting product is broader than Simplified Technical English and narrower than a universal prose normaliser:
 
-| Task | Arm | Logical input | Cached | Uncached | Cache hit | Output | Turns | Tools | Active wall |
-|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Ordinary README edit | B | 24619 | 9,984 | 14,635 | 40.5540% | 350 | 1 | 0 | 10.722 s |
-| Ordinary README edit | D' | 78,890 | 60,672 | 18,218 | 76.9071% | 1,018 | 3 | 2 | 23.723 s |
-| Technical documentation edit | B | 24645 | 9,984 | 14,661 | 40.5113% | 419 | 1 | 0 | 10.661 s |
-| Technical documentation edit | D' | 78,489 | 59,648 | 18,841 | 75.9954% | 1,415 | 3 | 2 | 33.701 s |
-| Controlled procedure edit | B | 24676 | 9,984 | 14,692 | 40.4604% | 318 | 1 | 0 | 9.136 s |
-| Controlled procedure edit | D' | 142,567 | 115,456 | 27,111 | 80.9837% | 2,415 | 5 | 4 | 53.565 s |
-| Two-turn repository status | B | 49,477 | 34,304 | 15,173 | 69.3332% | 223 | 2 | 0 | 9.240 s |
-| Two-turn repository status | D' | 77,437 | 59,648 | 17,789 | 77.0278% | 740 | 3 | 1 | 21.798 s |
-
-The absolute D' overhead and D'/B ratio were 54,271 and 3.2044 for ordinary
-prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7776 for
-the controlled procedure; and 27,960 and 1.5651 for the two-turn task. The
-second turn of that task was 1.0651 times its B counterpart. These are the
-**logical / architectural cost** ratios; caching does not erase their context,
-latency, or agent-complexity implications. No post-fix case reached an
-order-of-magnitude ratio. The largest observed total was 142,567 logical input
-tokens on the controlled procedure, so controlled use remains a material
-profile-specific cost rather than an always-hot ordinary cost.
-
-**Cache behaviour** is reported separately in the table. The native task
-receipts expose cached and uncached input but no applicable per-token price or
-authoritative cached-input discount for this Pro-plan host. **Economic cost:
-NOT_DERIVED.** The logical ratios are therefore not presented as billing
-multipliers.
-
-D' read only the kernel for ordinary work, one matching technical reference for
-technical work, and four matching cold references for the controlled procedure;
-it retrieved no dictionary records and invoked no STOW validator or linter.
-Some total tool calls were attributable to the host's separate skill-discovery
-workflow and remain included in the primary totals. This is a bounded result on
-one Codex host, not universal runtime or cross-host proof. A fresh ordinary-prose
-challenge also reopened `STOW-PRO-005`: the model twice preserved unsupported
-evaluative labels while preserving facts. The candidate therefore reports 57,
-not 58, behaviorally qualified G1 owners.
-
-The measured D' package preceded the final candidate. A preserved deterministic
-rebuild and member comparison finds exactly one shipped-file difference: only
-`SKILL.md` changed, from 1,084 to 1,075 exact proxy tokens. Routing, references,
-validators, and the other package members are identical. The nine exact proxy
-tokens delimit the static delta; they do not turn the earlier native receipts
-into an exact final-candidate measurement.
-
-## Install
-
-The built artifact `dist/STOW.skill` is a spec-compliant ZIP whose single top-level directory is `stow/`. Any standard unzip reads it. Install it into a host's skills directory so the skill resolves at `<skills-dir>/stow/SKILL.md`.
-
+```text
+anti-synthetic prose discipline
++ focused action and status shaping
++ evidence and semantic preservation
++ controlled technical writing when applicable
++ closed validation only where the property is actually closed
 ```
+
+## What STOW changes
+
+These examples are illustrative. They show the intended behaviour, not a guarantee that every model will make the same edit.
+
+### Ordinary prose: remove functionless framing
+
+Before:
+
+```text
+Great question! There are several angles worth unpacking here before we get to the answer itself.
+```
+
+After:
+
+```text
+The build fails because the lockfile pins a version the registry no longer serves. Repin it, then rerun the build.
+```
+
+### Focused work: expose the next bounded actions
+
+Before:
+
+```text
+First open the file, find the function, swap it out, then run the tests and check whether anything else broke.
+```
+
+After:
+
+```text
+1. Open `src/auth.ts`.
+2. Replace `verifyToken`.
+3. Run `npm test -- auth.spec.ts`.
+```
+
+### Controlled technical writing: apply the narrow route
+
+Source:
+
+```text
+Prior to commencement, utilize the approved bonding agent on SEAL_A; if ERR-17 occurs, terminate the operation.
+```
+
+Controlled-guided rewrite:
+
+```text
+Before the operation, apply the approved bonding agent to SEAL_A.
+If ERR-17 occurs, stop the operation.
+```
+
+STOW must preserve source force. Advice, permission, uncertainty, and an authorised command are not interchangeable merely because an imperative is shorter.
+
+### Protected output: leave the artefact alone
+
+When the requested result is raw JSON, code, a command, a path, an identifier, or quoted text, lower-precedence prose preferences yield:
+
+```json
+{"service":"api","status":"ok"}
+```
+
+## Quick start
+
+### Install
+
+Download `STOW.skill` from the [latest release](https://github.com/theislampill/stow/releases/latest), or build it from the repository:
+
+```bash
 python tools/build_skill.py
 mkdir -p ~/.claude/skills
 unzip -o dist/STOW.skill -d ~/.claude/skills
 ```
 
-Windows PowerShell (`Expand-Archive` wants a `.zip` suffix):
+Windows PowerShell (`Expand-Archive` requires a `.zip` suffix):
 
-```
+```powershell
 Copy-Item dist\STOW.skill dist\STOW.zip -Force
 Expand-Archive -Path dist\STOW.zip -DestinationPath "$HOME\.claude\skills" -Force
 ```
 
-The repository root also ships `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, so a host that consumes plugin marketplaces can install STOW by pointing at this repository instead of unzipping by hand.
+The expected layout is:
 
-Verify the install by running the packaged validator from the installed path:
-
+```text
+<skills-dir>/stow/SKILL.md
 ```
+
+The repository also includes Claude plugin manifests. Hosts that consume compatible skill or plugin packages can install from the repository instead of extracting the archive manually.
+
+### Invoke
+
+Invoke STOW explicitly when host selection matters. For example:
+
+```text
+Use STOW to rewrite this README section. Preserve every technical claim, command, path, identifier, and quotation.
+```
+
+For controlled technical work:
+
+```text
+Use STOW under the controlled-technical-guided profile. Rewrite this procedure, preserve source force and protected literals, and do not claim strict conformance.
+```
+
+Automatic skill selection is host-dependent. Installation alone does not prove that a particular host or task loaded STOW.
+
+### Validate a structured artefact
+
+```bash
 python ~/.claude/skills/stow/runtime/validate.py --format json some-file.json
+python ~/.claude/skills/stow/runtime/validate.py --schema handoff my-handoff.md
 ```
 
-A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py`, `profiles.py`, `validate_terms.py`, and `dictionary_lookup.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
+A valid instance exits `0`. A validator result applies only to the supplied candidate; STOW does not automatically intercept or approve a host's final response.
 
-## Profiles at a glance
+## How STOW works
 
-Profiles are declared in one shipped data file, `skills/stow/rules/profiles.json`, and resolved by one shipped module, `runtime/profiles.py`. The kernel's activation map, the prose linter, the generators, and the tests all consume the same declaration.
+STOW uses progressive disclosure rather than one always-hot rule dump.
 
-| Profile | Status | What it does |
+| Layer | Purpose | Normal runtime role |
 |---|---|---|
-| `stow-default` | Resolver default when the caller supplies no id | General integrity and user-facing output guidance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
-| `technical-clarity` | Available explicitly; routing cues name technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; the linter tags its output with the profile. See `references/technical-clarity.md`. |
-| `controlled-technical-guided` | Available explicitly; routing cues name procedures and safety instructions (alias: `controlled-technical`) | Applies the available controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. A cold sparse dictionary lookup reports membership, alternatives, and listed forms without deciding sense or project terminology. |
-| `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing profile. Not shipped and **must never be claimed**. Selecting it on the linter exits with an error naming the lock. |
+| Kernel (`skills/stow/SKILL.md`) | Request mode, precedence, protected regions, ordinary prose discipline, and bounded routing | Loaded when the skill is selected |
+| References (`skills/stow/references/`) | Technical, controlled, safety, procedure, format, and other predicate-specific guidance | Read only when one named predicate applies; normal generation should not walk neighbouring files |
+| Corpus (`skills/stow/corpus/`) | Full rule statements, qualifications, examples, and audit anchors | Deep application, review, and maintenance; not a normal-turn payload |
+| Runtime (`skills/stow/runtime/`) | Parsers, schema checks, term-map checks, dictionary lookup, advisory lint, profile resolution, and rule queries | Invoked explicitly when its closed contract is useful; normal prose generation must not probe `--help`, create temporary candidates, or run advisory lint by default |
 
-Raw and protected artifacts are their own declared mode, not a profile. The guidance says to omit prose checks for raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths. A host must identify the mode and retain custody of the candidate; the resolver does neither.
+### Architecture at a glance
 
-When a model or host finds more than one routing cue applicable, the declared precedence is `controlled-technical-guided` over `technical-clarity` over `stow-default`. For an explicitly resolved profile, the em-dash advisory runs for editable prose under every profile; the semicolon and contraction advisories are off under `stow-default` and `technical-clarity` and on under `controlled-technical-guided`.
+The v0.4.0 registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
 
-The strict profile remains locked. The bundled dictionary lookup establishes only closed membership and listed-form facts. Full conformance also needs contextual meaning and part-of-speech decisions, approved project terminology, applicability, validation of the actual final output, and delivery custody. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
+- **61 G1 semantic owners** provide model-mediated guidance.
+- **16 G1 owners** are compacted into the ordinary kernel.
+- **45 G1 owners** are cold or predicate-loaded.
+- **Four G2 predicates** decide closed properties at declared input boundaries.
+- **Ten advisory signals** report surface patterns; they do not decide contextual compliance.
+- **57 G1 owners** have qualifying behavioural evidence.
+- `STOW-PRO-005` remains an open contextual limitation.
+- `STOW-WRD-001` terminates at an external project-authority boundary.
+- `STOW-WRD-003` and `STOW-VRB-005` are explicit contextual deferrals.
+
+The original audit population was 96 rule IDs. The governed reconciliation record preserves how those IDs became the current 65-rule architecture; retired IDs do not remain active merely for traceability.
+
+### Profiles
+
+| Profile | Use | Mechanical behaviour |
+|---|---|---|
+| `stow-default` | Ordinary user-facing prose, focus, evidence, and protected-content guidance | No controlled punctuation, contraction, vocabulary, or sentence-length rules |
+| `technical-clarity` | Technical explanations and coordination prose that need stable names, explicit conditions, bounded steps, and evidence-aware claims | Same mechanical prose checks as `stow-default`; adds contextual technical guidance |
+| `controlled-technical-guided` | Procedures, safety instructions, and controlled technical writing | Activates the supported controlled rule families, sparse dictionary access, and the semicolon, contraction, Latin-abbreviation, and sentence-length checks |
+| `controlled-technical-strict` | Strict conformance | **Locked.** STOW does not ship or claim this capability |
+
+Raw and protected artefacts are a mode, not another profile. A host must identify the task and retain custody of the actual candidate.
+
+## Callable tools
+
+The tools are optional accelerators with explicit evidence ceilings.
+
+| Tool | What it can establish | What it cannot establish |
+|---|---|---|
+| `runtime/validate.py` | Whether the supplied JSON, JSONL, YAML, or schema instance satisfies its closed parser/schema contract | That the model's final response was the validated candidate, or that a host will block delivery |
+| `runtime/lint_prose.py` | Advisory surface findings under a caller-supplied profile | Contextual writing quality or compliance; findings do not make the command fail |
+| `runtime/validate_terms.py` | Compliance with an explicit closed term map over caller-labelled editable/protected segments | That the segment labels are semantically correct or that an unknown term is authorised |
+| `runtime/dictionary_lookup.py` | Fixed dictionary membership, listed alternatives, and listed forms from the bundled projection | Intended sense, part of speech in context, or project-specific terminology authority |
+| `runtime/query_rules.py` | The public registry record, applicable profiles, conflicts, and corpus anchor for a rule ID | Automatic semantic routing or live host activation |
+
+`validate.py` requires `ruamel.yaml` and `jsonschema`; the other listed runtime helpers are standard-library only.
+
+## Evidence
+
+### Controlled-language benchmark
+
+A frozen, crosswalk-derived comparison used the same Luna Max model across no conditioning, a name-only controlled-language instruction, raw Issue 9 source conditioning, and STOW. The benchmark accounted for **61 top-level requirements plus 25 explicit child requirements**.
+
+| Arm | PASS | FAIL | NOT_SCORED |
+|---|---:|---:|---:|
+| Name-only | 78 | 6 | 2 |
+| STOW | 80 | 4 | 2 |
+
+STOW uniquely passed three rows involving paragraph grouping, an ambiguous `with` relation, and paragraph sentence count. Name-only uniquely passed one procedure row because STOW distorted advisory force. The operation/force defect was subsequently narrowed and passed a targeted Luna Max regression; the complete four-arm trial was not rerun.
+
+This supports a bounded claim: STOW operationalised more of the tested requirement surface on that model and corpus. It does **not** establish universal output superiority, strict conformance, cross-model proof, or long-thread durability. Complete accounting is not complete behavioural compliance.
+
+The current v0.4.0 result is summarised here and in [`CHANGELOG.md`](CHANGELOG.md). [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) preserves the earlier enabled-versus-disabled programme, and [`docs/evaluation-results.md`](docs/evaluation-results.md) documents the fixture and detector baseline; neither is presented as the owner of Trial 2.
+
+### Normal runtime instrumentality
+
+A separate one-host probe measured cumulative logical input for normal installed-skill use after removing an overengineered runtime path that had caused reference walks, helper discovery, `--help` probes, temporary candidates, advisory lint calls, and repeated model turns.
+
+| Task | Post-fix STOW / name-only logical input |
+|---|---:|
+| Ordinary README edit | 3.2044× |
+| Technical documentation edit | 3.1848× |
+| Controlled procedure edit | 5.7776× |
+| Two-turn repository workflow | 1.5651× |
+| Second turn only | 1.0651× |
+
+These are **logical-input ratios, not billing multipliers**. The STOW arms had higher cache-hit fractions, but the Pro-plan receipts did not expose an authoritative cached-input price, so monetary cost was not derived. Controlled use remains materially more expensive at cold start; repeated use in the measured established thread was close to name-only input.
+
+The result is bounded to one Codex host. Cross-host economics, cross-model behaviour, and the hypothesis that externalised governance degrades less over long or compacted conversations remain unproved.
+
+This README is the public owner of the v0.4.0 normal-runtime summary. [`docs/design.md`](docs/design.md) supplies deeper architecture detail; the README keeps the measured ratios and their evidence limits together so a reader does not mistake logical input for billing cost.
 
 ## Rule classes at a glance
 
 The current registry indexes 65 primary rules under STOW's own functional
 taxonomy. The registry defines each active rule's operational metadata; the
-audit ledger preserves the original reconciliation population and retired IDs.
+governed reconciliation record preserves the original population and retired IDs.
 
 <!-- RULE-CLASSES:BEGIN -->
 
@@ -217,11 +282,44 @@ audit ledger preserves the original reconciliation population and retired IDs.
 | General writing practice | Cross-cutting recommendations for controlled technical text. |
 <!-- RULE-CLASSES:END -->
 
+The table is the landing-page summary. Exact rule wording, applicability, exceptions, and status remain generated from the registry; the complete generated catalogue is retained as an appendix below and the rule index remains the stronger navigation owner.
+
+## Important boundaries
+
+- **Contextual guidance is not deterministic.** G1 rules can fail even when read. `STOW-PRO-005` remains open because a measured model twice preserved unsupported evaluative labels.
+- **Only closed properties get G2 claims.** Four rules have callable compliance predicates. Advisory surface matches do not prove contextual harm.
+- **No final-output custody ships.** A host must hold the actual final candidate, run any required checks, block invalid or unknown results, authorise repairs, and revalidate before delivery.
+- **Automatic activation is not guaranteed.** Installed skill availability, host selection, and actual reads are separate facts.
+- **Strict controlled-language conformance is locked.** Dictionary lookup, contextual guidance, project terminology, and bounded validators do not establish full conformance.
+- **Project terminology needs authority.** Unknown words are not self-authorising technical terms. A caller or repository must supply an approved terminology surface.
+- **Dictionary facts have limits.** The bundled 2,198-record projection can expose membership, forms, and alternatives. It cannot decide the intended sense or grammatical role by itself.
+- **Protected-region handling is bounded.** Guidance and advisory masking cover declared or recognisable regions; STOW has no universal byte comparator for final output.
+- **Runtime evidence is local.** The measured token ratios come from one Codex/Luna Max environment. Billing cost, cross-host parity, cross-model parity, and long-run durability were not established.
+- **STOW is not an AI detector.** It suppresses specified writing pathologies without claiming to identify the author of a text.
+
+## Documentation map
+
+| Need | Public owner |
+|---|---|
+| Full active rule catalogue | Generated appendix below; authoritative navigation in [`skills/stow/references/rule-index.md`](skills/stow/references/rule-index.md) |
+| Rule conflicts and precedence | [`docs/rule-conflicts.md`](docs/rule-conflicts.md) |
+| Current v0.4.0 product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
+| Architecture and profile model | [`docs/design.md`](docs/design.md) |
+| Earlier enabled-versus-disabled evidence | [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) |
+| Fixture and detector baseline | [`docs/evaluation-results.md`](docs/evaluation-results.md) |
+| Rule usability and implementation status | [`docs/RULE-USABILITY.md`](docs/RULE-USABILITY.md) |
+| Package and install evidence | [`docs/INITIAL-PACKAGE-HEALTH.md`](docs/INITIAL-PACKAGE-HEALTH.md) |
+| Self-dogfood and public-claim checks | [`docs/SELF-DOGFOOD.md`](docs/SELF-DOGFOOD.md) |
+| Historical rewrite-readiness checkpoint | [`docs/REWRITE-READINESS.md`](docs/REWRITE-READINESS.md) |
+| Source skill contract | [`skills/stow/SKILL.md`](skills/stow/SKILL.md) |
+
 ## The complete primary-rule catalog
 
 Every primary rule, exactly once, grouped by rule class. The one-sentence summaries are navigational, not authoritative: the registry (`skills/stow/rules/registry.yaml`) defines operational metadata, and each rule's corpus module carries the full statement, qualifications, and examples. Expand a class to see its rules.
 
 Status meanings: **Callable** means a shipped validator checks it mechanically. **Planned** means the mechanism is specified but not implemented. **Review-fallback** means a model applies it by reading it; no program checks it.
+
+These statuses describe the **mechanical implementation route**, not whether the semantic guidance exists or has behavioural evidence. `Planned` does not mean that the rule is absent from the writing specification; it means that no callable checker implements the stated mechanism.
 
 <!-- CATALOG:BEGIN -->
 
@@ -387,151 +485,11 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 </details>
 <!-- CATALOG:END -->
 
-## Secondary guidance
+## Contributing and regeneration
 
-Retained material that supports the primary rules without joining the primary count:
+The registry is canonical. Change the owned source, regenerate derived public surfaces, and run the checks:
 
-- **Applicability overrides.** When acting on instructions would conflict with a rule, the override order is recorded rather than improvised.
-- **Pre-send gates.** Final self-checks a reply runs before delivery.
-- **Foundational rationale.** Why the action-shaping rules exist: what limited attention changes about reading.
-- **False-positive guidance.** When a suspicious pattern is legitimate and must not be fixed.
-- **Detection and review guidance.** How to recognize synthetic prose patterns, with worked examples and a self-check pass.
-- **General recommendations.** Cross-cutting writing practice under the controlled profile.
-
-These live as corpus modules and are covered by the same drift-locks as the primary rules.
-
-## How overlapping rules compose
-
-Related rules reinforce each other, narrow each other, apply in only one profile, create exceptions, yield to a higher-precedence contract, or prescribe a permitted substitute. Every declared collision has a terminal resolution in the machine-readable conflict registry (`skills/stow/rules/conflicts.yaml`), from which `docs/rule-conflicts.md` is generated. These are resolved compositions, not open contradictions.
-
-| Context | Wins | Yields | Permitted substitute or exception |
-|---|---|---|---|
-| Informational question vs action-first opening | The answer leads | An unrequested next action opening | Lead with the next bounded action only for actionable tasks |
-| Completed work vs required next action | The result, reported plainly | An invented follow-up step | Add a next action only when open work remains |
-| Justified uncertainty vs anti-hedging | Calibrated uncertainty, stated once with its reason | Empty hedge words | Cut hedges that carry no information; keep load-bearing doubt |
-| Material limitation vs no process narration | One clause disclosing what changes the answer | Exploration diary | State the limitation and its consequence; omit the search story |
-| Sentence variation vs controlled sentence caps | The cap | Variation above the cap | Vary length below the cap, never above it |
-| Consistent terminology vs stylistic variation | One term per concept | Synonym rotation for recurring items | Vary only non-recurring content |
-| Em-dash avoidance vs semicolon permissions | Profile decides the substitute | A semicolon under the controlled profile | Default and technical-clarity permit semicolons; the controlled profile replaces either character with a period, comma, colon, or two sentences |
-| Contractions, default vs controlled | The active profile's rule | A contraction inside controlled output | Contractions are permitted (never required) by default and prohibited under the controlled profile |
-| Prose preferences vs raw or protected artifacts | The artifact, byte-exact | Any prose rule entering the region | Prose checks never load inside protected regions |
-| Brevity vs safety completeness | Complete safety content, unshortened | Truncating hazards to fit a cap | Brevity shaping applies to everything except safety text |
-| User-requested voice vs default register | The requested register | The default researcher tone | Accuracy and fabrication rules still apply to the requested voice |
-
-## Functional examples
-
-Short before/after pairs. Ungoverned halves are deliberately non-conforming; governed halves follow the shipped rules and, where marked, validate against the shipped runtime.
-
-**Ordinary answer.** Ungoverned:
-
-```
-Great question! There are several angles worth unpacking here before we
-get to the answer itself.
-```
-
-Governed:
-
-```
-The build fails because the lockfile pins a version the registry no longer
-serves. Repin it, then rerun the build.
-```
-
-**Actionable task.** Governed replies lead with the next bounded action:
-
-```
-1. Revoke the leaked key in the provider console.
-2. Issue a replacement key and store it in the secret manager.
-3. Roll the deployment so every instance reads the new key.
-```
-
-**Completed task.** No invented follow-up:
-
-```
-The migration finished and all twelve checks pass. Nothing is left open.
-```
-
-**Justified uncertainty.** Kept, with its reason:
-
-```
-The fix removes the deadlock in every reproduction we have. The race window
-under sustained load is untested; treat that path as unverified.
-```
-
-**Raw JSON.** The request said raw, so the artifact ships raw:
-
-<!-- validate:json -->
-```
-{"service": "api", "status": "ok"}
-```
-
-**Technical procedure** (controlled profile: short imperative steps, no semicolons, no contractions):
-
-```
-1. Stop the host writes.
-2. Replace the failed drive.
-3. Start the rebuild from the controller menu.
-```
-
-**Agent handoff.** A machine-readable block that validates against the handoff schema ships inside the artifact; see `skills/stow/templates/HANDOFF.md` for the complete worked example, which the test suite validates through the real CLI.
-
-**Validate-repair-revalidate.** The documented flow for any generated structured artifact:
-
-```
-python skills/stow/runtime/validate.py --schema handoff my-handoff.md
-# fix each reported field
-python skills/stow/runtime/validate.py --schema handoff my-handoff.md
-```
-
-The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.
-
-## Validators
-
-**`runtime/validate.py`** is a G2 parser and schema detector with two mutually exclusive modes:
-
-```
-python skills/stow/runtime/validate.py --format {json,jsonl,yaml} <file>
-python skills/stow/runtime/validate.py --schema <schema-id> <file>
-```
-
-Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2` the file could not be read or is not valid UTF-8. An instance is JSON, YAML, a Markdown document (its single fenced yaml/json block is the instance), or a `.jsonl` stream validated per line. An evidence-record file can wrap several records as `{records: [...]}` and validates per record. Working instances of every schema live in `tests/fixtures/meta/`, and the shipped templates themselves are validated instances.
-
-**`runtime/lint_prose.py`** is advisory and report-only. Findings never change the exit code; only an invalid invocation (an unknown or locked profile) exits nonzero.
-
-```
-python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw]
-```
-
-The caller-supplied profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks its finite recognized set of fenced blocks, inline code, block quotes, URLs, paths, and identifiers. Findings and zero findings remain advisory.
-
-**`runtime/validate_terms.py`** is a G2 detector for an explicit closed term map and caller-labeled editable or protected segments. It cannot establish that those labels are semantically correct.
-
-`runtime/validate.py` and `runtime/validate_terms.py` are G2 detectors, not delivery gates by themselves. A G3 host workflow must hold the actual final candidate, block invalid and unknown results, permit only authorized repairs, and revalidate before delivery.
-
-**`runtime/query_rules.py`** is a packaged, standard-library-only lookup helper. Given a rule id it prints the registry record, the profiles that include the rule (by selector, category prefix, or guidance list), the per-record and composition conflicts that name it, and the anchored corpus section.
-
-```
-python skills/stow/runtime/query_rules.py STOW-PCT-006
-```
-
-It is an acceleration for manual rule lookups; no kernel path depends on it, and plain file reads remain the contract path.
-
-## Architecture
-
-Three tiers are available from most general to most specific. The kernel tells the model or host to use a cold reference only when its predicate applies; file presence does not prove a live read.
-
-- **Kernel** (`skills/stow/SKILL.md`): precedence, the region model, the integrity rules, and the activation map.
-- **References** (`skills/stow/references/`): cold mid-tier guidance, each with a named predicate.
-- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor and is read only for a bounded audit or deep application.
-
-Precedence guidance uses eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. It instructs lower-band shaping to yield to a higher band.
-
-Measure static file-bundle footprints with `python tools/measure_context.py <file>`. The result is not live-host telemetry for reads, latency, tool calls, or repair work.
-
-## Extension and governance
-
-The registry is canonical. Add or change a rule there, then regenerate the derived surfaces and verify nothing drifted:
-
-```
+```bash
 python tools/gen_rule_index.py
 python tools/gen_always_on.py
 python tools/gen_rule_conflicts.py
@@ -540,56 +498,37 @@ python -m pytest tests/ -q
 python tools/check_provenance_leak.py --local
 ```
 
-`generated_counts.primary_total` must equal the current active record population.
-The audit ledger, not dead registry rows, preserves each starting ID and its
-`KEEP`, `SIMPLIFY`, `MERGE`, `MOVE`, or `DROP` disposition. Until comparative
-rewrite work runs, treat protected baseline wording as fixed.
-
-## Known limitations
-
-- **Prose linters are advisory and report-only.** `lint_prose.py` exits 0 on findings and even treats unreadable input as no blocking prose verdict. The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.
-- **Most registry rules are not mechanically decided.** Four rules have callable compliance validators today. Ten advisory surface detectors supply bounded
-  observations for G1 semantics; they do not decide contextual compliance. The
-  remainder are review-fallback or planned. A rule being in the registry does
-  not mean a program checks it.
-- **Host-dependent skill selection.** Historical evidence from one pinned host per round observed invocation on some task-shaped, technical, and meta-code turns and skips on some short prompts. It does not establish selection behavior for another prompt, model, or host.
-- **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks. Behavioral evidence is measured and documented, not promised.
-- **Lexical advisories ignore a requested register.** An explicitly requested casual or creative voice governs the register, but lexical advisories still fire on the result; advisories never override the contract band.
-- **The strict profile is locked** and must never be claimed.
-- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.
-- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.
-- **Static budget figures are proxies.** They measure declared files with one tokenizer or a character formula, not live host reads, tokens, latency, tool calls, or repair cost.
-- **Portability is file-level.** The packaged schemas, templates, and scripts use ordinary formats; live behavior on a second agent harness remains unverified.
+Do not hand-edit generated regions such as `references/rule-index.md`, `references/always-on.md`, or `docs/rule-conflicts.md`.
 
 ## Troubleshooting
 
-**The skill never seems to activate.** Confirm the layout is `<skills-dir>/stow/SKILL.md`, with `stow/` directly inside the skills directory. A common failure is unzipping into a nested folder, which yields `<skills-dir>/STOW/stow/SKILL.md` and does not resolve.
+**The skill does not activate.** Confirm that the install resolves to `<skills-dir>/stow/SKILL.md`. A nested `<skills-dir>/STOW/stow/SKILL.md` layout will not resolve correctly. Then invoke STOW explicitly; automatic selection is host-dependent.
 
-**The validator rejects JSON that looks fine.** Check, in order: a leading byte-order mark, a duplicate object key, a trailing comma, a `NaN` or `Infinity` literal, or a pasted code fence. Each has a fixture under `tests/fixtures/json/`.
+**The strict profile fails.** That is intentional. `controlled-technical-strict` is locked because STOW does not have the authority, contextual decisions, final-output validation, and delivery custody required for a strict conformance claim.
 
-**YAML values changed type.** Unquoted scalars coerce. Quote any scalar whose string form matters. Two keys that coerce to the same scalar are a duplicate-key error even when spelled differently.
+**A validator rejects JSON that looks valid.** Check for a byte-order mark, duplicate key, trailing comma, `NaN`, `Infinity`, or a pasted code fence.
 
-**`--schema` says the schema is unknown.** The id is a bare filename stem: `handoff`, not `handoff.schema.json` and not a path.
+**YAML values changed type.** Quote scalars whose string form matters. Keys that coerce to the same scalar are duplicate keys even when their spelling differs.
 
-**STOW edited my source code.** G1 guidance tells the writer not to edit code unless that is the task, and the G2 linter excludes recognized code spans from its advisory scan. Neither mechanism proves that final bytes match the source. If fidelity is required, a named host must compare the actual final candidate with the authoritative source and block a mismatch. An unintended code change is a precedence violation worth reporting.
+**STOW edited code or a literal.** That is a precedence violation unless editing the literal was the task. G1 guidance and the advisory linter cannot prove final byte identity; use an independent comparison when exact preservation is required.
 
-**A generated file keeps coming back changed.** `references/rule-index.md`, `references/always-on.md`, `docs/rule-conflicts.md`, and the README catalog sections are generated. Edit the registry or the conflict registry and regenerate; do not hand-edit a generated region.
+**A generated documentation file returns after editing.** Change the registry or conflict owner and regenerate. Do not hand-edit generated output.
 
-**Upgrading.** Rebuild the artifact from the tagged tree you want (`python tools/build_skill.py`), remove the old `<skills-dir>/stow/` directory, and unzip the new artifact in its place. The manifest records the product version and the archive digest.
+**Upgrading.** Remove the previous `<skills-dir>/stow/` directory and extract the new release artefact in its place. Verify the installed payload against the release you intended to install.
 
 ## Repository layout
 
-```
+```text
 skills/stow/
-  SKILL.md              kernel: precedence, region model, integrity rules
-  references/           mid-tier guidance, loaded by predicate
-  corpus/               grouped modules, every rule at a ## STOW-XXX-NNN anchor
-  rules/                registry, profiles, conflicts, and their schemas
-  runtime/              validators, prose lint, and the profile resolver
-  schemas/              meta-code artifact schemas
-  templates/            meta-code authoring templates
-docs/                   design notes, evidence reports, generated conflict doc
-tests/                  test suite, evals, and fixtures
-tools/                  build, generation, and check tooling
-dist/                   built artifact, checksum, and entry manifest
+  SKILL.md              compact kernel and source skill contract
+  references/           predicate-loaded public guidance and generated indexes
+  corpus/               full rule modules and stable audit anchors
+  rules/                registry, profiles, conflicts, dictionary data, and schemas
+  runtime/              bounded validators, lookup helpers, lint, and profile resolution
+  schemas/              structured artefact schemas
+  templates/            worked structured artefact templates
+docs/                   design, evidence, package health, readiness, self-dogfood, and conflicts
+tests/                  test suite, evaluations, and fixtures
+tools/                  builders, generators, measurements, and checks
+dist/                   built skill archive, checksum, and manifest
 ```

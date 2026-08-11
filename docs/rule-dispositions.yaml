@@ -316,6 +316,22 @@ records:
         limits: Dictionary membership does not establish the intended sense in context; universal semantic
           automation is intentionally out of scope.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: ISSUE9-ABCD-20260811-V2#STOW-WRD-003
+        result: inconclusive
+        freshness: fresh
+        limits: The exact candidate changed named source operations after lexical lookup in two comprehensive
+          Issue 9 cases. This is adverse diagnostic evidence for the contextual-sense boundary, not a reason to
+          claim deterministic sense resolution.
+        subject_revision: 1
+      - kind: implementation-review
+        reference: TRIAL2-PRESERVATION-REGRESSION-20260811-V1#STOW-WRD-003
+        result: accepted
+        freshness: fresh
+        limits: One bounded Luna Max generation plus two qualifying blinded Luna Max reviews support preserving
+          source wording when equivalence is unavailable and permitting an authority-established equivalent.
+          The logical-input evaluation budget was exceeded; sense remains contextual and strict conformance locked.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
@@ -2313,6 +2329,22 @@ records:
           permission, command, and uncertainty distinction; this is not a deterministic modality parser,
           automatic-activation proof, or final-output-custody proof.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: ISSUE9-ABCD-20260811-V2#STOW-PRC-003
+        result: inconclusive
+        freshness: fresh
+        limits: The exact candidate weakened source advice in the comprehensive Issue 9 challenge when lexical
+          repair interacted with procedure guidance. This adverse evidence is diagnostic and does not establish
+          a deterministic modality classifier.
+        subject_revision: 1
+      - kind: implementation-review
+        reference: TRIAL2-PRESERVATION-REGRESSION-20260811-V1#STOW-PRC-003
+        result: accepted
+        freshness: fresh
+        limits: One bounded Luna Max generation plus two qualifying blinded Luna Max reviews support the repaired
+          lexical-precedence boundary for commands and advice. The logical-input evaluation budget was exceeded;
+          automatic activation and final-output custody remain unproved.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05
@@ -2384,6 +2416,21 @@ records:
         protocol_revision: g1-family-cluster-v2
         qualification: qualifying-pass
         rule_observation: PASS
+      - kind: behavioural-challenge
+        reference: ISSUE9-ABCD-20260811-V2#STOW-STY-001
+        result: inconclusive
+        freshness: fresh
+        limits: The exact candidate changed named source operations in two comprehensive Issue 9 cases. This is
+          adverse interaction evidence showing that a dictionary alternative did not by itself preserve meaning.
+        subject_revision: 1
+      - kind: implementation-review
+        reference: TRIAL2-PRESERVATION-REGRESSION-20260811-V1#STOW-STY-001
+        result: accepted
+        freshness: fresh
+        limits: One bounded Luna Max generation plus two qualifying blinded Luna Max reviews support the repaired
+          source-preservation and authority-established-equivalence boundary. The logical-input evaluation budget
+          was exceeded; this does not prove general semantic equivalence.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-05

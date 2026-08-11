@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "7cd8958c246de42e898202c4bde0491846df8f12e113874bea5f4d8e676293e2",
+  "artifact_sha256": "ad0b103bbd1d7753114e3e96698b1e61f09dddc9f53d4f5e03ebd47c2bf0ca9a",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -54,6 +54,7 @@
     "stow/rules/controlled-dictionary-v1.json.gz",
     "stow/rules/controlled-dictionary.schema.json",
     "stow/rules/profiles.json",
+    "stow/rules/project-terminology.schema.json",
     "stow/rules/registry.schema.json",
     "stow/rules/registry.yaml",
     "stow/rules/routing.yaml",
@@ -79,6 +80,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 76,
+  "entry_count": 77,
   "version": "0.4.0-rc.0"
 }

@@ -418,11 +418,11 @@ records:
       exception: project authority can classify the form as a noun term or noun modifier
     precedence: profile
     enforcement:
-      kind: parser
-      validator: ing-only-as-technical-noun
+      kind: semantic-review
+      validator: ing-role-contextual-review
       limit:
       autofix: false
-      status: planned
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/verbs/technical-verbs.md#STOW-VRB-005
 # === STOW-VRB-006 ===

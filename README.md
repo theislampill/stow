@@ -157,7 +157,7 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-VRB-002` | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions | controlled prose requires a bounded tense or aspect choice; exception: preserve a time relation when the source or procedure requires it | Planned |
-| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | a word ending in ing appears outside a declared technical noun; exception: project authority can classify the form as a noun term or noun modifier | Planned |
+| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | a word ending in ing appears outside a declared technical noun; exception: project authority can classify the form as a noun term or noun modifier | Review-fallback |
 | `STOW-VRB-006` | Use active voice; passive is allowed only in descriptive writing when the agent is unknown | Controlled profile | Planned |
 | `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective | Controlled profile | Planned |
 

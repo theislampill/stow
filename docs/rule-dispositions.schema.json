@@ -82,7 +82,11 @@
         "BC-07",
         "BC-08",
         "BC-09",
-        "BC-10"
+        "BC-10",
+        "G1V3-ACTION",
+        "G1V3-PROSE",
+        "G1V3-CONTROLLED-MEANING",
+        "G1V3-CONTROLLED-SYNTAX"
       ]
     },
     "evidence": {
@@ -257,7 +261,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^BC-(0[1-9]|10)$"
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
           }
         },
         "paired_negative": {
@@ -265,7 +269,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^BC-(0[1-9]|10)$"
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
           }
         },
         "status": {
@@ -545,6 +549,8 @@
           "enum": [
             "pending-behavioural-challenge",
             "pending-decision-review",
+            "external-authority-required",
+            "deferred-contextual",
             "closed",
             "inconclusive"
           ]
@@ -654,9 +660,11 @@
           "then": {
             "properties": {
               "closure_state": {
-                "not": {
-                  "const": "closed"
-                }
+                "enum": [
+                  "pending-behavioural-challenge",
+                  "pending-decision-review",
+                  "inconclusive"
+                ]
               }
             }
           }
@@ -665,7 +673,11 @@
           "if": {
             "properties": {
               "closure_state": {
-                "const": "closed"
+                "enum": [
+                  "closed",
+                  "external-authority-required",
+                  "deferred-contextual"
+                ]
               }
             }
           },
@@ -727,22 +739,11 @@
                 }
               },
               {
-                "anyOf": [
-                  {
-                    "properties": {
-                      "decision_state": {
-                        "const": "accepted"
-                      }
-                    }
-                  },
-                  {
-                    "properties": {
-                      "closure_state": {
-                        "const": "closed"
-                      }
-                    }
+                "properties": {
+                  "closure_state": {
+                    "const": "closed"
                   }
-                ]
+                }
               }
             ]
           },

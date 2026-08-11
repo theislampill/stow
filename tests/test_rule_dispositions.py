@@ -87,6 +87,19 @@ OPEN_G1_V2 = (
     - {"STOW-PRC-001", "STOW-DSC-003", "STOW-PCT-001", "STOW-GEN-006"}
     - QUALIFIED_G1_V2
 )
+QUALIFIED_G1_V3 = {
+    "STOW-ACT-002", "STOW-ACT-007", "STOW-ACT-008", "STOW-ACT-011",
+    "STOW-PRO-006", "STOW-PRO-007", "STOW-PRO-009", "STOW-PRO-011",
+    "STOW-PRO-016", "STOW-GEN-002", "STOW-GEN-005", "STOW-GEN-007",
+    "STOW-PCT-003", "STOW-PRC-005", "STOW-SEN-003", "STOW-VRB-002",
+    "STOW-VRB-007",
+}
+TERMINAL_G1_BOUNDARIES = {
+    "STOW-WRD-001": "external-authority-required",
+    "STOW-WRD-003": "deferred-contextual",
+    "STOW-VRB-005": "deferred-contextual",
+}
+G1_V3_RECEIPT = "receipt:g1-bhv-20260811-v3"
 G1_V2_RECEIPT = "receipt:g1-bhv-20260811-v2"
 G1_V2_OPEN_PREFIX = "G1-BHV-20260811-V2/"
 G1_V2_OPEN_LIMITS = (
@@ -336,10 +349,12 @@ def semantic_errors(candidate, root: Path = ROOT):
         elif target is not None:
             errors.append(f"{row['id']} carries an inapplicable target")
 
-        if row["decision_state"] == "proposed" and row["closure_state"] == "closed":
-            errors.append(f"{row['id']} proposal cannot be closed")
+        boundary_states = {"external-authority-required", "deferred-contextual"}
+        terminal_states = {"closed"} | boundary_states
+        if row["decision_state"] == "proposed" and row["closure_state"] in terminal_states:
+            errors.append(f"{row['id']} proposal cannot be terminal")
 
-        terminal = row["decision_state"] == "accepted" or row["closure_state"] == "closed"
+        terminal = row["decision_state"] == "accepted" or row["closure_state"] in terminal_states
         if terminal and disposition in {"MERGE", "DROP"} and row["id"] in active_registry_ids:
             errors.append(f"{row['id']} terminal retired source remains in active registry")
         if terminal and disposition in SURVIVING_G1_DISPOSITIONS and row["id"] not in active_registry_ids:
@@ -367,7 +382,10 @@ def semantic_errors(candidate, root: Path = ROOT):
                 if evidence.get("positive_cases", []) == coverage["positive"]
                 and evidence.get("paired_negative_cases", []) == coverage["paired_negative"]
             ]
-            requires_behavioural_evidence = disposition in SURVIVING_G1_DISPOSITIONS
+            requires_behavioural_evidence = (
+                disposition in SURVIVING_G1_DISPOSITIONS
+                and row["closure_state"] not in boundary_states
+            )
             if (
                 requires_behavioural_evidence
                 and row["decision_state"] == "proposed"
@@ -393,10 +411,15 @@ def semantic_errors(candidate, root: Path = ROOT):
                 errors.append(f"{row['id']} complete G1 coverage lacks fresh matching evidence")
             if (
                 requires_behavioural_evidence
-                and (row["decision_state"] == "accepted" or row["closure_state"] == "closed")
+                and row["closure_state"] == "closed"
             ):
                 if coverage["status"] != "complete" or not paired_behavioural_evidence:
-                    errors.append(f"{row['id']} accepted or terminal G1 claim lacks completed fresh evidence")
+                    errors.append(f"{row['id']} closed G1 claim lacks completed fresh evidence")
+            if row["closure_state"] in boundary_states:
+                if row["decision_state"] != "accepted" or coverage["status"] != "inconclusive":
+                    errors.append(f"{row['id']} contextual boundary is not terminal and inconclusive")
+                if behavioural_evidence:
+                    errors.append(f"{row['id']} contextual boundary carries fabricated accepted behaviour")
             if row["id"] in EXPECTED_G1_SIGNAL_PROOFS:
                 expected_proofs = EXPECTED_G1_SIGNAL_PROOFS[row["id"]]
                 signal_proofs = [
@@ -535,35 +558,35 @@ def test_terminal_surviving_g1_state_requires_matching_fresh_evidence(
     g1_index = next(
         i for i, row in enumerate(ledger["records"])
         if row["layer"] == "G1" and row["disposition"] == disposition
-        and row["id"] in OPEN_G1_V2
+        and row["id"] in (QUALIFIED_G1_V2 | QUALIFIED_G1_V3)
     )
 
     proposed_closed = copy.deepcopy(ledger)
-    proposed_closed["records"][g1_index]["closure_state"] = "closed"
+    proposed_closed["records"][g1_index]["decision_state"] = "proposed"
     assert list(validator.iter_errors(proposed_closed)) or semantic_errors(proposed_closed)
 
     accepted_closed = copy.deepcopy(ledger)
-    accepted_closed["records"][g1_index]["decision_state"] = "accepted"
-    accepted_closed["records"][g1_index]["closure_state"] = "closed"
+    accepted_closed["records"][g1_index]["evidence"] = [
+        item for item in accepted_closed["records"][g1_index]["evidence"]
+        if item.get("result") != "accepted"
+    ]
     assert list(validator.iter_errors(accepted_closed)) or semantic_errors(accepted_closed)
 
-    status_only = copy.deepcopy(ledger)
-    status_only["records"][g1_index]["behavioural_coverage"]["status"] = "complete"
-    assert list(validator.iter_errors(status_only)) or semantic_errors(status_only)
+    incomplete_status = copy.deepcopy(ledger)
+    incomplete_status["records"][g1_index]["behavioural_coverage"]["status"] = "pending"
+    assert list(validator.iter_errors(incomplete_status)) or semantic_errors(incomplete_status)
 
     wrong_revision = copy.deepcopy(ledger)
     row = wrong_revision["records"][g1_index]
-    row["behavioural_coverage"]["status"] = "complete"
-    row["evidence"].append(_accepted_behavioural_receipt(wrong_revision, row))
-    row["evidence"][-1]["subject_revision"] = wrong_revision["subject_revision"] + 1
+    accepted = next(item for item in row["evidence"] if item.get("result") == "accepted")
+    accepted["subject_revision"] = wrong_revision["subject_revision"] + 1
     assert list(validator.iter_errors(wrong_revision)) == []
     assert semantic_errors(wrong_revision)
 
     matching = copy.deepcopy(wrong_revision)
     row = matching["records"][g1_index]
-    row["evidence"][-1]["subject_revision"] = matching["subject_revision"]
-    row["decision_state"] = "accepted"
-    row["closure_state"] = "closed"
+    accepted = next(item for item in row["evidence"] if item.get("result") == "accepted")
+    accepted["subject_revision"] = matching["subject_revision"]
     assert list(validator.iter_errors(matching)) == []
     assert semantic_errors(matching) == []
 
@@ -573,8 +596,7 @@ def test_arbitrary_or_mismatched_receipt_is_not_paired_evidence(schema, ledger):
     arbitrary = copy.deepcopy(ledger)
     row = next(
         row for row in arbitrary["records"]
-        if row["layer"] == "G1" and row["disposition"] == "KEEP"
-        and row["id"] in OPEN_G1_V2
+        if row["id"] == "STOW-VRB-005"
     )
     row["behavioural_coverage"]["status"] = "complete"
     row["decision_state"] = "accepted"
@@ -608,8 +630,7 @@ def test_accepted_behavioural_evidence_is_bound_to_opaque_receipt_and_candidate(
     candidate = copy.deepcopy(ledger)
     row = next(
         row for row in candidate["records"]
-        if row["layer"] == "G1" and row["disposition"] == "KEEP"
-        and row["id"] in OPEN_G1_V2
+        if row["id"] == "STOW-VRB-005"
     )
     row["behavioural_coverage"]["status"] = "complete"
     row["decision_state"] = "accepted"
@@ -745,23 +766,16 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
             "subject_revision": ledger["subject_revision"],
         }
         assert evidence["reference"].endswith(f"#{row['id']}")
-        if row["id"] in QUALIFIED_G1_V2:
+        if row["id"] in (QUALIFIED_G1_V2 | QUALIFIED_G1_V3):
             assert row["behavioural_coverage"]["status"] == "complete"
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == "closed"
-            assert any(evidence["reference"] == G1_V2_RECEIPT for evidence in row["evidence"])
-        elif row["disposition"] in SURVIVING_G1_DISPOSITIONS:
-            assert row["behavioural_coverage"]["status"] == "pending"
-            assert row["uncertainty"] == G1_V2_OPEN_UNCERTAINTY
-            assert row["decision_state"] == "proposed"
-            assert row["closure_state"] != "closed"
-            evidence = [
-                item for item in row["evidence"]
-                if item["reference"].startswith(G1_V2_OPEN_PREFIX)
-            ]
-            assert len(evidence) == 1
-            assert evidence[0]["result"] == "inconclusive"
-            assert evidence[0]["limits"] == G1_V2_OPEN_LIMITS
+            expected_receipt = G1_V2_RECEIPT if row["id"] in QUALIFIED_G1_V2 else G1_V3_RECEIPT
+            assert any(evidence["reference"] == expected_receipt for evidence in row["evidence"])
+        elif row["id"] in TERMINAL_G1_BOUNDARIES:
+            assert row["behavioural_coverage"]["status"] == "inconclusive"
+            assert row["decision_state"] == "accepted"
+            assert row["closure_state"] == TERMINAL_G1_BOUNDARIES[row["id"]]
         else:
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == "closed"
@@ -779,6 +793,12 @@ def test_every_g1_row_records_nonqualifying_current_revision_diagnostic(ledger):
 def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_challenge(
     ledger,
 ):
+    assert not any(
+        row["layer"] == "G1"
+        and row["disposition"] in SURVIVING_G1_DISPOSITIONS
+        and row["decision_state"] == "proposed"
+        for row in ledger["records"]
+    )
     for row in ledger["records"]:
         has_current_accepted_receipt = any(
             evidence["kind"] == "behavioural-challenge"
@@ -797,13 +817,9 @@ def test_proposed_surviving_g1_without_accepted_evidence_awaits_behavioural_chal
             assert row["closure_state"] == "pending-behavioural-challenge", row["id"]
 
     candidate = copy.deepcopy(ledger)
-    row = next(
-        record for record in candidate["records"]
-        if record["layer"] == "G1"
-        and record["disposition"] in SURVIVING_G1_DISPOSITIONS
-        and record["decision_state"] == "proposed"
-        and record["behavioural_coverage"]["status"] == "pending"
-    )
+    row = next(record for record in candidate["records"] if record["id"] == "STOW-VRB-005")
+    row["decision_state"] = "proposed"
+    row["behavioural_coverage"]["status"] = "pending"
     row["closure_state"] = "pending-decision-review"
     assert semantic_errors(candidate)
 
@@ -854,15 +870,14 @@ def test_contextual_guidance_is_not_misclassified_as_g2_compliance(ledger):
             for proof in row["deterministic_verification"]
         )
         assert "not compliance proof" in row["deterministic_verification"][0]["limits"]
-        if rule_id in QUALIFIED_G1_V2:
+        if rule_id in (QUALIFIED_G1_V2 | QUALIFIED_G1_V3):
             assert row["behavioural_coverage"]["status"] == "complete"
             assert row["decision_state"] == "accepted"
             assert row["closure_state"] == "closed"
-        else:
-            assert row["behavioural_coverage"]["status"] == "pending"
-            assert row["decision_state"] == "proposed"
-            assert row["closure_state"] != "closed"
-            assert row["uncertainty"] == G1_V2_OPEN_UNCERTAINTY
+        elif rule_id in TERMINAL_G1_BOUNDARIES:
+            assert row["behavioural_coverage"]["status"] == "inconclusive"
+            assert row["decision_state"] == "accepted"
+            assert row["closure_state"] == TERMINAL_G1_BOUNDARIES[rule_id]
 
     misclassified = copy.deepcopy(ledger)
     row = next(record for record in misclassified["records"] if record["id"] == "STOW-PRO-011")
@@ -901,11 +916,7 @@ def test_terminal_g2_requires_current_fresh_accepted_named_proof(schema, ledger,
 def test_diagnostic_evidence_cannot_satisfy_surviving_g1_terminal_gate(schema, ledger):
     validator = Draft202012Validator(schema)
     candidate = copy.deepcopy(ledger)
-    row = next(
-        row for row in candidate["records"]
-        if row["layer"] == "G1" and row["disposition"] == "KEEP"
-        and row["id"] in OPEN_G1_V2
-    )
+    row = next(row for row in candidate["records"] if row["id"] == "STOW-VRB-005")
     row["decision_state"] = "accepted"
     row["closure_state"] = "closed"
     row["behavioural_coverage"]["status"] = "complete"
@@ -931,6 +942,8 @@ def test_audited_map_preserves_proposals_and_records_implemented_decisions(ledge
             row["disposition"] in {"MERGE", "DROP"}
             or row["id"] in EXPECTED_G2_PROOFS
             or row["id"] in QUALIFIED_G1_V2
+            or row["id"] in QUALIFIED_G1_V3
+            or row["id"] in TERMINAL_G1_BOUNDARIES
         ):
             assert row["decision_state"] == "accepted"
         else:
@@ -1097,6 +1110,10 @@ def test_no_g3_or_g4_rule_claims(ledger):
 def test_ledger_coverage_matches_paired_challenge_definitions(ledger):
     challenges = _yaml(ROOT / "tests" / "evals" / "rule-disposition-challenges-v2.yaml")
     packs = {pack["id"]: pack for pack in challenges["scenario_packs"]}
+    packs.update({
+        pack["id"]: pack
+        for pack in _yaml(ROOT / "tests" / "evals" / "g1-behavioural-v3-coverage.yaml")["scenario_packs"]
+    })
     for row in ledger["records"]:
         if row["layer"] != "G1" or row["disposition"] not in SURVIVING_G1_DISPOSITIONS:
             continue
@@ -1121,9 +1138,6 @@ def test_active_registry_count_is_dynamic_not_pinned(tmp_path, ledger):
             destination.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
 
     registry = _yaml(root / "skills" / "stow" / "rules" / "registry.yaml")
-    removed_id = "STOW-ACT-002"
-    assert removed_id in OPEN_G1_V2
-    registry["records"] = [record for record in registry["records"] if record["id"] != removed_id]
     emitter = YAML()
 
     mismatched = copy.deepcopy(registry)
@@ -1160,16 +1174,49 @@ def test_task8_deterministic_migration_is_reflected_in_registry_and_ledger(ledge
         assert proof["subject_revision"] == ledger["subject_revision"]
         assert proof["proof_scope"] == "compliance"
 
-    for rule_id in QUALIFIED_G1_V2:
+    for rule_id in (QUALIFIED_G1_V2 | QUALIFIED_G1_V3):
         row = rows[rule_id]
         assert row["layer"] == "G1"
         assert row["decision_state"] == "accepted"
         assert row["closure_state"] == "closed"
         assert row["behavioural_coverage"]["status"] == "complete"
 
-    for rule_id in OPEN_G1_V2:
+    for rule_id, closure_state in TERMINAL_G1_BOUNDARIES.items():
         row = rows[rule_id]
         assert row["layer"] == "G1"
-        assert row["decision_state"] == "proposed"
-        assert row["closure_state"] == "pending-behavioural-challenge"
-        assert row["behavioural_coverage"]["status"] == "pending"
+        assert row["decision_state"] == "accepted"
+        assert row["closure_state"] == closure_state
+        assert row["behavioural_coverage"]["status"] == "inconclusive"
+
+
+def test_v3_closes_qualified_rules_and_records_honest_terminal_boundaries(schema, ledger):
+    validator = Draft202012Validator(schema)
+    assert list(validator.iter_errors(ledger)) == []
+    rows = {row["id"]: row for row in ledger["records"]}
+
+    for rule_id in QUALIFIED_G1_V3:
+        row = rows[rule_id]
+        assert row["decision_state"] == "accepted"
+        assert row["closure_state"] == "closed"
+        assert row["behavioural_coverage"]["status"] == "complete"
+        accepted = [
+            item for item in row["evidence"]
+            if item.get("reference") == G1_V3_RECEIPT
+        ]
+        assert len(accepted) == 1
+        assert accepted[0]["rule_observation"] == "PASS"
+
+    for rule_id, closure_state in TERMINAL_G1_BOUNDARIES.items():
+        row = rows[rule_id]
+        assert row["decision_state"] == "accepted"
+        assert row["closure_state"] == closure_state
+        assert row["behavioural_coverage"]["status"] == "inconclusive"
+        assert not any(
+            item.get("result") == "accepted"
+            and item.get("kind") == "behavioural-challenge"
+            for item in row["evidence"]
+        )
+
+    assert len(QUALIFIED_G1_V2 | QUALIFIED_G1_V3) == 58
+    assert not ((QUALIFIED_G1_V2 | QUALIFIED_G1_V3) & set(TERMINAL_G1_BOUNDARIES))
+    assert semantic_errors(ledger) == []

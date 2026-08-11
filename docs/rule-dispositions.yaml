@@ -156,17 +156,24 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: implementation-review
+        reference: tests/test_project_terminology.py::test_approved_project_term_precedes_a_fixed_dictionary_rejection
+        result: accepted
+        freshness: fresh
+        limits: Fixed and explicitly approved project terms are locally queryable; admitting an unknown
+          technical noun or verb still requires an actual project or subject-field authority.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: inconclusive
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: external-authority-required
+    uncertainty: Terminal external-authority boundary. Lexical lookup and an explicit project overlay are
+      available, but STOW does not authorize an unknown term or infer its technical category.
     target:
       kind: reference-surface
       destinations:
@@ -302,17 +309,24 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: implementation-review
+        reference: docs/controlled-language-coverage.yaml#meaning-and-part-of-speech
+        result: accepted
+        freshness: fresh
+        limits: Dictionary membership does not establish the intended sense in context; universal semantic
+          automation is intentionally out of scope.
+        subject_revision: 1
     behavioural_coverage:
       positive:
         - BC-09
       paired_negative:
         - BC-09
-      status: pending
+      status: inconclusive
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: deferred-contextual
+    uncertainty: Terminal contextual deferral. Sparse records support review, but approved meaning in context
+      remains model- or authority-mediated and strict conformance stays locked.
     target:
       kind: reference-surface
       destinations:
@@ -1339,17 +1353,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        paired_negative_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-SYNTAX
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-SYNTAX
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -1535,17 +1566,25 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: G1-BHV-20260811-V3.1/G1V3-CONTROLLED-SYNTAX#STOW-VRB-005
+        result: inconclusive
+        freshness: fresh
+        limits: Both blinded reviewers found incomplete pathology suppression because the output retained
+          following; deciding whether an ing form is an authorised technical noun or modifier remains
+          contextual.
+        subject_revision: 1
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-SYNTAX
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-SYNTAX
+      status: inconclusive
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: deferred-contextual
+    uncertainty: Terminal contextual deferral after a real model-behavior failure. Keep the rule cold for
+      controlled review, but do not claim behavioral qualification or a reliable parser for ing-word function.
     target:
       kind: reference-surface
       destinations:
@@ -1674,17 +1713,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        paired_negative_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-SYNTAX
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-SYNTAX
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SEN-001
     title: Write short, clear, concrete sentences suited to procedures or descriptions.
     family: sentences
@@ -1876,17 +1932,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        paired_negative_cases:
+          - G1V3-CONTROLLED-SYNTAX
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-SYNTAX
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-SYNTAX
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-SEN-004
     title: Use approved connecting words and phrases to link related sentences.
     family: sentences
@@ -2364,17 +2437,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-MEANING
+        paired_negative_cases:
+          - G1V3-CONTROLLED-MEANING
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-05
+        - G1V3-CONTROLLED-MEANING
       paired_negative:
-        - BC-05
-      status: pending
+        - G1V3-CONTROLLED-MEANING
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-DSC-001
     title: Introduce information gradually, one subject per sentence.
     family: descriptions
@@ -3175,17 +3265,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-MEANING
+        paired_negative_cases:
+          - G1V3-CONTROLLED-MEANING
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-05
+        - G1V3-CONTROLLED-MEANING
       paired_negative:
-        - BC-05
-      status: pending
+        - G1V3-CONTROLLED-MEANING
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -3896,17 +4003,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-MEANING
+        paired_negative_cases:
+          - G1V3-CONTROLLED-MEANING
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-MEANING
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-MEANING
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-GEN-003
     title: Use only approved pronouns; replace an ambiguous pronoun with its noun.
     family: general
@@ -4093,17 +4217,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-MEANING
+        paired_negative_cases:
+          - G1V3-CONTROLLED-MEANING
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-MEANING
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-MEANING
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
     target:
       kind: reference-surface
       destinations:
@@ -4219,17 +4360,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-CONTROLLED-MEANING
+        paired_negative_cases:
+          - G1V3-CONTROLLED-MEANING
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-09
+        - G1V3-CONTROLLED-MEANING
       paired_negative:
-        - BC-09
-      status: pending
+        - G1V3-CONTROLLED-MEANING
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-GEN-008
     title: Use the possessive correctly; if unsure, avoid it.
     family: general
@@ -4407,17 +4565,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-ACTION
+        paired_negative_cases:
+          - G1V3-ACTION
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-01
+        - G1V3-ACTION
       paired_negative:
-        - BC-01
-      status: pending
+        - G1V3-ACTION
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-ACT-003
     title: Close with a single concrete next step
     family: action-shaping
@@ -4758,17 +4933,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-ACTION
+        paired_negative_cases:
+          - G1V3-ACTION
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-01
+        - G1V3-ACTION
       paired_negative:
-        - BC-01
-      status: pending
+        - G1V3-ACTION
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-ACT-008
     title: Neutral error reporting
     family: action-shaping
@@ -4818,17 +5010,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-ACTION
+        paired_negative_cases:
+          - G1V3-ACTION
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-01
+        - G1V3-ACTION
       paired_negative:
-        - BC-01
-      status: pending
+        - G1V3-ACTION
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-ACT-009
     title: Bound action lists to five items
     family: action-shaping
@@ -5012,17 +5221,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-ACTION
+        paired_negative_cases:
+          - G1V3-ACTION
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-01
+        - G1V3-ACTION
       paired_negative:
-        - BC-01
-      status: pending
+        - G1V3-ACTION
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-001
     title: Use em dashes only under an explicit style contract
     family: prose-integrity
@@ -5440,17 +5666,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-PROSE
+        paired_negative_cases:
+          - G1V3-PROSE
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-03
+        - G1V3-PROSE
       paired_negative:
-        - BC-03
-      status: pending
+        - G1V3-PROSE
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-007
     title: Vary structure
     family: prose-integrity
@@ -5500,17 +5743,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-PROSE
+        paired_negative_cases:
+          - G1V3-PROSE
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-08
+        - G1V3-PROSE
       paired_negative:
-        - BC-08
-      status: pending
+        - G1V3-PROSE
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-008
     title: Reference without narrating
     family: prose-integrity
@@ -5624,18 +5884,35 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-PROSE
+        paired_negative_cases:
+          - G1V3-PROSE
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-03
+        - G1V3-PROSE
       paired_negative:
-        - BC-03
-      status: pending
+        - G1V3-PROSE
+      status: complete
     deterministic_verification:
       - *id007
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-010
     title: No scare quotes on ordinary words
     family: prose-integrity
@@ -5767,12 +6044,29 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-PROSE
+        paired_negative_cases:
+          - G1V3-PROSE
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-03
+        - G1V3-PROSE
       paired_negative:
-        - BC-03
-      status: pending
+        - G1V3-PROSE
+      status: complete
     deterministic_verification:
       - *id009
       - kind: deterministic-test
@@ -5784,10 +6078,10 @@ records:
         subject_revision: 1
         proves_validator: no-whether-youre-opener
         proof_scope: advisory-signal-only
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-012
     title: Generic audience framing
     family: prose-integrity
@@ -6139,17 +6433,34 @@ records:
         limits: Fresh bounded paired evidence did not satisfy the two-reviewer PASS requirement for both mapped
           roles; the row remains open.
         subject_revision: 1
+      - kind: behavioural-challenge
+        reference: receipt:g1-bhv-20260811-v3
+        result: accepted
+        freshness: fresh
+        limits: Bounded paired Luna Max evidence for the exact behavior-bearing historical candidate on this
+          Codex host; no automatic-activation, candidate-only-causality, cross-host, final-output-custody, or
+          strict-conformance proof.
+        subject_revision: 1
+        positive_cases:
+          - G1V3-PROSE
+        paired_negative_cases:
+          - G1V3-PROSE
+        receipt_sha256: sha256:TWOOZ06A883RWPsYmoQ0tfI84G-YM2ruAJx_z-mRRjI
+        candidate_sha256: sha256:fNiVjCRt5C6JggLEveBJGEbfjxLhE4dL6l9Njmdik-I
+        protocol_revision: g1-family-cluster-v3.1
+        qualification: qualifying-pass
+        rule_observation: PASS
     behavioural_coverage:
       positive:
-        - BC-03
+        - G1V3-PROSE
       paired_negative:
-        - BC-03
-      status: pending
+        - G1V3-PROSE
+      status: complete
     deterministic_verification: []
-    decision_state: proposed
-    closure_state: pending-behavioural-challenge
-    uncertainty: Fresh paired evidence remains insufficient for this semantic owner; no accepted behavioural
-      receipt is attached.
+    decision_state: accepted
+    closure_state: closed
+    uncertainty: Qualified only for the bounded host-conditioned paired challenge recorded by the opaque
+      receipt; broader activation and custody claims remain outside scope.
   - id: STOW-PRO-017
     title: No fabricated scenarios
     family: prose-integrity

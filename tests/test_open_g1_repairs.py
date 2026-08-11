@@ -125,6 +125,22 @@ def test_moved_controlled_rules_have_narrow_contextual_boundaries():
         assert activation["exception"] == exception
 
 
+def test_vrb_005_is_not_claimed_as_a_parser_after_the_failed_behavioural_probe():
+    record = _records()["STOW-VRB-005"]
+    assert record["enforcement"] == {
+        "kind": "semantic-review",
+        "validator": "ing-role-contextual-review",
+        "limit": None,
+        "autofix": False,
+        "status": "review-fallback",
+    }
+    row = next(
+        line for line in CONTROLLED_REFERENCE.read_text(encoding="utf-8").splitlines()
+        if line.startswith("| VRB-005 |")
+    )
+    assert "no reliable parser is claimed" in row
+
+
 def test_note_function_and_sentence_cap_have_distinct_owners():
     text = PROCEDURE_REFERENCE.read_text(encoding="utf-8")
     note_section = text.split("### STOW-PRC-005", 1)[1].split("## Punctuation", 1)[0]

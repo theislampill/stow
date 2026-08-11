@@ -131,3 +131,54 @@ def test_controlled_coverage_remains_off_the_ordinary_hot_path():
     prefixes = set((ordinary.get("includes") or {}).get("category_prefixes") or [])
     assert not (prefixes & CONTROLLED_PREFIXES)
     assert ordinary["guidance_rules"] == []
+
+
+def test_every_active_g1_owner_has_a_terminal_release_boundary():
+    coverage = load_yaml(COVERAGE_PATH)["active_g1_resolution"]
+    dispositions = load_yaml(DISPOSITIONS_PATH)
+    active_g1 = {
+        row["id"] for row in dispositions["records"]
+        if row["layer"] == "G1" and row["disposition"] in {"KEEP", "SIMPLIFY", "MOVE"}
+    }
+    qualified = set(coverage["behaviourally_qualified"])
+    external = set(coverage["external_authority_required"])
+    deferred = set(coverage["deferred_contextual"])
+    assert len(qualified) == 58
+    assert not (qualified & external or qualified & deferred or external & deferred)
+    assert qualified | external | deferred == active_g1
+
+    rows = {row["id"]: row for row in dispositions["records"]}
+    assert all(rows[rule_id]["closure_state"] == "closed" for rule_id in qualified)
+    assert all(
+        rows[rule_id]["closure_state"] == "external-authority-required"
+        for rule_id in external
+    )
+    assert all(
+        rows[rule_id]["closure_state"] == "deferred-contextual"
+        for rule_id in deferred
+    )
+
+
+def test_dictionary_example_policy_is_explicit_and_does_not_expand_the_fixed_projection():
+    coverage = load_yaml(COVERAGE_PATH)
+    policy = coverage["dictionary_example_policy"]
+    assert policy == {
+        "source_columns_present": ["preferred-usage", "nonpreferred-usage"],
+        "source_records": 2198,
+        "preferred_examples_present": 2197,
+        "nonpreferred_examples_present": 1358,
+        "packaged_fixed_projection": "excluded-pending-redistribution-authority",
+        "fixed_synthetic_examples": "deferred-no-demonstrated-runtime-benefit",
+        "project_overlay_examples": "optional-sparse-non-authoritative-origin-labelled",
+        "measured_compressed_member_delta_bytes": 104033,
+        "ordinary_prompt_token_delta": 0,
+    }
+    dictionary = __import__("json").loads(
+        (ROOT / "tools" / "data" / "controlled-dictionary-v1.json").read_text(encoding="utf-8")
+    )
+    assert dictionary["generated_counts"]["records"] == policy["source_records"]
+    assert "example columns are intentionally excluded" in dictionary["extraction_scope"]
+    assert all(
+        not ({"good_example", "bad_example", "preferred_example", "nonpreferred_example"} & set(record))
+        for record in dictionary["records"]
+    )

@@ -55,7 +55,7 @@ Load a reference only when its predicate is true.
 - hazard or damage risk -> references/safety-instructions.md
 - technical explanation, architecture description, plan, audit, runbook, or state record -> references/technical-clarity.md, the technical-clarity profile
 - controlled-technical-guided profile active or requested (alias: controlled-technical) -> references/controlled-technical-writing.md
-- explicit canonical-term map -> references/canonical-terms.md
+- explicit project-term mapping -> references/canonical-terms.md
 - mixed prose and literals -> references/protected-regions.md
 - conformance claim -> references/conformance.md
 - action-shaping deep guidance -> references/action-shaping.md

@@ -1,8 +1,39 @@
-# Closed canonical-term maps
+# Closed canonical terms and project terminology
 
-Load this reference only when the host supplies an explicit canonical-term map.
-Run `python runtime/validate_terms.py --map MAP.json --segments SEGMENTS.json`.
-The runtime uses only the Python standard library.
+Load this reference only when the host supplies an explicit canonical-term map
+or explicitly selects a project terminology authority. File presence alone is
+not authority and never activates the project overlay. The runtimes use only
+the Python standard library.
+
+For a closed map, run
+`python runtime/validate_terms.py --map MAP.json --segments SEGMENTS.json`.
+
+For a project authority, run either:
+
+```text
+python runtime/dictionary_lookup.py --authority PROJECT.json lookup TERM
+python runtime/dictionary_lookup.py --authority PROJECT.json scan --segments SEGMENTS.json
+```
+
+The project file follows `rules/project-terminology.schema.json`. It records a
+declared authority and candidate, approved, or rejected technical nouns,
+technical verbs, abbreviations, and canonical terms. The runtime never writes
+the file and never promotes a candidate. Optional good and bad examples are
+sparse record context, not authority and not sense proof. Each example declares
+whether its origin is `project-authority` or `stow-synthetic`.
+
+Lookup precedence is: caller-labeled protected text; an explicitly selected
+project authority; the fixed controlled dictionary; then unresolved contextual
+review. An approved project declaration can prevent the generic dictionary from
+rewriting that surface. This proves only the supplied declaration. Term
+category, intended sense, authority authenticity, and contextual suitability
+remain external or contextual.
+
+Approved records can declare approved and nonpreferred forms. The scan reports
+a declared nonpreferred form with its supplied preferred form, which supports
+consistent reuse without inventing synonyms. Collisions, duplicate keys, and
+malformed authority data fail closed. Candidate records remain unresolved even
+when the fixed dictionary also reports a lexical fact.
 
 ## G2 result boundary
 

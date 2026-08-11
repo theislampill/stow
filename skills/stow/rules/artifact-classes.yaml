@@ -91,10 +91,12 @@ classes:
       - tests/test_routing.py
       - tests/test_artifact_classes.py
       - tests/test_controlled_dictionary.py
+      - tests/test_project_terminology.py
     files:
       - skills/stow/rules/artifact-classes.yaml
       - skills/stow/rules/conflicts.yaml
       - skills/stow/rules/controlled-dictionary.schema.json
+      - skills/stow/rules/project-terminology.schema.json
       - skills/stow/rules/profiles.json
       - skills/stow/rules/registry.schema.json
       - skills/stow/rules/registry.yaml
@@ -109,6 +111,7 @@ classes:
       - tests/test_profiles.py
       - tests/test_query_rules.py
       - tests/test_controlled_dictionary.py
+      - tests/test_project_terminology.py
     files:
       - skills/stow/runtime/lint_prose.py
       - skills/stow/runtime/dictionary_lookup.py

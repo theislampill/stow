@@ -2,7 +2,7 @@
 
 This reference governs how STOW may describe its own output against the underlying controlled-technical writing standard. It is application guidance, not a restatement of any rule. For the normative text of a cited rule, open its `corpus_ref`.
 
-STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in this release**. A cold lexical index can report exact dictionary membership and explicitly listed forms, but it does not decide meaning, part of speech in context, replacement suitability, or technical-term authority. Approved project terminology, official directives, complete contextual review, final-output validation, and delivery custody are also unavailable. STOW must never state that its output fully conforms on the basis of the rule set or lexical lookup alone.
+STOW gives **guided** alignment, never certification. The strict, fully conformant profile is **locked and unavailable in this release**. A cold lexical index can report exact dictionary membership and explicitly listed forms. A caller can also explicitly select a project terminology authority whose approved and nonpreferred forms take precedence over the generic dictionary. Neither mechanism decides meaning, part of speech in context, replacement suitability, technical-term category, authority authenticity, official directives, complete contextual review, final-output validation, or delivery custody. STOW must never state that its output fully conforms on the basis of these lookups alone.
 
 Each group below lists: the observable **Trigger**, the output **Region** it applies to, how STOW **Checks** it (or why the check is unavailable), and a `corpus_ref` **Reference** for the full rule text.
 
@@ -17,7 +17,7 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 
 - **Trigger:** prose under an active controlled-technical profile whose evaluation would require looking a word up in the controlled dictionary, confirming its approved sense, part of speech, or inflection, testing technical-noun or technical-verb category membership, checking approved connectors, company or industry terminology, phrasal-verb admissibility, or false-friend status.
 - **Region:** all-prose, including procedural and descriptive prose; excludes code, structured data, quoted text, and identifiers.
-- **Check:** exact membership and explicitly listed-form lookup are available through a cold, sparse index. Sense, contextual part of speech, replacement choice, technical-noun or technical-verb status, approved terminology, and directive checks remain unavailable or contextual. Report which lexical facts were checked, name the remaining boundary, and never count lookup alone as conformance.
+- **Check:** exact membership and explicitly listed-form lookup are available through a cold, sparse index. An explicitly selected project file can add approved and nonpreferred terminology declarations; candidates never become approved, and file presence alone grants no authority. Sense, contextual part of speech, replacement choice, technical-noun or technical-verb category, authority authenticity, and directive checks remain external or contextual. Report which facts and declarations were checked, name the remaining boundary, and never count lookup alone as conformance.
 - **Reference:** see corpus/words/selection.md#STOW-WRD-001,
   corpus/words/selection.md#STOW-WRD-002,
   corpus/words/usage.md#STOW-WRD-003, corpus/sentences.md#STOW-SEN-004,
@@ -58,10 +58,13 @@ Each group below lists: the observable **Trigger**, the output **Region** it app
 
 ## Bottom line
 
-Lexical lookup does not supply terminology authority, contextual semantics, directives, complete validation, or delivery custody. STOW must not claim that any output fully conforms to the controlled-technical writing standard. Report closed lexical facts separately from guided structural and safety review, and name every unavailable boundary.
+Lexical lookup and an explicitly selected project authority do not supply contextual semantics, authenticate the named authority, complete validation, or delivery custody. STOW must not claim that any output fully conforms to the controlled-technical writing standard. Report closed lexical facts and project declarations separately from guided structural and safety review, and name every unavailable boundary.
 
 For vocabulary admission, exact dictionary membership is the closed boundary;
-technical nouns, technical verbs, and canonical project terms require external
-terminology authority. For approved-word meaning, contextual sense review is
-intentionally deferred when an approved meaning is not supplied. These are
-accounted limitations, not lexical failures and not evidence of conformance.
+technical nouns, technical verbs, and canonical project terms require an
+explicitly selected external terminology authority. STOW can read that
+authority without a model call, but it cannot authenticate the source or decide
+category and sense.
+For approved-word meaning, contextual sense review is intentionally deferred
+when an approved meaning is not supplied. These are accounted limitations, not
+lexical failures and not evidence of conformance.

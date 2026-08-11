@@ -101,7 +101,7 @@ routes:
     validator: python runtime/lint_prose.py
 
   - mode: canonical-term-map
-    predicate: "explicit canonical-term map"
+    predicate: "explicit project-term mapping"
     references:
       - references/canonical-terms.md
     profile: null

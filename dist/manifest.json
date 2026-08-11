@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "04cd2ddd64177caaee71883f29bbbf4477ee8be73dbb50a1b57b4b12768912f4",
+  "artifact_sha256": "5aee2140331a0fad9bc21422d860594d4af78d6b1755ad574603071386491751",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -29,11 +29,13 @@
     "stow/references/ai-writing-detection.md",
     "stow/references/always-on.md",
     "stow/references/audit-and-evidence.md",
+    "stow/references/canonical-terms.md",
     "stow/references/conformance.md",
     "stow/references/continuity-and-state.md",
     "stow/references/controlled-technical-writing.md",
     "stow/references/cross-harness-interchange.md",
     "stow/references/descriptions.md",
+    "stow/references/descriptive-prose.md",
     "stow/references/format-json.md",
     "stow/references/format-jsonl.md",
     "stow/references/format-markdown.md",
@@ -47,17 +49,21 @@
     "stow/references/runbooks.md",
     "stow/references/safety-instructions.md",
     "stow/references/technical-clarity.md",
-    "stow/references/user-facing-output.md",
     "stow/rules/artifact-classes.yaml",
     "stow/rules/conflicts.yaml",
+    "stow/rules/controlled-dictionary-v1.json.gz",
+    "stow/rules/controlled-dictionary.schema.json",
     "stow/rules/profiles.json",
+    "stow/rules/project-terminology.schema.json",
     "stow/rules/registry.schema.json",
     "stow/rules/registry.yaml",
     "stow/rules/routing.yaml",
+    "stow/runtime/dictionary_lookup.py",
     "stow/runtime/lint_prose.py",
     "stow/runtime/profiles.py",
     "stow/runtime/query_rules.py",
     "stow/runtime/validate.py",
+    "stow/runtime/validate_terms.py",
     "stow/schemas/event.schema.json",
     "stow/schemas/evidence-record.schema.json",
     "stow/schemas/handoff.schema.json",
@@ -74,6 +80,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 71,
-  "version": "0.3.6"
+  "entry_count": 77,
+  "version": "0.4.0"
 }

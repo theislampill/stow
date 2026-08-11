@@ -25,20 +25,6 @@ Origin registry; resolution semantic-review. Fires when: A controlled-technical 
 
 Evidence: registry.yaml conflicts[] edges on STOW-WRD-011 and STOW-PRO-007.
 
-## CFL-002 -- `STOW-STY-004` vs `STOW-PRO-007`
-
-Origin registry; resolution semantic-review. Fires when: Recurring content repeats across a document while the variation preference is active.
-
-- Winner: band `profile` (`STOW-STY-004`).
-- Losing behavior: Rewording a recurring caution, step, or label between occurrences.
-- Permitted substitute: Keep consistent terminology and wording for the same item or recurring step
-- Registry resolution (canonical, verbatim): Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
-
-    Fixture (conforming): `The same caution text appears before step 3 and step 9, word for word.`
-    Fixture (violating): `Rephrase the second caution so the document does not repeat itself.`
-
-Evidence: registry.yaml conflicts[] edges on STOW-STY-004 and STOW-PRO-007.
-
 ## CFL-003 -- `STOW-PRC-001` vs `STOW-PRO-007`
 
 Origin registry; resolution deterministic. Fires when: A controlled-technical profile is active over procedural prose and sentence-length variation is preferred.
@@ -81,7 +67,7 @@ Origin registry; resolution deterministic. Fires when: An em dash would be repla
 
 Evidence: registry.yaml conflicts[] edges on STOW-PCT-001 and STOW-PRO-001. Outside the controlled profile the semicolon stays permitted and is never required.
 
-## CFL-006 -- `STOW-WRD-014` vs `STOW-PRO-021`
+## CFL-006 -- `STOW-WRD-014` vs `STOW-PRO-020`
 
 Origin registry; resolution deterministic. Fires when: A banned or non-preferred token sits inside code, a quoted span, or an identifier.
 
@@ -93,9 +79,9 @@ Origin registry; resolution deterministic. Fires when: A banned or non-preferred
     Fixture (conforming): `The config key `colour_mode` keeps its spelling; the surrounding prose uses color.`
     Fixture (violating): `Rename the `colour_mode` key to `color_mode` in the quoted config for spelling consistency.`
 
-Evidence: registry.yaml conflicts[] edges on STOW-WRD-014 and STOW-PRO-021.
+Evidence: registry.yaml conflicts[] edges on STOW-WRD-014 and STOW-PRO-020.
 
-## CFL-007 -- `STOW-PCT-006` vs `STOW-PRO-021`
+## CFL-007 -- `STOW-PCT-006` vs `STOW-PRO-020`
 
 Origin registry; resolution deterministic. Fires when: A lexical preference would touch punctuation or wording inside a protected region.
 
@@ -107,7 +93,7 @@ Origin registry; resolution deterministic. Fires when: A lexical preference woul
     Fixture (conforming): `The quoted error message keeps its exact wording, including the words it uses.`
     Fixture (violating): `Clean up the quoted error message so it reads better in the report.`
 
-Evidence: registry.yaml conflicts[] edges on STOW-PCT-006 and STOW-PRO-021.
+Evidence: registry.yaml conflicts[] edges on STOW-PCT-006 and STOW-PRO-020.
 
 ## CFL-008 -- `STOW-ACT-006` vs `STOW-PRO-002`
 
@@ -137,7 +123,7 @@ Origin composition; resolution semantic-review. Fires when: The request is an in
 
 Evidence: Request intent decides the opening. The intent router in references/always-on.md carries the mode table; the output contract band outranks presentation shaping.
 
-## CFL-010 -- `STOW-ACT-003` vs `STOW-ACT-007`
+## CFL-010 -- kernel-duty `open-work-next-step` vs `STOW-ACT-007`
 
 Origin composition; resolution semantic-review. Fires when: The turn ends with no work left open.
 
@@ -150,19 +136,6 @@ Origin composition; resolution semantic-review. Fires when: The turn ends with n
     Fixture (violating): `The migration finished and all checks pass. Next, you could consider exploring the codebase.`
 
 Evidence: The closing-step rule's own applicability condition (open work remains) resolves the pair; the condition is carried in the always-on module.
-
-## CFL-011 -- `STOW-ACT-009` vs band `contract`
-
-Origin composition; resolution deterministic. Fires when: The output contract requires an exhaustive or complete list longer than the action cap.
-
-- Winner: band `contract` (`contract`).
-- Losing behavior: Trimming, grouping, or splitting a contract-required exhaustive list to fit the five-item cap.
-- Permitted substitute: Ship the complete list; the cap advisory is suppressed by the exhaustive-list permission (runtime flag --exhaustive-list-ok).
-
-    Fixture (conforming): `The audit record lists all nine findings because the contract requires every finding.`
-    Fixture (violating): `Only the top five findings are shown to keep the list short; four are omitted from the audit record.`
-
-Evidence: The cap shapes action queues; it never truncates evidence, reference material, or contract-required output. Band 2 outranks presentation.
 
 ## CFL-012 -- `STOW-PRO-015` vs band `accuracy`
 
@@ -177,7 +150,7 @@ Origin composition; resolution semantic-review. Fires when: A claim carries just
 
 Evidence: The accuracy band keeps justified uncertainty; the anti-hedging rule targets empty qualifiers, not calibrated claims.
 
-## CFL-013 -- `STOW-PRO-024` vs band `accuracy`
+## CFL-013 -- `STOW-PRO-011` vs band `accuracy`
 
 Origin composition; resolution semantic-review. Fires when: A source limitation, failed verification, or unavailable tool materially changes the answer.
 
@@ -231,7 +204,7 @@ Origin composition; resolution semantic-review. Fires when: The user requests a 
 
 Evidence: The fabrication ban targets invented events presented as real; a labeled, requested hypothetical is neither.
 
-## CFL-017 -- `STOW-PRO-021` vs band `terminology`
+## CFL-017 -- `STOW-PRO-020` vs band `terminology`
 
 Origin composition; resolution semantic-review. Fires when: A banned-lexicon term is used in its legitimate technical sense or is the domain's established name.
 
@@ -257,7 +230,7 @@ Origin composition; resolution deterministic. Fires when: An explicit user or or
 
 Evidence: The regional-spelling rule defers to other official directives by its own baseline text; an explicit directive is band 2.
 
-## CFL-019 -- `STOW-ACT-005` vs `STOW-PRO-024`
+## CFL-019 -- `STOW-ACT-005` vs `STOW-PRO-011`
 
 Origin composition; resolution semantic-review. Fires when: A multi-turn task turn must restate progress while process narration is suppressed.
 
@@ -271,16 +244,3 @@ Origin composition; resolution semantic-review. Fires when: A multi-turn task tu
     Expected rewrite: `Done: schema migrated (checksum verified). Open: backfill job. Blocked: vendor key rotation.`
 
 Evidence: Progress-state reporting is the permitted form of visibility; the narration ban suppresses process diary, not the state ledger.
-
-## CFL-020 -- `STOW-SAF-001` vs `STOW-ACT-009`
-
-Origin composition; resolution deterministic. Fires when: A safety instruction, warning, or hazard notice competes with brevity shaping or the list cap.
-
-- Winner: band `system` (`STOW-SAF-001`).
-- Losing behavior: Truncating, summarizing, or deferring safety content to satisfy brevity or the five-item cap.
-- Permitted substitute: Ship the complete safety content first, unshortened; apply brevity shaping to everything else.
-
-    Fixture (conforming): `All seven hazard notices appear in full before the procedure steps begin.`
-    Fixture (violating): `Only the top five hazard notices are kept so the list stays within the cap.`
-
-Evidence: System band outranks every lower band; a profile or presentation rule never softens a safety instruction (kernel precedence statement).

@@ -12,13 +12,12 @@
       "additionalProperties": false,
       "required": ["primary_total"],
       "properties": {
-        "primary_total": {"const": 96}
+        "primary_total": {"type": "integer", "minimum": 1}
       }
     },
     "records": {
       "type": "array",
-      "minItems": 96,
-      "maxItems": 96,
+      "minItems": 1,
       "items": {"$ref": "#/$defs/record"}
     },
     "contracts": {
@@ -133,6 +132,12 @@
           "properties": {
             "kind": {"enum": ["deterministic", "parser", "heuristic", "semantic-review"]},
             "validator": {"type": ["string", "null"]},
+            "advisory_validators": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
             "limit": {"type": ["integer", "null"]},
             "autofix": {"const": false},
             "status": {"enum": ["callable", "review-fallback", "planned"]}

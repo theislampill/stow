@@ -1,0 +1,466 @@
+schema_version: 1
+subject_revision: 2
+suite_status: frozen-repaired-design
+execution_boundary: Generated transcripts and scores belong in the private run root, not this repository.
+scoring:
+  scale:
+    minimum: 0
+    maximum: 4
+  dimensions:
+    - fidelity
+    - voice_preservation
+    - naturalness
+    - editorial_restraint
+    - residual_pathology
+    - false_positive_damage
+  critical_failures:
+    - invented_fact
+    - dropped_qualification
+    - altered_literal
+    - unsafe_omission
+    - contract_failure
+  interpretation:
+    higher_is_better:
+      - fidelity
+      - voice_preservation
+      - naturalness
+      - editorial_restraint
+    lower_is_better:
+      - residual_pathology
+      - false_positive_damage
+    rule_observation:
+      - PASS
+      - FAIL
+      - NOT_OBSERVABLE
+      - UNKNOWN
+evaluation_thresholds:
+  critical_treatment_failures: 0
+  minimum_median_pathology_reduction: 1
+  minimum_packs_with_pathology_reduction: 6
+  pathology_suppression_wins_must_exceed_losses: true
+  minimum_control_voice_preservation_median: 3.5
+  maximum_control_false_positive_damage_median: 0.5
+  maximum_control_false_positive_damage: 1
+  maximum_pack_naturalness_regression: 0.5
+  permitted_lost_facts_qualifications_literals_or_legitimate_features: 0
+regression_targets:
+  - id: unknown-boundary
+    case: BC-04
+    mechanism: contextual-review
+    requirement: The edited memo must still state that the maintainer's release position is unknown; legitimate paraphrase is allowed.
+  - id: unsupported-state
+    case: BC-05
+    mechanism: contextual-review
+    requirement: The edit must not invent visibility, log, or equipment-state claims that the source does not establish.
+  - id: unit-literal
+    case: BC-05
+    mechanism: exact-literal
+    requirement: Preserve the single source occurrence of `20 kPa` byte-for-byte.
+  - id: redundant-label
+    case: BC-01
+    mechanism: contextual-review
+    requirement: Do not add a label or heading to the already-clear negative control unless it improves retrieval.
+  - id: coordination-preservation
+    case: BC-06
+    mechanism: contextual-review
+    requirement: Do not replace natural coordination with repeated full subjects unless clarity materially improves.
+  - id: house-transition
+    case: BC-08
+    mechanism: fixture-specific-exact-literal
+    universal_rule: false
+    requirement: When this source uses `However,`, preserve it because the supplied house voice explicitly requires that transition in this note.
+scenario_packs:
+  - id: BC-01
+    name: Incident continuation
+    task_prompt: Rewrite the incident update for an engineer taking over the next shift. Preserve every fact
+      and make the next action easy to find.
+    pathology_input: 'Quick update: we are looking at cache node R7. The issue is not merely latency; it is a deeper
+      reliability challenge. Furthermore, several checks were performed. The node remains isolated. In conclusion,
+      the next step is to compare trace 44-B with the 02:10 snapshot. Let me know if you need anything else.'
+    paired_negative_control: Cache node R7 remains isolated. The 02:10 snapshot is available. Compare trace
+      44-B with that snapshot next; the comparison has not started.
+    positive_coverage:
+      - STOW-ACT-001
+      - STOW-ACT-002
+      - STOW-ACT-007
+      - STOW-ACT-008
+      - STOW-ACT-011
+    paired_negative_coverage:
+      - STOW-ACT-001
+      - STOW-ACT-002
+      - STOW-ACT-007
+      - STOW-ACT-008
+      - STOW-ACT-011
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-02
+    name: Completion and scope note
+    task_prompt: Edit the project note for the person coordinating tomorrow's work. Keep the completed result,
+      the deferred item, and the uncertainty boundary.
+    pathology_input: 'Here is a recap of where things stand. We successfully completed the parser check, which is
+      incredibly important. There are six possible follow-ups: review logs, redesign storage, replace metrics, update
+      docs, notify support, and investigate backups. We may potentially be able to estimate the remaining work later.
+      Thanks!'
+    paired_negative_control: The parser check passed. Storage redesign is outside this change and remains
+      deferred. We do not yet have enough timing data to estimate the remaining work. Tomorrow, review the
+      parser logs first.
+    positive_coverage:
+      - STOW-ACT-004
+      - STOW-ACT-005
+      - STOW-ACT-006
+    paired_negative_coverage:
+      - STOW-ACT-004
+      - STOW-ACT-005
+      - STOW-ACT-006
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-03
+    name: Short technical explainer
+    task_prompt: Tighten this explanation for a developer who needs to understand the cache invalidation rule.
+      Keep the answer short and technically precise.
+    pathology_input: "Understanding Cache Invalidation\n\nIn today's rapidly evolving landscape, cache invalidation
+      is a crucial concept. At its core, it essentially means making old entries no longer usable. This is not just
+      about deleting data; it is about ensuring freshness.\n\nBroader implications\n\nThe wider context is that
+      stale values can be bad. In conclusion, invalidation helps ensure the cache may potentially return newer values."
+    paired_negative_control: A cache entry becomes invalid when its source version changes. Readers may still
+      receive the old value until the invalidation event reaches their node, so the system records the source
+      version with each entry.
+    positive_coverage:
+      - STOW-PRO-005
+      - STOW-PRO-006
+      - STOW-PRO-009
+      - STOW-PRO-011
+      - STOW-PRO-016
+    paired_negative_coverage:
+      - STOW-PRO-005
+      - STOW-PRO-006
+      - STOW-PRO-009
+      - STOW-PRO-011
+      - STOW-PRO-016
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-04
+    name: Evidence memo
+    task_prompt: Edit the evidence memo without adding facts. Preserve the date, quantity, attribution, exact
+      quotation, unknown, and labeled hypothetical.
+    pathology_input: 'On 7 August 2026, the test log records 18 completed cases. The maintainer wrote, "three cases
+      remain blocked". The cause was definitely a network outage, although the log does not state a cause. No record
+      was found for the retry count. Imagine that retries were unlimited: this would prove the queue was unstable.
+      The maintainer probably opposed the release.'
+    paired_negative_control: "The 7 August 2026 test log records 18 completed cases. The maintainer wrote, \"three
+      cases remain blocked\". The log does not state the cause or retry count. Hypothetical: if retries were unlimited,
+      queue stability would require a separate test. The maintainer's release position is unknown."
+    positive_coverage:
+      - STOW-PRO-002
+      - STOW-PRO-013
+      - STOW-PRO-015
+      - STOW-PRO-017
+      - STOW-PRO-018
+      - STOW-PRO-019
+      - STOW-PRO-023
+    paired_negative_coverage:
+      - STOW-PRO-002
+      - STOW-PRO-013
+      - STOW-PRO-015
+      - STOW-PRO-017
+      - STOW-PRO-018
+      - STOW-PRO-019
+      - STOW-PRO-023
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-05
+    name: Controlled maintenance procedure
+    task_prompt: Rewrite the maintenance procedure under the supplied sparse local language authority. Use
+      that authority only for the words and terms it explicitly covers; do not infer full dictionary approval.
+      Preserve every supplied identifier, quotation, unit literal, and site name exactly and with the same
+      multiplicity. Keep conditions, actions, and notes distinct. Do not convert requested actions into claims
+      that they occurred, and do not infer equipment, visibility, or log states.
+    pathology_input: "If pressure is below 20 kPa you should be verifying the emergency-purge-valve-control-assembly
+      and then the emergency-purge-valve-control-assembly should be isolated, which is something that operators do
+      in order to facilitate safe maintenance at North Plant; note: don't alter `PV-17`, the blue colour mark, or
+      \"OPEN SLOWLY\". After that, check it and record it and update the log, etc."
+    paired_negative_control: "If pressure is below 20 kPa, inspect the emergency purge valve control assembly
+      (the purge control assembly).\n\nSteps:\n\n1. Isolate the purge control assembly with control `PV-17`.\n2.
+      Confirm that the blue color mark is visible.\n3. Confirm that the label reads \"OPEN SLOWLY\".\n4. Record
+      20, `PV-17`, \"OPEN SLOWLY\", and North Plant.\n5. Record the result in the maintenance log.\n\nNote:
+      The purge control assembly high-pressure state (the pressure is high) remains in the record."
+    positive_coverage:
+      - STOW-WRD-001
+      - STOW-WRD-002
+      - STOW-WRD-003
+      - STOW-WRD-007
+      - STOW-WRD-008
+      - STOW-WRD-010
+      - STOW-WRD-011
+      - STOW-WRD-014
+      - STOW-MWN-001
+      - STOW-VRB-002
+      - STOW-VRB-005
+      - STOW-VRB-006
+      - STOW-VRB-007
+      - STOW-SEN-002
+      - STOW-SEN-003
+      - STOW-SEN-004
+      - STOW-SEN-005
+      - STOW-PRC-002
+      - STOW-PRC-003
+      - STOW-PRC-004
+      - STOW-PRC-005
+      - STOW-PCT-003
+      - STOW-PCT-004
+      - STOW-PCT-005
+      - STOW-PCT-006
+      - STOW-PCT-007
+      - STOW-STY-001
+      - STOW-STY-003
+      - STOW-GEN-002
+      - STOW-GEN-003
+      - STOW-GEN-005
+      - STOW-GEN-007
+    paired_negative_coverage:
+      - STOW-WRD-001
+      - STOW-WRD-002
+      - STOW-WRD-003
+      - STOW-WRD-007
+      - STOW-WRD-008
+      - STOW-WRD-010
+      - STOW-WRD-011
+      - STOW-WRD-014
+      - STOW-MWN-001
+      - STOW-VRB-002
+      - STOW-VRB-005
+      - STOW-VRB-006
+      - STOW-VRB-007
+      - STOW-SEN-002
+      - STOW-SEN-003
+      - STOW-SEN-004
+      - STOW-SEN-005
+      - STOW-PRC-002
+      - STOW-PRC-003
+      - STOW-PRC-004
+      - STOW-PRC-005
+      - STOW-PCT-003
+      - STOW-PCT-004
+      - STOW-PCT-005
+      - STOW-PCT-006
+      - STOW-PCT-007
+      - STOW-STY-001
+      - STOW-STY-003
+      - STOW-GEN-002
+      - STOW-GEN-003
+      - STOW-GEN-005
+      - STOW-GEN-007
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable:
+      - STOW-VRB-005
+      - STOW-SEN-004
+      - STOW-SEN-005
+      - STOW-GEN-005
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+    closed_authority:
+      exact_literal_counts:
+        pathology:
+          20 kPa: 1
+          '`PV-17`': 1
+          '"OPEN SLOWLY"': 1
+          North Plant: 1
+        negative_control:
+          20 kPa: 1
+          '`PV-17`': 2
+          '"OPEN SLOWLY"': 2
+          North Plant: 1
+      semantic_review_only:
+        - Whether a state or visibility claim is supported by the source.
+        - Whether a paraphrase preserves condition, action, and note meaning.
+      boundary: The exact literal counts are mechanical. Vocabulary, entailment, visibility, and equipment state are contextual reviewer judgments.
+    controlled_language_authority:
+      mode: sparse-fixture-authority
+      scope_boundary: These records govern only the named words and terms in this passage. They are not a complete dictionary or a strict-conformance authority.
+      dictionary_records:
+        - word: CHECK
+          part_of_speech: noun
+          approved_meaning: an inspection or test
+          forms: [check, checks]
+        - word: INSPECT
+          part_of_speech: verb
+          approved_meaning: examine carefully
+          forms: [inspect, inspects, inspected, inspected]
+        - word: ISOLATE
+          part_of_speech: verb
+          approved_meaning: separate from an operating system
+          forms: [isolate, isolates, isolated, isolated]
+        - word: RECORD
+          part_of_speech: verb
+          approved_meaning: write data or information
+          forms: [record, records, recorded, recorded]
+      terminology_records:
+        official_long_noun: emergency purge valve control assembly
+        declared_short_noun: purge control assembly
+        technical_nouns:
+          - emergency purge valve control assembly
+          - purge control assembly
+          - blue color mark
+          - maintenance log
+        technical_verbs: [inspect, isolate, record]
+      hyphenation:
+        preserve: [high-pressure]
+        repair: [emergency-purge-valve-control-assembly]
+      contextual_review_only:
+        - Whether a candidate uses a listed word with its supplied meaning and syntactic role.
+        - Whether the declared short noun preserves the intended technical referent.
+        - Whether a different word would preserve the source meaning.
+    word_count_contract:
+      procedural_sentence_max: 20
+      list_colon_ends_sentence: true
+      parenthetical_host_words: 1
+      atomic_classes:
+        - number
+        - identifier
+        - quoted-text
+        - title
+        - proper-noun
+      hyphenated_group_words: 1
+      expected_calculations:
+        - id: condition
+          text: If pressure is below 20 kPa, inspect the emergency purge valve control assembly (the purge control assembly).
+          count: 13
+        - id: list-lead
+          text: 'Steps:'
+          count: 1
+        - id: identifier
+          text: Isolate the purge control assembly with control `PV-17`.
+          count: 8
+        - id: quotation
+          text: Confirm that the label reads "OPEN SLOWLY".
+          count: 6
+        - id: atomic-classes
+          text: Record 20, `PV-17`, "OPEN SLOWLY", and North Plant.
+          count: 6
+        - id: parenthetical-hyphenated
+          text: 'Note: The purge control assembly high-pressure state (the pressure is high) remains in the record.'
+          count: 12
+    counting_observability:
+      pathology_arm:
+        expected_not_observable:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        reason: The rewrite request does not require the model to return its word-count calculation.
+      negative_control_arm:
+        deterministic_construction:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        false_positive_preservation:
+          - STOW-PCT-004
+          - STOW-PCT-005
+          - STOW-PCT-006
+          - STOW-PCT-007
+        reason: The committed control and expected calculations provide a deterministic construction for
+          preservation scoring; they do not prove that a model performed the count.
+      model_output_semantic_count: NOT_OBSERVABLE_UNLESS_COUNT_REQUESTED_OR_RETURNED
+  - id: BC-06
+    name: Controlled system description
+    task_prompt: Edit the system description so a maintainer can recover the subjects and relationships.
+      Preserve the technical meaning.
+    pathology_input: The relay controller, which is used by the power module and has several modes that are
+      important, is something that is responsible for switching. It has the sensor and it has the timer and
+      these are related. The system is robust. Moreover, the controller is utilized for facilitation of
+      recovery. The controller topic also includes logs. The paragraph then changes to battery wear and
+      installation tools and network alerts.
+    paired_negative_control: "The relay controller switches the power module. Its sensor measures input voltage,
+      and its timer delays restart after a fault. The controller writes each restart result to the recovery log.\n\
+      \nThe battery monitor reports wear separately; it does not control relay switching."
+    positive_coverage:
+      - STOW-DSC-001
+      - STOW-DSC-004
+      - STOW-DSC-006
+    paired_negative_coverage:
+      - STOW-DSC-001
+      - STOW-DSC-004
+      - STOW-DSC-006
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-07
+    name: Safety notices
+    task_prompt: Rewrite the two notices for a maintenance card. Distinguish injury risk from equipment damage
+      and preserve both consequences.
+    pathology_input: Be careful around the cabinet. There is voltage and the operator could be injured. The
+      drive might also be damaged when the cooling line is shut. Before opening the cabinet, isolation is
+      something that should be done. Also, don't shut the cooling line while the drive runs.
+    paired_negative_control: "WARNING: Isolate cabinet power before you open the cabinet. Contact with energized
+      terminals can cause serious injury.\n\nCAUTION: Do not close the cooling line while the drive runs. Loss of
+      coolant can damage the drive."
+    positive_coverage:
+      - STOW-SAF-001
+      - STOW-SAF-002
+      - STOW-SAF-003
+    paired_negative_coverage:
+      - STOW-SAF-001
+      - STOW-SAF-002
+      - STOW-SAF-003
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.
+  - id: BC-08
+    name: Explicit house-style editorial note
+    task_prompt: Edit the note for the stated magazine voice. Keep its deliberate punctuation, headings,
+      contractions, parallel structure, qualified claim, and quoted label unless clarity truly requires a
+      change. When the source uses `However,`, this magazine requires that exact transition in this note.
+    pathology_input: "House voice: brisk but literary.\n\nThe Turning Point (and Why It Matters)\n\nThis tool isn't
+      merely fast—it is, in a sense, a small revolution. Moreover, it can potentially transform every workflow.
+      The \"simple\" interface is extremely intuitive! Whether you're new or experienced, it helps ensure success.
+      In conclusion, the future is bright."
+    paired_negative_control: "House voice: brisk but literary.\n\nWhat the field notes changed\n\nThe first trial
+      failed—cleanly, usefully, and in public. We didn't hide the broken seal. However, the second trial may matter
+      more: its \"temporary\" brace held for nine measured hours, though one test cannot establish durability."
+    positive_coverage:
+      - STOW-PRO-001
+      - STOW-PRO-007
+      - STOW-PRO-020
+    paired_negative_coverage:
+      - STOW-PRO-001
+      - STOW-PRO-007
+      - STOW-PRO-020
+    coverage_limit: Coverage is cluster-level. A mapping identifies an opportunity for observation, not
+      per-rule causality or proof; mark a rule NOT_OBSERVABLE when the output cannot support it.
+    expected_not_observable: []
+    required_observations:
+      - Score pathology suppression in the edited pathology arm.
+      - Score false-positive damage and voice preservation in the paired negative control.
+      - Quote the output span supporting each rule observation or mark it not observable.

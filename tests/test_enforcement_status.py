@@ -18,7 +18,6 @@ Truthfulness model (per the runtime-enforcement matrix):
 import json
 import os
 import sys
-from collections import Counter
 
 from jsonschema import Draft202012Validator
 from ruamel.yaml import YAML
@@ -50,16 +49,24 @@ import lint_prose  # noqa: E402  (packaged runtime module; import-closed)
 
 NAMED_CALLABLES = set(lint_prose.IMPLEMENTED_VALIDATORS)
 
-MECHANIZED_KINDS = {"deterministic", "parser", "heuristic"}
-VALID_STATUS = {"callable", "review-fallback", "planned"}
-
-# Per-domain record counts (reference snapshot; must stay unchanged after the
-# additive enrichment).
-EXPECTED_DOMAIN_COUNTS = {
-    "WRD": 14, "MWN": 2, "VRB": 7, "SEN": 5, "PRC": 5, "DSC": 6,
-    "SAF": 3, "PCT": 7, "STY": 4, "GEN": 8, "ACT": 11, "PRO": 24,
+GENUINE_G2_IDS = {
+    "STOW-PRC-001", "STOW-DSC-003", "STOW-PCT-001", "STOW-GEN-006",
 }
 
+EXPECTED_ADVISORY_VALIDATORS = {
+    "STOW-SEN-002": {"no-contractions"},
+    "STOW-PRO-001": {"no-em-dash"},
+    "STOW-PRO-009": {"no-intensifiers"},
+    "STOW-PRO-011": {"no-filler-phrases", "no-whether-youre-opener"},
+    "STOW-PRO-015": {"no-weasel-words"},
+    "STOW-PRO-020": {
+        "no-ai-transitions", "no-ai-verbs", "no-academic-tells",
+        "no-unresolved-generated-placeholders",
+    },
+}
+
+MECHANIZED_KINDS = {"deterministic", "parser", "heuristic"}
+VALID_STATUS = {"callable", "review-fallback", "planned"}
 
 def _load_yaml(path):
     yaml = YAML(typ="safe")
@@ -77,13 +84,8 @@ SCHEMA = _load_json(SCHEMA_PATH)
 RECORDS = REGISTRY["records"]
 
 
-def _domain(rid):
-    return rid.split("-")[1]
-
-
-def _selector_always_on(rec):
-    """The activation selector: always-user-facing OR the unconditional-prose
-    predicate. Sub-region-gated conditional predicates are excluded."""
+def _predicate_candidate(rec):
+    """Records the earlier predicate-only selector would have included."""
     act = rec["activation"]
     if act["kind"] == "always-user-facing":
         return True
@@ -142,23 +144,30 @@ def test_mechanized_without_named_callable_is_not_callable():
 
 
 def test_implemented_validators_are_not_under_claimed():
-    """The gate runs both ways: if the shipped linter implements a validator,
-    the record naming it must say so. Prevents silently under-reporting real
-    capability the way v0.1 over-reported phantom capability."""
-    implemented = set(lint_prose.IMPLEMENTED_VALIDATORS)
-    for r in RECORDS:
-        enf = r["enforcement"]
-        if enf.get("validator") in implemented:
-            assert enf["status"] == "callable", (
-                "%s names validator %r which the shipped linter implements, "
-                "but status is %r" % (r["id"], enf["validator"], enf["status"]))
+    """Every shipped validator is claimed once as compliance or advisory."""
+    compliance = {
+        r["enforcement"]["validator"] for r in RECORDS
+        if r["enforcement"]["status"] == "callable"
+    }
+    advisory = {
+        validator for r in RECORDS
+        for validator in r["enforcement"].get("advisory_validators", [])
+    }
+    assert compliance.isdisjoint(advisory)
+    assert compliance | advisory == NAMED_CALLABLES
 
 
 def test_every_implemented_validator_is_claimed_by_a_record():
-    """No orphan checks: every implemented validator maps to a registry record."""
-    named = {r["enforcement"].get("validator") for r in RECORDS}
-    orphans = sorted(set(lint_prose.IMPLEMENTED_VALIDATORS) - named)
+    """No orphan checks: every implemented validator maps to one active record."""
+    named = [r["enforcement"].get("validator") for r in RECORDS]
+    named.extend(
+        validator for r in RECORDS
+        for validator in r["enforcement"].get("advisory_validators", [])
+    )
+    orphans = sorted(set(lint_prose.IMPLEMENTED_VALIDATORS) - set(named))
     assert not orphans, "linter implements validators no record names: %s" % orphans
+    for validator in lint_prose.IMPLEMENTED_VALIDATORS:
+        assert named.count(validator) == 1, validator
 
 
 def test_exactly_the_named_callable_is_callable():
@@ -172,6 +181,26 @@ def test_exactly_the_named_callable_is_callable():
     assert callable_ids, "at least one validator ships callable code today"
 
 
+def test_only_genuine_g2_predicates_are_primary_callable_rules():
+    callable_ids = {
+        r["id"] for r in RECORDS if r["enforcement"]["status"] == "callable"
+    }
+    assert callable_ids == GENUINE_G2_IDS
+
+
+def test_contextual_g1_rules_own_only_advisory_surface_validators():
+    actual = {
+        r["id"]: set(r["enforcement"].get("advisory_validators", []))
+        for r in RECORDS if r["enforcement"].get("advisory_validators")
+    }
+    assert actual == EXPECTED_ADVISORY_VALIDATORS
+    for rule_id in actual:
+        enforcement = next(r for r in RECORDS if r["id"] == rule_id)["enforcement"]
+        assert enforcement["kind"] == "semantic-review"
+        assert enforcement["validator"] is None
+        assert enforcement["status"] == "review-fallback"
+
+
 # --------------------------------------------------------------------------- #
 # R5-field -- activation.always_on_for_prose selector
 # --------------------------------------------------------------------------- #
@@ -182,37 +211,32 @@ def test_every_record_has_always_on_flag_boolean():
         assert isinstance(val, bool), "%s -> %r" % (r["id"], val)
 
 
-def test_always_on_flag_matches_selector():
-    for r in RECORDS:
-        assert r["activation"]["always_on_for_prose"] is _selector_always_on(r), \
-            r["id"]
-
-
-def test_always_on_count_matches_selector():
+def test_always_on_flag_matches_selector_with_contextual_advisory_exclusions():
     flagged = {r["id"] for r in RECORDS if r["activation"]["always_on_for_prose"]}
-    selected = {r["id"] for r in RECORDS if _selector_always_on(r)}
-    assert flagged == selected
-    # 11 always-user-facing (ACT) + 21 unconditional-prose (PRO) = 32.
-    assert len(flagged) == 32
+    candidates = {r["id"] for r in RECORDS if _predicate_candidate(r)}
+    contextual_advisories = {"STOW-PRO-001", "STOW-PRO-020"}
+    assert candidates - flagged == contextual_advisories
+    assert flagged - candidates == set()
+
+
+def test_always_on_selector_keeps_universal_and_subregion_boundaries():
+    flagged = {r["id"] for r in RECORDS if r["activation"]["always_on_for_prose"]}
     # every always-user-facing record is always-on-for-prose
     for r in RECORDS:
         if r["activation"]["kind"] == "always-user-facing":
             assert r["id"] in flagged, r["id"]
     # sub-region-gated PRO records are excluded
-    for rid in ("STOW-PRO-003", "STOW-PRO-016", "STOW-PRO-023"):
+    for rid in ("STOW-PRO-016", "STOW-PRO-023"):
         assert rid not in flagged, rid
 
 
 # --------------------------------------------------------------------------- #
-# Invariants -- primary_total + per-domain counts unchanged; contracts outside
+# Derived primary total; contracts outside the primary record population
 # --------------------------------------------------------------------------- #
 
-def test_primary_total_and_domain_counts_unchanged():
-    assert len(RECORDS) == 96
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
-    got = Counter(_domain(r["id"]) for r in RECORDS)
-    assert dict(got) == EXPECTED_DOMAIN_COUNTS
-    assert sum(EXPECTED_DOMAIN_COUNTS.values()) == 96
+def test_primary_total_tracks_current_records():
+    assert RECORDS
+    assert REGISTRY["generated_counts"]["primary_total"] == len(RECORDS)
 
 
 def test_contracts_catalog_kept_outside_primary_total():
@@ -222,6 +246,6 @@ def test_contracts_catalog_kept_outside_primary_total():
     assert ids == ["output-contract", "handoff", "task-packet",
                    "evidence-record", "state"]
     assert len(ids) == 5
-    # meta-contracts are counted separately from the 96 primary records
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+    # meta-contracts are counted separately from the current primary records
+    assert REGISTRY["generated_counts"]["primary_total"] == len(RECORDS)
     assert "contracts" not in REGISTRY["generated_counts"]

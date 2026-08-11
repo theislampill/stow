@@ -126,6 +126,33 @@ def test_routing_loads_and_has_routes():
     assert "raw-artifact-exclusion" in modes, "raw-artifact exclusion route missing"
 
 
+def test_contextual_prose_quality_route_is_profile_neutral():
+    route = next(
+        route for route in ROUTES
+        if route["mode"] == "descriptive-prose-review"
+    )
+    assert route["profile"] is None
+
+
+def test_canonical_term_map_route_is_cold_and_uses_its_validator():
+    route = next(
+        route for route in ROUTES
+        if route["mode"] == "canonical-term-map")
+    assert route["predicate"] == "explicit project-term mapping"
+    assert route["references"] == ["references/canonical-terms.md"]
+    assert route["profile"] is None
+    assert route["corpus"] is None
+    assert route["validator"] == "python runtime/validate_terms.py"
+
+
+def test_action_shaping_deep_route_names_the_moved_rule_predicates():
+    route = next(route for route in ROUTES
+                 if route["mode"] == "action-shaping-deep")
+    predicate = route["predicate"].casefold()
+    for phrase in ("secondary issue", "multi-turn state", "effort estimate"):
+        assert phrase in predicate
+
+
 # --------------------------------------------------------------------------- #
 # Gate (a) -- section-5 reference paths and routing references agree both ways
 # --------------------------------------------------------------------------- #

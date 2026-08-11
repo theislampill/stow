@@ -1,4 +1,4 @@
-"""P2 tests for the STOW machine-readable rule registry (index of 96 records).
+"""P2 tests for the STOW machine-readable rule registry.
 
 Self-contained: no corpus dependency (the corpus arrives in P2B) and no
 dependency on a runtime validate.py (it does not exist yet). The registry is
@@ -28,12 +28,6 @@ HASH_POS = os.path.join(REPO, "tools", "hash-positions.txt")
 PATTERNS_PATH = os.path.abspath(os.path.join(REPO, os.pardir, "leak-patterns-private.yaml"))
 
 REGISTRY_REL = "skills/stow/rules/registry.yaml"
-
-# Expected per-domain counts (live in the TEST, never committed to the registry).
-EXPECTED_COUNTS = {
-    "WRD": 14, "MWN": 2, "VRB": 7, "SEN": 5, "PRC": 5, "DSC": 6,
-    "SAF": 3, "PCT": 7, "STY": 4, "GEN": 8, "ACT": 11, "PRO": 24,
-}
 
 # precedence prefix -> enum EQUALITY table (the deciding authority).
 PRECEDENCE_TABLE = {
@@ -87,6 +81,10 @@ def _precedence_ok(record):
     return record["precedence"] == PRECEDENCE_TABLE[_prefix(record["id"])]
 
 
+def _primary_total_matches_population(registry):
+    return registry["generated_counts"]["primary_total"] == len(registry["records"])
+
+
 # --------------------------------------------------------------------------- #
 # Schema + shape
 # --------------------------------------------------------------------------- #
@@ -99,8 +97,19 @@ def test_registry_matches_schema():
         "%s: %s" % (list(e.path), e.message) for e in errors)
 
 
-def test_exactly_96_primary_records():
-    assert len(RECORDS) == 96
+def test_schema_allows_a_different_positive_primary_population():
+    candidate = copy.deepcopy(REGISTRY)
+    candidate["records"] = candidate["records"][:-1]
+    candidate["generated_counts"]["primary_total"] = len(candidate["records"])
+    errors = sorted(Draft202012Validator(SCHEMA).iter_errors(candidate),
+                    key=lambda e: e.path)
+    assert errors == [], "\n".join(
+        "%s: %s" % (list(e.path), e.message) for e in errors)
+
+
+def test_current_records_are_primary_and_total_matches_population():
+    assert RECORDS
+    assert _primary_total_matches_population(REGISTRY)
     assert all(r["record_class"] == "primary" for r in RECORDS)
 
 
@@ -112,12 +121,12 @@ def test_ids_unique_and_well_formed():
         assert pat.match(rid), rid
 
 
-def test_domain_counts_and_total():
+def test_domain_population_sums_to_primary_total():
     from collections import Counter
     got = Counter(_prefix(rid) for rid in IDS)
-    assert dict(got) == EXPECTED_COUNTS
-    assert sum(EXPECTED_COUNTS.values()) == 96
-    assert REGISTRY["generated_counts"]["primary_total"] == 96
+    assert set(got) <= set(PRECEDENCE_TABLE)
+    assert sum(got.values()) == len(RECORDS)
+    assert sum(got.values()) == REGISTRY["generated_counts"]["primary_total"]
 
 
 def test_generated_counts_has_no_per_domain_totals():
@@ -230,14 +239,13 @@ def test_broken_fixtures_are_rejected_but_real_registry_passes():
     assert not all(_precedence_ok(r) for r in bent)
 
 
-def test_broken_fixture_registry_fails_schema():
-    # A structurally broken registry (wrong primary_total, 95 records) must be
-    # rejected by the JSON Schema, proving the schema gate has teeth.
+def test_count_mismatch_fails_repository_gate():
+    # JSON Schema validates each field's shape. This repository-level gate
+    # enforces the cross-field equality that JSON Schema cannot express.
     broken = copy.deepcopy(REGISTRY)
     broken["records"] = broken["records"][:-1]
-    broken["generated_counts"]["primary_total"] = 95
-    errors = list(Draft202012Validator(SCHEMA).iter_errors(broken))
-    assert errors, "schema should reject a 95-record registry"
+    assert not _primary_total_matches_population(broken)
+    assert _primary_total_matches_population(REGISTRY)
 
 
 # --------------------------------------------------------------------------- #

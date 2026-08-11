@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Generate skills/stow/references/always-on.md from the registry.
 
-The always-on module is the operational form of every rule flagged
-``activation.always_on_for_prose: true`` (the action-shaping and unconditional
-prose-integrity families). It is loaded on every user-facing PROSE turn so the
-always-on rules actually govern ordinary output; protected regions are excluded.
+The ordinary path keeps individually qualified action checks and a compact
+taxonomy of observable prose harms. The generator validates that every prose
+record selected by ``activation.always_on_for_prose`` belongs to the taxonomy;
+closed punctuation and lexical matchers remain callable advisory tools without
+being universal generation instructions.
 
-Only STOW-authored fields (``title``, ``category``, ``corpus_ref``) are emitted,
-so the generated file is source-name-free. Deterministic (sorted by id), so
-``--check`` proves the committed file matches the registry.
+Only STOW-authored registry fields and STOW-native taxonomy text are emitted.
+Output is deterministic, so ``--check`` proves the committed file is current.
 """
 
 import os
@@ -24,11 +24,8 @@ OUT = os.path.join(REPO, "skills", "stow", "references", "always-on.md")
 HEADER = (
     "# Always-on operational checks\n"
     "\n"
-    "Apply these on every user-facing PROSE turn. They are the operational form of\n"
-    "the always-on rule families. Protected regions -- raw JSON, JSONL, YAML, code,\n"
-    "quotations, identifiers, and paths -- are excluded: apply none of these inside\n"
-    "them. For the full statement, definitions, qualifications, and worked examples\n"
-    "of any check, load its corpus module.\n"
+    "Apply these to editable user-facing prose. Protected regions -- raw JSON,\n"
+    "JSONL, YAML, code, quotations, identifiers, and paths -- are excluded.\n"
     "\n"
     "These checks yield to safety, the output contract, and factual accuracy: keep\n"
     "justified uncertainty, disclose a material limitation or failed verification\n"
@@ -56,6 +53,36 @@ ROUTER = (
     "  error report: cause, then effect, then correction\n"
     "  completed work: the result; invent no next action\n"
     "  open work: one concrete next action may close the turn\n"
+)
+
+# The digest groups every active prose record by observable effect. The record
+# ids are validation data only and are not emitted into the ordinary path.
+DESCRIPTIVE_GROUPS = (
+    ("semantic repetition",
+     "remove repeated meaning when it adds no function",
+     ("STOW-PRO-006",)),
+    ("empty metadiscourse",
+     "cut framing and process narration that do not advance the answer",
+     ("STOW-PRO-011",)),
+    ("manufactured contrast or escalation",
+     "keep intensity, urgency, and enthusiasm proportional to evidence",
+     ("STOW-PRO-009",)),
+    ("hollow evaluation",
+     "replace unsupported verdicts with the fact or criterion behind them",
+     ("STOW-PRO-005", "STOW-PRO-013")),
+    ("mechanical symmetry or fragmentation",
+     "combine or vary repeated shapes when they obscure the content",
+     ("STOW-PRO-007",)),
+    ("heading opacity or unnecessary sectioning",
+     "use sections only when they help navigation, and name their contents",
+     ()),
+    ("epistemic opacity",
+     "attribute claims and state evidence boundaries, hypotheticals, and justified uncertainty",
+     ("STOW-PRO-002", "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-018",
+      "STOW-PRO-019")),
+    ("lexical inflation or cliché clusters",
+     "prefer exact ordinary wording unless a term has a needed technical sense",
+     ()),
 )
 
 
@@ -93,34 +120,60 @@ def _bullet(record):
     return line
 
 
+def _descriptive_digest(prose_records):
+    active_ids = {record["id"] for record in prose_records}
+    grouped_ids = {rule_id for _label, _summary, ids in DESCRIPTIVE_GROUPS
+                   for rule_id in ids}
+    if active_ids != grouped_ids:
+        raise ValueError(
+            "descriptive taxonomy does not cover the active prose selector: "
+            "missing=%r extra=%r" %
+            (sorted(active_ids - grouped_ids), sorted(grouped_ids - active_ids)))
+
+    lines = [
+        "## Descriptive prose digest",
+        "",
+        "Authorship is irrelevant. Review the observable effect in context:",
+        "",
+    ]
+    for label, summary, _ids in DESCRIPTIVE_GROUPS:
+        lines.append("- %s: %s." % (label, summary))
+    lines.extend([
+        "",
+        "When a contextual prose-quality review is requested, load",
+        "`references/descriptive-prose.md` for applicability, legitimate",
+        "counterexamples, rewrite principles, and mechanisms.",
+    ])
+    return lines
+
+
 def build():
     on = _records()
     action = [r for r in on if r["id"].startswith("STOW-ACT-")]
     prose = [r for r in on if r["id"].startswith("STOW-PRO-")]
-    parts = [HEADER, ROUTER, ""]
-    for heading, group in (("## Action shaping", action), ("## Prose integrity", prose)):
-        parts.append(heading)
-        parts.append("")
-        for r in group:
-            parts.append(_bullet(r))
-        parts.append("")
-    return "\n".join(parts).rstrip("\n") + "\n", len(action), len(prose)
+    parts = [HEADER, ROUTER, "", "## Action shaping", ""]
+    for record in action:
+        parts.append(_bullet(record))
+    parts.extend([""] + _descriptive_digest(prose) + [""])
+    return ("\n".join(parts).rstrip("\n") + "\n",
+            len(action), len(DESCRIPTIVE_GROUPS))
 
 
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
-    text, n_action, n_prose = build()
+    text, n_action, n_leaves = build()
     if "--check" in argv:
         current = open(OUT, encoding="utf-8").read() if os.path.exists(OUT) else None
         if current != text:
             print("always-on.md is STALE relative to the registry -- regenerate")
             return 1
-        print("always-on.md is current (%d action + %d prose)" % (n_action, n_prose))
+        print("always-on.md is current (%d action + %d descriptive leaves)" %
+              (n_action, n_leaves))
         return 0
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(text)
-    print("wrote %s (%d action + %d prose = %d always-on checks)"
-          % (OUT, n_action, n_prose, n_action + n_prose))
+    print("wrote %s (%d action + %d descriptive leaves)"
+          % (OUT, n_action, n_leaves))
     return 0
 
 

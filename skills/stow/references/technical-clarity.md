@@ -1,19 +1,22 @@
 # The technical-clarity profile
 
 Native architecture reference for the `technical-clarity` profile declared in
-`rules/profiles.json`. It governs technical prose that coordinates work
+`rules/profiles.json`. It guides technical prose that coordinates work
 without being a controlled executable procedure.
 
-## When it activates
+## Routing cue
 
-Automatically, for: technical explanations, architecture descriptions, agent
-handoffs, implementation plans, audit reports, runbooks, state and continuity
-records, and structured task instructions surrounding code. It can also be
-selected explicitly (`--profile technical-clarity` on the runtime linter).
+The routing data names technical explanations, architecture descriptions,
+agent handoffs, implementation plans, audit reports, runbooks, state and
+continuity records, and structured task instructions surrounding code. A caller
+can select it explicitly with `--profile technical-clarity` on the linter.
 
-When the same artifact also matches a more specific profile, the
-auto-precedence order in `rules/profiles.json` decides: an executable
-procedure or safety instruction promotes to `controlled-technical-guided`.
+These contexts are routing guidance for a model or host, not semantic
+classification performed by `runtime/profiles.py`.
+
+When a model or host considers more than one routing cue applicable, the
+precedence data in `rules/profiles.json` puts executable procedures and safety
+instructions ahead of this profile.
 
 ## What it adds over stow-default
 
@@ -23,7 +26,7 @@ accuracy, progressive disclosure) plus review-level discipline:
 - One term per concept, held stable across the artifact (guidance rule
   `STOW-WRD-011`).
 - Consistent wording for recurring content such as repeated steps, labels,
-  and cautions (guidance rule `STOW-STY-004`).
+  and cautions (consolidated under guidance rule `STOW-WRD-011`).
 - Stable names for artifacts, gates, and actors across turns and documents.
 - Bounded steps: each instruction names its actor, action, and completion
   condition.
@@ -31,7 +34,7 @@ accuracy, progressive disclosure) plus review-level discipline:
 - Evidence-aware claims: tie each claim to the artifact, measurement, or gate
   that supports it, and keep justified uncertainty.
 
-The two guidance rules are review-level. They activate as discipline for the
+The guidance rule is review-level. It activates as discipline for the
 writer and reviewer; no mechanical check enforces them under this profile,
 and the runtime linter reports them under `guidance_active` in its output
 rather than as findings.

@@ -1,19 +1,18 @@
 """Gates for the always-on activation architecture.
 
-The always-on rule families (action shaping + unconditional prose integrity) must
-actually govern ordinary user-facing prose turns. v0.1 loaded them only behind a
-vague "deep guidance" predicate, so they never applied on the turns they exist to
-govern. These gates prove the repaired architecture STRUCTURALLY:
+The always-on rule families must govern ordinary user-facing prose turns without
+turning closed lexical matches into authorship verdicts. These gates prove the
+activation architecture structurally:
 
   1. a generated operational module exists, is registry-derived, and is current;
-  2. every always-on rule is represented in it;
-  3. the kernel routes ordinary prose turns to it and excludes protected regions;
+  2. every action rule and every descriptive taxonomy leaf is represented;
+  3. the kernel carries ordinary guidance and keeps the generated detail cold;
   4. the ordinary-turn footprint stays bounded;
   5. the kernel still carries its byte-exact no-greedy-loading rule.
 
 HONEST SCOPE: these are structural/routing contracts over the shipped files. There
-is no model-invocation harness here, so they prove the kernel *instructs* the load
-and the module is complete -- not that a live model performed it.
+is no model-invocation harness here, so they prove the kernel and cold detail are
+complete -- not that a live model performed either behavior.
 """
 
 import importlib.util
@@ -45,11 +44,8 @@ measure_context = _load_module(
     os.path.join(REPO, "tools", "measure_context.py"))
 
 # Measured budgets (o200k_base). The composition-hardening pass carries each
-# always-on check's rule id, applicability condition, and principal exception
-# into the module, plus the request-mode router -- a deliberate, measured cost:
-# a bare context-free title misapplies its rule (a closing-step demand on
-# completed work, an estimate demand with no defensible range). Raised from
-# 900/2200 with that justification; the kernel ceiling is unchanged.
+# action check's rule id, applicability condition, and principal exception into
+# the module, plus the request-mode router and the compact descriptive digest.
 #
 # Mode-aware caps: the REAL caps bind when the tokenizer cache is available;
 # the EST caps bind under the deterministic chars/3.5 fallback, which
@@ -60,7 +56,18 @@ _TOKENIZER_MODE = _ENCODER is not None
 
 ALWAYS_ON_TOKEN_CAP = 1400 if _TOKENIZER_MODE else 1750
 KERNEL_TOKEN_CEILING = 1500  # holds in both modes (kernel is small and dense)
-ORDINARY_TURN_CAP = 2400 if _TOKENIZER_MODE else 3100
+ORDINARY_TURN_CAP = 2400 if _TOKENIZER_MODE else 3026
+
+DESCRIPTIVE_LEAVES = (
+    "semantic repetition",
+    "empty metadiscourse",
+    "manufactured contrast or escalation",
+    "hollow evaluation",
+    "mechanical symmetry or fragmentation",
+    "heading opacity or unnecessary sectioning",
+    "epistemic opacity",
+    "lexical inflation or cliché clusters",
+)
 
 KERNEL_ALONE_LINE = (
     "Do not read every reference or corpus module. "
@@ -85,6 +92,13 @@ def _always_on_records():
     return [r for r in recs if (r.get("activation") or {}).get("always_on_for_prose")]
 
 
+def _all_records():
+    yaml = YAML(typ="safe")
+    with open(REGISTRY, encoding="utf-8") as fh:
+        reg = yaml.load(fh)
+    return reg.get("records") or reg.get("rules")
+
+
 # --------------------------------------------------------------------------- #
 # 1. the module exists, is generated, and is current
 # --------------------------------------------------------------------------- #
@@ -105,43 +119,65 @@ def test_always_on_is_current_with_registry():
 # 2. every always-on rule is represented
 # --------------------------------------------------------------------------- #
 
-def test_every_always_on_rule_is_present():
+def test_every_always_on_action_rule_is_present():
     text = _read(ALWAYS_ON)
-    records = _always_on_records()
+    records = [r for r in _always_on_records()
+               if r["id"].startswith("STOW-ACT-")]
     assert records, "no records carry activation.always_on_for_prose"
     missing = [r["id"] for r in records if r["title"].strip() not in text]
     assert not missing, "always-on rules absent from the module: %s" % missing
 
 
+def test_moved_action_rules_are_not_in_the_ordinary_payload():
+    """Accepted MOVE decisions must reduce the hot path in the real registry."""
+    moved = {"STOW-ACT-004", "STOW-ACT-005", "STOW-ACT-006"}
+    records = {r["id"]: r for r in _always_on_records()}
+    assert moved.isdisjoint(records)
+    text = _read(ALWAYS_ON)
+    for rule_id in moved:
+        assert rule_id.replace("STOW-", "") not in text
+
+
 def test_module_bullet_count_matches_selector():
     bullets = [ln for ln in _read(ALWAYS_ON).splitlines() if ln.startswith("- ")]
-    assert len(bullets) == len(_always_on_records())
+    actions = [r for r in _always_on_records()
+               if r["id"].startswith("STOW-ACT-")]
+    assert len(bullets) == len(actions) + len(DESCRIPTIVE_LEAVES)
 
 
-def test_every_bullet_cites_its_corpus_module():
-    """Full statement/examples stay Tier-3: each check points at its corpus module."""
+def test_every_action_bullet_cites_its_corpus_module():
+    """Full action-rule statements stay behind their corpus module pointers."""
     for line in _read(ALWAYS_ON).splitlines():
-        if line.startswith("- "):
+        if re.match(r"^- ACT-\d{3} ", line):
             assert re.search(r"\(see corpus/[\w./-]+\.md(?:#[\w-]+)?\)", line), line
 
 
+def test_descriptive_digest_has_exactly_the_eight_named_leaves():
+    text = _read(ALWAYS_ON)
+    digest = text.split("## Descriptive prose digest", 1)[1]
+    labels = [line[2:].split(":", 1)[0] for line in digest.splitlines()
+              if line.startswith("- ")]
+    assert labels == list(DESCRIPTIVE_LEAVES)
+
+
 # --------------------------------------------------------------------------- #
-# 3. the kernel routes ordinary prose turns here, and excludes protected regions
+# 3. the kernel carries ordinary prose guidance and keeps detail cold
 # --------------------------------------------------------------------------- #
 
-def test_kernel_activates_always_on_for_prose_turns():
+def test_kernel_keeps_generated_detail_cold_for_explicit_review():
     kernel = _read(KERNEL)
     assert "references/always-on.md" in kernel, "kernel never routes to always-on.md"
     line = next(ln for ln in kernel.splitlines() if "references/always-on.md" in ln)
-    assert re.search(r"\bprose turn\b", line, re.I), line
+    assert "explicit" in line.casefold(), line
+    assert "rule-audit" in line.casefold(), line
 
 
-def test_kernel_excludes_protected_regions_from_always_on():
-    """A raw artifact must NOT pull the prose checks in."""
+def test_kernel_excludes_protected_regions_from_ordinary_guidance():
+    """A raw artifact must not receive editable-prose guidance."""
     line = next(ln for ln in _read(KERNEL).splitlines()
-                if "references/always-on.md" in ln)
+                if "ordinary editable user-facing prose ->" in ln)
     assert re.search(r"exclud", line, re.I), line
-    for token in ("JSON", "code"):
+    for token in ("raw data", "code"):
         assert token in line, "protected-region exclusion does not name %s" % token
 
 
@@ -162,7 +198,7 @@ def test_kernel_within_ceiling():
 
 
 def test_ordinary_prose_turn_footprint_is_bounded():
-    total = _tokens(_read(KERNEL)) + _tokens(_read(ALWAYS_ON))
+    total = _tokens(_read(KERNEL))
     assert total <= ORDINARY_TURN_CAP, "ordinary prose turn costs %d tokens" % total
 
 
@@ -181,16 +217,14 @@ def test_kernel_does_not_inline_corpus():
 # 6. operational qualifiers survive generation; the router exists
 # --------------------------------------------------------------------------- #
 
-def test_every_registry_qualifier_appears_in_the_module():
-    """A rule whose registry record carries an applicability condition or an
-    exception must not appear in the operational module as a bare title.
-    Parametrized from the registry, so a future qualifier cannot silently
-    drop out of the generated form."""
+def test_every_action_qualifier_appears_in_the_module():
+    """Action checks remain individually operational in the compact module."""
     text = _read(ALWAYS_ON)
     qualified = [r for r in _always_on_records()
+                 if r["id"].startswith("STOW-ACT-")
                  if (r["activation"].get("applicability")
                      or r["activation"].get("exception"))]
-    assert qualified, "no always-on record carries an operational qualifier"
+    assert qualified, "no always-on action record carries an operational qualifier"
     for record in qualified:
         applicability = record["activation"].get("applicability")
         exception = record["activation"].get("exception")
@@ -207,12 +241,12 @@ def test_the_known_condition_bearing_rules_carry_qualifiers():
     records MUST have a non-empty applicability or exception in the registry.
     Removing the field is a regression even if generation stays faithful."""
     required = {
-        "STOW-ACT-001", "STOW-ACT-003", "STOW-ACT-004", "STOW-ACT-005",
-        "STOW-ACT-006", "STOW-ACT-007", "STOW-PRO-001", "STOW-PRO-002",
-        "STOW-PRO-004", "STOW-PRO-005", "STOW-PRO-007", "STOW-PRO-013",
-        "STOW-PRO-017", "STOW-PRO-019", "STOW-PRO-024",
+        "STOW-ACT-001", "STOW-ACT-004", "STOW-ACT-005", "STOW-ACT-006",
+        "STOW-ACT-007", "STOW-PRO-002", "STOW-PRO-005", "STOW-PRO-006",
+        "STOW-PRO-007", "STOW-PRO-009", "STOW-PRO-011", "STOW-PRO-013",
+        "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-019",
     }
-    by_id = {r["id"]: r for r in _always_on_records()}
+    by_id = {r["id"]: r for r in _all_records()}
     for rule_id in sorted(required):
         activation = by_id[rule_id]["activation"]
         assert activation.get("applicability") or activation.get("exception"), (
@@ -222,6 +256,8 @@ def test_the_known_condition_bearing_rules_carry_qualifiers():
 def test_bullets_carry_short_rule_ids():
     text = _read(ALWAYS_ON)
     for record in _always_on_records():
+        if not record["id"].startswith("STOW-ACT-"):
+            continue
         short_id = record["id"].replace("STOW-", "", 1)
         assert re.search(r"^- %s " % re.escape(short_id), text, re.M), (
             "%s bullet does not lead with its id" % record["id"])
@@ -250,6 +286,14 @@ def test_header_carries_the_accuracy_override():
                   "material limitation or failed verification",
                   "hypothetical that is labeled as one", "conflicts.yaml"):
         assert token in head, "always-on header lost %r" % token
+
+
+def test_digest_rejects_authorship_labels_and_routes_contextual_review():
+    digest = _read(ALWAYS_ON).split("## Descriptive prose digest", 1)[1]
+    assert "Authorship is irrelevant." in digest
+    assert "references/descriptive-prose.md" in digest
+    for label in ("AI", "machine-written", "human-written", "generated text"):
+        assert label not in digest
 
 
 def test_no_em_dash_in_the_generated_module():

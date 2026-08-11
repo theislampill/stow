@@ -345,24 +345,70 @@ def schema_path(schema_id):
 def _extract_fenced_block(text):
     """Return (info, body) of the single fenced yaml/json block in a Markdown
     document. String-based on purpose (no regex): the packaged validator keeps
-    its import set fixed. Exactly one yaml/json fence is required; zero or
-    several is an error, so the command can never silently validate the wrong
-    block."""
+    its import set fixed. A schema opener and closer are exact after surrounding
+    whitespace is removed. Unrelated backtick or tilde fences are skipped only
+    when they are closed, so a malformed fence cannot expose a later
+    schema-like body."""
+
+    def fence_parts(stripped):
+        """Return (character, width, info) for a line-leading fence."""
+        if not stripped or stripped[0] not in ("`", "~"):
+            return None
+        character = stripped[0]
+        width = 0
+        while width < len(stripped) and stripped[width] == character:
+            width += 1
+        if width < 3:
+            return None
+        return character, width, stripped[width:]
+
+    def closes_fence(stripped, character, width):
+        """Whether a line is an info-free closer at least as wide as opener."""
+        return (len(stripped) >= width
+                and all(char == character for char in stripped))
+
     candidates = []
     lines = text.split("\n")
     index = 0
     while index < len(lines):
         stripped = lines[index].strip()
-        if stripped.startswith("```"):
-            info = stripped[3:].strip().lower()
+        lowered = stripped.lower()
+
+        if lowered in ("```yaml", "```json"):
+            info = lowered[3:]
             body = []
             index += 1
-            while index < len(lines) and not lines[index].strip().startswith("```"):
+            while index < len(lines):
+                inner = lines[index].strip()
+                if inner == "```":
+                    candidates.append((info, "\n".join(body)))
+                    break
+                nested = fence_parts(inner)
+                if nested is not None and nested[2].strip():
+                    raise ValueError(
+                        "info-fence opener inside fenced yaml/json block")
                 body.append(lines[index])
                 index += 1
-            if info in ("yaml", "json"):
-                candidates.append((info, "\n".join(body)))
+            else:
+                raise ValueError(
+                    "fenced yaml/json block has no exact closing fence")
+            index += 1
+            continue
+
+        unrelated = fence_parts(stripped)
+        if unrelated is not None:
+            character, width, _info = unrelated
+            index += 1
+            while (index < len(lines)
+                   and not closes_fence(lines[index].strip(), character, width)):
+                index += 1
+            if index >= len(lines):
+                raise ValueError("unclosed unrelated fenced block")
+            index += 1
+            continue
+
         index += 1
+
     if not candidates:
         raise ValueError(
             "no fenced yaml/json block found in the Markdown document")
@@ -377,22 +423,33 @@ def _parse_instance(text, path):
     """Parse a schema instance to plain Python. JSON for ``.json``/``.jsonl``,
     YAML for ``.yaml``/``.yml``, the single fenced yaml/json block for ``.md``,
     else try strict JSON then YAML."""
-    if text.startswith(BOM):
-        text = text[len(BOM):]
+    def load_yaml_instance(yaml_text):
+        """Apply the YAML structural contract before schema deserialization."""
+        structural = validate_yaml(yaml_text)
+        errors = list(structural.errors)
+        document_count = structural.data.get("document_count", 0)
+        if document_count != 1:
+            errors.append(
+                "expected exactly one YAML document, found %d" % document_count)
+        if errors:
+            raise ValueError(
+                "YAML structural validation failed: %s" % "; ".join(errors))
+        return _new_yaml().load(io.StringIO(yaml_text))
+
     lower = (path or "").lower()
     if lower.endswith(".json") or lower.endswith(".jsonl"):
         return _loads_strict(text)
     if lower.endswith(".yaml") or lower.endswith(".yml"):
-        return _new_yaml().load(io.StringIO(text))
+        return load_yaml_instance(text)
     if lower.endswith(".md") or lower.endswith(".markdown"):
         info, body = _extract_fenced_block(text)
         if info == "json":
             return _loads_strict(body)
-        return _new_yaml().load(io.StringIO(body))
+        return load_yaml_instance(body)
     try:
         return _loads_strict(text)
     except ValueError:
-        return _new_yaml().load(io.StringIO(text))
+        return load_yaml_instance(text)
 
 
 def _iter_mappings(node):
@@ -563,8 +620,6 @@ def validate_schema(schema_id, text, instance_path=None):
 
 def _validate_schema_lines(validator, text):
     """Validate every non-empty JSONL line as an independent schema instance."""
-    if text.startswith(BOM):
-        text = text[len(BOM):]
     errors = []
     count = 0
     for lineno, raw_line in enumerate(text.split("\n"), start=1):

@@ -31,9 +31,10 @@ inspect, the validator STOW runs, and the full-text citation.
 - **Full text:** `corpus/procedures.md#STOW-PRC-002`
 
 ### STOW-PRC-003
-- **Fires when:** the response gives an instruction or a safety instruction.
+- **Fires when:** the source already authorizes an instruction or safety command. Do not silently strengthen advice, permission, or uncertainty into a command; preserve the source force or request an authority decision.
+- **Lexical precedence:** Dictionary status never authorizes changing source force. If a listed alternative cannot be shown to preserve advice, permission, uncertainty, or the named action, preserve the source wording and report the unresolved lexical item.
 - **Region:** the opening verb of each step sentence (procedural and safety scope).
-- **How STOW checks:** parser validator `imperative-mood`.
+- **How STOW checks:** planned parser validator `imperative-mood` can inspect command form only after the authority boundary is resolved. It does not decide whether source advice may become a command.
 - **Full text:** `corpus/procedures.md#STOW-PRC-003`
 
 ### STOW-PRC-004
@@ -45,7 +46,7 @@ inspect, the validator STOW runs, and the full-text citation.
 ### STOW-PRC-005
 - **Fires when:** a note is attached to a procedure.
 - **Region:** the note text, kept distinct from the surrounding step commands.
-- **How STOW checks:** parser validator `note-no-imperative-no-limit-max-25-words`, which pairs an imperative check against notes with a deterministic 25-word cap (again using the `PCT` token rules).
+- **How STOW checks:** contextual review asks whether the note gives information and does not introduce an action. The separate `STOW-DSC-003` sentence-length predicate supplies the 25-word cap when the note is descriptive prose. STOW does not claim that it can classify note function with a parser.
 - **Full text:** `corpus/procedures.md#STOW-PRC-005`
 
 ## Punctuation and word count in procedures (PCT)
@@ -56,16 +57,10 @@ inspect, the validator STOW runs, and the full-text citation.
 - **How STOW checks:** deterministic validator `no-semicolon`. Where this meets the presentation-layer em-dash ban (`STOW-PRO-001`), the registry conflict note directs you to use neither and pick the substitute the active profile prescribes.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-001`
 
-### STOW-PCT-002
-- **Fires when:** two directly related words in a step should read as one unit.
-- **Region:** modifiers inside step sentences.
-- **How STOW checks:** heuristic validator `hyphenate-related-words`. The word-count consequence is `STOW-PCT-007`.
-- **Full text:** `corpus/punctuation.md#STOW-PCT-002`
-
 ### STOW-PCT-003
 - **Fires when:** parentheses appear in a step or a note.
 - **Region:** step and note prose.
-- **How STOW checks:** heuristic validator `parentheses-approved-use-only`; the admitted purposes are enumerated in the corpus page.
+- **How STOW checks:** contextual guidance permits parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives. The named heuristic is planned, not callable.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-003`
 
 ### STOW-PCT-004
@@ -81,13 +76,13 @@ inspect, the validator STOW runs, and the full-text citation.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-005`
 
 ### STOW-PCT-006
-- **Fires when:** a step or note contains a number, identifier, quoted string, title, or proper noun.
+- **Fires when:** a step or note contains a number, number with unit, abbreviation, identifier, quoted string, title or label, or proper name.
 - **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `word-count-token-rules`, feeding the procedural caps. When a token sits in a protected region, the `STOW-PRO-021` conflict note keeps that region immutable: count it, do not rewrite it.
+- **How STOW checks:** contextual guidance counts each listed element as one word. The shipped counter does not yet implement every listed class, so `word-count-token-rules` remains planned rather than a callable compliance predicate. When a token sits in a protected region, preserve it rather than rewriting it to satisfy a count.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-006`
 
 ### STOW-PCT-007
-- **Fires when:** a hyphenated compound appears in a step or a note.
-- **Region:** the word-count computation for that sentence.
-- **How STOW checks:** deterministic validator `hyphenated-group-counts-as-one-word`, feeding the procedural caps and pairing with `STOW-PCT-002`.
+- **Fires when:** words are joined by a hyphen in a step or note.
+- **Region:** the prose that selects the hyphenated relationship and the word-count computation for that sentence.
+- **How STOW checks:** contextual guidance permits a hyphen only between directly related words that operate as one unit. The deterministic `count_words` helper then counts that hyphenated group as one word when it feeds the callable sentence caps; it is not an independent delivery gate.
 - **Full text:** `corpus/punctuation.md#STOW-PCT-007`

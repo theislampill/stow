@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "coverage_boundary": "The deterministic claim audit covers only the surfaces enumerated in docs/claim-ledger.json; it does not establish whole-runtime or whole-guidance closure.",
+  "coverage_surfaces": [
+    ".claude-plugin/plugin.json",
+    "README.md",
+    "docs/FUNCTIONAL-EVIDENCE.md",
+    "docs/INSTRUMENTALITY.md",
+    "docs/RULE-USABILITY.md",
+    "docs/SELF-DOGFOOD.md",
+    "docs/design.md",
+    "docs/evaluation-results.md",
+    "skills/stow/SKILL.md",
+    "skills/stow/references/activation-and-precedence.md",
+    "skills/stow/references/ai-writing-detection.md",
+    "skills/stow/references/canonical-terms.md",
+    "skills/stow/references/conformance.md",
+    "skills/stow/references/cross-harness-interchange.md",
+    "skills/stow/references/format-json.md",
+    "skills/stow/references/format-jsonl.md",
+    "skills/stow/references/format-markdown.md",
+    "skills/stow/references/format-yaml.md",
+    "skills/stow/references/meta-code.md",
+    "skills/stow/references/prose-integrity.md",
+    "skills/stow/references/protected-regions.md",
+    "skills/stow/references/technical-clarity.md",
+    "skills/stow/rules/profiles.json",
+    "skills/stow/runtime/profiles.py",
+    "tools/ab_eval_runner.py",
+    "tools/measure_context.py"
+  ],
+  "guarded_surfaces": [
+    ".claude-plugin/plugin.json",
+    "README.md",
+    "docs/FUNCTIONAL-EVIDENCE.md",
+    "docs/INSTRUMENTALITY.md",
+    "docs/RULE-USABILITY.md",
+    "docs/SELF-DOGFOOD.md",
+    "docs/design.md",
+    "docs/evaluation-results.md",
+    "skills/stow/SKILL.md",
+    "skills/stow/references/activation-and-precedence.md",
+    "skills/stow/references/ai-writing-detection.md",
+    "skills/stow/references/canonical-terms.md",
+    "skills/stow/references/conformance.md",
+    "skills/stow/references/cross-harness-interchange.md",
+    "skills/stow/references/format-json.md",
+    "skills/stow/references/format-jsonl.md",
+    "skills/stow/references/format-markdown.md",
+    "skills/stow/references/format-yaml.md",
+    "skills/stow/references/meta-code.md",
+    "skills/stow/references/prose-integrity.md",
+    "skills/stow/references/protected-regions.md",
+    "skills/stow/references/technical-clarity.md",
+    "skills/stow/rules/profiles.json",
+    "skills/stow/runtime/profiles.py",
+    "tools/ab_eval_runner.py",
+    "tools/measure_context.py"
+  ],
+  "semantic_families": {
+    "guarantee": "guarantee, ensure, enforce, or equivalent certainty",
+    "selection": "must, always, or automatic selection and loading",
+    "validation": "validate, validator, or delivery-gate scope",
+    "preservation": "preserve, restore, or byte-fidelity scope",
+    "determinism": "deterministic scope and its input boundary"
+  },
+  "claim_candidate_patterns": {
+    "guarantee": [
+      "\\b(?:STOW|skill|guidance|validator|checker|linter|repository|runtime|plugin|test)\\b.{0,80}\\b(?:guarantees?|ensures?|enforces?)\\b",
+      "\\b(?:guarantees?|ensures?|enforces?)\\b.{0,80}\\b(?:every|all|response|output|compliance|conformance|prose|rules?)\\b",
+      "\\b(?:STOW|skill|guidance|validator|checker|linter|runtime|plugin)\\b[^.!?]{0,80}\\b(?:makes?|renders?)\\b[^.!?]{0,80}\\b(?:responses?|outputs?)\\b[^.!?]{0,40}\\b(?:comply|compliant|conform|conformant|correct)\\b"
+    ],
+    "selection": [
+      "\\b(?:must|always(?!-)|automatic\\w*)\\b[^.!?]{0,120}\\b(?:select(?:s|ed|ing|ion)?|load(?:s|ed|ing)?|activat(?:e|es|ed|ing|ion)|classif(?:y|ies|ied|ying|ication)|reference|profile)\\b",
+      "\\breferences?\\b[^.!?]{0,60}\\bloads?\\b[^.!?]{0,40}\\b(?:by itself|on (?:its|their) own|automatically)\\b"
+    ],
+    "validation": [
+      "\\bdelivery gate\\b",
+      "\\bvalidat\\w*\\b(?!-).{0,120}\\b(?:actual final candidate|final response|before delivery|delivery acceptance|correctness|repair|byte preservation|restoration)\\b",
+      "\\b(?:checker|validator|runtime|STOW)\\b[^.!?]{0,60}\\b(?:rejects?|blocks?)\\b[^.!?]{0,80}\\b(?:invalid\\s+)?(?:final\\s+)?(?:responses?|outputs?|candidates?)\\b[^.!?]{0,80}\\bbefore (?:it is )?(?:sent|delivered|delivery)\\b"
+    ],
+    "preservation": [
+      "\\b(?:preserv\\w*|restor\\w*)\\b.{0,120}\\b(?:byte|verbatim|literal|exact|unchanged|output|candidate|artifact|identifier|quotation|quote)\\b",
+      "\\b(?:STOW|skill|guidance|checker|linter|runtime)\\b[^.!?]{0,80}\\b(?:keeps?|leaves?)\\b[^.!?]{0,100}\\b(?:protected\\s+)?(?:literals?|quotes?|quotations?|identifiers?|code|structured data)\\b[^.!?]{0,100}\\b(?:byte-for-byte\\s+)?(?:unchanged|immutable|verbatim|never re-spelled|never re-cased)\\b",
+      "\\b(?:keys?|identifiers?|quoted (?:text|literals?)|literals?)\\b[^.!?]{0,120}\\b(?:immutable|unchanged|verbatim|never\\s+(?:re-spelled|re-cased|rewritten))\\b"
+    ],
+    "determinism": [
+      "\\bdetermin\\w*\\b.{0,120}\\b(?:classif\\w*|output|selection|preserv\\w*|govern\\w*|verdict|token|behavio\\w*|reply|request|response)\\b"
+    ]
+  },
+  "claims": [
+    {
+      "id": "CLM-001",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "G1 generation guidance is model-mediated instruction: it can improve a draft, but it does not deterministically govern the model's output.",
+      "families": ["guarantee", "determinism"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-002",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "G2 mechanical detection returns a deterministic verdict only for a closed, observable input contract.",
+      "families": ["validation", "determinism"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-003",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "G3 delivery gating exists only when a named host gives the detector the actual final candidate, blocks failure and unknown, repairs only where permitted, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-004",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "G4 build and package proof establishes repository or artifact integrity, not semantic prose behavior.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-005",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "This repository contains no general G3 host integration.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-006",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "Reference and profile selection are model- or host-mediated unless a caller explicitly supplies a profile identifier.",
+      "families": ["selection"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-007",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "The profile resolver resolves identifiers, aliases, locks, precedence data, and check gating; it does not semantically classify a request.",
+      "families": ["selection"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-008",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "The prose linter is advisory: findings, zero findings, or unreadable input do not establish semantic correctness, authorship, or delivery acceptance.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-009",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "The structured and closed-term validators are G2 detectors; they become part of G3 only under the explicit host conditions above.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-010",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "Protected-span masking is finite, read-only preprocessing for advisory scans, not a general final-output preservation or restoration mechanism.",
+      "families": ["preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-011",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "Static context figures measure declared file bundles with one tokenizer or a character estimator; they do not prove live host reads, tokens, latency, tool calls, or repair cost.",
+      "families": ["determinism"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-012",
+      "surface": "docs/INSTRUMENTALITY.md",
+      "statement": "The fallback estimator is deterministic for its character formula and historically conservative on the calibrated files, but it is not a universal token upper bound.",
+      "families": ["determinism", "guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-013",
+      "surface": "README.md",
+      "statement": "`runtime/validate.py` and `runtime/validate_terms.py` are G2 detectors, not delivery gates by themselves.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-014",
+      "surface": "README.md",
+      "statement": "- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.",
+      "families": ["guarantee", "validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-015",
+      "surface": "skills/stow/references/protected-regions.md",
+      "statement": "The shipped linter masks a finite set of recognizable spans before advisory scanning; because it is read-only, it performs no restoration step and proves no general final-output byte preservation.",
+      "families": ["preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-016",
+      "surface": "skills/stow/references/technical-clarity.md",
+      "statement": "These contexts are routing guidance for a model or host, not semantic classification performed by `runtime/profiles.py`.",
+      "families": ["selection"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-017",
+      "surface": "docs/FUNCTIONAL-EVIDENCE.md",
+      "statement": "Identifier and quotation checks in this run tested named literals in fixed cases; they were not general final-output byte-preservation gates.",
+      "families": ["preservation", "validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-018",
+      "surface": "docs/RULE-USABILITY.md",
+      "statement": "The activation results are historical, single-host behavioral evidence; they do not prove automatic selection for every rule, prompt, model, or host.",
+      "families": ["selection", "guarantee"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-019",
+      "surface": "docs/evaluation-results.md",
+      "statement": "These fixture results test detector contracts over authored strings; they do not show that STOW generated, repaired, preserved, or delivered the fixtures.",
+      "families": ["validation", "preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-020",
+      "surface": "docs/design.md",
+      "statement": "Packaged schemas, templates, and file formats are portable inputs; live cross-harness behavior remains unverified until a second harness is exercised.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-021",
+      "surface": "README.md",
+      "statement": "The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-022",
+      "surface": "README.md",
+      "statement": "A G3 host workflow must hold the actual final candidate, block invalid and unknown results, permit only authorized repairs, and revalidate before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-023",
+      "surface": "skills/stow/SKILL.md",
+      "statement": "A delivery gate must block, permit repair, and revalidate.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-024",
+      "surface": "skills/stow/references/canonical-terms.md",
+      "statement": "Run the validator against the actual final candidate in host custody.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-025",
+      "surface": "README.md",
+      "statement": "`validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-026",
+      "surface": "README.md",
+      "statement": "The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.",
+      "families": ["validation"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-027",
+      "surface": "README.md",
+      "statement": "- **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks.",
+      "families": ["guarantee"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-028",
+      "surface": "README.md",
+      "statement": "- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.",
+      "families": ["validation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-029",
+      "surface": "docs/RULE-USABILITY.md",
+      "statement": "Passing one blind application test does not make a semantic rule mechanically enforced, and this page makes no such claim.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-030",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "Classes: **mechanically checked** (a committed test enforces it), **independently reviewed** (a fresh-context reviewer verified it), **exempt** (a declared profile or protected-region exemption applies), **accepted deviation** (kept, with a rule-based rationale), **unresolved** (none remain within the mechanically covered scope described below; the semantic checks rest on point-in-time review).",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-031",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "The semantic checks rest on fresh-context reviews recorded in the run record and on the blind evaluation in `docs/FUNCTIONAL-EVIDENCE.md`; they are point-in-time judgments, not standing guarantees.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-032",
+      "surface": "docs/design.md",
+      "statement": "For those modules the pre-normalization baseline is preserved outside the public tree, and the governed comparative rewrite gate still measures any future candidate against that preserved baseline.",
+      "families": ["preservation"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-033",
+      "surface": "docs/design.md",
+      "statement": "Repository tests can assert that a selected advisory subset is empty on named authored surfaces; those pytest assertions are G4 repository gates and do not turn the linter into a G3 delivery gate.",
+      "families": ["validation"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-034",
+      "surface": "docs/design.md",
+      "statement": "It ran on one pinned host model per round, invocation is telemetry rather than forced, and the evaluators share a model family with the generators, so the result is a set of deltas on a single host, not a guarantee that every model and harness behaves the same way.",
+      "families": ["guarantee"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-035",
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "- **Punctuation** (active `STOW-PCT` records): region: prose; check: deterministic and heuristic (including the word-count token rules).",
+      "families": ["determinism"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-036",
+      "surface": "skills/stow/references/format-json.md",
+      "statement": "Validation status belongs outside the raw artifact; an authorized repair replaces the draft and is revalidated before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-037",
+      "surface": "skills/stow/references/format-jsonl.md",
+      "statement": "A named host creates a G3 delivery gate only when it owns the actual final candidate, blocks nonzero and unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-038",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "A named host creates a G3 delivery gate only when it gives the checker the actual final candidate, blocks nonzero or unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-039",
+      "surface": "skills/stow/references/format-json.md",
+      "statement": "- **Parse the actual candidate.** A named G3 host gives the actual final candidate to the parser, blocks nonzero and unreadable results, permits only authorized repairs, and revalidates before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-040",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "Validation status belongs outside the raw artifact; a repair, when authorized, replaces the draft and is revalidated before delivery.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-041",
+      "surface": "skills/stow/references/protected-regions.md",
+      "statement": "Byte-preserving generation remains G1 guidance unless a named host owns the actual final candidate, compares it with authoritative bytes, blocks mismatch, and rechecks after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-042",
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "General byte fidelity requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and recheck after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-043",
+      "surface": "skills/stow/references/activation-and-precedence.md",
+      "statement": "General preservation requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and recheck after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-044",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "Neither mechanism proves preservation in the actual final candidate.",
+      "families": ["preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-045",
+      "surface": "skills/stow/references/format-yaml.md",
+      "statement": "General preservation requires a named host to compare the actual final candidate with authoritative bytes, block a mismatch, and revalidate after any permitted repair.",
+      "families": ["preservation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-046",
+      "surface": "skills/stow/SKILL.md",
+      "statement": "- Protect identifiers, quotations, code, paths, and data values unless their literal editing is requested.",
+      "families": ["preservation"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-047",
+      "surface": "skills/stow/SKILL.md",
+      "statement": "This G1 instruction is not a byte comparator.",
+      "families": ["preservation"],
+      "layer": "G1"
+    },
+    {
+      "id": "CLM-048",
+      "surface": "skills/stow/references/prose-integrity.md",
+      "statement": "A host that needs a blocking policy must define that policy separately; this repository does not supply a general prose delivery gate.",
+      "families": ["validation"],
+      "layer": "G3"
+    },
+    {
+      "id": "CLM-049",
+      "surface": "skills/stow/references/ai-writing-detection.md",
+      "statement": "Masking is advisory preprocessing; it is not semantic classification or final-output preservation.",
+      "families": ["preservation"],
+      "layer": "G2"
+    },
+    {
+      "id": "CLM-050",
+      "surface": "docs/SELF-DOGFOOD.md",
+      "statement": "The deterministic claim audit covers only the surfaces enumerated in `docs/claim-ledger.json`; it does not establish whole-runtime or whole-guidance closure.",
+      "families": ["guarantee", "determinism"],
+      "layer": "G4"
+    }
+  ],
+  "forbidden_claim_patterns": [
+    {
+      "id": "OVR-001",
+      "pattern": "governs what a model emits"
+    },
+    {
+      "id": "OVR-002",
+      "pattern": "runtime/validate\\.py`?\\*?\\*? is the delivery gate"
+    },
+    {
+      "id": "OVR-003",
+      "pattern": "restore step guarantees"
+    },
+    {
+      "id": "OVR-004",
+      "pattern": "Automatically, for:"
+    },
+    {
+      "id": "OVR-005",
+      "pattern": "fallback over-counts, so"
+    },
+    {
+      "id": "OVR-006",
+      "pattern": "hard ceiling that passes in estimate mode also holds in exact tokens"
+    },
+    {
+      "id": "OVR-007",
+      "pattern": "Byte-exact identifier and quote preservation: both arms clean in the final round; the mechanical checks gate it"
+    },
+    {
+      "id": "OVR-008",
+      "pattern": "Activation, all 96 rules"
+    },
+    {
+      "id": "OVR-009",
+      "pattern": "The kernel classifies the reply into regions"
+    },
+    {
+      "id": "OVR-010",
+      "pattern": "\\b(?:automatically|always)\\s+(?:selects?|loads?|activates?|classifies?)\\b"
+    },
+    {
+      "id": "OVR-011",
+      "pattern": "\\b(?:preserves?|restores?)\\b.{0,60}\\bbyte-(?:for-byte|exact|identical)\\b"
+    },
+    {
+      "id": "OVR-012",
+      "pattern": "\\b(?:validator|validate\\.py)\\b.{0,40}\\b(?:is|serves as|acts as)\\b.{0,20}\\bdelivery gate\\b"
+    },
+    {
+      "id": "OVR-013",
+      "pattern": "\\b(?:kernel|STOW)\\s+(?:semantically\\s+)?classifies?\\s+(?:the\\s+)?(?:reply|request|arbitrary text)\\b"
+    }
+  ]
+}

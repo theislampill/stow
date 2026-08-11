@@ -59,7 +59,6 @@ SKILL_TOKEN_CEILING = 1500
 NATIVE_ARCH_REFS = frozenset({
     "protected-regions.md",
     "activation-and-precedence.md",
-    "user-facing-output.md",
     "conformance.md",
     "format-json.md",
     "format-jsonl.md",
@@ -67,6 +66,8 @@ NATIVE_ARCH_REFS = frozenset({
     "format-markdown.md",
     # Profile architecture description; carries no rule content of its own.
     "technical-clarity.md",
+    # Closed-map term validation is STOW-native runtime architecture.
+    "canonical-terms.md",
 })
 
 # The exact greppable kernel line that forbids eager reference/corpus loading.
@@ -174,6 +175,9 @@ def test_fixtures_present():
 def test_activation_targets_resolve_to_existing_reference_files():
     for entry in ACTIVATION_ENTRIES:
         named = REF_TARGET_RE.findall(entry)
+        if "section 4 of this kernel" in entry:
+            assert not named
+            continue
         assert named, "activation entry names no references/ target: %r" % entry
         for filename in named:
             path = os.path.join(REFS_DIR, filename)
@@ -189,6 +193,9 @@ def test_activation_targets_are_references_never_corpus():
     for entry in ACTIVATION_ENTRIES:
         rhs = entry.split("->", 1)[1]
         tokens = PATH_TOKEN_RE.findall(rhs)
+        if "section 4 of this kernel" in rhs:
+            assert not tokens
+            continue
         assert tokens, "activation entry has no path target: %r" % entry
 
         primary = tokens[0]

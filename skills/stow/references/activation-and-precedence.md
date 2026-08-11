@@ -1,10 +1,10 @@
 # Activation and precedence
 
-STOW governs one model response by reading it as a set of output regions and
-applying each rule only inside the region it owns, at the precedence band where
-it sits. This page is the map that ties those two ideas together: the precedence
-ladder, how a response is split into regions, and how the registry's
-`precedence` field lands on the ladder.
+STOW guides a model or host to treat one response as a set of output regions and
+to apply each rule only inside the region it owns, at the precedence band where
+it sits. This page maps the precedence ladder, the intended region boundaries,
+and the registry's `precedence` field. The shipped runtime has no general
+semantic region classifier.
 
 This is a scanned surface, not rule text. It names rules by their registry id
 and title (both STOW-authored) and points to each rule's `corpus_ref`; it never
@@ -37,21 +37,18 @@ Bands, highest to lowest:
 8. **STOW presentation preferences.** Surface-shaping and prose-integrity
    defaults.
 
-**Invariant:** a lower band never corrupts an output governed by a higher band.
-When two rules touch the same span, the higher band wins and the lower-band rule
-yields for that span; it does not partially apply. A rule also never reaches
-outside its own region (next section). The registry encodes the known collisions
-ahead of time under each record's `conflicts[]`, always resolved toward the
-higher band.
+**Instructional invariant:** a lower band must not alter an output fixed by a
+higher band. When two rules touch the same span, the higher band wins and the
+lower-band rule yields for that span. The registry records known collisions;
+enforcement outside callable checks remains model- or host-mediated.
 
 ## Output-region classification
 
 A single response mixes regions: editable prose, a procedure, a description,
 structured data, code, quotations, and identifiers can all appear in one reply.
-Each rule declares `scope.include` (the regions it governs), `scope.exclude`
-(the regions it must never touch), and an `activation.predicate` (whether it is
-live at all). STOW classifies each span into a region, then applies only the
-rules whose include-region matches and whose predicate holds.
+Each rule declares `scope.include`, `scope.exclude`, and an
+`activation.predicate`. A model or host assigns the region and decides whether
+the predicate holds; the metadata then says which guidance is applicable.
 
 Regions and the band that owns each:
 
@@ -59,18 +56,23 @@ Regions and the band that owns each:
   descriptive (`descriptive-prose`), safety (`safety-prose`), or user-facing
   (`user-facing-output`). Governed by bands 5 through 8.
 - **Structured data** (`structured-data`) and **code** (`code`): owned by band
-  3. Validated for well-formedness by `skills/stow/runtime/validate.py`, never
-  rewritten by a prose rule.
+  3. G1 guidance excludes these regions from prose edits. For supported
+  caller-supplied structured data, `skills/stow/runtime/validate.py` can return
+  a bounded G2 verdict.
 - **Quotations** (`quoted-text`) and **identifiers** (`identifiers`): owned by
-  band 4, immutable.
+  band 4. G1 guidance excludes them from prose edits; the G2 advisory linter
+  masks only the finite syntax it recognizes in its read-only scan copy.
 - **Safety notices**: owned by band 1, independent of any active profile.
 
 Nearly every controlled-technical and presentation record carries the same
 `scope.exclude: [code, structured-data, quoted-text, identifiers]`. That uniform
-exclusion is the invariant in data form: those regions belong to higher bands (3
-and 4), so a band 7 or band 8 prose rule is structurally forbidden from touching
-them. The mask-then-scan ordering in `protected-regions.md` enforces it
-mechanically.
+exclusion is the guidance in data form. The advisory linter mechanically masks
+its finite recognized span types before scanning; that does not establish final
+output preservation by a model or host.
+
+General byte fidelity requires a named host to compare the actual final
+candidate with authoritative bytes, block a mismatch, and recheck after any
+permitted repair.
 
 ## Mapping the registry `precedence` field onto the ladder
 
@@ -115,41 +117,41 @@ is present. Every family below excludes code, structured data, quoted text, and
 identifiers, and none auto-fixes. Per family: trigger add-on, region, check
 kind, and corpus directory.
 
-- **Words** (`STOW-WRD-001`..`014`): trigger: profile active + prose present;
+- **Words** (active `STOW-WRD` records): trigger: profile active + prose present;
   region: editable prose; check: approved-word, part-of-speech, sense, and
   inflection validators (semantic-review, parser, deterministic). See
   corpus/words/.
-- **Multi-word nouns** (`STOW-MWN-001`..`002`): region: prose; check: parser
+- **Multi-word nouns** (active `STOW-MWN` records): region: prose; check: parser
   word-count and heuristic. See corpus/multiword-nouns/.
-- **Verbs** (`STOW-VRB-001`..`007`): region: prose; check: parser form, tense,
+- **Verbs** (active `STOW-VRB` records): region: prose; check: parser form, tense,
   and voice validators plus a nominalization heuristic. See corpus/verbs/.
-- **Sentences** (`STOW-SEN-001`..`005`): region: prose; check: parser and
+- **Sentences** (active `STOW-SEN` records): region: prose; check: parser and
   semantic-review. See corpus/sentences/.
-- **Procedures** (`STOW-PRC-001`..`005`): trigger add-on: procedural or safety
+- **Procedures** (active `STOW-PRC` records): trigger add-on: procedural or safety
   instructions present; region: `procedural-prose`; check: deterministic word
   caps plus parsers (imperative form, one instruction per sentence,
   condition-then-comma). See corpus/procedures/ and
   `skills/stow/references/controlled-technical-writing.md`.
-- **Descriptions** (`STOW-DSC-001`..`006`): region: `descriptive-prose`; check:
+- **Descriptions** (active `STOW-DSC` records): region: `descriptive-prose`; check:
   deterministic caps plus semantic-review of topic and paragraph structure. See
   corpus/descriptions/ and `skills/stow/references/descriptions.md`.
-- **Punctuation** (`STOW-PCT-001`..`007`): region: prose; check: deterministic
+- **Punctuation** (active `STOW-PCT` records): region: prose; check: deterministic
   and heuristic (including the word-count token rules). See corpus/punctuation/.
-- **Style** (`STOW-STY-001`..`004`): region: prose; check: semantic-review,
+- **Style** (active `STOW-STY` records): region: prose; check: semantic-review,
   heuristic, and parser. See corpus/style/.
-- **General grammar** (`STOW-GEN-001`..`008`): region: prose; check: parser,
+- **General grammar** (active `STOW-GEN` records): region: prose; check: parser,
   heuristic, deterministic, and semantic-review. See corpus/general/.
 
 ## Band 8: presentation preferences
 
 Live on region presence alone; no writing profile is required.
 
-- **Action-shaping** (`STOW-ACT-001`..`011`): trigger: the response is
+- **Action-shaping** (active `STOW-ACT` records): trigger: the response is
   user-facing; region: `user-facing-output`; check: heuristic, deterministic,
-  and semantic-review validators covering opening, ordering, list caps, tone,
-  and framing. See corpus/action-shaping/ and
+  and semantic-review validators covering opening, ordering, tone, and framing.
+  See corpus/action-shaping/ and
   `skills/stow/references/action-shaping.md`.
-- **Prose-integrity** (`STOW-PRO-001`..`024`): trigger: prose sentences present
+- **Prose-integrity** (active `STOW-PRO` records): trigger: prose sentences present
   (a few fire only when section headings, or an external quotation, are
   present); region: editable prose, always excluding the protected regions;
   check: deterministic lexical scans and semantic-review. See
@@ -160,11 +162,14 @@ Live on region presence alone; no writing profile is required.
 The registry pre-declares each collision under `conflicts[]` with a resolution;
 every one resolves by the higher band winning. The load-bearing cases:
 
-- **Protected regions vs a presentation or profile lexical rule.** `STOW-PRO-021`
+- **Protected regions vs a presentation or profile lexical rule.** `STOW-PRO-020`
   and the profile lexical rules `STOW-WRD-014` and `STOW-PCT-006` yield inside
   `quoted-text`, `identifiers`, and `structured-data`: bands 3 and 4 outrank
-  bands 7 and 8, so keys, identifiers, and quoted text are never re-spelled or
-  re-cased. See corpus/prose-integrity/rules.md#STOW-PRO-021,
+  bands 7 and 8. The G1 instruction tells the writer to leave keys, identifiers,
+  and quoted text outside lexical edits. The G2 linter excludes only recognized
+  spans from its read-only scan. General preservation requires a named host to
+  compare the actual final candidate with authoritative bytes, block a mismatch,
+  and recheck after any permitted repair. See corpus/prose-integrity/rules.md#STOW-PRO-020,
   corpus/words/usage.md#STOW-WRD-014, corpus/punctuation.md#STOW-PCT-006.
 - **Factual accuracy vs an estimate preference.** `STOW-ACT-006` yields to
   `STOW-PRO-002`: band 5 forbids presenting an unsupported number as fact, so an
@@ -172,10 +177,10 @@ every one resolves by the higher band winning. The load-bearing cases:
   See corpus/action-shaping.md#STOW-ACT-006,
   corpus/prose-integrity/rules.md#STOW-PRO-002.
 - **Domain terminology and profile consistency vs a variation preference.**
-  `STOW-PRO-007` yields to `STOW-WRD-011` and `STOW-STY-004`: bands 6 and 7 keep
-  one term per referent and consistent wording for recurring content. See
-  corpus/prose-integrity/rules.md#STOW-PRO-007, corpus/words/usage.md#STOW-WRD-011,
-  corpus/style/consistency.md#STOW-STY-004.
+  `STOW-PRO-007` yields to `STOW-WRD-011`: bands 6 and 7 keep one term per
+  referent and consistent wording for recurring content. See
+  corpus/prose-integrity/rules.md#STOW-PRO-007 and
+  corpus/words/usage.md#STOW-WRD-011.
 - **Profile length caps vs the same variation preference.** `STOW-PRO-007` also
   yields to `STOW-PRC-001` and `STOW-DSC-003`: vary sentence length below the
   profile's cap, never above it. See corpus/procedures.md#STOW-PRC-001,

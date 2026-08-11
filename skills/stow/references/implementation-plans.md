@@ -26,7 +26,7 @@ prose rule named below, open its cited `corpus_ref` module.
   defensible range exists, and omitted otherwise rather than invented; see
   corpus/action-shaping.md#STOW-ACT-006.
 - **Terminology (band 6).** Task IDs are stable and reused wherever the task is
-  named, per corpus/style/consistency.md#STOW-STY-004.
+  named, per corpus/words/usage.md#STOW-WRD-011.
 - **Presentation (band 8).** Phase headings are concrete and descriptive
   (`SKILL.md` section 4).
 

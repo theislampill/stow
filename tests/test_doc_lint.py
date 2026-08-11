@@ -165,38 +165,49 @@ def test_referenced_tools_exist():
 import importlib.util
 
 _SPELLED = {
-    10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen",
+    4: "Four", 8: "Eight", 9: "Nine", 10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen", 14: "Fourteen",
     15: "Fifteen", 16: "Sixteen", 17: "Seventeen", 18: "Eighteen",
     19: "Nineteen", 20: "Twenty",
 }
 
 
-def _implemented_validator_count():
+def _capability_counts():
     path = os.path.join(REPO, "skills", "stow", "runtime", "lint_prose.py")
     spec = importlib.util.spec_from_file_location("lint_prose_for_doc_lint", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return len(module.IMPLEMENTED_VALIDATORS)
+    from ruamel.yaml import YAML
+    registry = YAML(typ="safe").load(open(
+        os.path.join(REPO, "skills", "stow", "rules", "registry.yaml"),
+        encoding="utf-8",
+    ))
+    primary = {
+        record["enforcement"]["validator"] for record in registry["records"]
+        if record["enforcement"]["status"] == "callable"
+    }
+    advisory = {
+        validator for record in registry["records"]
+        for validator in record["enforcement"].get("advisory_validators", [])
+    }
+    assert primary.isdisjoint(advisory)
+    assert primary | advisory == set(module.IMPLEMENTED_VALIDATORS)
+    return len(primary), len(advisory)
 
 
 def test_readme_callable_claim_matches_the_runtime():
-    count = _implemented_validator_count()
-    spelled = _SPELLED[count]
+    primary, advisory = _capability_counts()
     with open(os.path.join(REPO, "README.md"), encoding="utf-8") as fh:
         readme = fh.read()
-    phrase = "%s rules have callable validators" % spelled
-    assert phrase in readme, (
-        "README callable-count phrase is stale: expected %r "
-        "(len(IMPLEMENTED_VALIDATORS) == %d)" % (phrase, count))
+    assert "%s rules have callable compliance validators" % _SPELLED[primary] in readme
+    assert "%s advisory surface detectors" % _SPELLED[advisory] in readme
     assert "Exactly one rule has a callable validator" not in readme
 
 
 def test_design_callable_claim_matches_the_runtime():
-    count = _implemented_validator_count()
-    spelled = _SPELLED[count].lower()
+    primary, advisory = _capability_counts()
     with open(os.path.join(REPO, "docs", "design.md"), encoding="utf-8") as fh:
         design = fh.read()
-    assert ("%s rules are callable" % spelled) in design, (
-        "design.md callable-count phrase is stale (runtime has %d)" % count)
+    assert "%s rules are callable compliance predicates" % _SPELLED[primary].lower() in design
+    assert "%s advisory surface detectors" % _SPELLED[advisory].lower() in design
     assert "1 callable" not in design
     assert "One rule has a callable checker" not in design

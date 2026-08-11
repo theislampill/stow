@@ -11,7 +11,10 @@ Not a CI gate: this drives a live model and is run deliberately.
 Modes:
   --run        execute runs for the selected cases/arms/reps
   --validate   apply mechanical validators to recorded answers
-  --aggregate  compute the rubric.md spec from evaluator score files
+  --aggregate  compute the primary summary only from evaluator score files;
+               it does not implement the frozen rubric's completeness,
+               missing-score, regression, material-improvement, or
+               critical-invariant gates
 """
 
 import argparse
@@ -44,6 +47,10 @@ CAPABILITY = ["AB-%02d" % i for i in range(17, 21)]
 OVERCLAIM = ("fully conformant", "guarantees compliance", "certified conformance")
 RFC_METHODS = ("GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS",
                "TRACE", "PATCH")
+AGGREGATE_SCOPE = (
+    "Aggregate mode computes the primary summary only. It does not implement "
+    "the frozen rubric's completeness, missing-score, regression, "
+    "material-improvement, or critical-invariant gates.")
 
 
 def load_prompts():
@@ -133,6 +140,29 @@ def _fenced_yaml(text):
     return match.group(1) if match else None
 
 
+def _matches_ab11_contract(text, validate_mod):
+    """Whether raw YAML has the exact mapping requested by AB-11."""
+    if not validate_mod.validate_yaml(text).ok:
+        return False
+    try:
+        data = validate_mod._new_yaml().load(io.StringIO(text))
+    except Exception:  # noqa: BLE001 - malformed or multi-document YAML fails
+        return False
+    if not isinstance(data, dict) or set(data) != {"image", "replicas", "env"}:
+        return False
+    env = data["env"]
+    return (
+        type(data["image"]) is str
+        and data["image"] == "nginx:1.25"
+        and type(data["replicas"]) is int
+        and data["replicas"] == 2
+        and type(env) is list
+        and len(env) == 1
+        and type(env[0]) is str
+        and env[0] == "DEBUG=false"
+    )
+
+
 def validate_answer(case_id, text, validate_mod, lint_mod, tables):
     """Mechanical verdicts for one answer. Returns dict of named checks."""
     checks = {}
@@ -148,7 +178,7 @@ def validate_answer(case_id, text, validate_mod, lint_mod, tables):
     elif case_id == "AB-10":
         checks["parses"] = validate_mod.validate_jsonl(stripped).ok
     elif case_id == "AB-11":
-        checks["parses"] = validate_mod.validate_yaml(stripped).ok
+        checks["parses"] = _matches_ab11_contract(stripped, validate_mod)
     elif case_id == "AB-15":
         checks["identifiers"] = ("getUserData()" in text and "get_user_data()" in text)
     elif case_id == "AB-16":
@@ -222,9 +252,13 @@ def cmd_validate(args):
 
 
 def cmd_aggregate(args):
-    """Implements the rubric.md computation spec from evaluator score files
-    (scores.jsonl rows: {case, rep, output: X|Y, dim, score, role}) plus the
-    arm mapping (mapping.json: {case.rep: {X: arm, Y: arm}})."""
+    """Compute the primary summary only from evaluator score files.
+
+    This does not implement rubric completeness, missing-score, regression,
+    material-improvement, or critical-invariant gates. Input rows are
+    ``{case, rep, output: X|Y, dim, score, role}``; the arm mapping is
+    ``{case.rep: {X: arm, Y: arm}}``.
+    """
     with io.open(os.path.join(args.out, "mapping.json"), encoding="utf-8") as fh:
         mapping = json.load(fh)
     scores = {}
@@ -267,7 +301,8 @@ def cmd_aggregate(args):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser = argparse.ArgumentParser(
+        description=__doc__.splitlines()[0], epilog=AGGREGATE_SCOPE)
     parser.add_argument("--mode", choices=["run", "validate", "aggregate"],
                         required=True)
     parser.add_argument("--out", required=True,

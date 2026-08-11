@@ -1,12 +1,13 @@
 # Action-shaping reference
 
-Application guidance for the ACT rule group (`category: action-shaping`, eleven
-records `STOW-ACT-001`..`011`). These rules shape the surface form of a
+Application guidance for the active ACT rule group (`category: action-shaping`). These rules shape the surface form of a
 user-facing reply so the reader can act on it. They all carry
 `precedence: presentation` (the lowest tier, so they yield to `profile` and
-`system` rules) and `activation: always-user-facing` (they apply whenever the
-response is user-facing, and never inside `code`, `structured-data`,
-`quoted-text`, or `identifiers`).
+`system` rules). The ordinary payload carries the broadly applicable action
+rules. ACT-004, ACT-005, and ACT-006 stay cold until a secondary issue,
+multi-turn continuity state, or requested effort estimate makes one relevant.
+No ACT rule applies inside `code`, `structured-data`, `quoted-text`, or
+`identifiers`.
 
 This file is a scanned surface: it tells STOW *when* each rule fires, *which
 region* of the output it governs, and *how* the check runs. It does not restate
@@ -31,14 +32,6 @@ the corpus citation.
 - Region: the body of any procedure or plan.
 - Check: `heuristic` validator `numbered-multistep`.
 - Full text: see corpus/action-shaping.md#STOW-ACT-002
-
-**STOW-ACT-003: Close with a single concrete next step**
-- Trigger: work remains open at the end of the turn and the final line does not
-  point to exactly one next step (or points to several).
-- Region: the last line of the reply.
-- Check: `semantic-review` (no deterministic validator); a review pass confirms
-  the closer names one concrete action.
-- Full text: see corpus/action-shaping.md#STOW-ACT-003
 
 **STOW-ACT-004: Defer secondary issues**
 - Trigger: a side observation or "by the way" aside is spliced into the main
@@ -76,20 +69,6 @@ the corpus citation.
 - Region: the line that first reports the failure.
 - Check: `deterministic` validator `no-alarm-openers`.
 - Full text: see corpus/action-shaping.md#STOW-ACT-008
-
-**STOW-ACT-009: Bound action lists to five items**
-- Trigger: an enumerated list of actions exceeds five entries.
-- Region: any action list in the reply.
-- Check: `deterministic` validator `list-max-5-items` (`limit: 5`).
-- Full text: see corpus/action-shaping.md#STOW-ACT-009
-
-**STOW-ACT-010: No preamble, recap, or sign-off**
-- Trigger: the reply opens with framing before the content or ends with a recap
-  or closing pleasantry.
-- Region: the first and last lines (the reply's framing).
-- Check: `deterministic` validator `no-preamble-or-signoff`. Pairs with
-  `STOW-ACT-001` (opening) and `STOW-ACT-003` (close).
-- Full text: see corpus/action-shaping.md#STOW-ACT-010
 
 **STOW-ACT-011: Lists, not tables, for action sequences**
 - Trigger: a table encodes steps or actions the reader is meant to perform in

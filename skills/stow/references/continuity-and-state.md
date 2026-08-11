@@ -25,7 +25,7 @@ prose rule named below, open its cited `corpus_ref` module.
   is a terminal value, not a vague status; the kernel integrity rules forbid an
   unsupported state claim (`SKILL.md` section 3).
 - **Terminology (band 6).** Gate and phase IDs are stable across sessions, one
-  term per concept, per corpus/style/consistency.md#STOW-STY-004.
+  term per concept, per corpus/words/usage.md#STOW-WRD-011.
 - **Literals (band 4).** Commit identifiers and paths are byte-exact.
 
 ## Governing schema + template

@@ -90,8 +90,8 @@ AGENTS_REQUIRED = (
 
 # Content the working rules must actually state, not just head.
 AGENTS_REQUIRED_CONTENT = (
-    "primary_total",     # the invariant is named by its registry field
-    "96",                # the allowed rule total
+    "primary_total",     # the derived total is named by its registry field
+    "audited starting",  # the current count is a starting snapshot
     "byte-exact",        # the byte-exact build line
     "Do not commit local files",
 )

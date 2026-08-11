@@ -1,0 +1,765 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stow.local/schemas/rule-dispositions.schema.json",
+  "title": "STOW starting-rule disposition ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "subject_revision",
+    "ledger_status",
+    "id_policy",
+    "starting_population",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "ledger_status": {
+      "const": "baseline-captured-proposals"
+    },
+    "id_policy": {
+      "const": "permanent-tombstones"
+    },
+    "starting_population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "captured_on",
+        "size",
+        "ids"
+      ],
+      "properties": {
+        "source": {
+          "const": "skills/stow/rules/registry.yaml"
+        },
+        "captured_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "size": {
+          "const": 96
+        },
+        "ids": {
+          "type": "array",
+          "minItems": 96,
+          "maxItems": 96,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/rule_id"
+          }
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 96,
+      "maxItems": 96,
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "subject_revision": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "$defs": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^STOW-[A-Z]{3}-[0-9]{3}$"
+    },
+    "challenge_id": {
+      "enum": [
+        "BC-01",
+        "BC-02",
+        "BC-03",
+        "BC-04",
+        "BC-05",
+        "BC-06",
+        "BC-07",
+        "BC-08",
+        "BC-09",
+        "BC-10",
+        "G1V3-ACTION",
+        "G1V3-PROSE",
+        "G1V3-CONTROLLED-MEANING",
+        "G1V3-CONTROLLED-SYNTAX"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "reference",
+        "result",
+        "freshness",
+        "limits",
+        "subject_revision"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "registry-archaeology",
+            "deterministic-test",
+            "behavioural-challenge",
+            "owner-decision",
+            "implementation-review"
+          ]
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "supports-proposal",
+            "passing-baseline",
+            "pending",
+            "accepted",
+            "inconclusive"
+          ]
+        },
+        "freshness": {
+          "enum": [
+            "baseline-captured",
+            "fresh",
+            "pending"
+          ]
+        },
+        "limits": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "proves_validator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proof_scope": {
+          "enum": [
+            "compliance",
+            "advisory-signal-only"
+          ]
+        },
+        "positive_cases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/challenge_id"
+          }
+        },
+        "paired_negative_cases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/challenge_id"
+          }
+        },
+        "receipt_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
+        },
+        "protocol_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualification": {
+          "const": "qualifying-pass"
+        },
+        "rule_observation": {
+          "const": "PASS"
+        }
+      }
+    },
+    "accepted_behavioural_evidence": {
+      "type": "object",
+      "$comment": "The schema binds accepted evidence to opaque digests and paired-case shape. Final audit must externally rehash and validate the supplied private receipt; schema validation does not prove existence or custody of that receipt.",
+      "required": [
+        "kind",
+        "reference",
+        "result",
+        "freshness",
+        "subject_revision",
+        "positive_cases",
+        "paired_negative_cases",
+        "receipt_sha256",
+        "candidate_sha256",
+        "protocol_revision",
+        "qualification",
+        "rule_observation"
+      ],
+      "properties": {
+        "kind": {
+          "const": "behavioural-challenge"
+        },
+        "reference": {
+          "type": "string",
+          "pattern": "^receipt:[a-z0-9][a-z0-9._-]*$"
+        },
+        "result": {
+          "const": "accepted"
+        },
+        "freshness": {
+          "const": "fresh"
+        },
+        "subject_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "positive_cases": {
+          "type": "array",
+          "minItems": 1
+        },
+        "paired_negative_cases": {
+          "type": "array",
+          "minItems": 1
+        },
+        "receipt_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
+        },
+        "candidate_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[A-Za-z0-9_-]{43}$"
+        },
+        "protocol_revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "qualification": {
+          "const": "qualifying-pass"
+        },
+        "rule_observation": {
+          "const": "PASS"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "positive",
+        "paired_negative",
+        "status"
+      ],
+      "properties": {
+        "positive": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
+          }
+        },
+        "paired_negative": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
+          }
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "complete",
+            "inconclusive"
+          ]
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hot_path_context",
+        "cold_reads",
+        "tool_runtime",
+        "maintenance",
+        "dependencies",
+        "rationale"
+      ],
+      "properties": {
+        "hot_path_context": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "cold_reads": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tool_runtime": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "maintenance": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "merge_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "rule_ids"
+      ],
+      "properties": {
+        "kind": {
+          "const": "rule-set"
+        },
+        "rule_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/rule_id"
+          }
+        }
+      }
+    },
+    "move_target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "destinations"
+      ],
+      "properties": {
+        "kind": {
+          "const": "reference-surface"
+        },
+        "destinations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "activation_route"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^references/[a-z0-9-]+\\.md$"
+              },
+              "activation_route": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "family",
+        "starting_maturity",
+        "starting_enforcement",
+        "starting_validator",
+        "layer",
+        "observed_phenomenon",
+        "independent_harm",
+        "applicability",
+        "legitimate_counterexample",
+        "false_positive_risk",
+        "mechanism",
+        "cost",
+        "disposition",
+        "decision_rationale",
+        "implementation_consequence",
+        "evidence",
+        "behavioural_coverage",
+        "deterministic_verification",
+        "decision_state",
+        "closure_state",
+        "uncertainty"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/rule_id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_maturity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_enforcement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "starting_validator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "layer": {
+          "enum": [
+            "G1",
+            "G2",
+            "G3",
+            "G4"
+          ]
+        },
+        "observed_phenomenon": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independent_harm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legitimate_counterexample": {
+          "type": "string",
+          "minLength": 1
+        },
+        "false_positive_risk": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "mechanism": {
+          "enum": [
+            "guidance",
+            "guidance-with-heuristic-detector",
+            "heuristic-detector",
+            "deterministic-predicate",
+            "delivery-gate",
+            "build-package-proof",
+            "none"
+          ]
+        },
+        "cost": {
+          "$ref": "#/$defs/cost"
+        },
+        "disposition": {
+          "enum": [
+            "KEEP",
+            "SIMPLIFY",
+            "MERGE",
+            "MOVE",
+            "DROP"
+          ]
+        },
+        "decision_rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/merge_target"
+            },
+            {
+              "$ref": "#/$defs/move_target"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "behavioural_coverage": {
+          "$ref": "#/$defs/coverage"
+        },
+        "deterministic_verification": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "decision_state": {
+          "enum": [
+            "proposed",
+            "accepted"
+          ]
+        },
+        "closure_state": {
+          "enum": [
+            "pending-behavioural-challenge",
+            "pending-decision-review",
+            "external-authority-required",
+            "deferred-contextual",
+            "closed",
+            "inconclusive"
+          ]
+        },
+        "uncertainty": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "MERGE"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target"
+            ],
+            "properties": {
+              "target": {
+                "$ref": "#/$defs/merge_target"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "MOVE"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "target"
+            ],
+            "properties": {
+              "target": {
+                "$ref": "#/$defs/move_target"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "enum": [
+                  "KEEP",
+                  "SIMPLIFY",
+                  "DROP"
+                ]
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "target"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layer": {
+                "const": "G1"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "behavioural_coverage": {
+                "properties": {
+                  "positive": {
+                    "minItems": 1
+                  },
+                  "paired_negative": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "deterministic_verification": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision_state": {
+                "const": "proposed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "closure_state": {
+                "enum": [
+                  "pending-behavioural-challenge",
+                  "pending-decision-review",
+                  "inconclusive"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "closure_state": {
+                "enum": [
+                  "closed",
+                  "external-authority-required",
+                  "deferred-contextual"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decision_state": {
+                "const": "accepted"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "layer": {
+                "const": "G1"
+              },
+              "disposition": {
+                "enum": [
+                  "KEEP",
+                  "SIMPLIFY",
+                  "MOVE"
+                ]
+              },
+              "behavioural_coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "contains": {
+                  "$ref": "#/$defs/accepted_behavioural_evidence"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "layer": {
+                    "const": "G1"
+                  },
+                  "disposition": {
+                    "enum": [
+                      "KEEP",
+                      "SIMPLIFY",
+                      "MOVE"
+                    ]
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "closure_state": {
+                    "const": "closed"
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "properties": {
+              "behavioural_coverage": {
+                "properties": {
+                  "status": {
+                    "const": "complete"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

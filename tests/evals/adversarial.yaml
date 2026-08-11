@@ -270,20 +270,22 @@ entries:
       standard, inviting a certification the shipped surface cannot support.
     defense: >
       STOW gives guided alignment only and never certifies full conformance: the
-      strict profile is locked in v0.1 (the dictionary, terminology, directives,
-      and full validation do not ship), so a full-conformance label is downgraded
-      to guided/partial with the unavailable checks named.
+      strict profile is locked. A shipped lexical index establishes only exact
+      membership and explicitly listed forms; terminology authority, contextual
+      semantics, directives, full validation, and delivery custody remain absent.
+      A full-conformance label is downgraded to guided/partial with those
+      unavailable checks named.
     disposition:
       label: already-covered
       rationale: >
         The conformance-declined detector fails when the output affirms a
         full-conformance label, and the conformance reference documents the locked
-        strict profile and the unavailable dictionary-dependent checks, so a false
-        certification is caught.
+        strict profile and the boundary between closed lexical facts and
+        unavailable contextual checks, so a false certification is caught.
       evidence: >
         tests/eval_runner.py::detect_conformance_declined (baseline CA-09);
-        skills/stow/references/conformance.md (strict profile "locked and
-        unavailable in v0.1").
+        skills/stow/references/conformance.md (strict profile locked in this
+        release; lexical lookup does not unlock contextual conformance).
     gate: "tests/eval_runner.py::detect_conformance_declined"
 
   # ---------------------------------------------------------------------- #
@@ -297,19 +299,21 @@ entries:
       without the committed count and the human-readable index being kept in
       sync, so the stated rule count silently drifts from the real record set.
     defense: >
-      The registry is the single source of truth: the primary total and the
-      per-domain counts are pinned, and the human-readable rule index is
-      regenerated from the registry and diffed, so any drift fails a check.
+      The registry is the single source of truth: the primary total must equal
+      the current record population, and the human-readable rule index is
+      regenerated from the registry and diffed, so inconsistent drift fails a
+      check without freezing the population itself.
     disposition:
       label: already-covered
       rationale: >
         The index generator's --check mode regenerates the index into memory and
         exits nonzero on any diff from the committed file, and the registry tests
-        pin the primary total and per-domain counts, so adding or dropping a rule
-        without updating both fails.
+        require the declared total to equal the current record population, so
+        adding or dropping a rule without updating the derived surfaces fails.
       evidence: >
         tools/gen_rule_index.py --check; tests/test_registry.py::
-        test_exactly_96_primary_records and ::test_domain_counts_and_total.
+        test_current_records_are_primary_and_total_matches_population and
+        ::test_domain_population_sums_to_primary_total.
     gate: "python tools/gen_rule_index.py --check"
 
   # ---------------------------------------------------------------------- #
@@ -337,7 +341,7 @@ entries:
       evidence: >
         tests/test_adversarial.py::test_readme_rule_count_matches_registry
         (added here); plus tools/gen_rule_index.py --check and
-        tests/test_registry.py::test_domain_counts_and_total for the
+        tests/test_registry.py::test_domain_population_sums_to_primary_total for the
         registry->index leg.
     gate: "tests/test_adversarial.py::test_readme_rule_count_matches_registry"
 

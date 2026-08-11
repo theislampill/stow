@@ -7,6 +7,68 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.4.0] - 2026-08-11
+
+Release of the instrumentality reconciliation.
+
+### Changed
+
+- Reduced the canonical registry to semantic owners supported by the audit,
+  while retaining historical source-rule dispositions in the audit ledger.
+- Separated contextual writing guidance, advisory surface signals, and closed
+  deterministic predicates so each mechanism carries only the claim it can
+  support.
+- Reworked the ordinary writing layer around observable prose problems and
+  kept controlled-technical guidance predicate-loaded. The compact kernel now
+  carries the ordinary descriptive digest; generated rule detail, technical
+  references, controlled references, dictionary data, and validators remain
+  cold until their declared predicate or output contract applies.
+- Repaired the operation- and force-preservation overreach exposed by the
+  crosswalk-derived benchmark and added a bounded regression challenge.
+- Documented the exact frozen name-only-versus-STOW row comparison, the
+  post-trial repair chronology, and the distinction between complete
+  requirement accounting and behavioral compliance.
+- Measured cumulative logical model input across every turn in a bounded normal
+  installed-skill comparison. After removing checker probes and repeated hot
+  reference work, the frozen tasks ranged from 1.5651 to 5.7776 times name-only
+  input; no post-fix case reached an order-of-magnitude ratio. The controlled
+  profile remains the material cost centre, while a subsequent turn measured
+  1.0651 times its name-only counterpart.
+- Separated logical input from cache behaviour and monetary cost. Native
+  receipts provide cached and uncached totals, but the active host exposes no
+  authoritative per-token price or cached-input discount, so monetary cost is
+  not derived. The measured post-fix package is preserved and differs from the
+  final candidate only in `SKILL.md`; the native receipts are not relabeled as
+  exact final-candidate measurements.
+
+### Added
+
+- Added complete local Issue 9 writing-requirement accounting and a generated,
+  cold controlled dictionary with sparse lookup.
+- Added bounded paired behavioral challenges for pathology suppression and
+  preservation of already-good or deliberately voiced prose.
+- Added a four-arm, same-model controlled-language benchmark. STOW achieved the
+  highest requirement-level result; name-only conditioning was cheaper, so the
+  evidence supports bounded operationalisation rather than universal output
+  superiority.
+- Added a compact public architecture summary covering active G1 and G2
+  ownership, always-on versus predicate-loaded guidance, advisory signals,
+  behavioral qualification, authority and contextual boundaries, and the
+  locked strict profile.
+
+### Known limitations
+
+- One prose owner remains open after two fresh Luna Max challenges retained
+  unsupported evaluative labels while preserving supplied facts. Three other
+  contextual owners terminate at an external-authority boundary or deliberate
+  semantic deferral rather than false closure; the ledger records each state.
+- The normal-runtime comparison is a four-task result from one Codex host. It
+  does not prove universal turn economics, and controlled-technical use remained
+  materially more expensive than name-only conditioning.
+- Strict controlled-language conformance remains locked. Dictionary lookup does
+  not replace contextual sense decisions, project terminology authority,
+  automatic activation evidence, or final-output custody.
+
 ## [0.3.6] - 2026-07-20
 
 Production promotion after deployment acceptance and installed dogfood.

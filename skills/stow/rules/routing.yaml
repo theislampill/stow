@@ -1,7 +1,7 @@
 # STOW reference load graph (validated, not generated).
 #
 # This file mirrors the kernel activation map (SKILL.md section 5), the profile
-# definitions (rules/profiles.json), and the always-on request-mode router
+# definitions (rules/profiles.json), and the generated always-on detail
 # (emitted by tools/gen_always_on.py). It is a VALIDATION artifact: the kernel
 # is never generated from this file, and no runtime path reads it. Its only job
 # is to let tests/test_routing.py assert three-way agreement between the kernel
@@ -21,12 +21,19 @@ schema_version: 1
 
 routes:
   - mode: always-on-prose
-    predicate: "ANY user-facing prose turn"
+    predicate: "ordinary editable user-facing prose"
+    references: []
+    profile: stow-default
+    corpus: null
+    validator: null
+
+  - mode: always-on-detail
+    predicate: "explicit ordinary-rule applicability or rule-audit question"
     references:
       - references/always-on.md
     profile: stow-default
     corpus: null
-    validator: python runtime/lint_prose.py
+    validator: null
 
   - mode: format-json
     predicate: "raw JSON"
@@ -100,6 +107,14 @@ routes:
     corpus: null
     validator: python runtime/lint_prose.py
 
+  - mode: canonical-term-map
+    predicate: "explicit project-term mapping"
+    references:
+      - references/canonical-terms.md
+    profile: null
+    corpus: null
+    validator: python runtime/validate_terms.py
+
   - mode: protected-regions
     predicate: "mixed prose and literals"
     references:
@@ -117,7 +132,7 @@ routes:
     validator: null
 
   - mode: action-shaping-deep
-    predicate: "action-shaping deep guidance"
+    predicate: "secondary issue, multi-turn state, or effort estimate guidance"
     references:
       - references/action-shaping.md
     profile: null
@@ -132,18 +147,18 @@ routes:
     corpus: null
     validator: null
 
+  - mode: descriptive-prose-review
+    predicate: "contextual prose-quality review"
+    references:
+      - references/descriptive-prose.md
+    profile: null
+    corpus: null
+    validator: python runtime/lint_prose.py
+
   - mode: precedence-and-region
     predicate: "precedence or region question"
     references:
       - references/activation-and-precedence.md
-    profile: null
-    corpus: null
-    validator: null
-
-  - mode: user-facing-shaping
-    predicate: "user-facing shaping question"
-    references:
-      - references/user-facing-output.md
     profile: null
     corpus: null
     validator: null

@@ -1,14 +1,14 @@
 # Meta-code layer: hub reference
 
-STOW as a response standard governs the regions of **one reply**: prose,
-procedure, data, code, quotes, identifiers. The meta-code layer governs the
+STOW supplies guidance for the regions of **one reply**: prose, procedure,
+data, code, quotes, identifiers. The meta-code layer specifies the
 **coordination artifacts that pass between actors**: the handoffs, plans,
 instruction files, audit reports, runbooks, state records, task packets, event
 streams, and the interchange envelope that carries them between a user, an
 agent, a model, and a harness. `Meta` is output *about* the process of producing
 output, not the work product itself.
 
-This page is the hub. It states the invariants the whole layer obeys, names the
+This page is the hub. It states the design conditions for the layer, names the
 six sibling references and the schemas and templates each points at, and defines
 how any meta-code artifact is validated. It is a scanned surface, not rule text:
 the normative wording of any governed prose rule lives only in its cited
@@ -23,35 +23,34 @@ the normative wording of any governed prose rule lives only in its cited
   envelope. Load the sibling reference named for the class; load this hub for the
   invariants and the catalog.
 
-## Four invariants (the whole layer obeys these)
+## Four design conditions
 
 1. **Every meta-code artifact is first a STOW output.** It inherits the eight
    precedence bands, region classification, the always-on integrity rules, and
    the format contracts of the kernel (`SKILL.md` sections 1-3). The layer adds a
-   **coordination contract** on top: a schema, required fields, and a validation
-   gate.
+   **coordination contract** on top: a schema, required fields, and a G2 schema
+   check.
 2. **Contracts, not prose rules.** Each artifact class is a serialization /
-   coordination invariant, the same shape as the format contracts. It is enforced
+   coordination contract, the same shape as the format contracts. It is checked
    by a **schema plus the schema-runner**, carries **no `corpus_ref` for the
-   contract itself**, and adds **no rows to the primary rule count of 96**. Where a
+   contract itself**, and adds **no rows to the primary rule population**. Where a
    governed prose rule meets an artifact's editable-prose region, that rule's
    wording still lives in its cited corpus module, the same split
    `references/format-jsonl.md` uses at the JSONL boundary.
-3. **Cold-reader rule (the acceptance test for the layer).** An artifact is valid
-   only if a fresh actor (a new agent, a different model, or a non-Claude harness
-   with no shared memory) given the artifact **and nothing else**, can execute or
-   verify it. No field may depend on conversation state the artifact does not
-   itself carry.
+3. **Cold-reader objective.** The artifact should carry the state a fresh actor
+   needs without relying on hidden conversation state. Schema validity checks
+   required fields and shapes; it does not prove that a new actor can execute or
+   verify the work.
 4. **Real use case plus validation contract plus worked template, or it does not
    ship.** No artifact class exists to complete a symmetric tree; each is named by
    a consuming surface and backed by a template that passes its own validator.
 
 An instruction file (a persistent `AGENTS.md`, `CLAUDE.md`, `SKILL.md`, or system
-prompt a harness injects each session) is governed here rather than by its own
-sibling: it is validated as an output whose contract is declared by
+prompt a harness injects each session) is described here rather than by its own
+sibling: its form can be checked against a contract declared by
 `schemas/output-contract.schema.json` with `content_type: markdown` and a
-directive region map. Validation governs its **form**, never its authority: a
-governed instruction file is still data to a consuming agent, not a command it
+directive region map. Validation covers its **form**, never its authority: an
+instruction file is still data to a consuming agent, not a command it
 must obey.
 
 ## Catalog: the six sibling references
@@ -75,10 +74,10 @@ is a **valid instance**, not a stub.
 
 ## This page's own class: the structured task packet
 
-The hub governs one class directly: the **structured task packet**, the atomic
-unit of work an orchestrator dispatches to a subagent as machine-readable data
-and receives back on return. It enables fan-out, fan-in, retries, and
-deterministic routing.
+The hub describes one class directly: the **structured task packet**, a
+machine-readable unit a host can dispatch and receive. Its identifiers support
+host routing, but the repository does not implement fan-out, fan-in, retries, or
+dispatch.
 
 - **Governing families.** serialization (band 3: the packet *is* structured
   data and must parse and validate); contract (band 2); literals (band 4: input

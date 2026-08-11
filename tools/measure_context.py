@@ -6,14 +6,14 @@ REPO-ONLY dev tool (not packaged into the shipped skill).
 Measurement method (recorded in every output):
     * ``o200k_base (tiktoken, local cache)`` -- exact counts, used when the
       encoding file is ALREADY in a local tiktoken cache directory.
-    * ``estimate-chars-3.5`` -- a deterministic, conservative fallback
-      (``ceil(chars / 3.5)``) used when the encoding is not cached. Measured on
-      this repository's shipped files, the estimate over-counts by 8-38%, so a
-      hard ceiling that passes in estimate mode also holds for real tokens.
+    * ``estimate-chars-3.5`` -- a deterministic character estimator
+      (``ceil(chars / 3.5)``) used when the encoding is not cached. It
+      over-counted the historical calibration files, but it is not a universal
+      upper bound for other files, tokenizers, or models.
 
-This tool NEVER performs a network request. tiktoken downloads a missing
-encoding on first use, so the tool first checks the local cache directories
-itself and only invokes tiktoken when the encoding file is already present.
+This tool does not invoke tiktoken when the named cache file is absent.
+tiktoken downloads a missing encoding on first use, so the precheck keeps the
+ordinary cold-cache path offline.
 (Residual: a cache file that exists but fails tiktoken's own integrity check
 would make tiktoken re-download; that corner is outside the offline contract.)
 
@@ -21,7 +21,7 @@ Single-file mode (default)
     Prints the file's token count, the target band status (800-1200), and the
     hard-ceiling status (1500). Exits NONZERO when the file is over the
     1500-token hard ceiling; otherwise exits 0. In estimate mode the ceiling is
-    still enforced (the estimate is conservative); the band status is NOT
+    still enforced as a repository proxy; the band status is NOT
     evaluated, because a band has two sides and an over-count could misreport
     either of them.
 
@@ -41,8 +41,9 @@ Manifest shape::
 
 Bundle member paths are resolved relative to the manifest file's directory.
 
-Token counts are a proxy: they reflect one specific tokenizer. Other models
-tokenize differently, so treat the numbers as guidance and leave headroom.
+These are static file measurements, not observations of live host reads,
+latency, tool calls, or repair work. Token counts use one tokenizer; other
+models can tokenize differently.
 """
 
 import argparse
@@ -67,11 +68,12 @@ _ENCODING_BLOB_URL = (
 
 ESTIMATE_DIVISOR = 3.5
 METHOD_TOKENIZER = "%s (tiktoken, local cache)" % ENCODING_NAME
-METHOD_ESTIMATE = ("estimate-chars-3.5 (conservative fallback; tokenizer "
+METHOD_ESTIMATE = ("estimate-chars-3.5 (calibrated fallback; tokenizer "
                    "cache unavailable, no download attempted)")
 
-_PROXY_CAVEAT = ("note: token counts use one tokenizer (%s); other models "
-                 "tokenize differently, so leave headroom." % ENCODING_NAME)
+_PROXY_CAVEAT = ("note: static file proxy only; counts use one tokenizer (%s), "
+                 "and the character estimate is not a universal upper bound."
+                 % ENCODING_NAME)
 
 _UNSET = object()
 
@@ -113,7 +115,7 @@ def measurement_method(encoder):
 
 
 def estimate_tokens(text):
-    """Deterministic conservative token estimate: ceil(chars / 3.5)."""
+    """Deterministic character estimate: ceil(chars / 3.5)."""
     return int(math.ceil(len(text) / ESTIMATE_DIVISOR))
 
 

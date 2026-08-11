@@ -1,15 +1,153 @@
 # STOW
 
-STOW is a writing-discipline skill that governs what a model emits. It treats every reply as a set of typed regions (prose, procedure, structured data, code, quotes, identifiers) and applies a fixed rule set so each region stays correct for what it is.
+STOW is a writing-discipline specification and packaged skill. When a host selects it, the guidance helps a model distinguish prose, procedures, structured data, code, quotations, and identifiers. Callable checkers decide only their closed input contracts; STOW does not universally control a model's final response.
 
 ## STOW in one minute
 
-- **What it does.** STOW is designed to be selected on every user-facing turn; when the host invokes it, the compact kernel loads. The kernel classifies the reply into regions, applies always-on integrity and output-shaping checks to the prose, and pulls deeper references only when a named predicate is true.
-- **What it governs.** User-facing prose (answers, explanations, procedures), agent-to-agent coordination artifacts (handoffs, plans, audits, runbooks, state records, task packets, event streams), and structured payloads (JSON, JSONL, YAML) held to a parse-and-validate contract.
-- **What it protects.** Code, commands, paths, identifiers, quoted text, and data values are protected literals: STOW preserves them byte-for-byte unless the user's task is to edit that literal, and the prose and style rules never independently rewrite one. **Executable source code is protected by default and is not STOW's primary writing target.** If you install STOW expecting it to restyle your source code, it will not, by design.
-- **How always-on works.** Any user-facing prose turn loads the operational checks in `references/always-on.md`. Each check carries its rule id, its applicability condition, and its principal exception, and the module opens with a request-mode router: an informational question leads with the answer, an actionable task with the next bounded action, completed work with the result and no invented follow-up, a raw artifact with the raw artifact alone.
-- **How profiles work.** Profiles only make rules stricter, and only where they apply. The default profile imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules; the controlled profile activates them for executable procedures and safety instructions.
-- **How meta-code fits.** Coordination artifacts are governed by schemas and templates, not by taste. The shipped validator checks any instance against its schema, and the documented loop is validate, repair, revalidate.
+- **What it does.** When a host invokes STOW, the compact kernel supplies region and precedence guidance. Named predicates tell the model or host which cold reference is relevant; the repository does not contain a semantic request classifier that performs those reads automatically.
+- **What it covers.** The guidance addresses user-facing prose, coordination artifacts, and structured payloads. Separate callable checkers cover specific parse, schema, term-map, and advisory prose contracts.
+- **What it protects.** The generation guidance tells the writer not to alter supplied code, commands, paths, identifiers, quotations, or data values unless editing that literal is the task. The advisory linter masks a finite recognizable subset while scanning; STOW has no general final-output byte comparator.
+- **How ordinary guidance works.** The compact kernel carries the request router and ordinary descriptive digest, so normal editable prose needs no second reference read. The generated `references/always-on.md` retains rule identifiers, applicability, and exceptions as cold detail for explicit rule or applicability review.
+- **How profiles work.** `profiles.py` resolves an explicitly supplied identifier or defaults a missing identifier to `stow-default`; it does not infer a profile from request meaning. The `auto_contexts` and precedence data are routing cues for a model or host.
+- **How meta-code fits.** Coordination artifacts have schemas and templates. `validate.py` can check a supplied instance, while any repair, recheck, and delivery decision belongs to the caller or host workflow.
+
+## Architecture at a glance
+
+The reconciled registry contains 65 active canonical rules. The count is an
+implementation shape, not a coverage target: one semantic owner can account
+for several source requirements.
+
+- Sixty-one G1 semantic owners provide model-mediated writing guidance. Of
+  these, 16 are available in ordinary always-on prose guidance and 45 are cold
+  or predicate-loaded for narrower contexts.
+- Four genuine G2 predicates decide only closed properties at their declared
+  input boundaries. Ten advisory signals report surface patterns; they are not
+  G2 compliance predicates or delivery gates.
+- 57 of the sixty-one G1 owners are behaviorally qualified. One remains open
+  after a preservation-versus-hollow-evaluation regression, one terminates at
+  an external project-authority boundary, and two are explicit contextual
+  deferrals where lexical lookup cannot safely decide meaning or grammatical
+  role.
+- The controlled-technical strict profile remains locked. Sparse dictionary
+  lookup, contextual guidance, and bounded validators do not by themselves
+  establish strict conformance or final-output custody.
+
+## Measured operationalisation
+
+STOW turns a model-memory cue into an operational workflow. Name-only
+conditioning asks the model to reconstruct and apply the named standard from
+latent knowledge. When selected, STOW instead makes the implementation
+inspectable: profiles route applicable requirements; bounded G1 references
+carry contextual guidance and exceptions; sparse lookup exposes only relevant
+fixed-dictionary records; a caller-supplied project terminology overlay carries
+local authority; protected-region guidance separates editable from protected
+content; and G2 checks are reserved for closed properties. Contextual meaning,
+external authority, activation, and delivery custody remain explicit
+boundaries rather than hidden assumptions.
+
+The frozen, crosswalk-derived Trial 2 used the same underlying model and seven
+cases across no conditioning, name-only conditioning, raw-source conditioning,
+and the exact STOW candidate. It accounted for all 86 frozen top-level and
+child-requirement rows. Complete accounting means that every row had a test
+location or an explicit boundary classification: **100% operational accounting
+is not 100% behavioral compliance.** The final all-row comparison was:
+
+| Arm | Frozen adjudication |
+|---|---:|
+| Name-only | 78 PASS, six FAIL, two NOT_SCORED |
+| STOW | 80 PASS, four FAIL, two NOT_SCORED |
+
+In compact form: **name-only: 78 PASS, six FAIL, two NOT_SCORED; STOW:
+80 PASS, four FAIL, two NOT_SCORED.** The exact B/D accounting was three
+`B FAIL / D PASS` rows, zero `B PARTIAL / D PASS` rows, one
+`B PASS / D FAIL` row, and 77 `B PASS / D PASS` rows. Three more rows failed
+in both arms and two were not scored in either. The frozen final adjudication
+did not use `PARTIAL`; the zero above is not a converted score.
+
+The four discriminating rows explain the measured difference:
+
+| Requirement | Case | Frozen result | Reviewer or adjudication rationale |
+|---|---|---|---|
+| `6.4` | Description | B FAIL / D PASS | Name-only left transfer, installation, display, valve, personnel, and sensor topics in one paragraph. STOW divided the text into related groups without adding headings. |
+| `GR-2` | Description | B FAIL / D PASS | Name-only retained an ambiguous “with” relation. STOW used “by means of” to state that the green fasteners were the installation means. |
+| `6.6` | Description | B FAIL / D PASS | The closed count found nine sentences in name-only's single paragraph and STOW paragraph counts of two, three, and four. |
+| `5.3` | Procedure | B PASS / D FAIL | Name-only preserved the advisory force. STOW's “can think about” wording weakened or distorted it. |
+
+The three D-only wins map to predicate-loaded G1 description and relation
+guidance; they are not evidence that a G2 validator caused the rewrites. Both
+name-only and STOW passed the mapped dictionary, project-terminology, and
+protected-literal rows. STOW's value on those surfaces is that the records,
+authority, applicability, and check boundaries are explicit and inspectable,
+not that Trial 2 showed a D-only win for every mechanism.
+
+Trial 2 therefore supports the bounded finding that STOW operationalised more
+of the tested requirement surface and achieved the highest requirement-level
+result. It also exposed semantic overreach in operation and force preservation.
+After the trial was frozen, the root cause was narrowed, the candidate guidance
+was repaired and regression-tested in a targeted Luna Max challenge; Trial 2
+was not rerun.
+
+Name-only conditioning was cheaper in the measured trial: its cold agent task
+used one tool call, 52,950 logical input tokens, and 212 seconds, compared with
+22 calls, 1,549,075 logical input tokens, and 783 seconds for STOW. Those figures
+include repeated evaluation and custody context; they are not ordinary runtime
+costs. The result demonstrates bounded operationalisation, not universal output
+superiority, strict conformance, final-output custody, or cross-model proof.
+Cross-model durability remains unproved.
+
+### Normal runtime cost
+
+A separate normal installed-skill runtime probe measured cumulative logical
+model-input tokens across every turn, from task start through final answer. It
+used the same Luna Max model for name-only conditioning (B) and normal installed
+STOW use (D), without candidate custody, audit-ledger reads, benchmark packets,
+or whole-artifact inspection. The first STOW run exposed needless checker
+probing and repeated reference work; the hot path was simplified and the same
+frozen tasks were rerun as D'.
+
+| Task | Arm | Logical input | Cached | Uncached | Cache hit | Output | Turns | Tools | Active wall |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Ordinary README edit | B | 24619 | 9,984 | 14,635 | 40.5540% | 350 | 1 | 0 | 10.722 s |
+| Ordinary README edit | D' | 78,890 | 60,672 | 18,218 | 76.9071% | 1,018 | 3 | 2 | 23.723 s |
+| Technical documentation edit | B | 24645 | 9,984 | 14,661 | 40.5113% | 419 | 1 | 0 | 10.661 s |
+| Technical documentation edit | D' | 78,489 | 59,648 | 18,841 | 75.9954% | 1,415 | 3 | 2 | 33.701 s |
+| Controlled procedure edit | B | 24676 | 9,984 | 14,692 | 40.4604% | 318 | 1 | 0 | 9.136 s |
+| Controlled procedure edit | D' | 142,567 | 115,456 | 27,111 | 80.9837% | 2,415 | 5 | 4 | 53.565 s |
+| Two-turn repository status | B | 49,477 | 34,304 | 15,173 | 69.3332% | 223 | 2 | 0 | 9.240 s |
+| Two-turn repository status | D' | 77,437 | 59,648 | 17,789 | 77.0278% | 740 | 3 | 1 | 21.798 s |
+
+The absolute D' overhead and D'/B ratio were 54,271 and 3.2044 for ordinary
+prose; 53844 and 3.1848 for technical documentation; 117,891 and 5.7776 for
+the controlled procedure; and 27,960 and 1.5651 for the two-turn task. The
+second turn of that task was 1.0651 times its B counterpart. These are the
+**logical / architectural cost** ratios; caching does not erase their context,
+latency, or agent-complexity implications. No post-fix case reached an
+order-of-magnitude ratio. The largest observed total was 142,567 logical input
+tokens on the controlled procedure, so controlled use remains a material
+profile-specific cost rather than an always-hot ordinary cost.
+
+**Cache behaviour** is reported separately in the table. The native task
+receipts expose cached and uncached input but no applicable per-token price or
+authoritative cached-input discount for this Pro-plan host. **Economic cost:
+NOT_DERIVED.** The logical ratios are therefore not presented as billing
+multipliers.
+
+D' read only the kernel for ordinary work, one matching technical reference for
+technical work, and four matching cold references for the controlled procedure;
+it retrieved no dictionary records and invoked no STOW validator or linter.
+Some total tool calls were attributable to the host's separate skill-discovery
+workflow and remain included in the primary totals. This is a bounded result on
+one Codex host, not universal runtime or cross-host proof. A fresh ordinary-prose
+challenge also reopened `STOW-PRO-005`: the model twice preserved unsupported
+evaluative labels while preserving facts. The candidate therefore reports 57,
+not 58, behaviorally qualified G1 owners.
+
+The measured D' package preceded the final candidate. A preserved deterministic
+rebuild and member comparison finds exactly one shipped-file difference: only
+`SKILL.md` changed, from 1,084 to 1,075 exact proxy tokens. Routing, references,
+validators, and the other package members are identical. The nine exact proxy
+tokens delimit the static delta; they do not turn the earlier native receipts
+into an exact final-candidate measurement.
 
 ## Install
 
@@ -36,7 +174,7 @@ Verify the install by running the packaged validator from the installed path:
 python ~/.claude/skills/stow/runtime/validate.py --format json some-file.json
 ```
 
-A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py` and `profiles.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
+A clean install prints `VALID (json): some-file.json` and exits 0. The runtime never imports from the repository. `lint_prose.py`, `profiles.py`, `validate_terms.py`, and `dictionary_lookup.py` are standard-library only; `validate.py` additionally needs two ordinary packages on the host: `pip install ruamel.yaml jsonschema` (on Python 3.11, `jsonschema` also pulls `referencing` and `typing_extensions` transitively).
 
 ## Profiles at a glance
 
@@ -44,20 +182,22 @@ Profiles are declared in one shipped data file, `skills/stow/rules/profiles.json
 
 | Profile | Status | What it does |
 |---|---|---|
-| `stow-default` | Active by default for editable prose | Always-on integrity and user-facing output governance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
-| `technical-clarity` | Auto-active for technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; meta-code artifacts bind here; the linter tags its output with the profile. See `references/technical-clarity.md`. |
-| `controlled-technical-guided` | Auto-active for executable procedures and safety instructions, or on request (alias: `controlled-technical`) | Applies the controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. Dictionary-dependent checks are reported as unavailable. |
+| `stow-default` | Resolver default when the caller supplies no id | General integrity and user-facing output guidance. Imposes no controlled punctuation, contraction, vocabulary, or sentence-length rules. |
+| `technical-clarity` | Available explicitly; routing cues name technical and coordination prose | **Mechanical checks identical to `stow-default` by design.** Adds review-level terminology and wording-consistency guidance, stable names, bounded steps, explicit conditions, and evidence-aware claims; the linter tags its output with the profile. See `references/technical-clarity.md`. |
+| `controlled-technical-guided` | Available explicitly; routing cues name procedures and safety instructions (alias: `controlled-technical`) | Applies the available controlled-technical rule families as guidance: the semicolon, contraction, Latin-abbreviation, and sentence-length checks activate. A cold sparse dictionary lookup reports membership, alternatives, and listed forms without deciding sense or project terminology. |
 | `controlled-technical-strict` | **LOCKED** | Full conformance to the controlled-technical writing profile. Not shipped and **must never be claimed**. Selecting it on the linter exits with an error naming the lock. |
 
-Raw and protected artifacts are their own mode, not a profile: raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths load no prose checks at all. The output ships byte-exact and only the applicable parser or schema validator runs.
+Raw and protected artifacts are their own declared mode, not a profile. The guidance says to omit prose checks for raw JSON, JSONL, YAML, code, quotations, identifiers, commands, and paths. A host must identify the mode and retain custody of the candidate; the resolver does neither.
 
-When more than one profile matches, the declared auto-precedence decides: `controlled-technical-guided` over `technical-clarity` over `stow-default`. Punctuation across profiles: the em dash is banned in editable prose under every profile; the semicolon and contractions are permitted (never required) under `stow-default` and `technical-clarity` and prohibited under `controlled-technical-guided`, where the substitute for either banned character is a period, comma, colon, or two sentences.
+When a model or host finds more than one routing cue applicable, the declared precedence is `controlled-technical-guided` over `technical-clarity` over `stow-default`. For an explicitly resolved profile, the em-dash advisory runs for editable prose under every profile; the semicolon and contraction advisories are off under `stow-default` and `technical-clarity` and on under `controlled-technical-guided`.
 
-The strict profile is locked because the inputs it needs (the controlled dictionary, the approved terminology set, and the full validation suite) are out of scope for this release. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
+The strict profile remains locked. The bundled dictionary lookup establishes only closed membership and listed-form facts. Full conformance also needs contextual meaning and part-of-speech decisions, approved project terminology, applicability, validation of the actual final output, and delivery custody. STOW reports guided, partial alignment and names which checks ran and which did not. Any claim of full conformance is an overclaim the conformance reference explicitly forbids.
 
 ## Rule classes at a glance
 
-The registry indexes 96 primary rules under STOW's own functional taxonomy. The registry defines each rule's operational metadata; the corpus module behind it carries the full guidance.
+The current registry indexes 65 primary rules under STOW's own functional
+taxonomy. The registry defines each active rule's operational metadata; the
+audit ledger preserves the original reconciliation population and retired IDs.
 
 <!-- RULE-CLASSES:BEGIN -->
 
@@ -92,47 +232,35 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 |---|---|---|---|
 | `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer, per the request-mode router | Planned |
 | `STOW-ACT-002` | Numbered steps for multi-step work | the work runs across multiple steps | Planned |
-| `STOW-ACT-003` | Close with a single concrete next step | open work remains when the turn ends; exception: when the work is complete, report the result and invent no follow-up step | Review-fallback |
 | `STOW-ACT-004` | Defer secondary issues | a secondary issue surfaces during the main task; exception: offer the deferred issue separately at the end rather than dropping it | Planned |
 | `STOW-ACT-005` | Restate progress each turn | a multi-turn task is in progress; exception: a single-turn answer needs no progress ledger | Review-fallback |
 | `STOW-ACT-006` | Concrete effort estimates | a defensible range exists for the estimate; exception: with no defensible range, omit the figure; accuracy outranks the preference | Review-fallback |
 | `STOW-ACT-007` | Surface completed outcomes | work ran and produced a result this turn | Planned |
 | `STOW-ACT-008` | Neutral error reporting | the turn reports an error | Planned |
-| `STOW-ACT-009` | Bound action lists to five items | a list of actions to take; exception: exhaustive evidence, reference inventories, safety content, contract-required lists | Callable |
-| `STOW-ACT-010` | No preamble, recap, or sign-off | All prose (always on) | Planned |
 | `STOW-ACT-011` | Lists, not tables, for action sequences | action sequences, not comparison data | Planned |
 
 </details>
 
 <details>
-<summary><b>Prose integrity</b> (PRO-001 through PRO-024)</summary>
+<summary><b>Prose integrity</b> (PRO-001 through PRO-023)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-PRO-001` | Ban the em dash | editable prose under every profile; exception: under the controlled profile the semicolon is also banned; use a period, comma, colon, or two sentences | Callable |
+| `STOW-PRO-001` | Use em dashes only under an explicit style contract | an explicit style contract governs punctuation; exception: a deliberate house style that permits em dashes remains permitted | Review-fallback |
 | `STOW-PRO-002` | Require attributable numbers | any numeric claim; exception: no attributable source: omit the number rather than invent one | Review-fallback |
-| `STOW-PRO-003` | No parentheticals in headings | Section headings | Planned |
-| `STOW-PRO-004` | No empty intensifiers | All prose (always on) | Callable |
 | `STOW-PRO-005` | End claims on a concrete detail | factual claims in editable prose; exception: a conceptual definition satisfies this with a precise, checkable statement | Review-fallback |
-| `STOW-PRO-006` | No repeated points | All prose (always on) | Review-fallback |
-| `STOW-PRO-007` | Vary structure | several consecutive blocks share one layout; exception: never vary above a length cap or across recurring terminology | Planned |
-| `STOW-PRO-008` | Reference without narrating | All prose (always on) | Planned |
-| `STOW-PRO-009` | No urgency without a reason | All prose (always on) | Review-fallback |
-| `STOW-PRO-010` | No scare quotes on ordinary words | All prose (always on) | Callable |
-| `STOW-PRO-011` | No filler phrases | All prose (always on) | Callable |
-| `STOW-PRO-012` | Ban the whether-you-are opener | All prose (always on) | Callable |
-| `STOW-PRO-013` | Write like a researcher | the default register; exception: an explicitly requested casual or creative voice governs; facts stay real | Review-fallback |
-| `STOW-PRO-014` | No synthetic enthusiasm | All prose (always on) | Planned |
-| `STOW-PRO-015` | No weasel words | All prose (always on) | Callable |
+| `STOW-PRO-006` | Functionless semantic repetition | a later statement repeats an earlier meaning without adding function; exception: functional repetition for correction, safety, navigation, emphasis, or stable terminology remains permitted | Review-fallback |
+| `STOW-PRO-007` | Avoid mechanical repetition that obscures function | consecutive repeated structures obscure the function of the content; exception: preserve deliberate parallelism, recurring terminology, house style, and required layouts | Planned |
+| `STOW-PRO-009` | Use urgency or intensified emphasis only when a decision-relevant reason is stated | urgency or intensified emphasis lacks a decision-relevant reason; exception: preserve a supported deadline-led command or requested functional emphasis | Review-fallback |
+| `STOW-PRO-011` | Remove framing or process language only when it adds no information or decision value | framing or process language adds no information or decision value; exception: preserve a material limitation, method, audience, progress state, or requested voice | Review-fallback |
+| `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
+| `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
 | `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
 | `STOW-PRO-017` | No fabricated scenarios | All prose (always on) | Review-fallback |
 | `STOW-PRO-018` | No fabricated history | All prose (always on) | Review-fallback |
 | `STOW-PRO-019` | No fabricated attributions | All prose (always on) | Review-fallback |
-| `STOW-PRO-020` | No AI transition phrases | All prose (always on) | Callable |
-| `STOW-PRO-021` | No AI verbs | All prose (always on) | Callable |
-| `STOW-PRO-022` | No academic AI tells | All prose (always on) | Callable |
+| `STOW-PRO-020` | Review formulaic lexical patterns | a listed pattern or corrective contrast may obscure its function or reject a characterization absent from the discourse; exception: ordinary connectors, technical uses, and a discourse-present correction naming the real differentiator remain permitted | Review-fallback |
 | `STOW-PRO-023` | Quote sources accurately | Quoted sources | Review-fallback |
-| `STOW-PRO-024` | No research-process narration | process diary that changes no conclusion; exception: a limitation or failed verification that changes the answer is disclosed in one clause | Review-fallback |
 
 </details>
 
@@ -141,55 +269,44 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-WRD-001` | Restrict vocabulary to dictionary-approved words plus admissible technical nouns and technical verbs | Controlled profile | Review-fallback |
-| `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech | Controlled profile | Planned |
-| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | Controlled profile | Review-fallback |
-| `STOW-WRD-004` | Use only the verb and adjective forms the dictionary lists for that word | Controlled profile | Planned |
-| `STOW-WRD-005` | Admit non-dictionary words when they fit one of the technical-noun categories | Controlled profile | Review-fallback |
-| `STOW-WRD-006` | Allow an unapproved word only when it is part of a technical noun | Controlled profile | Review-fallback |
+| `STOW-WRD-001` | Use dictionary-approved words; admit technical nouns and technical verbs only under a defined category supplied by project authority, and prefer an approved dictionary verb when one exists | controlled vocabulary is requested and dictionary or project terminology authority is available; exception: unknown technical terms require external authority and are not rejected by lexical lookup alone | Review-fallback |
+| `STOW-WRD-002` | Use each approved word only in its dictionary-specified part of speech and listed forms; a listed past participle can act as an adjective | Controlled profile | Planned |
+| `STOW-WRD-003` | Use approved words only with their dictionary-approved, often restricted, meanings | an approved meaning is supplied for contextual review; exception: lexical membership and listed alternatives do not establish the intended sense or an equivalent action | Review-fallback |
 | `STOW-WRD-007` | Do not use a technical noun as a verb; keep it a noun or adjectival modifier | Controlled profile | Planned |
 | `STOW-WRD-008` | Prefer the technical noun already approved by your company, industry, or subject field | Controlled profile | Planned |
-| `STOW-WRD-009` | When coining a technical noun, keep it short and easy to understand | Controlled profile | Planned |
 | `STOW-WRD-010` | Do not use regional, slang, or jargon words as technical nouns | Controlled profile | Review-fallback |
-| `STOW-WRD-011` | Use one technical noun consistently for one item; do not switch synonyms mid-text | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
-| `STOW-WRD-012` | Admit verbs that fit a technical-verb category, but prefer an approved dictionary verb when one exists | Controlled profile | Review-fallback |
-| `STOW-WRD-013` | Do not nominalize a technical verb; its past participle may act as an adjective | Controlled profile | Planned |
+| `STOW-WRD-011` | Use one technical noun consistently for one item, preserve key words and key phrases that organize the logic, and reuse recurring wording for the same context | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 | `STOW-WRD-014` | Use American English spelling unless another official directive overrides; do not change quoted-text spelling | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Multi-word nouns</b> (MWN-001 through MWN-002)</summary>
+<summary><b>Multi-word nouns</b> (MWN-001 through MWN-001)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words | Controlled profile | Planned |
-| `STOW-MWN-002` | For a technical noun longer than three words, write it in full first, then shorten or hyphenate | Controlled profile | Planned |
+| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Verbs and voice</b> (VRB-001 through VRB-007)</summary>
+<summary><b>Verbs and voice</b> (VRB-002 through VRB-007)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-VRB-001` | Use only the verb forms the dictionary provides for each approved verb | Controlled profile | Planned |
-| `STOW-VRB-002` | Use only the approved verb forms and tenses; no perfect, progressive, or complex constructions | Controlled profile | Planned |
-| `STOW-VRB-003` | Use the past participle only as an adjective, and only if it is in the dictionary | Controlled profile | Planned |
-| `STOW-VRB-004` | Do not use auxiliary verbs to build perfect, progressive, or passive complex constructions | Controlled profile | Planned |
-| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | Controlled profile | Planned |
+| `STOW-VRB-002` | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions | controlled prose requires a bounded tense or aspect choice; exception: preserve a time relation when the source or procedure requires it | Planned |
+| `STOW-VRB-005` | Use an -ing word only as a technical noun or as a modifier inside a technical noun | a word ending in ing appears outside a declared technical noun; exception: project authority can classify the form as a noun term or noun modifier | Review-fallback |
 | `STOW-VRB-006` | Use active voice; passive is allowed only in descriptive writing when the agent is unknown | Controlled profile | Planned |
-| `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization or other part of speech | Controlled profile | Planned |
+| `STOW-VRB-007` | Describe an action with an approved verb, not a nominalization; technical verbs stay verbs, except that a listed past participle can act as an adjective | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Sentences and paragraphs</b> (SEN-001 through SEN-005)</summary>
+<summary><b>Sentences and paragraphs</b> (SEN-002 through SEN-005)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-SEN-001` | Write short, clear, concrete sentences suited to procedures or descriptions | Controlled profile | Review-fallback |
-| `STOW-SEN-002` | Do not omit words or use contractions; write every word in full | Controlled profile | Planned |
+| `STOW-SEN-002` | Do not omit words or use contractions; write every word in full | Controlled profile | Review-fallback |
 | `STOW-SEN-003` | Break complex text into a vertical list with the prescribed layout | Controlled profile | Planned |
 | `STOW-SEN-004` | Use approved connecting words and phrases to link related sentences | Controlled profile | Planned |
 | `STOW-SEN-005` | Use articles and demonstratives before nouns where grammatically correct | Controlled profile | Planned |
@@ -203,9 +320,9 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 |---|---|---|---|
 | `STOW-PRC-001` | Limit each procedural sentence to a maximum of twenty words | Controlled profile | Callable |
 | `STOW-PRC-002` | Write only one instruction per sentence unless actions occur at the same time | Controlled profile | Planned |
-| `STOW-PRC-003` | Write instructions in the imperative command form | Controlled profile | Planned |
+| `STOW-PRC-003` | Write instructions in the imperative command form | the source already authorizes a command rather than advice or a permission statement; exception: do not silently strengthen advice, permission, or uncertainty; preserve source force or request an authority decision | Planned |
 | `STOW-PRC-004` | State a required condition first and separate it from the command with a comma | Controlled profile | Planned |
-| `STOW-PRC-005` | Notes give information only, with a maximum of twenty-five words per sentence | Controlled profile | Planned |
+| `STOW-PRC-005` | A note in a controlled procedure gives information and does not introduce an action | a note is attached to a controlled procedure; exception: a higher-precedence literal or output contract takes priority | Planned |
 
 </details>
 
@@ -215,10 +332,8 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-DSC-001` | Introduce information gradually, one subject per sentence | Controlled profile | Review-fallback |
-| `STOW-DSC-002` | Use consistent key words and phrases to give the text a logical structure | Controlled profile | Review-fallback |
 | `STOW-DSC-003` | Limit each descriptive sentence to a maximum of twenty-five words | Controlled profile | Callable |
 | `STOW-DSC-004` | Group related information into paragraphs, each led by a topic sentence | Controlled profile | Review-fallback |
-| `STOW-DSC-005` | Give each paragraph exactly one topic | Controlled profile | Review-fallback |
 | `STOW-DSC-006` | Keep every paragraph to a maximum of six sentences | Controlled profile | Planned |
 
 </details>
@@ -240,40 +355,34 @@ Status meanings: **Callable** means a shipped validator checks it mechanically. 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-PCT-001` | Do not use the semicolon; write two separate sentences instead | Controlled profile | Callable |
-| `STOW-PCT-002` | Use hyphens to join words that are directly related | Controlled profile | Planned |
-| `STOW-PCT-003` | Use parentheses only for the approved purposes | Controlled profile | Planned |
+| `STOW-PCT-003` | Use parentheses only for references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, or alternatives | parentheses appear in controlled prose; exception: protected text and the listed parenthetical purposes remain unchanged | Planned |
 | `STOW-PCT-004` | In a vertical list, a colon counts as a period for word count and ends a sentence | Controlled profile | Planned |
 | `STOW-PCT-005` | Parenthetical text counts as one word in the host sentence | Controlled profile | Planned |
-| `STOW-PCT-006` | Count numbers, identifiers, quoted text, titles, and proper nouns each as one word | Controlled profile | Planned |
-| `STOW-PCT-007` | A hyphenated group of words counts as one word | Controlled profile | Planned |
+| `STOW-PCT-006` | Count a number, number with unit, abbreviation, identifier, quoted text, title or label, or proper name as one word | Controlled profile | Planned |
+| `STOW-PCT-007` | Use hyphens only between directly related words that operate as one unit; a hyphenated group counts as one word | Controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>Writing style</b> (STY-001 through STY-004)</summary>
+<summary><b>Writing style</b> (STY-001 through STY-003)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
 | `STOW-STY-001` | When a word-for-word replacement is insufficient, rewrite the sentence while preserving the meaning | Controlled profile | Review-fallback |
-| `STOW-STY-002` | Use each approved word with its correct restricted meaning and part of speech | Controlled profile | Review-fallback |
 | `STOW-STY-003` | Do not combine approved words into unlisted phrasal verbs | Controlled profile | Planned |
-| `STOW-STY-004` | Use a consistent style: reuse the same terminology and wording for recurring content | guidance-level under the technical-clarity profile; binding under the controlled profile | Planned |
 
 </details>
 
 <details>
-<summary><b>General writing practice</b> (GEN-001 through GEN-008)</summary>
+<summary><b>General writing practice</b> (GEN-002 through GEN-007)</summary>
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-GEN-001` | Prefer keeping the conjunction that to mark the clause boundary | Controlled profile | Planned |
-| `STOW-GEN-002` | Check the preposition with for ambiguity and rewrite when unclear | Controlled profile | Planned |
+| `STOW-GEN-002` | Rewrite a with phrase only when it has two plausible attachments | a with phrase has two plausible attachments; exception: leave a clear with phrase unchanged | Planned |
 | `STOW-GEN-003` | Use only approved pronouns; replace an ambiguous pronoun with its noun | Controlled profile | Planned |
-| `STOW-GEN-004` | Make sure the pronoun this has an unambiguous referent | Controlled profile | Planned |
-| `STOW-GEN-005` | Avoid false friends; confirm the English meaning of the word | Controlled profile | Review-fallback |
+| `STOW-GEN-005` | Confirm a possible false friend against a supplied source-language meaning | a source-language form or intended English meaning is supplied for controlled review; exception: do not infer a false friend from spelling resemblance alone | Review-fallback |
 | `STOW-GEN-006` | Avoid Latin abbreviations; use English words instead | Controlled profile | Callable |
-| `STOW-GEN-007` | Use gender-neutral, inclusive language | Controlled profile | Planned |
-| `STOW-GEN-008` | Use the possessive correctly; if unsure, avoid it | Controlled profile | Planned |
+| `STOW-GEN-007` | When gender is unknown or irrelevant, name the role or use an inclusive reference | a human role is named and gender is unknown or irrelevant; exception: preserve gender when it is a supplied fact or materially relevant | Planned |
 
 </details>
 <!-- CATALOG:END -->
@@ -299,7 +408,6 @@ Related rules reinforce each other, narrow each other, apply in only one profile
 |---|---|---|---|
 | Informational question vs action-first opening | The answer leads | An unrequested next action opening | Lead with the next bounded action only for actionable tasks |
 | Completed work vs required next action | The result, reported plainly | An invented follow-up step | Add a next action only when open work remains |
-| Contract-required exhaustive list vs the five-item cap | The complete list | Trimming to fit the cap | The cap advisory is suppressed for exhaustive content (`--exhaustive-list-ok`) |
 | Justified uncertainty vs anti-hedging | Calibrated uncertainty, stated once with its reason | Empty hedge words | Cut hedges that carry no information; keep load-bearing doubt |
 | Material limitation vs no process narration | One clause disclosing what changes the answer | Exploration diary | State the limitation and its consequence; omit the search story |
 | Sentence variation vs controlled sentence caps | The cap | Variation above the cap | Vary length below the cap, never above it |
@@ -374,11 +482,11 @@ python skills/stow/runtime/validate.py --schema handoff my-handoff.md
 python skills/stow/runtime/validate.py --schema handoff my-handoff.md
 ```
 
-The first run names every violation; the loop ends when the run prints `VALID`.
+The first run reports the violations its closed contract detects; the loop ends when the actual candidate prints `VALID`.
 
 ## Validators
 
-**`runtime/validate.py`** is the delivery gate. Two mutually exclusive modes:
+**`runtime/validate.py`** is a G2 parser and schema detector with two mutually exclusive modes:
 
 ```
 python skills/stow/runtime/validate.py --format {json,jsonl,yaml} <file>
@@ -390,10 +498,14 @@ Exit codes: `0` valid, `1` invalid (errors printed to stderr, one per line), `2`
 **`runtime/lint_prose.py`** is advisory and report-only. Findings never change the exit code; only an invalid invocation (an unknown or locked profile) exits nonzero.
 
 ```
-python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw] [--exhaustive-list-ok]
+python skills/stow/runtime/lint_prose.py <file> [--profile <id>] [--artifact-type prose|structured|raw]
 ```
 
-The profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks protected regions (fenced blocks, inline code, block quotes, URLs, paths, identifiers) so their contents are never flagged.
+The caller-supplied profile decides which checks run, exactly as the registry declares. A file with a structured extension receives no prose findings (use `validate.py` on it). Before scanning, the linter masks its finite recognized set of fenced blocks, inline code, block quotes, URLs, paths, and identifiers. Findings and zero findings remain advisory.
+
+**`runtime/validate_terms.py`** is a G2 detector for an explicit closed term map and caller-labeled editable or protected segments. It cannot establish that those labels are semantically correct.
+
+`runtime/validate.py` and `runtime/validate_terms.py` are G2 detectors, not delivery gates by themselves. A G3 host workflow must hold the actual final candidate, block invalid and unknown results, permit only authorized repairs, and revalidate before delivery.
 
 **`runtime/query_rules.py`** is a packaged, standard-library-only lookup helper. Given a rule id it prints the registry record, the profiles that include the rule (by selector, category prefix, or guidance list), the per-record and composition conflicts that name it, and the anchored corpus section.
 
@@ -405,15 +517,15 @@ It is an acceleration for manual rule lookups; no kernel path depends on it, and
 
 ## Architecture
 
-Three tiers, loaded from most general to most specific. A response is answered from the kernel alone unless a predicate calls for more.
+Three tiers are available from most general to most specific. The kernel tells the model or host to use a cold reference only when its predicate applies; file presence does not prove a live read.
 
 - **Kernel** (`skills/stow/SKILL.md`): precedence, the region model, the integrity rules, and the activation map.
-- **References** (`skills/stow/references/`): mid-tier guidance, each file loaded only when its predicate is true.
-- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor; loaded only when a rule audit or deep application cites it.
+- **References** (`skills/stow/references/`): cold mid-tier guidance, each with a named predicate.
+- **Corpus** (`skills/stow/corpus/`): grouped conceptual modules holding the full guidance, where every rule is addressable through a stable `## STOW-XXX-NNN` heading anchor and is read only for a bounded audit or deep application.
 
-Precedence runs in eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. A lower band never corrupts a higher one.
+Precedence guidance uses eight bands, highest to lowest: system directives, output contract, serialization, protected literals, accuracy, terminology, writing profile, user-facing presentation. It instructs lower-band shaping to yield to a higher band.
 
-Measure current context footprints with `python tools/measure_context.py <file>`; the tool records its measurement method and never downloads anything.
+Measure static file-bundle footprints with `python tools/measure_context.py <file>`. The result is not live-host telemetry for reads, latency, tool calls, or repair work.
 
 ## Extension and governance
 
@@ -428,17 +540,26 @@ python -m pytest tests/ -q
 python tools/check_provenance_leak.py --local
 ```
 
-`generated_counts.primary_total: 96` is an invariant asserted by the test suite. Rewriting existing rule wording is deferred to a governed comparative phase; until that phase runs, treat shipped rule text as fixed.
+`generated_counts.primary_total` must equal the current active record population.
+The audit ledger, not dead registry rows, preserves each starting ID and its
+`KEEP`, `SIMPLIFY`, `MERGE`, `MOVE`, or `DROP` disposition. Until comparative
+rewrite work runs, treat protected baseline wording as fixed.
 
 ## Known limitations
 
-- **Prose linters are advisory and report-only.** `lint_prose.py` always exits 0 on findings. The structured-output validator is the only hard gate.
-- **Most registry rules are not callable.** Fourteen rules have callable validators today. The large majority are either review-fallback (a model applies them by reading them) or planned (the validator does not exist yet). A rule being in the registry does not mean a program checks it.
-- **Host-dependent skill selection.** The skill is invoked per turn by the host model. Live evidence shows it selects on task-shaped, technical, and meta-code turns and can skip trivial or raw one-liners; on a non-invoked turn, only the external parser and schema gates apply.
+- **Prose linters are advisory and report-only.** `lint_prose.py` exits 0 on findings and even treats unreadable input as no blocking prose verdict. The structured and term checkers can return nonzero G2 verdicts, but only a host workflow can make either one a delivery gate.
+- **Most registry rules are not mechanically decided.** Four rules have callable compliance validators today. Ten advisory surface detectors supply bounded
+  observations for G1 semantics; they do not decide contextual compliance. The
+  remainder are review-fallback or planned. A rule being in the registry does
+  not mean a program checks it.
+- **Host-dependent skill selection.** Historical evidence from one pinned host per round observed invocation on some task-shaped, technical, and meta-code turns and skips on some short prompts. It does not establish selection behavior for another prompt, model, or host.
 - **Live-model compliance is not guaranteed.** Live outputs under the skill still show occasional rule violations, which the advisory linter reports and nothing blocks. Behavioral evidence is measured and documented, not promised.
 - **Lexical advisories ignore a requested register.** An explicitly requested casual or creative voice governs the register, but lexical advisories still fire on the result; advisories never override the contract band.
 - **The strict profile is locked** and must never be claimed.
-- **Generated structured artifacts need the validate-repair-revalidate loop.** Models approximate schemas from prose; the shipped validator is the ground truth, and the documented loop closes the gap.
+- **Generated structured artifacts need host custody.** A caller can run validate, perform an authorized repair, and revalidate; STOW does not itself intercept the final response or perform the repair.
+- **No general delivery integration ships.** STOW has no repository-owned integration that universally intercepts and accepts or rejects a host's final response.
+- **Static budget figures are proxies.** They measure declared files with one tokenizer or a character formula, not live host reads, tokens, latency, tool calls, or repair cost.
+- **Portability is file-level.** The packaged schemas, templates, and scripts use ordinary formats; live behavior on a second agent harness remains unverified.
 
 ## Troubleshooting
 
@@ -450,7 +571,7 @@ python tools/check_provenance_leak.py --local
 
 **`--schema` says the schema is unknown.** The id is a bare filename stem: `handoff`, not `handoff.schema.json` and not a path.
 
-**STOW edited my source code.** It should not, unless editing that code was the task you set. Otherwise code is a protected literal that passes through unchanged, and the prose and style rules never rewrite it on their own. If a code region was altered when your task was not to edit it, that is a precedence violation worth reporting, not intended behavior.
+**STOW edited my source code.** G1 guidance tells the writer not to edit code unless that is the task, and the G2 linter excludes recognized code spans from its advisory scan. Neither mechanism proves that final bytes match the source. If fidelity is required, a named host must compare the actual final candidate with the authoritative source and block a mismatch. An unintended code change is a precedence violation worth reporting.
 
 **A generated file keeps coming back changed.** `references/rule-index.md`, `references/always-on.md`, `docs/rule-conflicts.md`, and the README catalog sections are generated. Edit the registry or the conflict registry and regenerate; do not hand-edit a generated region.
 

@@ -1,0 +1,44 @@
+schema_version: 1
+evidence_kind: static-specification
+controls:
+  - id: natural-informational
+    kind: informational
+    text: "The office opens at nine on weekdays."
+    expected_advisories: []
+
+  - id: natural-explanatory
+    kind: explanatory
+    text: "The retry waits because the upstream service can recover."
+    expected_advisories: []
+
+  - id: natural-technical
+    kind: technical
+    text: "The fund's leverage ratio changed after the quarterly close."
+    expected_advisories:
+      - action-verb-pattern
+
+  - id: natural-procedural
+    kind: procedural
+    text: "Before restart, save the file. Then close the editor."
+    expected_advisories: []
+
+  - id: natural-code-adjacent
+    kind: code-adjacent
+    text: "Set `leverage_mode` to `true`; keep the identifier unchanged."
+    expected_advisories: []
+
+  - id: deliberate-house-style
+    kind: deliberate-human-style
+    text: "Moreover, the analyst will leverage the cache prior to the restart—an intentional house-style sentence."
+    expected_advisories:
+      - academic-phrase-pattern
+      - transition-pattern
+      - action-verb-pattern
+      - em-dash
+
+paired_microchallenges:
+  - id: corrective-contrast
+    rule_id: STOW-PRO-020
+    pathology: "The issue is not merely latency. It is something deeper: architecture."
+    negative_control: "The report calls the defect a latency problem. It is not a latency problem; the request never reaches the server."
+    criterion: "Reject the corrective contrast only when the rejected characterization is absent or materially implausible; preserve a discourse-present correction that names the actual differentiator."

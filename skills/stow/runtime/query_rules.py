@@ -68,8 +68,10 @@ def _parse_record(block):
     rec = {"id": None, "title": None, "category": None,
            "predicate": None, "always_on_for_prose": False,
            "applicability": None, "exception": None,
-           "enforcement_status": None, "corpus_ref": None, "conflicts": []}
+           "enforcement_status": None, "advisory_validators": [],
+           "corpus_ref": None, "conflicts": []}
     section = None
+    reading_advisory_validators = False
     # A registry conflict entry is a "- rule:" line optionally followed by a
     # "resolution:" line at deeper indent; capture both so the resolution text
     # is reported, not just the counterpart id.
@@ -78,6 +80,7 @@ def _parse_record(block):
         indent = len(line) - len(line.lstrip(" "))
         if indent == 4 and stripped.endswith(":") and ":" in stripped:
             section = stripped[:-1]
+            reading_advisory_validators = False
         if line.startswith("  - id:"):
             rec["id"] = _unquote(line.split(":", 1)[1])
             section = None
@@ -100,6 +103,12 @@ def _parse_record(block):
             rec["exception"] = _unquote(line.split(":", 1)[1])
         elif line.startswith("      status:") and section == "enforcement":
             rec["enforcement_status"] = _unquote(line.split(":", 1)[1])
+        elif line.startswith("      advisory_validators:") and section == "enforcement":
+            reading_advisory_validators = True
+        elif line.startswith("        - ") and reading_advisory_validators:
+            rec["advisory_validators"].append(_unquote(line.split("-", 1)[1]))
+        elif reading_advisory_validators and indent <= 6:
+            reading_advisory_validators = False
         elif line.startswith("      - rule:") and section == "conflicts":
             rec["conflicts"].append(
                 {"rule": _unquote(line.split(":", 1)[1]), "resolution": None})
@@ -252,6 +261,8 @@ def main(argv=None):
     if rec["exception"]:
         print("exception: %s" % rec["exception"])
     print("enforcement status: %s" % (rec["enforcement_status"] or ""))
+    if rec["advisory_validators"]:
+        print("advisory validators: %s" % ", ".join(rec["advisory_validators"]))
     if rec["conflicts"]:
         print("registry conflicts:")
         for conflict in rec["conflicts"]:

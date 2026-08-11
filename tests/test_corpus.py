@@ -162,13 +162,13 @@ def test_baseline_text_appears_in_its_module():
         assert baseline in text, "%s baseline not found in module" % r["id"]
 
 
-def test_prose_records_map_to_24_distinct_anchors():
+def test_active_prose_records_map_to_distinct_anchors():
     prose = [r for r in RECORDS if r["category"] == PROSE_CATEGORY]
-    assert len(prose) == 24
+    assert prose
     refs = {r["corpus_ref"] for r in prose}
-    assert len(refs) == 24, "prose anchors are not distinct"
+    assert len(refs) == len(prose), "prose anchors are not distinct"
     frags = {r["corpus_ref"].split("#", 1)[1] for r in prose}
-    assert len(frags) == 24, "prose fragments are not distinct"
+    assert len(frags) == len(prose), "prose fragments are not distinct"
     for ref in refs:
         assert "#" in ref, "prose corpus_ref carries no anchor: %s" % ref
         assert os.path.isfile(module_path(ref)), ref

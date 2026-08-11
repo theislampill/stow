@@ -1,0 +1,171 @@
+# Source-neutral coverage ledger for the predicate-loaded controlled-language
+# layer. Exact external-source paths, hashes, statements, and line locators stay
+# in the private audit run root. This file prevents active semantic ownership
+# from disappearing when historical STOW records are merged or retired.
+schema_version: 1
+scope: predicate-loaded-controlled-technical-writing
+ordinary_hot_path: false
+strict_conformance_profile: locked
+dictionary_extraction_policy: main-lexical-table-is-authoritative-summary-appendices-are-audited-but-not-extraction-input
+dictionary_projection_scope: membership-status-meaning-alternatives-and-listed-forms-with-example-columns-excluded
+
+active_g1_resolution:
+  subject_revision: 1
+  behaviourally_qualified:
+    - STOW-ACT-001
+    - STOW-ACT-002
+    - STOW-ACT-004
+    - STOW-ACT-005
+    - STOW-ACT-006
+    - STOW-ACT-007
+    - STOW-ACT-008
+    - STOW-ACT-011
+    - STOW-DSC-001
+    - STOW-DSC-004
+    - STOW-DSC-006
+    - STOW-GEN-002
+    - STOW-GEN-003
+    - STOW-GEN-005
+    - STOW-GEN-007
+    - STOW-MWN-001
+    - STOW-PCT-003
+    - STOW-PCT-004
+    - STOW-PCT-005
+    - STOW-PCT-006
+    - STOW-PCT-007
+    - STOW-PRC-002
+    - STOW-PRC-003
+    - STOW-PRC-004
+    - STOW-PRC-005
+    - STOW-PRO-001
+    - STOW-PRO-002
+    - STOW-PRO-006
+    - STOW-PRO-007
+    - STOW-PRO-009
+    - STOW-PRO-011
+    - STOW-PRO-013
+    - STOW-PRO-015
+    - STOW-PRO-016
+    - STOW-PRO-017
+    - STOW-PRO-018
+    - STOW-PRO-019
+    - STOW-PRO-020
+    - STOW-PRO-023
+    - STOW-SAF-001
+    - STOW-SAF-002
+    - STOW-SAF-003
+    - STOW-SEN-002
+    - STOW-SEN-003
+    - STOW-SEN-004
+    - STOW-SEN-005
+    - STOW-STY-001
+    - STOW-STY-003
+    - STOW-VRB-002
+    - STOW-VRB-006
+    - STOW-VRB-007
+    - STOW-WRD-002
+    - STOW-WRD-007
+    - STOW-WRD-008
+    - STOW-WRD-010
+    - STOW-WRD-011
+    - STOW-WRD-014
+  external_authority_required:
+    - STOW-WRD-001
+  deferred_contextual:
+    - STOW-VRB-005
+    - STOW-WRD-003
+  open_contextual:
+    - STOW-PRO-005
+
+dictionary_example_policy:
+  source_columns_present: [preferred-usage, nonpreferred-usage]
+  source_records: 2198
+  preferred_examples_present: 2197
+  nonpreferred_examples_present: 1358
+  packaged_fixed_projection: excluded-pending-redistribution-authority
+  fixed_synthetic_examples: deferred-no-demonstrated-runtime-benefit
+  project_overlay_examples: optional-sparse-non-authoritative-origin-labelled
+  measured_compressed_member_delta_bytes: 104033
+  ordinary_prompt_token_delta: 0
+
+requirements:
+  - {source_ordinal: '1.1', historical_id: STOW-WRD-001, historical_disposition: MOVE, semantic_owners: [STOW-WRD-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: PARTIAL, residual_gap: generic-overlay-is-implemented-but-term-approval-and-context-still-require-actual-project-authority, explicit_subrequirements: 3, preservation_terms: [dictionary-approved words, technical nouns, technical verbs]}
+  - {source_ordinal: '1.2', historical_id: STOW-WRD-002, historical_disposition: MOVE, semantic_owners: [STOW-WRD-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: PARTIAL, residual_gap: listed-forms-are-queryable-but-part-of-speech-in-context-is-not-closed}
+  - {source_ordinal: '1.3', historical_id: STOW-WRD-003, historical_disposition: MOVE, semantic_owners: [STOW-WRD-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: DEFERRED_AS_COSTLY_CONTEXTUAL_ENFORCEMENT, residual_gap: approved-sense-in-context-is-not-closed}
+  - {source_ordinal: '1.4', historical_id: STOW-WRD-004, historical_disposition: MERGE, semantic_owners: [STOW-WRD-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: PARTIAL, residual_gap: listed-forms-are-queryable-but-syntactic-role-remains-contextual, preservation_terms: [listed forms, past participle]}
+  - {source_ordinal: '1.5', historical_id: STOW-WRD-005, historical_disposition: MERGE, semantic_owners: [STOW-WRD-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: overlay-is-ready-but-technical-noun-category-and-approval-must-come-from-real-authority, preservation_terms: [defined category]}
+  - {source_ordinal: '1.6', historical_id: STOW-WRD-006, historical_disposition: MERGE, semantic_owners: [STOW-WRD-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: overlay-is-ready-but-technical-noun-classification-must-come-from-real-authority, preservation_terms: [technical nouns]}
+  - {source_ordinal: '1.7', historical_id: STOW-WRD-007, historical_disposition: MOVE, semantic_owners: [STOW-WRD-007], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: syntactic-role-review-not-callable}
+  - {source_ordinal: '1.8', historical_id: STOW-WRD-008, historical_disposition: MOVE, semantic_owners: [STOW-WRD-008], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: generic-overlay-is-implemented-but-authoritative-project-records-remain-project-supplied}
+  - {source_ordinal: '1.9', historical_id: STOW-WRD-009, historical_disposition: MERGE, semantic_owners: [STOW-MWN-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: short-and-easy-is-contextual, preservation_terms: [short and easy]}
+  - {source_ordinal: '1.10', historical_id: STOW-WRD-010, historical_disposition: SIMPLIFY, semantic_owners: [STOW-WRD-010], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: regional-slang-and-jargon-classification-is-contextual}
+  - {source_ordinal: '1.11', historical_id: STOW-WRD-011, historical_disposition: KEEP, semantic_owners: [STOW-WRD-011], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: referent-equivalence-is-contextual}
+  - {source_ordinal: '1.12', historical_id: STOW-WRD-012, historical_disposition: MERGE, semantic_owners: [STOW-WRD-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: overlay-is-ready-but-technical-verb-category-and-approval-must-come-from-real-authority, preservation_terms: [technical verbs, defined category, approved dictionary verb]}
+  - {source_ordinal: '1.13', historical_id: STOW-WRD-013, historical_disposition: MERGE, semantic_owners: [STOW-VRB-007], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: syntactic-role-and-participle-review-not-callable, preservation_terms: [technical verbs stay verbs, past participle]}
+  - {source_ordinal: '1.14', historical_id: STOW-WRD-014, historical_disposition: MOVE, semantic_owners: [STOW-WRD-014], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: spelling-variant-validator-not-callable}
+
+  - {source_ordinal: '2.1', historical_id: STOW-MWN-001, historical_disposition: KEEP, semantic_owners: [STOW-MWN-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: noun-phrase-boundary-parser-not-callable}
+  - {source_ordinal: '2.2', historical_id: STOW-MWN-002, historical_disposition: MERGE, semantic_owners: [STOW-MWN-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, EXTERNAL_PROJECT_AUTHORITY], status: GUIDANCE_ONLY, residual_gap: approved-short-form-selection-is-contextual, explicit_subrequirements: 2, preservation_terms: [write it in full first, declared short form, hyphen]}
+
+  - {source_ordinal: '3.1', historical_id: STOW-VRB-001, historical_disposition: MERGE, semantic_owners: [STOW-WRD-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: PARTIAL, residual_gap: listed-forms-are-queryable-but-tense-and-role-remain-contextual, preservation_terms: [listed forms]}
+  - {source_ordinal: '3.2', historical_id: STOW-VRB-002, historical_disposition: MOVE, semantic_owners: [STOW-VRB-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: tense-and-aspect-parser-not-callable, explicit_subrequirements: 6, preservation_terms: [infinitive, imperative, simple present, simple past, simple future, past participle]}
+  - {source_ordinal: '3.3', historical_id: STOW-VRB-003, historical_disposition: MERGE, semantic_owners: [STOW-WRD-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: GUIDANCE_ONLY, residual_gap: participle-role-review-not-callable, preservation_terms: [past participle, adjective]}
+  - {source_ordinal: '3.4', historical_id: STOW-VRB-004, historical_disposition: MERGE, semantic_owners: [STOW-VRB-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: complex-construction-parser-not-callable, preservation_terms: [complex constructions]}
+  - {source_ordinal: '3.5', historical_id: STOW-VRB-005, historical_disposition: MOVE, semantic_owners: [STOW-VRB-005], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, PROJECT_TERMINOLOGY_OVERLAY], status: DEFERRED_AS_COSTLY_CONTEXTUAL_ENFORCEMENT, residual_gap: v3-behaviour-failed-and-ing-role-or-authorised-term-category-remains-contextual}
+  - {source_ordinal: '3.6', historical_id: STOW-VRB-006, historical_disposition: KEEP, semantic_owners: [STOW-VRB-006], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: passive-agent-context-is-not-closed}
+  - {source_ordinal: '3.7', historical_id: STOW-VRB-007, historical_disposition: KEEP, semantic_owners: [STOW-VRB-007], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: nominalization-and-action-role-review-not-callable}
+
+  - {source_ordinal: '4.1', historical_id: STOW-SEN-001, historical_disposition: MERGE, semantic_owners: [STOW-PRC-001, STOW-DSC-001, STOW-DSC-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, G2_CLOSED_VALIDATOR], status: PARTIAL, residual_gap: clarity-remains-contextual, preservation_terms: [maximum, gradually]}
+  - {source_ordinal: '4.2', historical_id: STOW-SEN-002, historical_disposition: SIMPLIFY, semantic_owners: [STOW-SEN-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, ADVISORY_DETECTOR], status: PARTIAL, residual_gap: contractions-detected-but-word-omission-contextual}
+  - {source_ordinal: '4.3', historical_id: STOW-SEN-003, historical_disposition: KEEP, semantic_owners: [STOW-SEN-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: complexity-and-list-need-are-contextual}
+  - {source_ordinal: '4.4', historical_id: STOW-SEN-004, historical_disposition: MOVE, semantic_owners: [STOW-SEN-004], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: discourse-relation-review-not-callable}
+  - {source_ordinal: '4.5', historical_id: STOW-SEN-005, historical_disposition: KEEP, semantic_owners: [STOW-SEN-005], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: article-applicability-parser-not-callable}
+
+  - {source_ordinal: '5.1', historical_id: STOW-PRC-001, historical_disposition: KEEP, semantic_owners: [STOW-PRC-001], applicability: controlled-technical-guided-procedure, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: advisory-host-does-not-prove-final-output-custody}
+  - {source_ordinal: '5.2', historical_id: STOW-PRC-002, historical_disposition: KEEP, semantic_owners: [STOW-PRC-002], applicability: controlled-technical-guided-procedure, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: simultaneity-and-action-count-are-contextual}
+  - {source_ordinal: '5.3', historical_id: STOW-PRC-003, historical_disposition: KEEP, semantic_owners: [STOW-PRC-003], applicability: controlled-technical-guided-procedure, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: imperative-parser-not-callable}
+  - {source_ordinal: '5.4', historical_id: STOW-PRC-004, historical_disposition: KEEP, semantic_owners: [STOW-PRC-004], applicability: controlled-technical-guided-procedure, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: condition-applicability-is-contextual}
+  - {source_ordinal: '5.5', historical_id: STOW-PRC-005, historical_disposition: SIMPLIFY, semantic_owners: [STOW-PRC-005], applicability: controlled-technical-guided-procedure, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: note-function-and-note-cap-not-callable}
+
+  - {source_ordinal: '6.1', historical_id: STOW-DSC-001, historical_disposition: KEEP, semantic_owners: [STOW-DSC-001], applicability: controlled-technical-guided-description, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: information-pacing-is-contextual}
+  - {source_ordinal: '6.2', historical_id: STOW-DSC-002, historical_disposition: MERGE, semantic_owners: [STOW-WRD-011], applicability: controlled-technical-guided-description, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: logical-keyword-selection-is-contextual, preservation_terms: [key words, key phrases]}
+  - {source_ordinal: '6.3', historical_id: STOW-DSC-003, historical_disposition: KEEP, semantic_owners: [STOW-DSC-003], applicability: controlled-technical-guided-description, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: advisory-host-does-not-prove-final-output-custody}
+  - {source_ordinal: '6.4', historical_id: STOW-DSC-004, historical_disposition: KEEP, semantic_owners: [STOW-DSC-004], applicability: controlled-technical-guided-description, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: paragraph-grouping-is-contextual}
+  - {source_ordinal: '6.5', historical_id: STOW-DSC-005, historical_disposition: MERGE, semantic_owners: [STOW-DSC-004], applicability: controlled-technical-guided-description, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: topic-equivalence-is-contextual, preservation_terms: [each led by a topic]}
+  - {source_ordinal: '6.6', historical_id: STOW-DSC-006, historical_disposition: KEEP, semantic_owners: [STOW-DSC-006], applicability: controlled-technical-guided-description, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: paragraph-sentence-count-validator-not-callable}
+
+  - {source_ordinal: '7.1', historical_id: STOW-SAF-001, historical_disposition: KEEP, semantic_owners: [STOW-SAF-001], applicability: safety-notice-system-precedence, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: risk-level-selection-is-contextual}
+  - {source_ordinal: '7.2', historical_id: STOW-SAF-002, historical_disposition: KEEP, semantic_owners: [STOW-SAF-002], applicability: safety-notice-system-precedence, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: command-or-condition-parser-not-callable}
+  - {source_ordinal: '7.3', historical_id: STOW-SAF-003, historical_disposition: KEEP, semantic_owners: [STOW-SAF-003], applicability: safety-notice-system-precedence, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: consequence-sufficiency-is-contextual}
+
+  - {source_ordinal: '8.1', historical_id: STOW-PCT-001, historical_disposition: KEEP, semantic_owners: [STOW-PCT-001], applicability: controlled-technical-guided, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: advisory-host-does-not-prove-final-output-custody}
+  - {source_ordinal: '8.2', historical_id: STOW-PCT-002, historical_disposition: MERGE, semantic_owners: [STOW-PCT-007], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, G2_CLOSED_VALIDATOR], status: GUIDANCE_ONLY, residual_gap: relation-between-hyphenated-words-is-contextual, preservation_terms: [directly related, hyphenated group]}
+  - {source_ordinal: '8.3', historical_id: STOW-PCT-003, historical_disposition: MOVE, semantic_owners: [STOW-PCT-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: parenthesis-purpose-is-contextual, explicit_subrequirements: 7, preservation_terms: [references, item identifiers, step identifiers, abbreviations, singular/plural forms, explanations, alternatives]}
+  - {source_ordinal: '8.4', historical_id: STOW-PCT-004, historical_disposition: MOVE, semantic_owners: [STOW-PCT-004], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: colon-boundary-helper-not-callable}
+  - {source_ordinal: '8.5', historical_id: STOW-PCT-005, historical_disposition: MOVE, semantic_owners: [STOW-PCT-005], applicability: controlled-technical-guided, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: implemented-only-as-sentence-cap-token-helper}
+  - {source_ordinal: '8.6', historical_id: STOW-PCT-006, historical_disposition: MOVE, semantic_owners: [STOW-PCT-006], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: several-declared-token-classes-are-not-counted-by-runtime, explicit_subrequirements: 7, preservation_terms: [number, unit, abbreviation, identifier, quoted text, title, proper name]}
+  - {source_ordinal: '8.7', historical_id: STOW-PCT-007, historical_disposition: MOVE, semantic_owners: [STOW-PCT-007], applicability: controlled-technical-guided, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: implemented-only-as-sentence-cap-token-helper}
+
+  - {source_ordinal: '9.1', historical_id: STOW-STY-001, historical_disposition: KEEP, semantic_owners: [STOW-STY-001], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: meaning-preserving-rewrite-is-contextual}
+  - {source_ordinal: '9.2', historical_id: STOW-STY-002, historical_disposition: MERGE, semantic_owners: [STOW-WRD-002, STOW-WRD-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: DEFERRED_AS_COSTLY_CONTEXTUAL_ENFORCEMENT, residual_gap: word-role-and-sense-are-contextual, preservation_terms: [part of speech, meanings]}
+  - {source_ordinal: '9.3', historical_id: STOW-STY-003, historical_disposition: MOVE, semantic_owners: [STOW-STY-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: PARTIAL, residual_gap: listed-multiword-forms-are-queryable-but-phrasal-verb-role-remains-contextual}
+  - {source_ordinal: '9.4', historical_id: STOW-STY-004, historical_disposition: MERGE, semantic_owners: [STOW-WRD-011], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: recurring-context-equivalence-is-contextual, preservation_terms: [recurring wording]}
+
+  - {source_ordinal: GR-1, historical_id: STOW-GEN-001, historical_disposition: DROP, semantic_owners: [], applicability: controlled-technical-guided, mechanisms: [UNSUPPORTED], status: NOT_IMPLEMENTED, residual_gap: optional-clause-marker-recommendation-deliberately-retired}
+  - {source_ordinal: GR-2, historical_id: STOW-GEN-002, historical_disposition: SIMPLIFY, semantic_owners: [STOW-GEN-002], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: preposition-ambiguity-is-contextual}
+  - {source_ordinal: GR-3, historical_id: STOW-GEN-003, historical_disposition: SIMPLIFY, semantic_owners: [STOW-GEN-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: pronoun-reference-is-contextual}
+  - {source_ordinal: GR-4, historical_id: STOW-GEN-004, historical_disposition: MERGE, semantic_owners: [STOW-GEN-003], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: pronoun-reference-is-contextual, preservation_terms: [ambiguous pronoun]}
+  - {source_ordinal: GR-5, historical_id: STOW-GEN-005, historical_disposition: MOVE, semantic_owners: [STOW-GEN-005], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: cross-language-meaning-review-is-contextual}
+  - {source_ordinal: GR-6, historical_id: STOW-GEN-006, historical_disposition: KEEP, semantic_owners: [STOW-GEN-006], applicability: controlled-technical-guided, mechanisms: [G2_CLOSED_VALIDATOR], status: IMPLEMENTED, residual_gap: closed-list-detector-does-not-prove-complete-language-conformance}
+  - {source_ordinal: GR-7, historical_id: STOW-GEN-007, historical_disposition: SIMPLIFY, semantic_owners: [STOW-GEN-007], applicability: controlled-technical-guided, mechanisms: [G1_CONTEXTUAL_GUIDANCE], status: GUIDANCE_ONLY, residual_gap: inclusive-wording-context-is-not-a-closed-list}
+  - {source_ordinal: GR-8, historical_id: STOW-GEN-008, historical_disposition: DROP, semantic_owners: [], applicability: controlled-technical-guided, mechanisms: [UNSUPPORTED], status: NOT_IMPLEMENTED, residual_gap: ordinary-possessive-grammar-recommendation-deliberately-retired}
+
+dictionary_axes:
+  - {id: approved-membership, tier: 1, mechanisms: [DICTIONARY_LOOKUP], status: IMPLEMENTED, residual_gap: membership-does-not-establish-contextual-acceptability}
+  - {id: not-approved-alternatives, tier: 1, mechanisms: [DICTIONARY_LOOKUP, G1_CONTEXTUAL_GUIDANCE], status: PARTIAL, residual_gap: alternatives-are-preserved-but-choice-and-reconstruction-can-change-meaning}
+  - {id: approved-explicit-forms, tier: 1, mechanisms: [DICTIONARY_LOOKUP], status: IMPLEMENTED, residual_gap: listed-form-membership-does-not-establish-syntactic-role}
+  - {id: meaning-and-part-of-speech, tier: 3, mechanisms: [G1_CONTEXTUAL_GUIDANCE, DICTIONARY_LOOKUP], status: DEFERRED_AS_COSTLY_CONTEXTUAL_ENFORCEMENT, residual_gap: actual-sense-and-role-require-context}
+  - {id: project-technical-nouns, tier: 2, mechanisms: [PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: generic-overlay-is-bundled-but-approved-project-records-require-real-authority}
+  - {id: project-technical-verbs, tier: 2, mechanisms: [PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: generic-overlay-is-bundled-but-approved-project-records-require-real-authority}
+  - {id: protected-exact-text, tier: 1, mechanisms: [G1_CONTEXTUAL_GUIDANCE, G2_CLOSED_VALIDATOR], status: PARTIAL, residual_gap: host-must-validate-the-actual-final-candidate}
+  - {id: strict-conformance, tier: 4, mechanisms: [DICTIONARY_LOOKUP, PROJECT_TERMINOLOGY_OVERLAY, EXTERNAL_PROJECT_AUTHORITY, G1_CONTEXTUAL_GUIDANCE, G2_CLOSED_VALIDATOR], status: EXTERNAL_AUTHORITY_REQUIRED, residual_gap: strict-profile-remains-locked-without-real-authority-contextual-review-and-final-output-custody}

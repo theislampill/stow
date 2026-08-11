@@ -1,0 +1,15 @@
+schema_version: 1
+suite_revision: G1-BHV-20260811-V3.1
+scenario_packs:
+  - id: G1V3-ACTION
+    positive_coverage: [STOW-ACT-002, STOW-ACT-007, STOW-ACT-008, STOW-ACT-011]
+    paired_negative_coverage: [STOW-ACT-002, STOW-ACT-007, STOW-ACT-008, STOW-ACT-011]
+  - id: G1V3-PROSE
+    positive_coverage: [STOW-PRO-006, STOW-PRO-007, STOW-PRO-009, STOW-PRO-011, STOW-PRO-016]
+    paired_negative_coverage: [STOW-PRO-006, STOW-PRO-007, STOW-PRO-009, STOW-PRO-011, STOW-PRO-016]
+  - id: G1V3-CONTROLLED-MEANING
+    positive_coverage: [STOW-GEN-002, STOW-GEN-005, STOW-GEN-007, STOW-PCT-003, STOW-PRC-005]
+    paired_negative_coverage: [STOW-GEN-002, STOW-GEN-005, STOW-GEN-007, STOW-PCT-003, STOW-PRC-005]
+  - id: G1V3-CONTROLLED-SYNTAX
+    positive_coverage: [STOW-SEN-003, STOW-VRB-002, STOW-VRB-005, STOW-VRB-007]
+    paired_negative_coverage: [STOW-SEN-003, STOW-VRB-002, STOW-VRB-005, STOW-VRB-007]

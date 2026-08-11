@@ -1,6 +1,7 @@
 # Functional evidence
 
-Measured effect of enabling the packaged skill, from the repeatable
+Historical, single-host effect of making one packaged version available, from the
+repeatable
 enabled-versus-disabled evaluation defined in `tests/evals/ab/` (fixed
 prompts, frozen rubric, mechanical validators, blind scoring). This page
 holds the committed summary; raw outputs, transcripts, seeds, mappings,
@@ -19,7 +20,12 @@ evaluators in four roles score anonymized output pairs on the frozen rubric;
 every format and schema verdict comes from the packaged mechanical
 validators, not from judgment. Three rounds ran: a baseline round, a
 checkpoint after the first repair, and a final round on the shipped package;
-each round pinned one package digest for every run.
+each round pinned one package digest for every run. These results are behavioral
+and package-bound; they are not a standing claim about later packages or hosts.
+
+The committed aggregator computes the primary summary only. Completeness,
+missing-score, regression, material-improvement, and critical-invariant review
+remain separate governed steps under the frozen rubric.
 
 ## Mechanical results (final round, enabled vs disabled)
 
@@ -30,8 +36,18 @@ each round pinned one package digest for every run.
   three.
 - Hazard statements preceding procedure steps: 5 of 6 vs 3 of 6.
 - Em-dash occurrences across prose outputs: 194 vs 243.
-- Byte-exact identifier and quote preservation: both arms clean in the final
-  round; the mechanical checks gate it.
+- Named identifier and quotation presence checks: both arms clean in the final
+  round.
+
+The historical raw-output result of 8 of 9 applies across the raw cases. It
+used the then-current YAML parse predicate for its YAML cases.
+The current exact-content predicate in `tools/ab_eval_runner.py` was added later
+and was not used to recompute that frozen metric. The earlier number remains a
+record of the evaluation contract that produced it, not evidence that the
+current predicate passed those outputs.
+
+Identifier and quotation checks in this run tested named literals in fixed
+cases; they were not general final-output byte-preservation gates.
 
 ## Blind comparison (final round, sixteen general cases)
 
@@ -68,9 +84,9 @@ variance, not missing guidance; it is retained here rather than argued away.
 
 ## Limits
 
-Blinding is real for prose cases and limited for schema-bearing outputs,
+Blinding was applied to prose cases and was limited for schema-bearing outputs,
 whose provenance is structurally recognizable; that is why format and schema
-verdicts are mechanical. Evaluators and generators share a model family, so
+verdicts came from the named G2 checks. Evaluators and generators share a model family, so
 deltas, not absolute scores, are the unit of inference. Counts are reported
 descriptively with no significance claims. Host execution approval blocks
 the packaged validator in non-interactive runs, which handicaps only the

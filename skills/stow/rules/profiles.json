@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "comment": "Single source of truth for STOW profile identity, activation, and runtime check gating. Consumed by runtime/profiles.py (shipped), the generators, and the tests. Checks absent from a profile's lint_checks map are always-on and never profile-gated.",
+  "comment": "Single source of truth for STOW profile identity, model or host routing cues, and runtime check gating. runtime/profiles.py resolves explicit identifiers and does not classify request meaning. Checks absent from a profile's lint_checks map are always-on and never profile-gated.",
   "auto_precedence": [
     "controlled-technical-guided",
     "technical-clarity",
@@ -48,7 +48,7 @@
       "includes": {
         "selector": "always_on_for_prose"
       },
-      "guidance_rules": ["STOW-WRD-011", "STOW-STY-004"],
+      "guidance_rules": ["STOW-WRD-011"],
       "lint_checks": {
         "semicolon": false,
         "contraction": false,
@@ -84,7 +84,7 @@
         "procedural-sentence-length": true,
         "descriptive-sentence-length": true
       },
-      "notes": "Applies the available structural guidance of the controlled-technical rule families. Dictionary-dependent checks are unavailable and are reported as such. This profile never claims strict conformance."
+      "notes": "Applies the available structural guidance of the controlled-technical rule families. A cold sparse lookup reports closed dictionary membership, alternatives, and listed forms; part of speech, sense, technical-term authority, and conformance remain contextual or external. This profile never claims strict conformance."
     },
     {
       "id": "controlled-technical-strict",
@@ -96,7 +96,7 @@
       "includes": {},
       "guidance_rules": [],
       "lint_checks": {},
-      "notes": "Locked and unavailable. Full conformance cannot be claimed without the controlled dictionary, which is not part of this release."
+      "notes": "Locked and unavailable. A bounded dictionary lookup is present, but full conformance still requires contextual meaning decisions, approved project terminology, applicability, final-output validation, and delivery custody."
     }
   ],
   "artifact_modes": {

@@ -56,18 +56,20 @@ test suite and by continuous checks.
 
 ## Design notes
 
-### v0.1 corpus boundary
+### Controlled-language boundary
 
-The v0.1 corpus is deliberately narrow: it carries **Part-1 rule material only**.
-Everything downstream of the rules -- most notably the controlled dictionary
-(and the approved terminology set and directives that travel with it) -- is
-**out of scope for v0.1** and does not ship. Because those inputs are absent, the
-**strict / fully conformant profile is LOCKED**: STOW gives *guided* alignment
-against the Part-1 rules and never certifies full conformance. Dictionary-
-dependent checks are reported as *unavailable* rather than passed. This boundary
-is what keeps the shipped surface small and honest; widening it (importing the
-dictionary, unlocking the strict profile) is explicitly a post-v0.1 decision, not
-a gap to be quietly filled.
+The protected corpus carries rule material. A separate cold lexical index ships
+for exact dictionary membership and explicitly listed-form lookup. It is loaded
+only for controlled-technical work and returns sparse matched records; its full
+contents are never placed in model context. Examples from the local source basis
+are deliberately outside that lexical subset.
+
+The **strict / fully conformant profile remains LOCKED**. Lexical membership does
+not establish approved meaning in context, part of speech in context, a suitable
+replacement, technical-noun or technical-verb authority, approved project
+terminology, applicability, final-output validation, or delivery custody. STOW
+therefore reports guided alignment and the exact checks performed, never a
+certificate.
 
 ### The `.skill` artifact
 
@@ -131,22 +133,20 @@ gate and must be green before pushing.
 
 ## Context budgets and load paths
 
-STOW is built so that the cost of a turn tracks what the turn needs. The
-kernel is the only surface that is always resident; everything else is pulled in
-on demand. Every figure below is a token count from `tools/measure_context.py`,
-measured at version 0.3.5; other models tokenize differently, so treat them as a
-calibrated proxy and leave headroom.
+The tables below measure declared file bundles, not live host context. They do
+not establish which files a host read, or the resulting latency, tool calls,
+memory, or repair work. Each figure comes from `tools/measure_context.py`; other
+models can tokenize the same bytes differently.
 
-The two always-resident paths are measured in both of the tool's modes: the
-exact tokenizer (`o200k_base`, used when its encoding is cached locally) and the
-deterministic conservative fallback (`ceil(chars / 3.5)`, used on a cold host
-with no cache). The fallback over-counts, so a path that fits under its fallback
-figure also fits under its exact figure.
+The two common static bundles are measured in both tool modes: the `o200k_base`
+tokenizer when its encoding is cached locally and the deterministic
+`ceil(chars / 3.5)` estimator otherwise. The estimator over-counted the frozen
+calibration files, but it is not an upper bound for arbitrary text or tokenizers.
 
-| Always-resident path | Exact tokenizer | Conservative fallback |
+| Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1040 | 1427 |
-| Ordinary prose turn (kernel + `references/always-on.md`) | 2321 | 3026 |
+| Kernel alone (`SKILL.md`) | 1075 | 1485 |
+| Ordinary prose turn (kernel; no reference read) | 1075 | 1485 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -155,45 +155,38 @@ A drift gate in `tests/test_cold_budget.py` re-measures the two rows and fails i
 this table falls out of step with a fresh measurement, so the numbers cannot go
 stale unnoticed.
 
-The remaining load paths are exact-tokenizer point measurements of one specific
-file set, not gated invariants. They drift when the underlying references grow,
-so regenerate them with `tools/measure_context.py` after any reference change.
+The remaining rows are exact-tokenizer point measurements of named file sets,
+not live read traces or gated invariants. They drift when references grow, so
+regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 2823 | the ordinary turn + `references/technical-clarity.md` |
-| Raw JSON artifact | 3093 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Technical-clarity turn | 1830 | the ordinary turn + `references/technical-clarity.md` |
+| Raw JSON artifact | 2971 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 5219 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
-| Procedure + safety | 5967 | the procedure load path + `references/safety-instructions.md` |
+| Procedure load path | 4209 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 4957 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 
-- **Kernel alone.** The routing surface. It carries activation cues and pointers,
-  not rule text, and sits under the 1500-token hard ceiling with room to spare.
-- **Ordinary prose turn.** Any user-facing prose turn additionally loads the
-  generated always-on reference, which is the full set of operational checks that
-  apply to every such turn. This is the common case, and it is deliberately the
-  second-cheapest path.
-- **Raw JSON artifact.** A structured-output turn loads the format reference and
-  the protected-regions reference and **no prose checks at all**. This is the
-  point of splitting always-on out of the kernel: a machine-readable artifact
-  never pays for prose guidance it must not apply. Zero prose checks are resident
-  on this path.
+- **Kernel alone.** The smallest declared bundle carries routing cues and
+  pointers rather than the full reference bodies.
+- **Ordinary prose bundle.** The kernel carries the compact request router and
+  descriptive digest. `references/always-on.md` remains a generated detail and
+  audit surface, loaded only for an explicit applicability or rule-audit query.
+- **Raw JSON bundle.** The intended route contains the kernel, the JSON format
+  reference, and the protected-regions reference, without the prose digest.
+  Actual host reads require telemetry from that host and run.
 - **Deep single-rule lookup.** When a specific rule needs its full text, worked
-  examples, or baseline, the reader routes to one grouped corpus module (the
+  examples, or baseline, the guidance routes to one grouped corpus module (the
   largest is just under fifteen kilobytes) or, following the kernel's
   bounded-read instruction, reads only the rule's anchored section from that
   module. Corpus material is never resident by default.
-- **Procedure / procedure + safety.** The most expensive paths. Procedure
-  authoring pulls in the procedure and action-shaping surfaces; safety-critical
-  procedure authoring adds the safety reference on top. Even the heaviest path
-  stays well inside a normal working context.
+- **Procedure / procedure + safety.** These are the largest declared bundles in
+  the table. Whether a host reads them and what that costs is host-specific.
 
-These are single-tokenizer measurements, not a contract. The kernel and
-always-on surfaces are additionally regenerated and checked mechanically
-(`tools/gen_always_on.py --check`), so their content, and the caps above, cannot
-drift silently.
+These are static measurements, not a turn-cost contract. Generator and budget
+tests detect file and proxy-cap drift; they do not observe live runtime cost.
 
 ## Enforcement reality
 
@@ -204,25 +197,28 @@ distinction is stated plainly here.
   *would* be enforced by a mechanical checker: what class of check applies, what
   it would key on. It is a design declaration.
 - **`enforcement.status` is the *shipped* truth.** It records what runs
-  today: **fourteen rules are callable**; the bulk of the remainder are planned,
-  and the rest fall back to model review. The exact callable set is derived
+  today: **four rules are callable compliance predicates**; ten advisory surface detectors
+  support contextual G1 review; the remainder are
+  planned or fall back to model review. The exact implemented set is derived
   bidirectionally from the runtime's own `IMPLEMENTED_VALIDATORS` constant by
   `tests/test_enforcement_status.py`, so the registry can neither overclaim nor
   underclaim a validator.
 
 Read together: the majority of rules are *not* mechanically enforced in this
-release. Fourteen rules have callable checkers, and each callable checker runs
-only where its owning rule is active: the profile resolver gates the
-controlled-family checks (semicolon, contraction, Latin abbreviations, the two
-sentence caps) behind `controlled-technical-guided`, exactly as the registry's
-activation predicates declare. The planned rules have a specified mechanism that
-is not implemented. Review-fallback is judgement, not verification.
+release. Four primary rules have callable compliance predicates. Ten further
+matchers are advisory observations owned by G1 rules and do not establish their
+contextual semantics. The profile resolver gates the semicolon, contraction,
+Latin-abbreviation, and sentence-cap observations behind
+`controlled-technical-guided`, exactly as the registry activation predicates
+declare. Planned rules have no implemented validator. Review-fallback is
+judgement, not verification.
 
 The prose linters are **advisory / report-only**. `runtime/lint_prose.py` reports
 findings and exits zero by design; it is wired into CI as a smoke invocation, not
-as a gate. Nothing in this repository fails a build because prose violated a
-style rule. Where a prose property genuinely must hold, it is enforced by a real
-test (see `tests/test_count_leak.py`), not by the linter.
+as its own gate. Repository tests can assert that a selected advisory subset is
+empty on named authored surfaces; those pytest assertions are G4 repository
+gates and do not turn the linter into a G3 delivery gate. Other prose properties
+that genuinely must hold use dedicated tests such as `tests/test_count_leak.py`.
 
 This is a deliberate v0.1 position, not an oversight: shipping a checker that
 silently under-detects is worse than declaring the gap. `enforcement.status` is
@@ -232,13 +228,13 @@ the field to trust, and `tests/test_enforcement_status.py` keeps it honest.
 
 What is proven here, and what is not:
 
-**Proven.** The install property is a real, gated, model-free end-to-end check.
+**G4 package evidence.** The install property is a gated, model-free check.
 `tests/test_install_smoke.py` builds the artifact, extracts it to a throwaway
-directory, and drives the shipped runtime from the extracted tree with the
+directory, and drives sampled shipped runtime paths from the extracted tree with the
 repository root off `sys.path` -- asserting extract shape, byte fidelity, import
-closure, and validator accept/reject behaviour from the installed location. It
-runs in CI as a hard gate. A package that would not work on a fresh install fails
-the build.
+closure, and selected accept/reject behavior from the installed location. It
+runs in CI as a hard gate over those enumerated checks. It does not establish
+semantic prose behavior or every host environment.
 
 **Evidenced on one host, not proven universally.** The repository includes a
 non-hermetic enabled-versus-disabled evaluation harness: `tools/ab_eval_runner.py`
@@ -249,13 +245,12 @@ grades the outputs with the packaged validators and blind reviewers, and records
 the deltas. This supplies useful single-host evidence for two properties the
 hermetic suite cannot reach:
 
-- **Auto-selection** -- that a model presented with a given task activates STOW
-  and routes to the correct reference or corpus module. The evaluation observed
-  the skill auto-selecting and loading the kernel-predicted references on the
-  measured host; the activation cues' structure is also tested hermetically.
-- **Live reference-loading behaviour** -- that the load paths described above are
-  the paths a model takes at runtime. The evaluation recorded per-file read
-  telemetry on the measured host.
+- **Observed selection** -- telemetry recorded whether the measured host invoked
+  STOW for a given task. Availability did not force invocation, and the result
+  does not establish semantic routing on other prompts or hosts.
+- **Observed reads** -- where the governed run captured file-read telemetry, it
+  describes that measured host and run only. Static bundle tables are not a
+  substitute for those observations.
 
 What the harness does not establish is universal cross-host behaviour. It ran on
 one pinned host model per round, invocation is telemetry rather than forced, and
@@ -268,39 +263,32 @@ evidence.
 
 ## Cross-harness scope
 
-The interoperability claim is scoped to what ships. The **meta-code
-surface** -- `skills/stow/schemas/*.schema.json`, `skills/stow/templates/*`, the
-meta-code reference set, and `runtime/validate.py --schema <id>` -- is concrete,
-committed, and tested. Any agent or harness that can read a JSON Schema and a
-template can consume it, and the validator is a standalone script with no
-dependency on this repository's layout. That much is real.
+The interoperability claim is scoped to packaged file formats. The meta-code
+schemas, templates, references, and standalone checker are concrete committed
+files with repository and install tests.
 
-**Broader multi-harness interop is roadmap, not shipped.** Nothing here has been
-exercised against a second harness. Claims beyond "the artefacts are portable and
-the validator runs standalone" -- negotiated handoffs, cross-harness state
-continuity, live agent-to-agent exchange -- describe an intended direction. The
-templates for those flows exist and validate against their schemas; the flows
-themselves are untested across harnesses.
+Packaged schemas, templates, and file formats are portable inputs; live
+cross-harness behavior remains unverified until a second harness is exercised.
+Negotiated handoffs, cross-harness state continuity, and live agent exchange
+remain outside the current evidence.
 
 ## Profile resolution
 
 One shipped data file, `skills/stow/rules/profiles.json`, declares every
-profile: id, aliases, lock state, auto-activation contexts, the registry
+profile: id, aliases, lock state, model or host routing cues, the registry
 selector for its included rules, its review-level guidance rules, and the map
 of profile-gated lint checks. One shipped module, `runtime/profiles.py`,
 resolves names (alias-aware, lock-refusing) and answers "does this check run
-under this profile". Every consumer -- the linter, the generators, the kernel's
-activation map, and the tests -- reads the same declaration, which ends the
+under this explicitly resolved profile". It never reads request text or infers
+intent. The linter, generators, kernel activation map, and tests read the same declaration, which ends the
 earlier state where profile semantics were re-encoded independently across a
 dozen surfaces and the runtime honored the gate for only one of the four
 profile-band checks it implemented.
 
-The activation contract the resolver enforces: the always-on families
-(action-shaping and unconditional prose-integrity) govern every editable prose
-turn under every profile; the controlled-technical families bind only under
-`controlled-technical-guided`; `technical-clarity` adds review-level guidance
-without changing the mechanical check set; `controlled-technical-strict` is
-locked and refuses resolution. A drift test asserts the resolver's
+For a supplied profile, the resolver applies the declared check map: the
+controlled-family checks run under `controlled-technical-guided`,
+`technical-clarity` adds review guidance without changing the mechanical set,
+and `controlled-technical-strict` refuses resolution. A drift test asserts the resolver's
 controlled-family selector matches the set of registry records whose activation
 predicate names the controlled profile, and a scope-fidelity test proves each
 gated callable check silent outside its owning profile on a tripping fixture.
@@ -320,14 +308,12 @@ and drift-checked in CI.
 
 ## Context measurement method
 
-`tools/measure_context.py` records its measurement method in every output and
-never performs a network request. When the `o200k_base` encoding is already in
-a local tiktoken cache directory it reports exact counts; otherwise it falls
-back to a deterministic conservative estimate, `ceil(chars / 3.5)`, which
-over-counted every shipped file it was calibrated on (by 8-38%), so a hard
-ceiling that passes in estimate mode also holds in exact tokens. Band-style
-targets (two-sided) are evaluated only in exact mode; the offline gates in
-`tests/test_offline_measurement.py` prove the fallback's determinism and prove
-a fully offline run completes with the ceilings still enforced. CI restores a
-named tokenizer cache and warms it in a single named step whose failure
-is tolerated because the estimator covers every gate.
+`tools/measure_context.py` records its method. When the `o200k_base` encoding is
+already present in the selected local cache it uses that tokenizer; when the
+named cache file is absent it does not call tiktoken and uses
+`ceil(chars / 3.5)`. A corrupt present cache can still trigger behavior inside
+tiktoken and is outside the offline precheck. The estimator is deterministic
+for its formula and was conservative on the historical calibration set, but it
+is not a universal upper bound. Two-sided bands are reported only in tokenizer
+mode; estimate-mode ceilings are repository proxy gates, not claims about live
+host tokens.

@@ -1,12 +1,12 @@
 # JSON output contract
 
-STOW-native format contract. It governs how a JSON deliverable is emitted and
+STOW-native format guidance plus a closed JSON detector. It describes how a JSON deliverable should be emitted and
 has no controlled-technical-rules provenance, so it cites no corpus record. The
 single source of truth for every clause below is the runtime validator
 `skills/stow/runtime/validate.py` (function `validate_json`). This reference
 gives application guidance only: when the contract applies, which output region
-it covers, and how STOW checks it. Run the validator before delivery; it, not
-this page, is authoritative.
+it covers, and how STOW checks it. The runtime is authoritative only for its G2
+parse verdict; delivery custody remains with the caller or host.
 
 **When it applies (trigger).** The turn asks for a JSON deliverable, or a
 downstream consumer parses the output as JSON. This is raw-JSON mode: the value
@@ -24,13 +24,14 @@ python skills/stow/runtime/validate.py --format json <file>
 ```
 
 Exit status 0 with `VALID (json)` passes. Any nonzero exit with `INVALID (json)`
-fails and names the clause that broke. Do this before delivery, every time. See
-`skills/stow/runtime/validate.py` for the exact behavior.
+fails and names the clause that broke. This is a G2 verdict for the supplied
+file, not delivery acceptance. See `skills/stow/runtime/validate.py` for the
+exact behavior.
 
 ## Contract clauses
 
-Each clause is an observable property of the payload region above. The validator
-enforces all of them in a single strict parse.
+Each clause is an observable property of the supplied payload. The validator
+checks all of them in a single strict parse.
 
 | Clause | Observable trigger of a failure | How STOW checks it |
 | --- | --- | --- |
@@ -44,21 +45,20 @@ enforces all of them in a single strict parse.
 
 ## Two checks the validator does not replace
 
-- **Parse before delivery.** Independently parse the final bytes as JSON and
-  confirm a clean round-trip. Treat a clean parse as a delivery gate, not a
-  formality.
+- **Parse the actual candidate.** A named G3 host gives the actual final candidate
+  to the parser, blocks nonzero and unreadable results, permits only authorized
+  repairs, and revalidates before delivery.
 - **Schema conformance.** When the task supplies a JSON Schema, validate the
-  value against that schema after the structural check. `validate.py` enforces
-  structural strictness only; it does not check schema conformance, so run the
-  supplied schema as a separate step.
+  value against that schema after the structural check. Format mode checks
+  structural strictness only; use schema mode for a shipped schema or a separate
+  checker for a caller-supplied schema.
 
 ## Deliver once
 
 Trigger: any raw-output request (no fence, no commentary). Region: the entire
-reply. How STOW checks it: composition and any validation happen privately,
-before sending; the reply contains the finished artifact and nothing else. If a
-checker cannot run in the current session, STOW still ships only the artifact
-and never writes a note about the missing check inside the artifact or beside
-it. A correction replaces the draft before sending; it is never appended after
-a first attempt in the same reply. The governing duty is the kernel's
-raw-delivery rule: a raw artifact ships raw.
+reply. G1 guidance says to compose one raw artifact with no fence or commentary.
+The G2 checker can report only on bytes it receives. If it cannot run, its result
+is unknown and STOW cannot claim that the artifact was validated. A named host
+that owns the actual final candidate may block that unknown result under the G3
+conditions above. Validation status belongs outside the raw artifact; an
+authorized repair replaces the draft and is revalidated before delivery.

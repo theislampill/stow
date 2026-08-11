@@ -94,11 +94,19 @@ def test_displayed_callable_set_matches_the_runtime():
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     runtime_count = len(module.IMPLEMENTED_VALIDATORS)
+    primary_callable = {
+        record["enforcement"]["validator"] for record in RECORDS
+        if record["enforcement"]["status"] == "callable"
+    }
+    advisory = {
+        validator for record in RECORDS
+        for validator in record["enforcement"].get("advisory_validators", [])
+    }
     shown_callable = [rid for rid, label in RULE_ROW_RE.findall(_catalog_region())
                       if label == "Callable"]
-    assert len(shown_callable) == runtime_count, (
-        "catalog shows %d callable rules; the runtime implements %d"
-        % (len(shown_callable), runtime_count))
+    assert len(shown_callable) == len(primary_callable)
+    assert primary_callable.isdisjoint(advisory)
+    assert len(primary_callable | advisory) == runtime_count
 
 
 def test_per_class_totals_match_the_registry():

@@ -5,7 +5,7 @@
 # tools/gen_rule_conflicts.py; edit here, then regenerate.
 #
 # Authority: entries with origin `registry` mirror the per-record conflicts[]
-# edges in registry.yaml, which stay canonical for those eight pairs
+# edges in registry.yaml, which stay canonical for those seven pairs
 # (registry_resolution is the verbatim edge text; permitted_substitute is a
 # verbatim substring of it and never extends it). Entries with origin
 # `composition` are canonical here.
@@ -32,22 +32,6 @@ conflicts:
       positive: "Step 2 names the drain valve. Step 5 must say drain valve again, not outlet tap."
       adversarial: "The prose reads repetitively, so alternate between drain valve and outlet tap for flow."
     evidence: registry.yaml conflicts[] edges on STOW-WRD-011 and STOW-PRO-007.
-
-  - id: CFL-002
-    origin: registry
-    participants:
-      - {kind: rule, ref: STOW-STY-004}
-      - {kind: rule, ref: STOW-PRO-007}
-    activation_predicate: Recurring content repeats across a document while the variation preference is active.
-    winner: {band: profile, ref: STOW-STY-004}
-    losing_behavior: Rewording a recurring caution, step, or label between occurrences.
-    permitted_substitute: Keep consistent terminology and wording for the same item or recurring step
-    registry_resolution: Keep consistent terminology and wording for the same item or recurring step. Domain terminology and the controlled-technical profile outrank the presentation-layer variation preference.
-    resolution_kind: semantic-review
-    fixtures:
-      positive: "The same caution text appears before step 3 and step 9, word for word."
-      adversarial: "Rephrase the second caution so the document does not repeat itself."
-    evidence: registry.yaml conflicts[] edges on STOW-STY-004 and STOW-PRO-007.
 
   - id: CFL-003
     origin: registry
@@ -101,7 +85,7 @@ conflicts:
     origin: registry
     participants:
       - {kind: rule, ref: STOW-WRD-014}
-      - {kind: rule, ref: STOW-PRO-021}
+      - {kind: rule, ref: STOW-PRO-020}
     activation_predicate: A banned or non-preferred token sits inside code, a quoted span, or an identifier.
     winner: {band: literals, ref: STOW-WRD-014}
     losing_behavior: Respelling or replacing a token inside a protected region to satisfy a lexical preference.
@@ -111,13 +95,13 @@ conflicts:
     fixtures:
       positive: "The config key `colour_mode` keeps its spelling; the surrounding prose uses color."
       adversarial: "Rename the `colour_mode` key to `color_mode` in the quoted config for spelling consistency."
-    evidence: registry.yaml conflicts[] edges on STOW-WRD-014 and STOW-PRO-021.
+    evidence: registry.yaml conflicts[] edges on STOW-WRD-014 and STOW-PRO-020.
 
   - id: CFL-007
     origin: registry
     participants:
       - {kind: rule, ref: STOW-PCT-006}
-      - {kind: rule, ref: STOW-PRO-021}
+      - {kind: rule, ref: STOW-PRO-020}
     activation_predicate: A lexical preference would touch punctuation or wording inside a protected region.
     winner: {band: literals, ref: STOW-PCT-006}
     losing_behavior: Editing quoted text or literal punctuation to satisfy a lexical preference.
@@ -127,7 +111,7 @@ conflicts:
     fixtures:
       positive: "The quoted error message keeps its exact wording, including the words it uses."
       adversarial: "Clean up the quoted error message so it reads better in the report."
-    evidence: registry.yaml conflicts[] edges on STOW-PCT-006 and STOW-PRO-021.
+    evidence: registry.yaml conflicts[] edges on STOW-PCT-006 and STOW-PRO-020.
 
   - id: CFL-008
     origin: registry
@@ -164,7 +148,7 @@ conflicts:
   - id: CFL-010
     origin: composition
     participants:
-      - {kind: rule, ref: STOW-ACT-003}
+      - {kind: kernel-duty, ref: open-work-next-step}
       - {kind: rule, ref: STOW-ACT-007}
     activation_predicate: The turn ends with no work left open.
     winner: {band: presentation, ref: STOW-ACT-007}
@@ -176,21 +160,6 @@ conflicts:
       positive: "The migration finished and all twelve checks pass. Nothing is left open."
       adversarial: "The migration finished and all checks pass. Next, you could consider exploring the codebase."
     evidence: The closing-step rule's own applicability condition (open work remains) resolves the pair; the condition is carried in the always-on module.
-
-  - id: CFL-011
-    origin: composition
-    participants:
-      - {kind: rule, ref: STOW-ACT-009}
-      - {kind: band, ref: contract}
-    activation_predicate: The output contract requires an exhaustive or complete list longer than the action cap.
-    winner: {band: contract, ref: contract}
-    losing_behavior: Trimming, grouping, or splitting a contract-required exhaustive list to fit the five-item cap.
-    permitted_substitute: Ship the complete list; the cap advisory is suppressed by the exhaustive-list permission (runtime flag --exhaustive-list-ok).
-    resolution_kind: deterministic
-    fixtures:
-      positive: "The audit record lists all nine findings because the contract requires every finding."
-      adversarial: "Only the top five findings are shown to keep the list short; four are omitted from the audit record."
-    evidence: The cap shapes action queues; it never truncates evidence, reference material, or contract-required output. Band 2 outranks presentation.
 
   - id: CFL-012
     origin: composition
@@ -210,7 +179,7 @@ conflicts:
   - id: CFL-013
     origin: composition
     participants:
-      - {kind: rule, ref: STOW-PRO-024}
+      - {kind: rule, ref: STOW-PRO-011}
       - {kind: band, ref: accuracy}
     activation_predicate: A source limitation, failed verification, or unavailable tool materially changes the answer.
     winner: {band: accuracy, ref: accuracy}
@@ -272,7 +241,7 @@ conflicts:
   - id: CFL-017
     origin: composition
     participants:
-      - {kind: rule, ref: STOW-PRO-021}
+      - {kind: rule, ref: STOW-PRO-020}
       - {kind: band, ref: terminology}
     activation_predicate: A banned-lexicon term is used in its legitimate technical sense or is the domain's established name.
     winner: {band: terminology, ref: terminology}
@@ -303,7 +272,7 @@ conflicts:
     origin: composition
     participants:
       - {kind: rule, ref: STOW-ACT-005}
-      - {kind: rule, ref: STOW-PRO-024}
+      - {kind: rule, ref: STOW-PRO-011}
     activation_predicate: A multi-turn task turn must restate progress while process narration is suppressed.
     winner: {band: presentation, ref: STOW-ACT-005}
     losing_behavior: Suppressing the progress ledger as forbidden narration, or padding it with exploration diary.
@@ -315,18 +284,3 @@ conflicts:
       adversarial: "First I looked at the schema, then I wondered about the backfill, then I poked at the key rotation for a while."
       expected_rewrite: "Done: schema migrated (checksum verified). Open: backfill job. Blocked: vendor key rotation."
     evidence: Progress-state reporting is the permitted form of visibility; the narration ban suppresses process diary, not the state ledger.
-
-  - id: CFL-020
-    origin: composition
-    participants:
-      - {kind: rule, ref: STOW-SAF-001}
-      - {kind: rule, ref: STOW-ACT-009}
-    activation_predicate: A safety instruction, warning, or hazard notice competes with brevity shaping or the list cap.
-    winner: {band: system, ref: STOW-SAF-001}
-    losing_behavior: Truncating, summarizing, or deferring safety content to satisfy brevity or the five-item cap.
-    permitted_substitute: Ship the complete safety content first, unshortened; apply brevity shaping to everything else.
-    resolution_kind: deterministic
-    fixtures:
-      positive: "All seven hazard notices appear in full before the procedure steps begin."
-      adversarial: "Only the top five hazard notices are kept so the list stays within the cap."
-    evidence: System band outranks every lower band; a profile or presentation rule never softens a safety instruction (kernel precedence statement).

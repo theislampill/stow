@@ -1,7 +1,7 @@
 # Descriptive writing (DSC): application reference
 
-Compressed application guidance for the six descriptive-writing rules,
-`STOW-DSC-001` through `STOW-DSC-006`. Use this to know **when** each rule
+Compressed application guidance for the active descriptive-writing rules. Use
+this to know **when** each rule
 fires, **which region** of a response it governs, and **how STOW verifies** it.
 This file does not restate the rules: for the normative wording, open the cited
 `corpus_ref`.
@@ -22,8 +22,8 @@ configured numeric limit where one applies). *Full text* = the corpus citation.
 ## Sentence-level
 
 ### STOW-DSC-001: pace of new information
-- Trigger: a descriptive sentence that carries more than one subject, or a passage that front-loads several facts before the reader has absorbed the first.
-- Check: semantic-review; validator `gradual-info-one-subject-per-sentence`. The reviewer confirms each sentence advances a single subject.
+- Trigger: a descriptive sentence that mixes unrelated subjects, or a passage that front-loads several facts before the reader has absorbed the first.
+- Check: semantic-review; validator `gradual-info-one-subject-per-sentence`. The reviewer confirms that the passage introduces one topic and its facts at a time. Closely related subjects can stay coordinated when that is clearer; do not repeat full subjects mechanically.
 - Full text: see `corpus/descriptions.md#STOW-DSC-001`.
 
 ### STOW-DSC-003: descriptive sentence length
@@ -32,24 +32,14 @@ configured numeric limit where one applies). *Full text* = the corpus citation.
 - Precedence: on conflict with the presentation-layer *vary structure* preference (`STOW-PRO-007`), the cap governs: vary length below the limit, never above it.
 - Full text: see `corpus/descriptions.md#STOW-DSC-003`.
 
-## Cohesion
-
-### STOW-DSC-002: key words and phrases
-- Trigger: a descriptive passage where a recurring concept is named by shifting wording, or where the through-line between sentences is not carried by repeated key terms.
-- Check: semantic-review; validator `keyword-cohesion`. The reviewer confirms the same key words and phrases recur to bind the passage. Reinforced by the terminology-consistency rule `STOW-WRD-011` (one term per referent).
-- Full text: see `corpus/descriptions.md#STOW-DSC-002`.
-
 ## Paragraph-level
 
 ### STOW-DSC-004: grouping into paragraphs
 - Trigger: descriptive prose that covers several related facts without organizing them into topic-led paragraphs.
-- Check: semantic-review; validator `paragraph-topic-grouping`. The reviewer confirms related sentences are grouped and each paragraph opens on its topic.
+- Check: semantic-review; validator `paragraph-topic-grouping`. The reviewer
+  confirms related sentences are grouped, each paragraph opens on its topic,
+  and a second topic starts a new paragraph.
 - Full text: see `corpus/descriptions.md#STOW-DSC-004`.
-
-### STOW-DSC-005: one topic per paragraph
-- Trigger: a paragraph that turns to a second topic partway through.
-- Check: semantic-review; validator `one-topic-per-paragraph`. The reviewer confirms each paragraph holds a single topic; a second topic in the same paragraph is a finding.
-- Full text: see `corpus/descriptions.md#STOW-DSC-005`.
 
 ### STOW-DSC-006: paragraph sentence count
 - Trigger: a paragraph in descriptive prose.

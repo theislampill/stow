@@ -36,10 +36,12 @@ classes:
       - skills/stow/references/agent-handoffs.md
       - skills/stow/references/ai-writing-detection.md
       - skills/stow/references/audit-and-evidence.md
+      - skills/stow/references/canonical-terms.md
       - skills/stow/references/conformance.md
       - skills/stow/references/continuity-and-state.md
       - skills/stow/references/controlled-technical-writing.md
       - skills/stow/references/cross-harness-interchange.md
+      - skills/stow/references/descriptive-prose.md
       - skills/stow/references/descriptions.md
       - skills/stow/references/format-json.md
       - skills/stow/references/format-jsonl.md
@@ -53,7 +55,6 @@ classes:
       - skills/stow/references/runbooks.md
       - skills/stow/references/safety-instructions.md
       - skills/stow/references/technical-clarity.md
-      - skills/stow/references/user-facing-output.md
 
   protected-corpus:
     description: "Anchored corpus modules holding verbatim rule wording. Drift-locked."
@@ -89,26 +90,35 @@ classes:
       - tests/test_conflicts.py
       - tests/test_routing.py
       - tests/test_artifact_classes.py
+      - tests/test_controlled_dictionary.py
+      - tests/test_project_terminology.py
     files:
       - skills/stow/rules/artifact-classes.yaml
       - skills/stow/rules/conflicts.yaml
+      - skills/stow/rules/controlled-dictionary.schema.json
+      - skills/stow/rules/project-terminology.schema.json
       - skills/stow/rules/profiles.json
       - skills/stow/rules/registry.schema.json
       - skills/stow/rules/registry.yaml
       - skills/stow/rules/routing.yaml
 
   runtime-code:
-    description: "The shipped runtime allowlist: validator, linter, profile resolver, rule lookup helper."
+    description: "The shipped runtime allowlist: validators, linter, profile resolver, rule lookup helper."
     checks:
       - tests/test_structured_output.py
+      - tests/test_validate_terms.py
       - tests/test_lint_prose.py
       - tests/test_profiles.py
       - tests/test_query_rules.py
+      - tests/test_controlled_dictionary.py
+      - tests/test_project_terminology.py
     files:
       - skills/stow/runtime/lint_prose.py
+      - skills/stow/runtime/dictionary_lookup.py
       - skills/stow/runtime/query_rules.py
       - skills/stow/runtime/profiles.py
       - skills/stow/runtime/validate.py
+      - skills/stow/runtime/validate_terms.py
 
   schema:
     description: "JSON Schemas for meta-code artifacts and the output contract."
@@ -147,3 +157,5 @@ classes:
         generator: tools/gen_always_on.py --check
       - path: skills/stow/references/rule-index.md
         generator: tools/gen_rule_index.py --check
+      - path: skills/stow/rules/controlled-dictionary-v1.json.gz
+        generator: tools/gen_controlled_dictionary.py --check

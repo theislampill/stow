@@ -124,10 +124,10 @@ def test_terms_come_from_the_file_not_from_the_code():
     )
     tables = lint_prose.parse_banned_lists(substitute)
     assert tables["verbs"] == ["frobnicate"]
-    assert_flags("We frobnicate the buffer.", "ai-verb", tables=tables)
+    assert_flags("We frobnicate the buffer.", "action-verb-pattern", tables=tables)
     # 'delve' ships in the real table but not in this substitute one.
-    assert_clean("We delve into the buffer.", "ai-verb", tables=tables)
-    assert_flags("We delve into the buffer.", "ai-verb", tables=TABLES)
+    assert_clean("We delve into the buffer.", "action-verb-pattern", tables=tables)
+    assert_flags("We delve into the buffer.", "action-verb-pattern", tables=TABLES)
 
 
 def test_missing_term_table_is_not_an_error():
@@ -161,15 +161,13 @@ def test_template_placeholders_are_truncated_not_dropped():
 # --------------------------------------------------------------------------- #
 
 LEXICAL_CASES = [
-    ("ai-verb",             "The team will leverage the cache.",        "STOW-PRO-021"),
-    ("ai-transition",       "Furthermore, the cache is cold.",          "STOW-PRO-020"),
+    ("action-verb-pattern", "The team will leverage the cache.",        "STOW-PRO-020"),
+    ("transition-pattern",  "Furthermore, the cache is cold.",          "STOW-PRO-020"),
     ("filler-phrase",       "In conclusion, the cache is cold.",        "STOW-PRO-011"),
-    ("intensifier",         "The cache is extremely cold.",             "STOW-PRO-004"),
-    ("academic-tell",       "Run the flush prior to the restart.",      "STOW-PRO-022"),
-    ("whether-youre-opener", "Whether you're new here, run the flush.", "STOW-PRO-012"),
+    ("intensifier",         "The cache is extremely cold.",             "STOW-PRO-009"),
+    ("academic-phrase-pattern", "Run the flush prior to the restart.",  "STOW-PRO-020"),
+    ("whether-youre-opener", "Whether you're new here, run the flush.", "STOW-PRO-011"),
     ("weasel-phrase",       "It should be noted that the cache is cold.", "STOW-PRO-015"),
-    ("overused-adjective",  "The parser is robust.",                    None),
-    ("metaphorical-noun",   "A tapestry of parsers handles the input.", None),
 ]
 
 
@@ -207,22 +205,43 @@ def test_overlapping_terms_report_once():
     # hedging-phrase list; the longest match at a position wins, once.
     found = [a for a in lint_prose.lint(
         "It is worth noting that the cache is cold.", tables=TABLES)
-        if a.rule in ("ai-transition", "weasel-phrase")]
+        if a.rule in ("transition-pattern", "weasel-phrase")]
     assert len(found) == 1
+
+
+@pytest.mark.parametrize("text", [
+    "The citation is oaicite and is not resolved.",
+    "The source pointer turn0search0 remains in the answer.",
+    "The payload contains contentReference without a resolved target.",
+])
+def test_unresolved_generated_placeholder_is_an_advisory(text):
+    found = hits(text, "unresolved-generated-placeholder")
+    assert found
+    assert {item.rule_id for item in found} == {"STOW-PRO-020"}
+    assert all(item.severity == "advisory" for item in found)
+
+
+@pytest.mark.parametrize("template", [
+    "`{}`",
+    'The literal token "{}" is documented here.',
+    "```text\n{}\n```",
+])
+def test_unresolved_generated_placeholder_skips_examples_and_protected_regions(template):
+    assert_clean(template.format("turn0search0"),
+                 "unresolved-generated-placeholder")
 
 
 # --------------------------------------------------------------------------- #
 # (b) PUNCTUATION / STRUCTURE -- RED-first
 # --------------------------------------------------------------------------- #
 
-# (rule, fixture, rule_id, profile-needed-to-fire). The em-dash and scare-quote
-# checks are always-on; the Latin-abbreviation and contraction checks belong to
+# (rule, fixture, rule_id, profile-needed-to-fire). The em-dash check is
+# profile-independent; the Latin-abbreviation and contraction checks belong to
 # the controlled-technical-guided profile and fire only under it.
 PUNCT_CASES = [
     ("em-dash",            u"The cache is cold — restart it.",       "STOW-PRO-001", None),
     ("latin-abbreviation", "Flush the caches, e.g. the write cache.", "STOW-GEN-006", CT),
     ("contraction",        "The cache isn't warm yet.",              "STOW-SEN-002", CT),
-    ("scare-quote",        'The so-called "smart" cache failed.',    "STOW-PRO-010", None),
 ]
 
 
@@ -269,6 +288,23 @@ def test_em_dash_fires_under_every_profile():
         assert_flags(text, "em-dash", profile=profile)
 
 
+@pytest.mark.parametrize("quoted", [
+    'The report said "The cache is cold — restart it."',
+    "The report said “The cache is cold — restart it.”",
+])
+def test_em_dash_ignores_inline_quotation(quoted):
+    assert_clean(quoted, "em-dash")
+
+
+def test_em_dash_flags_surrounding_prose_outside_an_inline_quotation():
+    quoted = 'The report said "The cache is cold — restart it."'
+    mixed = quoted + " The operator — not the report — owns the decision."
+    found = hits(mixed, "em-dash")
+    assert len(found) == 2
+    assert all(advisory.col > mixed.index('"', mixed.index('"') + 1) + 1
+               for advisory in found)
+
+
 def test_technical_clarity_findings_match_stow_default():
     """technical-clarity adds guidance, not mechanical checks: identical
     findings to the default profile on the same input."""
@@ -292,13 +328,6 @@ def test_latin_abbreviation_survives_the_identifier_mask():
 def test_possessive_s_is_not_reported_as_a_contraction():
     assert_clean("The controller's cache is cold.", "contraction", profile=CT)
     assert_flags("The controller's cache: it's cold.", "contraction", profile=CT)
-
-
-def test_scare_quote_ignores_a_real_quotation():
-    # A multi-word attributed quotation is not a scare quote.
-    assert_clean(
-        'The report said "the drive failed during the rebuild window".',
-        "scare-quote")
 
 
 # --- semicolon: profile-gated both directions -------------------------------- #
@@ -390,38 +419,6 @@ def test_length_caps_ignore_fenced_code():
     assert_clean(fenced, "procedural-sentence-length", profile=CT)
 
 
-def test_list_cap_is_five_items():
-    five = "".join("- item %d\n" % i for i in range(5))
-    six = "".join("- item %d\n" % i for i in range(6))
-    assert_clean(five, "list-length")
-    assert_flags(six, "list-length")
-    found = hits(six, "list-length")
-    assert len(found) == 1                      # one advisory, on the sixth item
-    assert found[0].line == 6
-    assert found[0].rule_id == "STOW-ACT-009"
-
-
-def test_list_cap_resets_between_separate_lists():
-    text = ("- a\n- b\n- c\n\nA paragraph between the lists.\n\n"
-            "- d\n- e\n- f\n")
-    assert_clean(text, "list-length")
-
-
-def test_list_cap_ignores_a_fenced_block_that_looks_like_a_list():
-    fenced = "```\n%s```\n" % "".join("- item %d\n" % i for i in range(9))
-    assert_clean(fenced, "list-length")
-
-
-def test_exhaustive_list_permission_suppresses_the_list_cap_only():
-    """A contract-required exhaustive list is never trimmed to fit the cap;
-    every other check keeps running."""
-    six = "".join("- item %d\n" % i for i in range(6))
-    assert_flags(six, "list-length")
-    assert_clean(six, "list-length", exhaustive_lists_ok=True)
-    dirty = six + "\nFurthermore, the cache is cold.\n"
-    assert_flags(dirty, "ai-transition", exhaustive_lists_ok=True)
-
-
 def test_structured_artifact_type_suppresses_every_prose_check():
     raw = '{"note": "Furthermore, we leverage it; e.g. etc."}'
     assert lint_prose.lint(raw, tables=TABLES, artifact_type="structured") == []
@@ -460,8 +457,8 @@ def test_mask_latin_keeps_dotted_words_that_mask_protected_removes():
 
 def test_unterminated_fence_masks_to_end_of_file():
     text = "Intro.\n\n```\nFurthermore, we leverage it.\n"
-    assert_clean(text, "ai-verb")
-    assert_clean(text, "ai-transition")
+    assert_clean(text, "action-verb-pattern")
+    assert_clean(text, "transition-pattern")
 
 
 def test_clean_prose_produces_no_advisories():
@@ -476,8 +473,15 @@ def test_clean_prose_produces_no_advisories():
 
 
 # --------------------------------------------------------------------------- #
-# Report-only contract -- exit code is ALWAYS 0
+# Report-only findings contract
 # --------------------------------------------------------------------------- #
+
+
+def test_module_contract_distinguishes_findings_from_invalid_invocation():
+    contract = lint_prose.__doc__
+    assert "findings never change the exit code" in contract.lower()
+    assert "invalid invocation" in contract.lower()
+    assert "always exits 0" not in contract.lower()
 
 DIRTY = (
     u"Furthermore, we leverage the robust tapestry of options; it's cold — bad.\n\n"
@@ -579,7 +583,7 @@ def test_every_finding_is_structured_and_advisory():
         assert isinstance(record["col"], int) and record["col"] >= 1
         assert record["rule"] and isinstance(record["rule"], str)
         assert record["explanation"] and isinstance(record["explanation"], str)
-        assert record["rule_id"] is None or record["rule_id"].startswith("STOW-")
+        assert record["rule_id"].startswith("STOW-")
 
 
 def test_findings_are_sorted_by_position():
@@ -600,6 +604,35 @@ def test_json_output_is_machine_readable(tmp_path, capsys):
     assert {f["severity"] for f in payload["findings"]} == {"advisory"}
 
 
+def test_public_pattern_names_are_neutral_and_keep_registry_ids(tmp_path, capsys):
+    import json
+    path = tmp_path / "patterns.md"
+    path.write_text(
+        "Furthermore, the team will leverage the cache prior to restart.\n",
+        encoding="utf-8")
+    expected = {
+        ("STOW-PRO-020", "transition-pattern"),
+        ("STOW-PRO-020", "action-verb-pattern"),
+        ("STOW-PRO-020", "academic-phrase-pattern"),
+    }
+
+    assert lint_prose.main([str(path), "--format", "json"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    observed = {
+        (finding["rule_id"], finding["rule"])
+        for finding in payload["findings"]
+        if finding["rule_id"] == "STOW-PRO-020"
+    }
+    assert observed == expected
+
+    assert lint_prose.main([str(path)]) == 0
+    out = capsys.readouterr().out
+    for _, rule in expected:
+        assert "[%s]" % rule in out
+    for legacy in ("ai-verb", "ai-transition", "academic-tell"):
+        assert "[%s]" % legacy not in out
+
+
 def test_text_output_names_the_tool_and_the_rule_ids(tmp_path, capsys):
     path = tmp_path / "dirty.md"
     path.write_text(DIRTY, encoding="utf-8")
@@ -607,7 +640,7 @@ def test_text_output_names_the_tool_and_the_rule_ids(tmp_path, capsys):
     out = capsys.readouterr().out
     assert "lint_prose" in out
     assert "report only, exit 0" in out
-    assert "STOW-PRO-021" in out
+    assert "STOW-PRO-020" in out
     assert "advisory" in out
 
 

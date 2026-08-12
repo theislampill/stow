@@ -1,5 +1,7 @@
 # STOW
 
+[![skills.sh](https://skills.sh/b/theislampill/stow)](https://skills.sh/theislampill/stow)
+
 **Focused writing governance for LLM output: anti-synthetic prose discipline, action-oriented responses, protected literals, and controlled technical writing when the task requires it.**
 
 STOW (Standardising Technical Output Writing) is a public writing specification and packaged Agent Skill. It helps a model produce clear user-facing prose, procedures, coordination artefacts, and structured output without turning every task into controlled English or an expensive validation workflow.
@@ -135,20 +137,41 @@ When the requested result is raw JSON, code, a command, a path, an identifier, o
 
 ### Install
 
-Download `STOW.skill` from the [latest release](https://github.com/theislampill/stow/releases/latest), or build it from the repository:
+#### With skills.sh
 
 ```bash
-python tools/build_skill.py
+npx skills add theislampill/stow
+```
+
+This installs STOW through the Agent Skills ecosystem. Installation makes the skill available to a compatible host; host selection and activation remain separate.
+
+#### From the release artifact
+
+Download `STOW.skill` from the [latest GitHub release](https://github.com/theislampill/stow/releases/latest).
+
+Linux or macOS:
+
+```bash
 mkdir -p ~/.claude/skills
-unzip -o dist/STOW.skill -d ~/.claude/skills
+unzip -o STOW.skill -d ~/.claude/skills
 ```
 
 Windows PowerShell (`Expand-Archive` requires a `.zip` suffix):
 
 ```powershell
-Copy-Item dist\STOW.skill dist\STOW.zip -Force
-Expand-Archive -Path dist\STOW.zip -DestinationPath "$HOME\.claude\skills" -Force
+Copy-Item .\STOW.skill .\STOW.zip -Force
+Expand-Archive -Path .\STOW.zip -DestinationPath "$HOME\.claude\skills" -Force
 ```
+
+#### Build from source
+
+Build the same package layout from this repository:
+
+```bash
+python tools/build_skill.py
+```
+
+Then use `dist/STOW.skill` in place of the downloaded `STOW.skill` in the extraction commands above.
 
 The expected layout is:
 

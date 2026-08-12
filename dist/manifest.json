@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "53c578be0974da0d16e0cf3d8a6198872ab86ffa44880e44c5357c2244c00ff3",
+  "artifact_sha256": "24f1d5619ef67d09ab4052f8dc087f1e513420669122f18b39089e561dd42b92",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",

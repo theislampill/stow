@@ -175,6 +175,8 @@ REQUIRED_PAIRS = [
     {"STOW-PRO-020", "terminology"},             # listed terms vs technical senses
     {"STOW-WRD-014", "contract"},                # regional spelling vs style directive
     {"STOW-ACT-005", "STOW-PRO-011"},            # progress state vs narration
+    {"STOW-ACT-001", "system"},                  # action vs required context
+    {"STOW-ACT-002", "contract"},                # steps vs complete contract
     {"STOW-PRC-001", "STOW-PRO-007"},            # caps vs variation
     {"STOW-WRD-011", "STOW-PRO-007"},            # terminology vs variation
     {"STOW-PCT-001", "STOW-PRO-001"},            # semicolon vs em dash

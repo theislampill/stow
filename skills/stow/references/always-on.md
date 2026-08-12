@@ -26,8 +26,8 @@ Open with what the request type demands:
 
 ## Action shaping
 
-- ACT-001 Action-first response opening -- when: the request is an actionable task; except: an informational request leads with the answer, per the request-mode router  (see corpus/action-shaping.md)
-- ACT-002 Numbered steps for multi-step work -- when: the work runs across multiple steps  (see corpus/action-shaping.md)
+- ACT-001 Action-first response opening -- when: the request is an actionable task; except: an informational request leads with the answer; safety or decision context can precede the action  (see corpus/action-shaping.md)
+- ACT-002 Number ordered multi-step work as bounded, task-complete actions -- when: the work contains more than one ordered action; except: preserve exhaustive required material and use a nonprocedural structure when order is not part of the reader's task  (see corpus/action-shaping.md)
 - ACT-007 Surface completed outcomes -- when: work ran and produced a result this turn  (see corpus/action-shaping.md)
 - ACT-008 Neutral error reporting -- when: the turn reports an error  (see corpus/action-shaping.md)
 - ACT-011 Lists, not tables, for action sequences -- when: action sequences, not comparison data  (see corpus/action-shaping.md)

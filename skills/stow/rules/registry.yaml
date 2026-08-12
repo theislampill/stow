@@ -1628,7 +1628,7 @@ records:
       predicate: The response is user-facing.
       always_on_for_prose: true
       applicability: "the request is an actionable task"
-      exception: "an informational request leads with the answer, per the request-mode router"
+      exception: "an informational request leads with the answer; safety or decision context can precede the action"
     precedence: presentation
     enforcement:
       kind: heuristic
@@ -1643,7 +1643,7 @@ records:
     ordinal: '2'
     record_class: primary
     category: action-shaping
-    title: Numbered steps for multi-step work
+    title: Number ordered multi-step work as bounded, task-complete actions
     wording:
       baseline_kind: verbatim
       baseline_text: "Number multi-step tasks"
@@ -1666,7 +1666,8 @@ records:
       kind: always-user-facing
       predicate: The response is user-facing.
       always_on_for_prose: true
-      applicability: "the work runs across multiple steps"
+      applicability: "the work contains more than one ordered action"
+      exception: "preserve exhaustive required material and use a nonprocedural structure when order is not part of the reader's task"
     precedence: presentation
     enforcement:
       kind: heuristic
@@ -1681,7 +1682,7 @@ records:
     ordinal: '4'
     record_class: primary
     category: action-shaping
-    title: Defer secondary issues
+    title: Defer secondary issues without dropping them
     wording:
       baseline_kind: verbatim
       baseline_text: "Suppress tangents"
@@ -1705,14 +1706,14 @@ records:
       predicate: A secondary issue surfaces during the main task.
       always_on_for_prose: false
       applicability: "a secondary issue surfaces during the main task"
-      exception: "offer the deferred issue separately at the end rather than dropping it"
+      exception: "answer a blocking question in place; otherwise preserve the deferred issue in one bounded later note"
     precedence: presentation
     enforcement:
-      kind: deterministic
-      validator: no-inline-tangents
+      kind: semantic-review
+      validator:
       limit:
       autofix: false
-      status: planned
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/action-shaping.md#STOW-ACT-004
 # === STOW-ACT-005 ===
@@ -1720,7 +1721,7 @@ records:
     ordinal: '5'
     record_class: primary
     category: action-shaping
-    title: Restate progress each turn
+    title: Surface changed progress and remaining state
     wording:
       baseline_kind: verbatim
       baseline_text: "Restate state every turn"
@@ -1741,10 +1742,10 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: A multi-turn task needs visible continuity state.
+      predicate: A multi-turn task has material changed state or needs a resume boundary.
       always_on_for_prose: false
-      applicability: "a multi-turn task is in progress"
-      exception: "a single-turn answer needs no progress ledger"
+      applicability: "a multi-turn task has material changed state or the reader needs a resume boundary"
+      exception: "a single-turn answer or a turn with no material state change needs no repeated progress ledger"
     precedence: presentation
     enforcement:
       kind: semantic-review
@@ -2264,9 +2265,9 @@ records:
         - identifiers
     activation:
       kind: conditional
-      predicate: The task asks for audit or evidence review and uncertainty appears without an evidence boundary.
+      predicate: The task asks for audit, evidence review, or contextual prose-quality review and uncertainty appears without an evidence boundary.
       always_on_for_prose: false
-      applicability: uncertainty appears without an evidence boundary
+      applicability: uncertainty lacks an evidence boundary or stacked qualifiers obscure the uncertain proposition or reason
       exception: justified uncertainty and bounded capability statements remain permitted
     precedence: presentation
     enforcement:
@@ -2307,13 +2308,15 @@ records:
       kind: conditional
       predicate: The response contains section headings.
       always_on_for_prose: false
+      applicability: a heading teases, dramatizes, or abstracts instead of naming the section content
+      exception: preserve a functional expressive heading in a requested voice when it still identifies the subject
     precedence: presentation
     enforcement:
-      kind: heuristic
-      validator: concrete-headings
+      kind: semantic-review
+      validator:
       limit:
       autofix: false
-      status: planned
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/prose-integrity/rules.md#STOW-PRO-016
 # === STOW-PRO-017 ===

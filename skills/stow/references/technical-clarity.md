@@ -8,8 +8,11 @@ without being a controlled executable procedure.
 
 The routing data names technical explanations, architecture descriptions,
 agent handoffs, implementation plans, audit reports, runbooks, state and
-continuity records, and structured task instructions surrounding code. A caller
-can select it explicitly with `--profile technical-clarity` on the linter.
+continuity records, public-facing technical documentation, and structured task
+instructions surrounding code. Public documents use this profile through the
+direct `public-documentation.md` route; they do not also load this reference. A
+caller can select the profile explicitly with `--profile technical-clarity` on
+the linter.
 
 These contexts are routing guidance for a model or host, not semantic
 classification performed by `runtime/profiles.py`.

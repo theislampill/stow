@@ -68,6 +68,8 @@ NATIVE_ARCH_REFS = frozenset({
     "technical-clarity.md",
     # Closed-map term validation is STOW-native runtime architecture.
     "canonical-terms.md",
+    # Predicate-loaded composition of existing registry owners.
+    "public-documentation.md",
 })
 
 # The exact greppable kernel line that forbids eager reference/corpus loading.
@@ -262,6 +264,118 @@ def test_action_shaping_pre_send_review_stays_contextual():
     assert "contextual self-review" in text
     assert "does not implement a delivery gate" in text
     assert "ordered hard checks" not in text
+
+
+def test_public_documentation_semantic_clauses_name_canonical_owners():
+    """A cold composition clause is normative only through named owners."""
+    text = REFERENCES["public-documentation.md"]
+    canonical = {record["id"] for record in RECORDS}
+    sections = {
+        "Reader path",
+        "Claims and state",
+        "Information structure",
+        "Representation",
+        "Examples and limitations",
+    }
+    active = None
+    bodies = {section: [] for section in sections}
+    for line in text.splitlines():
+        if line.startswith("## "):
+            active = line[3:].strip()
+            continue
+        if active in sections and line.strip():
+            bodies[active].append(line)
+
+    owner_pattern = re.compile(
+        r"^- \*\*Owners: (?:`STOW-[A-Z]+-\d{3}`)"
+        r"(?:, `STOW-[A-Z]+-\d{3}`)*\.\*\*")
+    expected_owners = {
+        "Reader path": {
+            "STOW-ACT-001", "STOW-ACT-002", "STOW-PRO-011",
+        },
+        "Claims and state": {
+            "STOW-PRO-002", "STOW-PRO-005", "STOW-PRO-013",
+            "STOW-PRO-015", "STOW-PRO-017", "STOW-PRO-018",
+            "STOW-PRO-019", "STOW-PRO-023",
+        },
+        "Information structure": {
+            "STOW-ACT-004", "STOW-PRO-006", "STOW-PRO-007",
+            "STOW-PRO-011", "STOW-PRO-016",
+        },
+        "Representation": {
+            "STOW-WRD-011", "STOW-PRO-007", "STOW-PRO-016",
+            "STOW-PRO-023",
+        },
+        "Examples and limitations": {
+            "STOW-PRO-005", "STOW-PRO-011", "STOW-PRO-015",
+            "STOW-PRO-017",
+        },
+    }
+    for section, lines in bodies.items():
+        assert lines, "%s carries no semantic clause" % section
+        assert len(lines) == 1, (
+            "%s must keep every normative clause on its owner-labelled line"
+            % section)
+        assert lines[0].startswith("- **Owners:"), (
+            "%s carries an ownerless normative clause" % section)
+        assert owner_pattern.match(lines[0]), (
+            "%s has a malformed Owners declaration: %r" % (section, lines[0]))
+        ids = re.findall(r"STOW-[A-Z]+-\d{3}", lines[0])
+        assert ids and set(ids) <= canonical, (
+            "%s names noncanonical owners: %r" %
+            (section, sorted(set(ids) - canonical)))
+        assert set(ids) == expected_owners[section], (
+            "%s owner attribution drifted: %r" % (section, ids))
+
+    # These useful review concerns have no canonical registry owner in this
+    # composition and therefore remain development-method questions, except
+    # where the kernel's higher-precedence contract already governs them.
+    semantic_text = text.split("## Development methodology boundary", 1)[0]
+    assert "surface its expected result" not in semantic_text
+    assert "measured dimension" not in semantic_text
+    assert "tool's required, optional, current, or future status as a factual claim" \
+        in semantic_text
+
+
+def test_public_documentation_composes_repetition_and_kernel_precedence():
+    """The cold carrier applies existing owners without becoming a ruleset."""
+    text = REFERENCES["public-documentation.md"]
+    information = text.split("## Information structure", 1)[1].split("## ", 1)[0]
+    precedence = text.split("## Precedence and preservation", 1)[1].split(
+        "## ", 1)[0]
+
+    assert "functionless conclusion or restatement" in information
+    assert "reader job is complete" in information
+    for legitimate_use in (
+            "requested conclusion", "functional summary", "safety repetition",
+            "navigation", "meaningful next step"):
+        assert legitimate_use in information
+
+    assert "Kernel owners: contract and literal-exclusion bands" in precedence
+    assert "outrank this reference" in precedence
+    assert "protected literals" in precedence
+    assert "do not normalize them for style" in precedence
+    assert "ordinary editable numeric prose" in precedence
+    assert "no exact form is required" in precedence
+
+    # The quotation owner remains bounded to quotations; general literal
+    # preservation comes from the kernel, not a fabricated registry owner.
+    assert "Owners: `STOW-PRO-023`" not in precedence
+
+
+def test_public_documentation_keeps_repository_review_outside_runtime_guidance():
+    text = REFERENCES["public-documentation.md"]
+    boundary = " ".join(
+        text.split("## Development methodology boundary", 1)[1]
+        .casefold().split())
+    for phrase in (
+            "repository-wide claim census",
+            "claim-ledger maintenance",
+            "generated or rendered verification",
+            "release and package reconciliation",
+            "adversarial review"):
+        assert phrase in boundary
+    assert "Owners:" not in boundary
 
 
 # --------------------------------------------------------------------------- #

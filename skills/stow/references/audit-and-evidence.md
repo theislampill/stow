@@ -16,13 +16,14 @@ prose rule named below, open its cited `corpus_ref` module.
   declares the observable conditions under which it is complete. Both must be
   mechanically checkable to prevent overclaim: a status asserted without evidence.
 
-## Public-document acceptance boundary
+## Repository public-document review method
 
-Before accepting public documentation, check that it is current,
-evidence-grounded, useful to its intended reader, and owned at the strongest
-appropriate public surface. Keep material limitations discoverable. Read back
-the rendered result independently when presentation can change meaning. This is
-contextual review guidance, not a deterministic documentation validator.
+Runtime public-document writing semantics live in the direct
+`references/public-documentation.md` route. A repository acceptance review can
+separately inspect public-owner placement, current authority, generated or
+rendered consumer meaning, and material limitations. This is development
+methodology, not a second semantic owner or a deterministic documentation
+validator.
 
 ## Governing STOW families
 

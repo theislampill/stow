@@ -75,18 +75,26 @@ routes:
     corpus: null
     validator: python runtime/lint_prose.py
 
-  - mode: system-description
-    predicate: "system description"
-    references:
-      - references/descriptions.md
-    profile: null
-    corpus: null
-    validator: null
-
   - mode: safety
     predicate: "hazard or damage risk"
     references:
       - references/safety-instructions.md
+    profile: null
+    corpus: null
+    validator: null
+
+  - mode: public-documentation
+    predicate: "public README or landing page, install or invocation documentation, release notes, public product or architecture documentation, or public usage or reference documentation"
+    references:
+      - references/public-documentation.md
+    profile: technical-clarity
+    corpus: null
+    validator: null
+
+  - mode: system-description
+    predicate: "system description"
+    references:
+      - references/descriptions.md
     profile: null
     corpus: null
     validator: null

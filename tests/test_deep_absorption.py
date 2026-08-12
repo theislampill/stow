@@ -190,23 +190,38 @@ def test_deep_absorption_evidence_is_terminal_and_owner_bound():
     assert evidence["action"]["carrier"] == "references/action-shaping.md"
     assert evidence["prose"]["mechanism"] == "contextual-g1"
     assert evidence["action"]["mechanism"] == "contextual-g1"
-    assert set(family["id"] for family in evidence["prose"]["families"]) == {
-        "filler-process-empty-closer",
-        "hollow-evaluation",
-        "false-contrast-escalation",
-        "repetitive-shapes",
-        "blanket-hedging",
-        "dramatic-heading-inflated-metaphor",
+    prose_owner_map = {
+        family["id"]: set(family["owners"])
+        for family in evidence["prose"]["families"]
     }
-    assert set(family["id"] for family in evidence["action"]["families"]) == {
-        "action-and-secondary-deferral",
-        "bounded-task-complete-actions",
-        "changed-progress",
-        "defer-versus-block",
-        "exhaustive-contract",
-        "decision-context",
-        "safety-precedence",
-        "anti-overprescription",
+    assert prose_owner_map == {
+        "filler-process-empty-closer": {"STOW-PRO-006", "STOW-PRO-011"},
+        "hollow-evaluation": {"STOW-PRO-005", "STOW-PRO-013"},
+        "false-contrast-escalation": {"STOW-PRO-009", "STOW-PRO-020"},
+        "repetitive-shapes": {"STOW-PRO-007"},
+        "blanket-hedging": {"STOW-PRO-015", "STOW-PRO-020"},
+        "dramatic-heading-inflated-metaphor": {
+            "STOW-PRO-016",
+            "STOW-PRO-020",
+        },
+    }
+    action_owner_map = {
+        family["id"]: set(family["owners"])
+        for family in evidence["action"]["families"]
+    }
+    assert action_owner_map == {
+        "action-and-secondary-deferral": {"STOW-ACT-001", "STOW-ACT-004"},
+        "bounded-task-complete-actions": {"STOW-ACT-002"},
+        "changed-progress": {"STOW-ACT-005"},
+        "defer-versus-block": {"STOW-ACT-004"},
+        "exhaustive-contract": {"STOW-ACT-002"},
+        "decision-context": {"STOW-ACT-001"},
+        "safety-precedence": {"STOW-ACT-001"},
+        "anti-overprescription": {
+            "STOW-ACT-002",
+            "STOW-ACT-004",
+            "STOW-ACT-005",
+        },
     }
     boundary = evidence["evidence_boundary"].casefold()
     for phrase in (

@@ -442,7 +442,9 @@ _CONTRACTION_RE = re.compile(
     u"|\\b(?:it|that|there|here|what|who|let|he|she|one|which)['’]s\\b",
     re.IGNORECASE)
 _UNRESOLVED_GENERATED_PLACEHOLDER_RE = re.compile(
-    r"\b(?:oaicite|contentReference|attributableIndex|grok_card|turn\d+(?:search|view|fetch)\d+)\b",
+    r"(?<![\w./\\-])"
+    r"(?:oaicite|contentReference|attributableIndex|grok_card|turn\d+(?:search|view|fetch)\d+)"
+    r"(?![\w/\\-]|\.(?=[\w/\\-]))",
     re.IGNORECASE)
 _LIST_ITEM_RE = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+\S")
 _HEADING_LINE_RE = re.compile(r"^\s*#")

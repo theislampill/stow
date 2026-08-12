@@ -1209,6 +1209,7 @@ def test_accepted_move_rows_are_removed_from_ordinary_prose_activation(ledger):
     moved_cold = {
         "STOW-PRO-002", "STOW-PRO-013", "STOW-PRO-015",
         "STOW-PRO-017", "STOW-PRO-018", "STOW-PRO-019",
+        "STOW-PRO-023",
     }
 
     for rule_id in moved_cold:

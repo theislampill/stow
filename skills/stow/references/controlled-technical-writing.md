@@ -63,7 +63,7 @@ resolution.
 
 | Rule | Observable trigger | Region | How STOW checks | Full text |
 | --- | --- | --- | --- | --- |
-| MWN-001 | A coined or approved noun phrase contains stacked nouns or modifiers | all prose | contextual review · keep it to three words and keep coined terms short and easy; if an approved term is longer, write it in full first and then use a declared short form, approved abbreviation, or clear hyphenation | see corpus/multiword-nouns.md#STOW-MWN-001 |
+| MWN-001 | A coined or approved noun phrase contains stacked nouns or modifiers | all prose | contextual review · keep it to three words and keep coined terms short and easy; for a longer approved term, preserve same-item identity, write it in full first, and then restructure it or use an approved abbreviation, clear hyphenation, or declare a new short form before reuse; preserve clear natural pronoun coordination instead of repeating full subjects only to make reference explicit; project-authorized terms and protected identifiers take priority; no noun parser is claimed | see corpus/multiword-nouns.md#STOW-MWN-001 |
 
 ## VRB: verbs, voice, and tense
 

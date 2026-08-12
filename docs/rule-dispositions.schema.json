@@ -86,7 +86,8 @@
         "G1V3-ACTION",
         "G1V3-PROSE",
         "G1V3-CONTROLLED-MEANING",
-        "G1V3-CONTROLLED-SYNTAX"
+        "G1V3-CONTROLLED-SYNTAX",
+        "R01-MWN"
       ]
     },
     "evidence": {
@@ -261,7 +262,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX)|R01-MWN)$"
           }
         },
         "paired_negative": {
@@ -269,7 +270,7 @@
           "uniqueItems": true,
           "items": {
             "type": "string",
-            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX))$"
+            "pattern": "^(BC-(0[1-9]|10)|G1V3-(ACTION|PROSE|CONTROLLED-MEANING|CONTROLLED-SYNTAX)|R01-MWN)$"
           }
         },
         "status": {

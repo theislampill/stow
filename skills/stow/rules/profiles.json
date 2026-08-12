@@ -43,6 +43,7 @@
         "audit reports",
         "runbooks",
         "state and continuity records",
+        "public-facing technical documentation",
         "structured task instructions surrounding code"
       ],
       "includes": {

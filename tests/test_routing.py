@@ -153,6 +153,34 @@ def test_action_shaping_deep_route_names_the_moved_rule_predicates():
         assert phrase in predicate
 
 
+def test_public_documentation_route_is_one_cold_profile_bound_read():
+    route = next(route for route in ROUTES
+                 if route["mode"] == "public-documentation")
+    predicate = route["predicate"].casefold()
+    for phrase in (
+            "readme", "landing page", "install", "invocation",
+            "release notes", "product", "architecture", "usage",
+            "reference documentation"):
+        assert phrase in predicate
+    assert "audit" not in predicate
+    assert route["references"] == ["references/public-documentation.md"]
+    assert "references/technical-clarity.md" not in route["references"]
+    assert route["profile"] == "technical-clarity"
+    assert route["validator"] is None
+
+
+def test_public_documentation_route_preserves_specific_route_priority():
+    modes = [route["mode"] for route in ROUTES]
+    public = modes.index("public-documentation")
+    assert modes.index("executable-procedure") < public
+    assert modes.index("safety") < public
+    assert public < modes.index("system-description")
+    assert public < modes.index("technical-clarity")
+    precedence = PROFILES["auto_precedence"]
+    assert precedence.index("controlled-technical-guided") < \
+        precedence.index("technical-clarity")
+
+
 # --------------------------------------------------------------------------- #
 # Gate (a) -- section-5 reference paths and routing references agree both ways
 # --------------------------------------------------------------------------- #

@@ -145,8 +145,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1075 | 1485 |
-| Ordinary prose turn (kernel; no reference read) | 1075 | 1485 |
+| Kernel alone (`SKILL.md`) | 1085 | 1499 |
+| Ordinary prose turn (kernel; no reference read) | 1085 | 1499 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -161,7 +161,8 @@ regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 1830 | the ordinary turn + `references/technical-clarity.md` |
+| Technical-clarity turn | 1639 | the kernel + `references/technical-clarity.md` |
+| Public-documentation turn | 1819 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
 | Raw JSON artifact | 2971 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
 | Procedure load path | 4209 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |

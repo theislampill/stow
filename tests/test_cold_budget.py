@@ -23,6 +23,10 @@ SKILL = os.path.join(REPO, "skills", "stow", "SKILL.md")
 ALWAYS_ON = os.path.join(REPO, "skills", "stow", "references", "always-on.md")
 MEASURE = os.path.join(REPO, "tools", "measure_context.py")
 DESIGN = os.path.join(REPO, "docs", "design.md")
+TECHNICAL_CLARITY = os.path.join(
+    REPO, "skills", "stow", "references", "technical-clarity.md")
+PUBLIC_DOCUMENTATION = os.path.join(
+    REPO, "skills", "stow", "references", "public-documentation.md")
 
 # The same ceilings the warm suite enforces, in their fallback (EST) form.
 # Kernel single-file ceiling holds in BOTH modes (test_references.py,
@@ -136,6 +140,20 @@ def _design_two_mode_row(label):
     raise AssertionError("no two-mode budget row for %r in docs/design.md" % label)
 
 
+def _design_exact_load_row(label):
+    with open(DESIGN, encoding="utf-8") as fh:
+        for line in fh:
+            if not line.lstrip().startswith("|"):
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) < 3 or label not in cells[0]:
+                continue
+            exact = re.search(r"\d+", cells[1])
+            if exact:
+                return int(exact.group())
+    raise AssertionError("no exact load-path row for %r in docs/design.md" % label)
+
+
 def test_design_budget_table_fallback_matches_measurement(monkeypatch, tmp_path):
     """The fallback column of the design.md two-mode table must equal a fresh
     fallback measurement. The estimator is deterministic (pure char count), so
@@ -171,3 +189,20 @@ def test_design_budget_table_exact_matches_measurement():
     assert _sum_tokens(mc, encoder, ORDINARY_PATHS) == o_exact, (
         "design.md ordinary exact figure is stale (measured %d, doc says %d)"
         % (_sum_tokens(mc, encoder, ORDINARY_PATHS), o_exact))
+
+
+def test_design_cold_reference_rows_match_exact_measurement():
+    mc = _load_measure()
+    encoder = mc.get_encoder()
+    if encoder is None:
+        pytest.skip("exact tokenizer unavailable (cold cache)")
+    expected = {
+        "Technical-clarity turn": (SKILL, TECHNICAL_CLARITY),
+        "Public-documentation turn": (SKILL, PUBLIC_DOCUMENTATION),
+    }
+    for label, paths in expected.items():
+        measured = _sum_tokens(mc, encoder, paths)
+        documented = _design_exact_load_row(label)
+        assert measured == documented, (
+            "design.md %s figure is stale (measured %d, doc says %d)"
+            % (label, measured, documented))

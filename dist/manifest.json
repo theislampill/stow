@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "7d7df216c9ab5b41b8b5c5db792f7949eb344c20c07d3411e00f5e96e43aec7b",
+  "artifact_sha256": "53c578be0974da0d16e0cf3d8a6198872ab86ffa44880e44c5357c2244c00ff3",
   "entries": [
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
@@ -45,6 +45,7 @@
     "stow/references/procedures.md",
     "stow/references/prose-integrity.md",
     "stow/references/protected-regions.md",
+    "stow/references/public-documentation.md",
     "stow/references/rule-index.md",
     "stow/references/runbooks.md",
     "stow/references/safety-instructions.md",
@@ -80,6 +81,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 77,
+  "entry_count": 78,
   "version": "0.4.0"
 }

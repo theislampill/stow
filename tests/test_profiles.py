@@ -26,6 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 RUNTIME = os.path.join(REPO, "skills", "stow", "runtime")
 RULES = os.path.join(REPO, "skills", "stow", "rules")
+REFERENCES = os.path.join(REPO, "skills", "stow", "references")
 PROFILES_JSON = os.path.join(RULES, "profiles.json")
 REGISTRY = os.path.join(RULES, "registry.yaml")
 
@@ -289,6 +290,19 @@ def test_guidance_rules_are_registry_records_inside_the_controlled_set():
 def test_technical_clarity_guidance_does_not_name_retired_merge_sources():
     clarity = profiles.resolve(CLARITY)
     assert clarity["guidance_rules"] == ["STOW-WRD-011"]
+
+
+def test_public_documentation_reuses_technical_clarity_without_new_checks():
+    clarity = profiles.resolve(CLARITY)
+    assert "public-facing technical documentation" in clarity["auto_contexts"]
+    assert clarity["guidance_rules"] == ["STOW-WRD-011"]
+    default = profiles.resolve(DEFAULT)
+    assert clarity["lint_checks"] == default["lint_checks"]
+
+    with open(os.path.join(REFERENCES, "technical-clarity.md"),
+              encoding="utf-8") as fh:
+        architecture_reference = fh.read().casefold()
+    assert "public-facing technical documentation" in architecture_reference
 
 
 def test_default_and_clarity_include_only_the_always_on_selector():

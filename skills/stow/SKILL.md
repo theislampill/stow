@@ -64,8 +64,7 @@ artifact, call its named checker directly once on the actual candidate.
 
 ## 5. Reference activation map
 
-Load only predicate-matched references, in one bounded read. Do not inspect
-neighbours to discover more work.
+Load one match; do not inspect neighbours.
 
 - ordinary editable user-facing prose -> section 4 of this kernel; no reference read. Exclude raw data, code, quotations, identifiers, and paths.
 - explicit ordinary-rule applicability or rule-audit question -> references/always-on.md
@@ -74,8 +73,9 @@ neighbours to discover more work.
 - YAML -> references/format-yaml.md
 - Markdown with embedded literals -> references/format-markdown.md
 - executable procedure -> references/procedures.md under the guided profile
-- system description -> references/descriptions.md
 - hazard or damage risk -> references/safety-instructions.md
+- public README/landing, install/use, release, or product/architecture/reference docs -> references/public-documentation.md (technical-clarity)
+- system description -> references/descriptions.md
 - technical explanation, architecture, plan, audit, runbook, or state -> references/technical-clarity.md
 - controlled-technical profile -> references/controlled-technical-writing.md
 - explicit project-term mapping -> references/canonical-terms.md
@@ -88,7 +88,7 @@ neighbours to discover more work.
 - meta-code artifact -> references/meta-code.md
 - rule audit, conformance, or deep application -> references/rule-index.md + rules/registry.yaml
 
-For one rule, use `runtime/query_rules.py <ID>` or its bounded index lookup.
+For one rule, use `runtime/query_rules.py <ID>`.
 
 ## 6. Final review checklist
 

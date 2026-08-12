@@ -6,7 +6,7 @@ STOW (Standardising Technical Output Writing) is a public writing specification 
 
 STOW is not an AI-authorship detector, a generic “sound human” style randomiser, or a universal final-response enforcement layer. Most of its writing rules are contextual guidance. Its callable tools decide only closed properties at their declared input boundaries.
 
-Release candidate: **v0.4.1-rc.0**. The published release remains **[v0.4.0](https://github.com/theislampill/stow/releases/tag/v0.4.0)** until promotion.
+Current release: **[v0.4.1](https://github.com/theislampill/stow/releases/tag/v0.4.1)**.
 
 ## Why STOW?
 
@@ -198,7 +198,7 @@ STOW uses progressive disclosure rather than one always-hot rule dump.
 
 ### Architecture at a glance
 
-The v0.4.1 candidate registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
+The v0.4.1 registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
 
 - **Sixty-one G1 semantic owners** provide model-mediated guidance.
 - **Ten G1 owners** are compacted into the ordinary kernel.
@@ -324,7 +324,7 @@ The table is the landing-page summary. Exact rule wording, applicability, except
 |---|---|
 | Full active rule catalogue | Generated appendix below; authoritative navigation in [`skills/stow/references/rule-index.md`](skills/stow/references/rule-index.md) |
 | Rule conflicts and precedence | [`docs/rule-conflicts.md`](docs/rule-conflicts.md) |
-| Current v0.4.1 candidate product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
+| Current v0.4.1 product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
 | Architecture and profile model | [`docs/design.md`](docs/design.md) |
 | Earlier enabled-versus-disabled evidence | [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) |
 | Fixture and detector baseline | [`docs/evaluation-results.md`](docs/evaluation-results.md) |

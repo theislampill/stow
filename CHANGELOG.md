@@ -7,9 +7,9 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
-## [0.4.1-rc.0] - 2026-08-11
+## [0.4.1] - 2026-08-11
 
-Release candidate for the complete post-v0.4.0 absorption and evidence-hardening campaign.
+Release of the complete post-v0.4.0 absorption and evidence-hardening campaign.
 
 ### Changed
 

@@ -226,9 +226,12 @@ def test_unresolved_generated_placeholder_is_an_advisory(text):
     "`{}`",
     'The literal token "{}" is documented here.',
     "```text\n{}\n```",
+    "> The literal token {} is documented here.",
+    "The path /tmp/{}/record.json is documented here.",
+    "The identifier payload.{} is documented here.",
 ])
 def test_unresolved_generated_placeholder_skips_examples_and_protected_regions(template):
-    assert_clean(template.format("turn0search0"),
+    assert_clean(template.format("grok_card"),
                  "unresolved-generated-placeholder")
 
 

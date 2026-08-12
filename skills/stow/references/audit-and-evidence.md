@@ -18,11 +18,13 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## Public-document acceptance boundary
 
-Before accepting public documentation, check that it is current,
-evidence-grounded, useful to its intended reader, and owned at the strongest
-appropriate public surface. Keep material limitations discoverable. Read back
-the rendered result independently when presentation can change meaning. This is
-contextual review guidance, not a deterministic documentation validator.
+Before accepting public documentation, check that it is truthful, current,
+evidence-grounded, useful to its intended reader and the reader's task, at the
+right level of abstraction, owned at the strongest appropriate public surface,
+and discoverable without unnecessary duplication. Keep material limitations
+visible. Read back the rendered result independently when presentation can
+change meaning. This is contextual review guidance, not a deterministic
+documentation validator.
 
 ## Governing STOW families
 

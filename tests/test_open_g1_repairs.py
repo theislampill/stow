@@ -144,6 +144,38 @@ def test_vrb_005_is_not_claimed_as_a_parser_after_the_failed_behavioural_probe()
     assert "no reliable parser is claimed" in row
 
 
+def test_multiword_noun_repair_preserves_item_identity_and_natural_coordination():
+    record = _records()["STOW-MWN-001"]
+    assert "preserve enough identity-bearing words" in record["title"]
+    assert "declared short form" in record["title"]
+    assert record["activation"]["applicability"] == (
+        "a coined or approved noun phrase contains stacked nouns or modifiers in controlled prose"
+    )
+    assert record["activation"]["exception"] == (
+        "project-authorized terms, protected identifiers, item identity, and clear natural pronoun coordination take priority"
+    )
+    assert record["enforcement"] == {
+        "kind": "semantic-review",
+        "validator": "multiword-noun-contextual-review",
+        "limit": None,
+        "autofix": False,
+        "status": "review-fallback",
+    }
+
+    row = next(
+        line for line in CONTROLLED_REFERENCE.read_text(encoding="utf-8").splitlines()
+        if line.startswith("| MWN-001 |")
+    )
+    for boundary in (
+        "same-item identity",
+        "declare a new short form before reuse",
+        "preserve clear natural pronoun coordination",
+        "project-authorized terms and protected identifiers take priority",
+        "no noun parser is claimed",
+    ):
+        assert boundary in row
+
+
 def test_imperative_guidance_does_not_silently_strength_source_modality():
     record = _records()["STOW-PRC-003"]
     activation = record["activation"]

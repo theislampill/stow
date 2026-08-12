@@ -396,7 +396,7 @@ These statuses describe the **mechanical implementation route**, not whether the
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation | Controlled profile | Planned |
+| `STOW-MWN-001` | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then restructure it or use a declared short form, approved abbreviation, or clear hyphenation while you preserve enough identity-bearing words to refer to the same item | a coined or approved noun phrase contains stacked nouns or modifiers in controlled prose; exception: project-authorized terms, protected identifiers, item identity, and clear natural pronoun coordination take priority | Review-fallback |
 
 </details>
 

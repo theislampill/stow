@@ -1,5 +1,5 @@
 schema_version: 1
-suite_revision: G1-BHV-20260811-V3.1
+suite_revision: G1-BHV-20260811-V3.2
 scenario_packs:
   - id: G1V3-ACTION
     positive_coverage: [STOW-ACT-002, STOW-ACT-007, STOW-ACT-008, STOW-ACT-011]
@@ -13,3 +13,6 @@ scenario_packs:
   - id: G1V3-CONTROLLED-SYNTAX
     positive_coverage: [STOW-SEN-003, STOW-VRB-002, STOW-VRB-005, STOW-VRB-007]
     paired_negative_coverage: [STOW-SEN-003, STOW-VRB-002, STOW-VRB-005, STOW-VRB-007]
+  - id: R01-MWN
+    positive_coverage: [STOW-MWN-001]
+    paired_negative_coverage: [STOW-MWN-001]

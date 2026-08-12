@@ -16,7 +16,7 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-WRD-010 | Do not use regional, slang, or jargon words as technical nouns. | words | profile |
 | STOW-WRD-011 | Use one technical noun consistently for one item, preserve key words and key phrases that organize the logic, and reuse recurring wording for the same context. | words | profile |
 | STOW-WRD-014 | Use American English spelling unless another official directive overrides; do not change quoted-text spelling. | words | profile |
-| STOW-MWN-001 | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation. | multiword-nouns | profile |
+| STOW-MWN-001 | Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then restructure it or use a declared short form, approved abbreviation, or clear hyphenation while you preserve enough identity-bearing words to refer to the same item. | multiword-nouns | profile |
 | STOW-VRB-002 | Use only the infinitive, imperative, simple present, simple past, simple future, and listed past participle; do not use perfect, progressive, or other complex constructions. | verbs | profile |
 | STOW-VRB-005 | Use an -ing word only as a technical noun or as a modifier inside a technical noun. | verbs | profile |
 | STOW-VRB-006 | Use active voice; passive is allowed only in descriptive writing when the agent is unknown. | verbs | profile |

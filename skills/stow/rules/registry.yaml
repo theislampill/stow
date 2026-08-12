@@ -315,7 +315,7 @@ records:
     ordinal: '2.1'
     record_class: primary
     category: multiword-nouns
-    title: Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then use a declared short form, approved abbreviation, or clear hyphenation.
+    title: Keep multi-word nouns to a maximum of three words and keep coined terms short and easy; for a longer approved noun, write it in full first, then restructure it or use a declared short form, approved abbreviation, or clear hyphenation while you preserve enough identity-bearing words to refer to the same item.
     wording:
       baseline_kind: verbatim
       baseline_text: "Write multi-word nouns of no more than three words."
@@ -338,13 +338,15 @@ records:
       kind: conditional
       predicate: A controlled-technical writing profile is active and the response contains prose.
       always_on_for_prose: false
+      applicability: a coined or approved noun phrase contains stacked nouns or modifiers in controlled prose
+      exception: project-authorized terms, protected identifiers, item identity, and clear natural pronoun coordination take priority
     precedence: profile
     enforcement:
-      kind: parser
-      validator: multiword-noun-max-3-words
-      limit: 3
+      kind: semantic-review
+      validator: multiword-noun-contextual-review
+      limit:
       autofix: false
-      status: planned
+      status: review-fallback
     conflicts: []
     corpus_ref: corpus/multiword-nouns.md#STOW-MWN-001
 # === STOW-MWN-002 ===

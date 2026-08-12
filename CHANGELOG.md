@@ -34,9 +34,10 @@ Release candidate for the complete post-v0.4.0 absorption and evidence-hardening
   canonical claim, reader-task, structure, repetition, terminology, limitation,
   and protected-content owners without adding a rule, profile, validator,
   renderer, repository census, or always-hot checklist.
-- Kept the active architecture at 65 canonical rules: 61 contextual G1 owners,
-  four closed G2 predicates, ten ordinary always-on G1 owners, 51 cold or
-  predicate-loaded G1 owners, ten advisory signals, and 57 behaviorally
+- Kept the active architecture at 65 canonical rules: sixty-one contextual G1
+  owners, four closed G2 predicates, ten ordinary always-on G1 owners,
+  fifty-one cold or predicate-loaded G1 owners, ten advisory signals, and
+  fifty-seven behaviorally
   qualified G1 owners.
 
 ### Evidence

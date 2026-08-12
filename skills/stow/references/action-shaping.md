@@ -87,9 +87,10 @@ pre-send discipline; do not inline their content.
   correctly overridden (for example, an explicit request to explain at length,
   or a destructive action that must be confirmed first). See
   corpus/action-shaping.md
-- **Pre-send gates**: the ordered hard checks to run on a draft before it is
-  sent, including the first-line, last-line, tangent, table, and scan gates.
-  See corpus/action-shaping.md
+- **Pre-send self-review**: a contextual self-review of the first line, last
+  line, tangents, action tables, and scan shape before delivery. This G1
+  guidance does not implement a delivery gate or final-output custody. See
+  corpus/action-shaping.md
 - **Rationale**: the reader model that motivates the whole group. See
   corpus/action-shaping.md
 

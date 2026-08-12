@@ -256,6 +256,14 @@ def test_every_corpus_token_in_references_resolves_on_disk():
                 "%s cites %r which does not resolve to a module file" % (name, token)
 
 
+def test_action_shaping_pre_send_review_stays_contextual():
+    """The cold ACT reference must not relabel G1 review as a delivery gate."""
+    text = REFERENCES["action-shaping.md"]
+    assert "contextual self-review" in text
+    assert "does not implement a delivery gate" in text
+    assert "ordered hard checks" not in text
+
+
 # --------------------------------------------------------------------------- #
 # Gate 5 -- kernel carries the exact line and inlines no corpus content
 # --------------------------------------------------------------------------- #

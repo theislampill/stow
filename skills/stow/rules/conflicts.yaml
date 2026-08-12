@@ -284,3 +284,33 @@ conflicts:
       adversarial: "First I looked at the schema, then I wondered about the backfill, then I poked at the key rotation for a while."
       expected_rewrite: "Done: schema migrated (checksum verified). Open: backfill job. Blocked: vendor key rotation."
     evidence: Progress-state reporting is the permitted form of visibility; the narration ban suppresses process diary, not the state ledger.
+
+  - id: CFL-020
+    origin: composition
+    participants:
+      - {kind: rule, ref: STOW-ACT-001}
+      - {kind: band, ref: system}
+    activation_predicate: The reader needs a supplied condition, consequence, or decision basis before an action can be chosen or performed safely.
+    winner: {band: system, ref: system}
+    losing_behavior: Opening with an action before the reader has the information required to choose or perform it safely.
+    permitted_substitute: Give the minimum context before the action, then make the action visible; omit unrelated preamble.
+    resolution_kind: semantic-review
+    fixtures:
+      positive: "Because removing the cover exposes live terminals, disconnect power and verify zero voltage before step one."
+      adversarial: "Remove the cover now; the live-terminal hazard appears only after the instruction."
+    evidence: System, contract, and accuracy bands outrank presentation. Action-first suppresses empty delay, not decision-relevant or safety-critical context.
+
+  - id: CFL-021
+    origin: composition
+    participants:
+      - {kind: rule, ref: STOW-ACT-002}
+      - {kind: band, ref: contract}
+    activation_predicate: The output contract requires an exhaustive inventory, evidence population, or fixed structure whose members are not all sequential actions.
+    winner: {band: contract, ref: contract}
+    losing_behavior: Truncating required items or converting a nonsequential inventory into artificial steps to make the output look shorter.
+    permitted_substitute: Preserve every required item and the requested structure; number only the actual ordered actions, with no arbitrary item cap.
+    resolution_kind: semantic-review
+    fixtures:
+      positive: "The response preserves all eight required findings, then gives the two remediation actions in order."
+      adversarial: "The response drops three required findings to keep the list at five items."
+    evidence: The output contract outranks presentation. Bounded steps reduce action friction but never authorize destructive simplification.

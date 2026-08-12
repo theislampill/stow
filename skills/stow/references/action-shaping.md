@@ -24,28 +24,36 @@ the corpus citation.
   throat before anything actionable appears.
 - Region: line one of the reply.
 - Check: `heuristic` validator `lead-with-action` inspects the opening line.
+- Boundary: context can precede the action when the reader must understand it
+  to decide or act safely. An informational request leads with its answer.
 - Full text: see corpus/action-shaping.md#STOW-ACT-001
 
-**STOW-ACT-002: Numbered steps for multi-step work**
+**STOW-ACT-002: Bounded, task-complete ordered work**
 - Trigger: the work decomposes into more than one ordered step, but the draft
   renders it as running prose or undifferentiated bullets.
 - Region: the body of any procedure or plan.
-- Check: `heuristic` validator `numbered-multistep`.
+- Check: `heuristic` validator `numbered-multistep`. Make each step one
+  task-complete action. Do not impose an arbitrary item cap or drop required
+  inventory, evidence, or safety content; number only the actions whose order
+  the reader must follow.
 - Full text: see corpus/action-shaping.md#STOW-ACT-002
 
-**STOW-ACT-004: Defer secondary issues**
+**STOW-ACT-004: Defer secondary issues without dropping them**
 - Trigger: a side observation or "by the way" aside is spliced into the main
   answer.
 - Region: the body, between the primary action and its close.
-- Check: `deterministic` validator `no-inline-tangents`.
+- Check: `semantic-review`. Answer a blocking question in place because it is
+  part of the active task. Otherwise preserve the secondary issue once in a
+  bounded later note instead of splicing it into the main path or deleting it.
 - Full text: see corpus/action-shaping.md#STOW-ACT-004
 
-**STOW-ACT-005: Restate progress each turn**
-- Trigger: a continuing multi-turn task where the new turn assumes the reader
-  still holds prior state in memory.
+**STOW-ACT-005: Surface changed progress and remaining state**
+- Trigger: a continuing multi-turn task has material changed state, or the
+  reader needs a resume boundary that is not visible on screen.
 - Region: the status line at the top of each turn.
-- Check: `semantic-review`; a review pass confirms current state is visible on
-  screen, not implied.
+- Check: `semantic-review`; report only material state changes and the minimum
+  done, open, or blocked context needed to resume. Do not repeat the full plan
+  or ledger when nothing material changed.
 - Full text: see corpus/action-shaping.md#STOW-ACT-005
 
 **STOW-ACT-006: Concrete effort estimates**
@@ -88,8 +96,9 @@ pre-send discipline; do not inline their content.
   or a destructive action that must be confirmed first). See
   corpus/action-shaping.md
 - **Pre-send self-review**: a contextual self-review of the first line, last
-  line, tangents, action tables, and scan shape before delivery. This G1
-  guidance does not implement a delivery gate or final-output custody. See
+  line, tangents, action tables, and scan shape before delivery. This G1 guidance
+  does not implement a delivery gate or final-output custody. It cannot delete
+  required exhaustive or discursive content. See
   corpus/action-shaping.md
 - **Rationale**: the reader model that motivates the whole group. See
   corpus/action-shaping.md

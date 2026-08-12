@@ -18,8 +18,9 @@ prose rule named below, open its cited `corpus_ref` module.
 
 ## Governing STOW families
 
-- **Action-shaping (band 8).** The record restates progress and externalizes
-  state rather than implying it, and surfaces completed outcomes (see
+- **Action-shaping (band 8).** The record externalizes material changed state
+  rather than implying it, and surfaces completed outcomes. Do not repeat the
+  full ledger when no material state changed (see
   corpus/action-shaping.md#STOW-ACT-005 and corpus/action-shaping.md#STOW-ACT-007).
 - **Accuracy (band 5, always on).** Every gate or phase state cites evidence and
   is a terminal value, not a vague status; the kernel integrity rules forbid an

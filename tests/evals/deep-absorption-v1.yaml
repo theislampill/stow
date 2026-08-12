@@ -1,0 +1,80 @@
+schema_version: 1
+identity: post-v0.4.1-deep-absorption-v1
+status: qualified
+evidence_boundary: >-
+  One exact behavior-bearing kernel and cold carrier, one Luna Max generator
+  per suite, and two blinded Luna Max reviewers per suite. Reviewers are
+  parallel instances of one model family, not independent model populations.
+  This evidence does not establish universal behaviour, cross-model
+  equivalence, or delivery custody.
+no_retry_or_tuning: true
+
+prose:
+  mechanism: contextual-g1
+  carrier: references/descriptive-prose.md
+  mechanical_preservation: 12/12
+  blind_reviews: [QUALIFIED, QUALIFIED]
+  families:
+    - id: filler-process-empty-closer
+      owners: [STOW-PRO-006, STOW-PRO-011]
+      pathology: functionless opener, process narration, and redundant conclusion
+      countercontrol: functional first-person framing and requested handoff summary
+    - id: hollow-evaluation
+      owners: [STOW-PRO-005, STOW-PRO-013]
+      pathology: unsupported praise and synthetic enthusiasm
+      countercontrol: supported celebratory house voice
+    - id: false-contrast-escalation
+      owners: [STOW-PRO-009, STOW-PRO-020]
+      pathology: rejected characterization and unsupported escalation
+      countercontrol: evidence-backed correction with an actual differentiator
+    - id: repetitive-shapes
+      owners: [STOW-PRO-007]
+      pathology: mechanical section and sentence symmetry that hides evidence depth
+      countercontrol: contract-required repeated template
+    - id: blanket-hedging
+      owners: [STOW-PRO-015, STOW-PRO-020]
+      pathology: stacked hedging and empty transitions that hide the exact unknown
+      countercontrol: justified uncertainty and a functional transition
+    - id: dramatic-heading-inflated-metaphor
+      owners: [STOW-PRO-016, STOW-PRO-020]
+      pathology: dramatic heading and metaphor replacing the measured operation
+      countercontrol: literal technical terms, protected text, and calibrated modality
+
+action:
+  mechanism: contextual-g1
+  carrier: references/action-shaping.md
+  mechanical_preservation: 16/16
+  blind_reviews: [QUALIFIED, QUALIFIED]
+  families:
+    - id: action-and-secondary-deferral
+      owners: [STOW-ACT-001, STOW-ACT-004]
+      pathology: immediate action buried under process narration and tangents
+      countercontrol: explanation-first informational answer with an optional experiment
+    - id: bounded-task-complete-actions
+      owners: [STOW-ACT-002]
+      pathology: ordered operations buried in running prose
+      countercontrol: exhaustive nonprocedural inventory above five items
+    - id: changed-progress
+      owners: [STOW-ACT-005]
+      pathology: changed state and resume boundary omitted
+      countercontrol: no-change update without a repeated ledger
+    - id: defer-versus-block
+      owners: [STOW-ACT-004]
+      pathology: secondary issue interrupts and may be forgotten
+      countercontrol: apparent tangent is a blocking condition and stays in place
+    - id: exhaustive-contract
+      owners: [STOW-ACT-002]
+      pathology: arbitrary brevity drops required ordered items
+      countercontrol: genuinely short two-action request
+    - id: decision-context
+      owners: [STOW-ACT-001]
+      pathology: process diary precedes needed decision context
+      countercontrol: legitimate two-paragraph conceptual explanation
+    - id: safety-precedence
+      owners: [STOW-ACT-001]
+      pathology: unsafe action appears before its supplied safety condition
+      countercontrol: concise action after the condition is established
+    - id: anti-overprescription
+      owners: [STOW-ACT-002, STOW-ACT-004, STOW-ACT-005]
+      pathology: pre-send compression deletes decision dimensions and a plan
+      countercontrol: already-good complex prose with uncertainty and natural transition

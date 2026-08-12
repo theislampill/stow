@@ -25,10 +25,24 @@ Release of the complete post-v0.4.0 absorption and evidence-hardening campaign.
   check now protects compound identifiers while retaining sentence-final
   detection; universal word, punctuation, density, and authorship-tell rules
   remain rejected or deferred.
+- Deepened contextual prose guidance into product behaviour. The cold
+  descriptive carrier supplies bounded semantics, countercontexts, and rewrite
+  principles for functionless conclusions, empty process narration, hollow
+  evaluation, manufactured contrast or escalation, mechanical symmetry,
+  blanket hedging, heading opacity, and lexical inflation. It preserves
+  functional summaries, supported voice, genuine correction, required
+  templates, justified uncertainty, technical senses, and protected text.
 - Clarified that action-shaping pre-send discipline is contextual self-review,
   not a hard delivery gate or final-output custody. Exact-current paired evidence
   preserved an exhaustive control and legitimately complex prose; the ordinary
   kernel, routing, model-turn count, and tool-call behaviour did not change.
+- Deepened action shaping at the canonical owners. Action-first guidance yields
+  to explanation and safety context; ordered steps are task-complete without an
+  arbitrary cap; secondary issues are deferred without being dropped; progress
+  is surfaced only when state changes; and pre-send review cannot erase
+  exhaustive or legitimately discursive output. `STOW-ACT-004`,
+  `STOW-ACT-005`, and `STOW-PRO-016` use contextual semantic review instead
+  of implying unavailable mechanical validators.
 - Added a direct cold public-documentation route under the existing
   `technical-clarity` profile. One owner-labelled reference composes the
   canonical claim, reader-task, structure, repetition, terminology, limitation,
@@ -50,6 +64,11 @@ Release of the complete post-v0.4.0 absorption and evidence-hardening campaign.
   bounded owner/composition repair, the unchanged V5 suite passed all seven
   pathology cases, all seven negative controls, and all declared preservation
   checks under fresh blinded Luna Max review.
+- Added a frozen, source-neutral deep-absorption corpus. The prose suite passed
+  six pathology cases and six legitimate controls; the action suite passed
+  eight pathology cases and eight controls. All declared literals passed closed
+  custody checks, and two blinded Luna Max reviewers per suite accepted every
+  case without a retry or tune-until-green loop.
 - Retained the v0.4.0 normal-runtime measurements. The v0.4.1 changes add only
   predicate-loaded cold material except for the compact public-documentation
   routing cue; they do not restore the removed reference walks, helper probes,

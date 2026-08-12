@@ -244,3 +244,29 @@ Origin composition; resolution semantic-review. Fires when: A multi-turn task tu
     Expected rewrite: `Done: schema migrated (checksum verified). Open: backfill job. Blocked: vendor key rotation.`
 
 Evidence: Progress-state reporting is the permitted form of visibility; the narration ban suppresses process diary, not the state ledger.
+
+## CFL-020 -- `STOW-ACT-001` vs band `system`
+
+Origin composition; resolution semantic-review. Fires when: The reader needs a supplied condition, consequence, or decision basis before an action can be chosen or performed safely.
+
+- Winner: band `system` (`system`).
+- Losing behavior: Opening with an action before the reader has the information required to choose or perform it safely.
+- Permitted substitute: Give the minimum context before the action, then make the action visible; omit unrelated preamble.
+
+    Fixture (conforming): `Because removing the cover exposes live terminals, disconnect power and verify zero voltage before step one.`
+    Fixture (violating): `Remove the cover now; the live-terminal hazard appears only after the instruction.`
+
+Evidence: System, contract, and accuracy bands outrank presentation. Action-first suppresses empty delay, not decision-relevant or safety-critical context.
+
+## CFL-021 -- `STOW-ACT-002` vs band `contract`
+
+Origin composition; resolution semantic-review. Fires when: The output contract requires an exhaustive inventory, evidence population, or fixed structure whose members are not all sequential actions.
+
+- Winner: band `contract` (`contract`).
+- Losing behavior: Truncating required items or converting a nonsequential inventory into artificial steps to make the output look shorter.
+- Permitted substitute: Preserve every required item and the requested structure; number only the actual ordered actions, with no arbitrary item cap.
+
+    Fixture (conforming): `The response preserves all eight required findings, then gives the two remediation actions in order.`
+    Fixture (violating): `The response drops three required findings to keep the list at five items.`
+
+Evidence: The output contract outranks presentation. Bounded steps reduce action friction but never authorize destructive simplification.

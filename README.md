@@ -25,6 +25,14 @@ STOW externalises that work and adds a broader writing policy:
 
 The measured single-task advantage over name-only conditioning was small, not dramatic. STOW's larger distinction is that the writing policy is versioned, inspectable, testable, and reusable instead of existing only as a sentence in context.
 
+Contextual prose review distinguishes functionless closers, unsupported evaluation,
+manufactured contrast, mechanical symmetry, blanket hedging, and inflated
+metaphor from legitimate summaries, voice, correction, templates, uncertainty,
+and literal technical usage. Action shaping now distinguishes action-first work
+from explanation- or safety-first contexts, preserves exhaustive contracts,
+surfaces only changed progress, and defers secondary issues without dropping
+them. These remain contextual G1 behaviours.
+
 ## Scope
 
 STOW has related operating surfaces that load only as far as the task requires:
@@ -229,6 +237,18 @@ README files, landing documentation, install guides, release notes, and public p
 
 The unchanged seven-family paired suite qualified the exact candidate after an earlier failed candidate was preserved as evidence. All seven pathology cases and all seven already-good controls passed fresh blinded Luna Max review, with the declared facts and protected literals preserved. This is bounded evidence for the shipped composition, not a guarantee of universal documentation quality or rendered-consumer equivalence.
 
+### Deep-absorption evidence
+
+Two source-neutral clustered suites exercise the product's deep prose and
+action-shaping semantics. The prose suite covers six pathology
+families and six legitimate countercontexts; the action suite covers eight
+pathology families and eight controls. All declared literals passed mechanical
+custody checks, and two blinded Luna Max reviewers per suite accepted every
+case. The frozen case and owner map is
+[`tests/evals/deep-absorption-v1.yaml`](tests/evals/deep-absorption-v1.yaml).
+This bounded same-model result does not establish universal behaviour,
+cross-model equivalence, or final-output custody.
+
 ## Callable tools
 
 The tools are optional accelerators with explicit evidence ceilings.
@@ -349,10 +369,10 @@ These statuses describe the **mechanical implementation route**, not whether the
 
 | Rule | Summary | Applies when | Status |
 |---|---|---|---|
-| `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer, per the request-mode router | Planned |
-| `STOW-ACT-002` | Numbered steps for multi-step work | the work runs across multiple steps | Planned |
-| `STOW-ACT-004` | Defer secondary issues | a secondary issue surfaces during the main task; exception: offer the deferred issue separately at the end rather than dropping it | Planned |
-| `STOW-ACT-005` | Restate progress each turn | a multi-turn task is in progress; exception: a single-turn answer needs no progress ledger | Review-fallback |
+| `STOW-ACT-001` | Action-first response opening | the request is an actionable task; exception: an informational request leads with the answer; safety or decision context can precede the action | Planned |
+| `STOW-ACT-002` | Number ordered multi-step work as bounded, task-complete actions | the work contains more than one ordered action; exception: preserve exhaustive required material and use a nonprocedural structure when order is not part of the reader's task | Planned |
+| `STOW-ACT-004` | Defer secondary issues without dropping them | a secondary issue surfaces during the main task; exception: answer a blocking question in place; otherwise preserve the deferred issue in one bounded later note | Review-fallback |
+| `STOW-ACT-005` | Surface changed progress and remaining state | a multi-turn task has material changed state or the reader needs a resume boundary; exception: a single-turn answer or a turn with no material state change needs no repeated progress ledger | Review-fallback |
 | `STOW-ACT-006` | Concrete effort estimates | a defensible range exists for the estimate; exception: with no defensible range, omit the figure; accuracy outranks the preference | Review-fallback |
 | `STOW-ACT-007` | Surface completed outcomes | work ran and produced a result this turn | Planned |
 | `STOW-ACT-008` | Neutral error reporting | the turn reports an error | Planned |
@@ -373,8 +393,8 @@ These statuses describe the **mechanical implementation route**, not whether the
 | `STOW-PRO-009` | Use urgency or intensified emphasis only when a decision-relevant reason is stated | urgency or intensified emphasis lacks a decision-relevant reason; exception: preserve a supported deadline-led command or requested functional emphasis | Review-fallback |
 | `STOW-PRO-011` | Remove framing or process language only when it adds no information or decision value | framing or process language adds no information or decision value; exception: preserve a material limitation, method, audience, progress state, or requested voice | Review-fallback |
 | `STOW-PRO-013` | Evidence-grounded requested voice | the response uses the default or explicitly requested voice; exception: the requested voice governs while factual claims remain evidence-grounded | Review-fallback |
-| `STOW-PRO-015` | Grounded uncertainty | uncertainty appears without an evidence boundary; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
-| `STOW-PRO-016` | Concrete, descriptive headings | Section headings | Planned |
+| `STOW-PRO-015` | Grounded uncertainty | uncertainty lacks an evidence boundary or stacked qualifiers obscure the uncertain proposition or reason; exception: justified uncertainty and bounded capability statements remain permitted | Review-fallback |
+| `STOW-PRO-016` | Concrete, descriptive headings | a heading teases, dramatizes, or abstracts instead of naming the section content; exception: preserve a functional expressive heading in a requested voice when it still identifies the subject | Review-fallback |
 | `STOW-PRO-017` | No fabricated scenarios | Conditional | Review-fallback |
 | `STOW-PRO-018` | No fabricated history | Conditional | Review-fallback |
 | `STOW-PRO-019` | No fabricated attributions | Conditional | Review-fallback |

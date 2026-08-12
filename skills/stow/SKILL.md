@@ -18,14 +18,12 @@ Eight bands, highest first. A lower band never corrupts a higher one.
 7. profile: controlled-technical writing profile, when requested.
 8. presentation: user-facing shaping and prose integrity.
 
-When bands conflict, the higher wins: presentation preserves literals,
-terminology preserves serialization, and profile preserves safety.
+Higher bands win conflicts.
 
 ## 2. Classify output regions
 
-Responses can mix prose, procedures, data, code, quotations, and identifiers.
-Use existing delimiters and apply only rules for that scope. This is guidance,
-not a shipped semantic classifier.
+Apply rules only to their delimited prose, procedure, data, code, quotation, or
+identifier region. This G1 guidance is not a shipped classifier.
 
 ## 3. Integrity rules (always on)
 
@@ -44,8 +42,10 @@ not a shipped semantic classifier.
 - Match the opening: answer or thesis for information; bounded action for work;
   artifact for artifact; state for progress; cause then effect then correction
   for error; verified result for completion. Invent no post-completion action.
-- Keep actions bounded and visible; externalize state instead of holding it silently.
-- Number ordered multi-step instructions. Use lists rather than tables for action sequences.
+- Keep bounded, task-complete actions visible; preserve exhaustive required material.
+  Externalize changed state without repeating a full ledger. Defer secondary
+  issues without dropping them.
+- Number ordered multi-step instructions by action. Use lists rather than tables for action sequences.
 - Distinguish completed from planned or unverified work.
 - Report errors as cause -> effect -> correction.
 - Use concrete, descriptive headings.

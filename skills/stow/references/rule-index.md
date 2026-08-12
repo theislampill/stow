@@ -51,9 +51,9 @@ For a single-rule lookup, prefer `python runtime/query_rules.py <ID>` when execu
 | STOW-GEN-006 | Avoid Latin abbreviations; use English words instead. | general | profile |
 | STOW-GEN-007 | When gender is unknown or irrelevant, name the role or use an inclusive reference. | general | profile |
 | STOW-ACT-001 | Action-first response opening | action-shaping | presentation |
-| STOW-ACT-002 | Numbered steps for multi-step work | action-shaping | presentation |
-| STOW-ACT-004 | Defer secondary issues | action-shaping | presentation |
-| STOW-ACT-005 | Restate progress each turn | action-shaping | presentation |
+| STOW-ACT-002 | Number ordered multi-step work as bounded, task-complete actions | action-shaping | presentation |
+| STOW-ACT-004 | Defer secondary issues without dropping them | action-shaping | presentation |
+| STOW-ACT-005 | Surface changed progress and remaining state | action-shaping | presentation |
 | STOW-ACT-006 | Concrete effort estimates | action-shaping | presentation |
 | STOW-ACT-007 | Surface completed outcomes | action-shaping | presentation |
 | STOW-ACT-008 | Neutral error reporting | action-shaping | presentation |

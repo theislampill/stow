@@ -7,6 +7,66 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 Nothing yet.
 
+## [0.4.1] - 2026-08-11
+
+Release of the complete post-v0.4.0 absorption and evidence-hardening campaign.
+
+### Changed
+
+- Reconciled the public README, claim contracts, generated examples, numeric
+  scanners, and self-dogfood checks after the v0.4.0 documentation refactor.
+  The public surface remains product-first instead of reverting to an audit
+  transcript.
+- Tightened multi-word-noun guidance so a readability repair preserves the
+  identity of the same technical item, project-authorised terms, protected
+  identifiers, and natural pronoun coordination. The mechanism remains cold
+  contextual review rather than a claimed noun parser.
+- Completed the reverse anti-synthetic accounting. The advisory generated-marker
+  check now protects compound identifiers while retaining sentence-final
+  detection; universal word, punctuation, density, and authorship-tell rules
+  remain rejected or deferred.
+- Clarified that action-shaping pre-send discipline is contextual self-review,
+  not a hard delivery gate or final-output custody. Exact-current paired evidence
+  preserved an exhaustive control and legitimately complex prose; the ordinary
+  kernel, routing, model-turn count, and tool-call behaviour did not change.
+- Added a direct cold public-documentation route under the existing
+  `technical-clarity` profile. One owner-labelled reference composes the
+  canonical claim, reader-task, structure, repetition, terminology, limitation,
+  and protected-content owners without adding a rule, profile, validator,
+  renderer, repository census, or always-hot checklist.
+- Kept the active architecture at 65 canonical rules: sixty-one contextual G1
+  owners, four closed G2 predicates, ten ordinary always-on G1 owners,
+  fifty-one cold or predicate-loaded G1 owners, ten advisory signals, and
+  fifty-seven behaviorally
+  qualified G1 owners.
+
+### Evidence
+
+- Preserved the frozen comprehensive Trial 2 result at 80 PASS, four FAIL, and
+  two NOT_SCORED for STOW. Current targeted follow-up evidence now covers all
+  four former failure distinctions; this does not rescore Trial 2 as 84/86.
+- Preserved the failed public-documentation V4 candidate, which retained a
+  functionless conclusion and changed protected digit `3` to `three`. After a
+  bounded owner/composition repair, the unchanged V5 suite passed all seven
+  pathology cases, all seven negative controls, and all declared preservation
+  checks under fresh blinded Luna Max review.
+- Retained the v0.4.0 normal-runtime measurements. The v0.4.1 changes add only
+  predicate-loaded cold material except for the compact public-documentation
+  routing cue; they do not restore the removed reference walks, helper probes,
+  temporary candidates, advisory-lint ceremony, or repeated model turns.
+
+### Known limitations
+
+- `STOW-PRO-005` remains an open contextual limitation. `STOW-WRD-001` remains
+  an external project-authority boundary; `STOW-WRD-003` and `STOW-VRB-005`
+  remain deliberate contextual deferrals.
+- Strict controlled-language conformance stays locked. Automatic activation,
+  cross-host behavioral equivalence, universal public-document quality,
+  rendered-consumer equivalence, and G3 final-output custody are not claimed.
+- Frozen logical-input ratios are architectural measurements, not billing
+  multipliers. Monetary cost remains `NOT_DERIVED` because the measured host did
+  not expose an authoritative applicable cached-input price.
+
 ## [0.4.0] - 2026-08-11
 
 Release of the instrumentality reconciliation.

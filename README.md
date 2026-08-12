@@ -6,7 +6,7 @@ STOW (Standardising Technical Output Writing) is a public writing specification 
 
 STOW is not an AI-authorship detector, a generic “sound human” style randomiser, or a universal final-response enforcement layer. Most of its writing rules are contextual guidance. Its callable tools decide only closed properties at their declared input boundaries.
 
-Current release: **[v0.4.0](https://github.com/theislampill/stow/releases/tag/v0.4.0)**.
+Current release: **[v0.4.1](https://github.com/theislampill/stow/releases/tag/v0.4.1)**.
 
 ## Why STOW?
 
@@ -27,12 +27,13 @@ The measured single-task advantage over name-only conditioning was small, not dr
 
 ## Scope
 
-STOW has four related operating surfaces:
+STOW has related operating surfaces that load only as far as the task requires:
 
 | Surface | Primary job | What normally loads |
 |---|---|---|
 | Ordinary prose | Remove recurrent model-writing pathologies, preserve requested voice, and keep the answer focused | Compact kernel only |
 | Technical and coordination prose | Add stable terminology, explicit conditions, evidence boundaries, bounded steps, and clear status | One matching cold reference when needed |
+| Public-facing documentation | Preserve a correct reader model, evidence strength, optionality, current state, limitations, and functional structure | Existing `technical-clarity` profile plus one direct cold public-documentation reference |
 | Controlled technical writing | Apply the supported controlled-language rules, dictionary records, project terminology, procedure, description, safety, punctuation, and counting guidance | Controlled profile plus bounded cold references; sparse lookup only when a lexical question arises |
 | Structured or protected content | Preserve raw data and validate closed formats or schemas | Raw/protected mode or an explicitly invoked validator |
 
@@ -191,13 +192,13 @@ STOW uses progressive disclosure rather than one always-hot rule dump.
 | Layer | Purpose | Normal runtime role |
 |---|---|---|
 | Kernel (`skills/stow/SKILL.md`) | Request mode, precedence, protected regions, ordinary prose discipline, and bounded routing | Loaded when the skill is selected |
-| References (`skills/stow/references/`) | Technical, controlled, safety, procedure, format, and other predicate-specific guidance | Read only when one named predicate applies; normal generation should not walk neighbouring files |
+| References (`skills/stow/references/`) | Technical, public-documentation, controlled, safety, procedure, format, and other predicate-specific guidance | Read only when one named predicate applies; normal generation should not walk neighbouring files |
 | Corpus (`skills/stow/corpus/`) | Full rule statements, qualifications, examples, and audit anchors | Deep application, review, and maintenance; not a normal-turn payload |
 | Runtime (`skills/stow/runtime/`) | Parsers, schema checks, term-map checks, dictionary lookup, advisory lint, profile resolution, and rule queries | Invoked explicitly when its closed contract is useful; normal prose generation must not probe `--help`, create temporary candidates, or run advisory lint by default |
 
 ### Architecture at a glance
 
-The v0.4.0 registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
+The v0.4.1 registry contains **65 active canonical rules**. That number is an implementation shape, not a coverage target.
 
 - **Sixty-one G1 semantic owners** provide model-mediated guidance.
 - **Ten G1 owners** are compacted into the ordinary kernel.
@@ -216,11 +217,17 @@ The original audit population was 96 rule IDs. The governed reconciliation recor
 | Profile | Use | Mechanical behaviour |
 |---|---|---|
 | `stow-default` | Ordinary user-facing prose, focus, evidence, and protected-content guidance | No controlled punctuation, contraction, vocabulary, or sentence-length rules |
-| `technical-clarity` | Technical explanations and coordination prose that need stable names, explicit conditions, bounded steps, and evidence-aware claims | Same mechanical prose checks as `stow-default`; adds contextual technical guidance |
+| `technical-clarity` | Technical explanations, coordination prose, and public-facing technical documentation that need stable names, explicit conditions, bounded steps, and evidence-aware claims | Same mechanical prose checks as `stow-default`; adds contextual technical guidance |
 | `controlled-technical-guided` | Procedures, safety instructions, and controlled technical writing | Activates the supported controlled rule families, sparse dictionary access, and the semicolon, contraction, Latin-abbreviation, and sentence-length checks |
 | `controlled-technical-strict` | Strict conformance | **Locked.** STOW does not ship or claim this capability |
 
 Raw and protected artefacts are a mode, not another profile. A host must identify the task and retain custody of the actual candidate.
+
+### Public-documentation route
+
+README files, landing documentation, install guides, release notes, and public product or architecture documentation can select one direct cold read of `references/public-documentation.md`. That reference composes existing canonical owners for reader-task order, claim strength, semantic repetition, structure, terminology, protected content, and limitations; it is not a second ruleset. The route adds no profile, validator, renderer, repository census, or automatic claim audit. Repository inspection remains conditional on the claims the task must ground.
+
+The unchanged seven-family paired suite qualified the exact candidate after an earlier failed candidate was preserved as evidence. All seven pathology cases and all seven already-good controls passed fresh blinded Luna Max review, with the declared facts and protected literals preserved. This is bounded evidence for the shipped composition, not a guarantee of universal documentation quality or rendered-consumer equivalence.
 
 ## Callable tools
 
@@ -247,11 +254,11 @@ A frozen, crosswalk-derived comparison used the same Luna Max model across no co
 | Name-only | 78 | 6 | 2 |
 | STOW | 80 | 4 | 2 |
 
-STOW uniquely passed three rows involving paragraph grouping, an ambiguous `with` relation, and paragraph sentence count. Name-only uniquely passed one procedure row because STOW distorted advisory force. The operation/force defect was subsequently narrowed and passed a targeted Luna Max regression; the complete four-arm trial was not rerun.
+STOW uniquely passed three rows involving paragraph grouping, an ambiguous `with` relation, and paragraph sentence count. Name-only uniquely passed one procedure row because STOW distorted advisory force. Later targeted regressions now cover all four former STOW failure distinctions: same-item noun-cluster repair, source modality, paragraph topic grouping, and safety operation/force preservation. The complete four-arm trial was not rerun, so its frozen score remains unchanged.
 
 This supports a bounded claim: STOW operationalised more of the tested requirement surface on that model and corpus. It does **not** establish universal output superiority, strict conformance, cross-model proof, or long-thread durability. Complete accounting is not complete behavioural compliance.
 
-The current v0.4.0 result is summarised here and in [`CHANGELOG.md`](CHANGELOG.md). [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) preserves the earlier enabled-versus-disabled programme, and [`docs/evaluation-results.md`](docs/evaluation-results.md) documents the fixture and detector baseline; neither is presented as the owner of Trial 2.
+The frozen Trial 2 result and current targeted follow-up are summarised here and in [`CHANGELOG.md`](CHANGELOG.md). [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) preserves the earlier enabled-versus-disabled programme, and [`docs/evaluation-results.md`](docs/evaluation-results.md) documents the fixture and detector baseline; neither is presented as the owner of Trial 2.
 
 ### Normal runtime instrumentality
 
@@ -269,7 +276,7 @@ These are **logical-input ratios, not billing multipliers**. The STOW arms had h
 
 The result is bounded to one Codex host. Cross-host economics, cross-model behaviour, and the hypothesis that externalised governance degrades less over long or compacted conversations remain unproved.
 
-This README is the public owner of the v0.4.0 normal-runtime summary. [`docs/design.md`](docs/design.md) supplies deeper architecture detail; the README keeps the measured ratios and their evidence limits together so a reader does not mistake logical input for billing cost.
+This README is the public owner of the normal-runtime summary carried into v0.4.1. [`docs/design.md`](docs/design.md) supplies deeper architecture detail; the README keeps the measured ratios and their evidence limits together so a reader does not mistake logical input for billing cost.
 
 ## Rule classes at a glance
 
@@ -307,6 +314,7 @@ The table is the landing-page summary. Exact rule wording, applicability, except
 - **Project terminology needs authority.** Unknown words are not self-authorising technical terms. A caller or repository must supply an approved terminology surface.
 - **Dictionary facts have limits.** The bundled 2,198-record projection can expose membership, forms, and alternatives. It cannot decide the intended sense or grammatical role by itself.
 - **Protected-region handling is bounded.** Guidance and advisory masking cover declared or recognisable regions; STOW has no universal byte comparator for final output.
+- **Public-documentation evidence is bounded.** The paired qualification supports the exact cold composition and cases; it does not establish universal documentation quality, automatic repository verification, or rendered-consumer equivalence.
 - **Runtime evidence is local.** The measured token ratios come from one Codex/Luna Max environment. Billing cost, cross-host parity, cross-model parity, and long-run durability were not established.
 - **STOW is not an AI detector.** It suppresses specified writing pathologies without claiming to identify the author of a text.
 
@@ -316,7 +324,7 @@ The table is the landing-page summary. Exact rule wording, applicability, except
 |---|---|
 | Full active rule catalogue | Generated appendix below; authoritative navigation in [`skills/stow/references/rule-index.md`](skills/stow/references/rule-index.md) |
 | Rule conflicts and precedence | [`docs/rule-conflicts.md`](docs/rule-conflicts.md) |
-| Current v0.4.0 product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
+| Current v0.4.1 product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
 | Architecture and profile model | [`docs/design.md`](docs/design.md) |
 | Earlier enabled-versus-disabled evidence | [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) |
 | Fixture and detector baseline | [`docs/evaluation-results.md`](docs/evaluation-results.md) |

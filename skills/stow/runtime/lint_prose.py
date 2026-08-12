@@ -444,7 +444,7 @@ _CONTRACTION_RE = re.compile(
 _UNRESOLVED_GENERATED_PLACEHOLDER_RE = re.compile(
     r"(?<![\w./\\-])"
     r"(?:oaicite|contentReference|attributableIndex|grok_card|turn\d+(?:search|view|fetch)\d+)"
-    r"(?![\w./\\-])",
+    r"(?![\w/\\-]|\.(?=[\w/\\-]))",
     re.IGNORECASE)
 _LIST_ITEM_RE = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+\S")
 _HEADING_LINE_RE = re.compile(r"^\s*#")

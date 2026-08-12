@@ -214,6 +214,8 @@ def test_overlapping_terms_report_once():
     "The source pointer turn0search0 remains in the answer.",
     "The payload contains contentReference without a resolved target.",
     "The generated card marker grok_card remains in the answer.",
+    "The generated card marker is grok_card.",
+    "The unresolved source pointer is turn0search0.",
 ])
 def test_unresolved_generated_placeholder_is_an_advisory(text):
     found = hits(text, "unresolved-generated-placeholder")
@@ -229,6 +231,7 @@ def test_unresolved_generated_placeholder_is_an_advisory(text):
     "> The literal token {} is documented here.",
     "The path /tmp/{}/record.json is documented here.",
     "The identifier payload.{} is documented here.",
+    "The identifier {}.field is documented here.",
 ])
 def test_unresolved_generated_placeholder_skips_examples_and_protected_regions(template):
     assert_clean(template.format("grok_card"),

@@ -1,0 +1,43 @@
+name: r0001-repair-source-bundle
+
+# Temporary acquisition-only workflow. Removed before the repaired PR head.
+on:
+  push:
+    branches:
+      - r0001-skillstore-admission
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact branch history
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Create and verify source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git bundle create stow-r0001-repair.bundle --all
+          git bundle verify stow-r0001-repair.bundle
+          sha256sum stow-r0001-repair.bundle | tee stow-r0001-repair.bundle.sha256
+
+      - name: Upload source bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: stow-r0001-repair-source-${{ github.sha }}
+          path: |
+            stow-r0001-repair.bundle
+            stow-r0001-repair.bundle.sha256
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0

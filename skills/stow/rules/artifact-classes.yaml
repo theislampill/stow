@@ -84,8 +84,9 @@ classes:
       - skills/stow/corpus/words/usage.md
 
   profile-or-rule-data:
-    description: "Machine-readable rule, profile, and routing data plus their schema."
+    description: "Rule, profile, routing, and package-governance data, including scoped licence terms."
     checks:
+      - tests/test_skillstore_admission.py
       - tests/test_profiles.py
       - tests/test_registry.py
       - tests/test_conflicts.py
@@ -94,6 +95,7 @@ classes:
       - tests/test_controlled_dictionary.py
       - tests/test_project_terminology.py
     files:
+      - skills/stow/LICENSE
       - skills/stow/rules/artifact-classes.yaml
       - skills/stow/rules/conflicts.yaml
       - skills/stow/rules/controlled-dictionary.schema.json

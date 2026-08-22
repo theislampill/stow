@@ -239,14 +239,14 @@
     {
       "id": "CLM-022",
       "surface": "README.md",
-      "statement": "| `runtime/query_rules.py` | The public registry record, applicable profiles, conflicts, and corpus anchor for a rule ID | Automatic semantic routing or live host activation |",
+      "statement": "| `runtime/query_rules.py` | One public rule ID and bundled registry/profile/conflict/corpus data | The matching public rule record, profiles, conflicts, and corpus anchor | Python standard library | Reads bundled data and writes stdout/stderr only | Registry retrieval; not semantic routing, live activation, or compliance |",
       "families": ["selection"],
       "layer": "G2"
     },
     {
       "id": "CLM-023",
       "surface": "skills/stow/SKILL.md",
-      "statement": "A delivery gate must block, permit repair, and revalidate.",
+      "statement": "Validate the actual candidate; a gate must block, permit repair, and revalidate.",
       "families": ["validation"],
       "layer": "G3"
     },
@@ -393,14 +393,14 @@
     {
       "id": "CLM-046",
       "surface": "skills/stow/SKILL.md",
-      "statement": "- Protect identifiers, quotations, code, paths, and data values unless their literal editing is requested.",
+      "statement": "Protect identifiers, quotations, code, commands, paths, and data values unless editing that literal is the task",
       "families": ["preservation"],
       "layer": "G1"
     },
     {
       "id": "CLM-047",
       "surface": "skills/stow/SKILL.md",
-      "statement": "This G1 instruction is not a byte comparator.",
+      "statement": "G1 is not a byte comparator.",
       "families": ["preservation"],
       "layer": "G1"
     },

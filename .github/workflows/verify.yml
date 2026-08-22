@@ -2,16 +2,17 @@ name: verify
 
 # Continuous verification for the skill repository.
 #
+# The committed CI dependency graph is exact-version and SHA-256 hash locked in
+# requirements-ci.lock. The tokenizer data cache is the only network-populated
+# runtime cache: the named prime step must succeed before the exact token gate.
+#
 # LEAK-ENFORCEMENT NOTE
 # ---------------------
 # The anti-leak gate below runs in its DEFAULT (weak / heuristic) mode only.
 # The strong, full-pattern run -- `tools/check_provenance_leak.py --local` --
 # depends on a private pattern file that lives one directory ABOVE the repo
 # root and is deliberately NOT committed, so it is unavailable in CI. The strong
-# run is therefore a LOCAL, pre-push gate; the weak run here is a heuristic
-# backstop (content-hash shape + private-marker literal) that needs no private
-# data. For the same reason, the private-pattern-dependent unit tests skip
-# themselves in this environment (see tests/test_provenance_leak.py).
+# run remains a local pre-push gate; CI supplies the committed-tree backstop.
 
 on:
   push:
@@ -23,64 +24,86 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
-      # Semantic workflow validation. Ordinary YAML parsing accepts context
-      # placements GitHub rejects at workflow parse, so every workflow file is
-      # checked with a pinned, checksum-verified actionlint release binary
-      # before the other gates run. Version pinned: 1.7.12.
-      - name: Workflow semantic validation (actionlint 1.7.12, pinned)
+      - name: Workflow semantic validation (actionlint 1.7.12, checksum pinned)
         shell: bash
         run: |
+          set -euo pipefail
           curl -fsSL -o /tmp/actionlint.tar.gz \
             "https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_1.7.12_linux_amd64.tar.gz"
           echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  /tmp/actionlint.tar.gz" | sha256sum -c -
           tar -C /tmp -xzf /tmp/actionlint.tar.gz actionlint
           /tmp/actionlint .github/workflows/*.yml
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+      - name: Set up CPython 3.11.15
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
-          python-version: "3.11"
+          python-version: "3.11.15"
+          cache: ""
 
-      - name: Install dependencies
+      - name: Verify interpreter and installer identity
+        shell: bash
         run: |
-          python -m pip install --upgrade pip
-          pip install ruamel.yaml tiktoken pytest jsonschema
+          set -euo pipefail
+          test "$(python --version)" = "Python 3.11.15"
+          test "$(python -m pip --version | awk '{print $2}')" = "26.2.1"
 
-      # One explicit cache location for the tokenizer, shared by the warm step
-      # and the test suite. Never silently populated: only the named warm step
-      # below may download into it. Set via GITHUB_ENV from a run step because
-      # the `runner` context is not available under jobs.<job_id>.env (GitHub
-      # rejects the whole workflow at parse -- see tests/test_workflow_contexts.py).
+      - name: Install locked dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --require-hashes \
+            --disable-pip-version-check \
+            --only-binary=:all: \
+            -r requirements-ci.lock
+
       - name: Configure tokenizer cache directory
         shell: bash
         run: echo "TIKTOKEN_CACHE_DIR=$RUNNER_TEMP/tiktoken-cache" >> "$GITHUB_ENV"
 
-      # The measurement tool never downloads: with a warm cache it uses exact
-      # o200k_base counts; with a cold one it uses the deterministic
-      # conservative estimator (ceilings still enforced, band checks skip with
-      # a stated reason). This named, restore-cached step is the ONLY place a
-      # tokenizer download can happen, and a failure here is tolerated inside
-      # the step body because the estimator covers every gate.
       - name: Restore the tokenizer cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ${{ runner.temp }}/tiktoken-cache
-          key: tiktoken-o200k-base-v1
+          key: tiktoken-o200k-base-v1-${{ hashFiles('requirements-ci.lock') }}
 
-      - name: Warm the tokenizer cache (optional; estimator covers a miss)
+      - name: Prime tokenizer cache for exact budget gate
+        shell: bash
         run: |
-          python -c "import tiktoken; tiktoken.get_encoding('o200k_base')" \
-            || echo "tokenizer cache warm failed; the estimator covers the ceilings"
+          set -euo pipefail
+          python -c "import tiktoken; tiktoken.get_encoding('o200k_base')"
 
-      # Full suite. Every gate below is also covered here, but each is repeated
-      # as its own step so a failure names the property that broke instead of
-      # surfacing as one opaque pytest failure.
+      - name: Record verification identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python --version
+          python -m pip --version
+          python -m pip freeze --all
+          sha256sum requirements-ci.lock
+          git rev-parse HEAD
+          printf '%s\n' \
+            'actions/checkout=de0fac2e4500dabe0009e67214ff5f5447ce83dd' \
+            'actions/setup-python=ece7cb06caefa5fff74198d8649806c4678c61a1' \
+            'actions/cache=0057852bfaa89a56745cba8c7296529d2fc39830' \
+            'actionlint=1.7.12' \
+            'actionlint-archive-sha256=8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8'
+
+      - name: SkillStore admission gate
+        env:
+          STOW_REQUIRE_EXACT_TOKENS: "1"
+        run: python -m pytest tests/test_skillstore_admission.py -q
+
+      # Full suite. Every gate below is repeated as its own named step so a
+      # failure identifies the property rather than surfacing as one opaque run.
       - name: Unit tests
         run: python -m pytest tests/ -q
 
@@ -96,52 +119,35 @@ jobs:
       - name: README rule catalog is current
         run: python tools/gen_readme_catalog.py --check
 
-      # Weak / CI-backstop mode only -- see the LEAK-ENFORCEMENT NOTE at the top.
-      # No `--local`; scans the whole tracked tree with generic heuristics.
       - name: Anti-leak gate (weak / CI backstop)
         run: python tools/check_provenance_leak.py
 
-      # Prose surfaces must not leak the rule-set partition as bare counts.
       - name: Count-leak / doc-lint gate
         run: python -m pytest tests/test_count_leak.py -q
 
-      # REAL gate: builds the artifact, extracts it to a throwaway directory and
-      # drives the shipped runtime from there with the repo root off sys.path.
       - name: Install-smoke gate
         run: python -m pytest tests/test_install_smoke.py -q
 
-      # Asserts this workflow still references every gate above by name, so a
-      # gate deleted from CI fails the build instead of silently disappearing.
       - name: CI workflow references every required gate
         run: python -m pytest tests/test_doc_lint.py -q
 
       - name: Structured-output validators
+        shell: bash
         run: |
-          set -e
-          if [ -f skills/stow/runtime/validate.py ]; then
-            # Valid fixtures must pass (exit 0).
-            python skills/stow/runtime/validate.py --format json  tests/fixtures/json/valid.json
-            python skills/stow/runtime/validate.py --format jsonl tests/fixtures/jsonl/valid.jsonl
-            python skills/stow/runtime/validate.py --format yaml  tests/fixtures/yaml/valid.yaml
-            # Negative control: a known-bad fixture must be REJECTED (nonzero).
-            # `if <cmd>` shields the nonzero exit from `set -e`; we invert it.
-            if python skills/stow/runtime/validate.py --format json tests/fixtures/json/trailing_comma.json; then
-              echo "validator failed to reject trailing_comma.json" >&2
-              exit 1
-            fi
-          else
-            echo "validate.py not present; skipping structured-output validators"
+          set -euo pipefail
+          python skills/stow/runtime/validate.py --format json  tests/fixtures/json/valid.json
+          python skills/stow/runtime/validate.py --format jsonl tests/fixtures/jsonl/valid.jsonl
+          python skills/stow/runtime/validate.py --format yaml  tests/fixtures/yaml/valid.yaml
+          if python skills/stow/runtime/validate.py --format json tests/fixtures/json/trailing_comma.json; then
+            echo "validator failed to reject trailing_comma.json" >&2
+            exit 1
           fi
-          if [ -f skills/stow/runtime/lint_prose.py ]; then
-            # Report-only linter; always exits 0.
-            python skills/stow/runtime/lint_prose.py tests/fixtures/prose/em_dash_in_prose.md
-          fi
+          python skills/stow/runtime/lint_prose.py tests/fixtures/prose/em_dash_in_prose.md
 
-      # The test run must leave the checkout byte-identical: no tracked file
-      # modified, nothing generated into tracked paths. Untracked leftovers are
-      # covered by .gitignore plus the junk-scan test above.
       - name: Working tree is clean after the run
+        shell: bash
         run: |
+          set -euo pipefail
           git diff --exit-code
           git status --porcelain
           test -z "$(git status --porcelain)"

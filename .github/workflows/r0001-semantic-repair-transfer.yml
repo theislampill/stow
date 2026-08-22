@@ -39,7 +39,16 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_CURRENT_HEAD"
-          base64 --decode .r0001/semantic-repair.bundle.b64 > /tmp/semantic-repair.bundle
+          echo 'b231bf893f9707281684d87fee606966aa61c6869f056649fb7a86ea938b3f03  .r0001/semantic-chunk-00.b64' | sha256sum -c -
+          echo 'ab23b03a247c886a9138dfa79ba01797a8dfb4671c12549525fb9e1362dd9e19  .r0001/semantic-chunk-01.b64' | sha256sum -c -
+          echo 'ab1d52547d7c1d2556b56e166413deb10eb745b3b814662457cedc023aa50d70  .r0001/semantic-chunk-02.b64' | sha256sum -c -
+          echo '9bdffa681e70793e87f2c66d28826fb63e76d31ca4d4cc4feba630701594b607  .r0001/semantic-chunk-03.b64' | sha256sum -c -
+          echo '0e7c57ba711d2c4a1df92bd18b408555a150a6ac69d537eb2e516bf0649d864f  .r0001/semantic-chunk-04.b64' | sha256sum -c -
+          echo 'd1daf2e93e256baa8312e0a3128599e26f95f6c7c07c1e5957bebb8f912ae290  .r0001/semantic-chunk-05.b64' | sha256sum -c -
+          echo 'a169bfb5d69fa47ea1f31d5b644a0b0f1e8ad528537f3ee158a54b6920421700  .r0001/semantic-chunk-06.b64' | sha256sum -c -
+          cat .r0001/semantic-chunk-*.b64 > /tmp/semantic-repair.bundle.b64
+          echo 'c891c3da15258b14121ca37afb00c8e5372ee91b53db06263399d0a6d872d4b8  /tmp/semantic-repair.bundle.b64' | sha256sum -c -
+          base64 --decode /tmp/semantic-repair.bundle.b64 > /tmp/semantic-repair.bundle
           echo '5d5fca8d87d10fc12a4ddd2f7d3b102182ed48974369e32249b63d2950ed9e08  /tmp/semantic-repair.bundle' | sha256sum -c -
           git bundle verify /tmp/semantic-repair.bundle
           git fetch /tmp/semantic-repair.bundle \

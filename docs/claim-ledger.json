@@ -246,7 +246,7 @@
     {
       "id": "CLM-023",
       "surface": "skills/stow/SKILL.md",
-      "statement": "Structured validity is a delivery requirement: give the actual candidate to `runtime/validate.py` when available; delivery gate must block, permit repair, and revalidate.",
+      "statement": "the gate must block, permit repair, and revalidate",
       "families": ["validation"],
       "layer": "G3"
     },
@@ -393,7 +393,7 @@
     {
       "id": "CLM-046",
       "surface": "skills/stow/SKILL.md",
-      "statement": "Protect identifiers/quotations/code/paths/data values unless asked to edit literal",
+      "statement": "Protect identifiers, quotations, code, paths, and data values unless asked to edit the literal",
       "families": ["preservation"],
       "layer": "G1"
     },

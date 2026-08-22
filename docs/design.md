@@ -150,8 +150,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1091 | 1500 |
-| Ordinary prose turn (kernel; no reference read) | 1091 | 1500 |
+| Kernel alone (`SKILL.md`) | 1095 | 1500 |
+| Ordinary prose turn (kernel; no reference read) | 1095 | 1500 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -166,12 +166,12 @@ so regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 1645 | the kernel + `references/technical-clarity.md` |
-| Public-documentation turn | 1825 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
-| Raw JSON artifact | 2981 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Technical-clarity turn | 1684 | the kernel + `references/technical-clarity.md` |
+| Public-documentation turn | 1864 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
+| Raw JSON artifact | 3020 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 3960 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
-| Procedure + safety | 4753 | the procedure load path + `references/safety-instructions.md` |
+| Procedure load path | 3999 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 4792 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 

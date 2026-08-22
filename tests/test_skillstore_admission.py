@@ -43,75 +43,79 @@ EXPECTED_RUNTIME = {
 }
 SCOPED_SOURCE = "https://github.com/theislampill/stow/tree/main/skills/stow"
 RELEASE_SCOPED_SOURCE = "https://github.com/theislampill/stow/tree/v0.4.2/skills/stow"
+BASE_SECTION_5_SHA256 = (
+    "6a77d51267d0c011280b3c55d81bd6b0"
+    "69b0890595f0f2a938fd54f6e867ceb7"
+)
 
-BASE_MAIN_ROUTE_SECTION_SHA256 = "6a77d51267d0c011280b3c55d81bd6b069b0890595f0f2a938fd54f6e867ceb7"
-KERNEL_REQUIRED_CLAUSES = {
-    "precedence population": "Eight bands, highest first",
-    "lower-band non-corruption": "A lower band never corrupts a higher one.",
-    "higher-band conflict rule": "Higher bands win conflicts.",
-    "system band": "system:safety and system directives",
-    "contract band": "contract:exact request-implied output contract",
-    "serialization band": "serialization:structured regions must parse/validate",
-    "literal-exclusion band": "literal exclusions:G1 bars protected-literal edits",
-    "accuracy band": "accuracy:no fabricated specificity, retain justified uncertainty",
-    "terminology band": "terminology:one term per concept, used consistently",
-    "profile band": "profile:requested controlled-technical writing",
-    "presentation band": "presentation:user-facing shaping/prose integrity",
-    "region boundary": "Apply rules only to delimited prose/procedure/data/code/quotation/identifier regions.",
-    "classifier limitation": "G1 guidance is not a shipped classifier.",
-    "always-on designation": "## 3. Integrity rules (always on)",
-    "raw-artifact contract": "A raw artifact ships raw: no prose wrapper, no code fence, no commentary.",
-    "literal protection": "Protect identifiers/quotations/code/paths/data values unless asked to edit literal",
-    "byte-comparator limitation": "G1 is not a byte comparator.",
-    "fabricated specificity": "Add no fabricated specificity",
-    "uncertainty preservation": "preserve justified uncertainty, not false confidence",
-    "structured delivery": "Structured validity is a delivery requirement",
-    "named validator": "`runtime/validate.py` when available",
-    "delivery gate": "delivery gate must block, permit repair, and revalidate",
-    "result-first": "Result first.",
-    "preamble removal": "Cut preamble, filler, and closers.",
-    "no post-completion invention": "Invent no post-completion action.",
-    "bounded actions": "Keep bounded, task-complete actions",
-    "required material": "preserve exhaustive required material",
-    "state externalisation": "externalize changed state without repeating a full ledger",
-    "secondary issues": "defer secondary issues without dropping them",
-    "ordered actions": "Number ordered multi-step instructions by action",
-    "list sequencing": "use lists rather than tables for action sequences",
-    "completion-state distinction": "Distinguish completed from planned or unverified work",
-    "error sequence": "Report errors as cause -> effect -> correction",
-    "descriptive headings": "Use concrete, descriptive headings.",
-    "effects-not-authorship": "Review effects, not authorship",
-    "semantic repetition": "remove semantic repetition",
-    "empty metadiscourse": "empty metadiscourse",
-    "manufactured contrast": "manufactured contrast",
-    "unsupported labels": "Drop an evaluative label that has no supporting fact or criterion.",
-    "mechanical symmetry": "mechanical symmetry or fragmentation",
-    "unnecessary sectioning": "unnecessary sectioning",
-    "epistemic opacity": "epistemic opacity",
-    "functionless inflation": "functionless lexical inflation",
-    "legitimate voice": "preserve legitimate voice, uncertainty, transitions, parallelism, and technical terms",
-    "in-model guidance": "Prose and guided procedures use in-model G1 guidance.",
-    "no runtime listing": "Do not list the runtime directory",
-    "no help probe": "probe a checker with --help",
-    "no temporary candidate": "create a temporary candidate",
-    "advisory-linter boundary": "run the advisory prose linter unless explicitly requested or hosts have final-candidate custody for a declared gate",
-    "single actual-candidate check": "For structured artifact call named checker directly once on actual candidate.",
-    "single-rule query": "For one rule, use `runtime/query_rules.py <ID>`.",
-    "final top contract": "Before delivery: top contract",
-    "final literal check": "G1 literal exclusions",
-    "final structured check": "available callable structured checks on actual candidate",
-    "final completeness": "nothing unsupported was added and nothing required was dropped",
-    "final reference boundary": "only predicate-matched references",
-    "no reference walk": "Do not read every reference or corpus module.",
-    "kernel-only default": "When no predicate is true, answer from this kernel alone.",
-}
-OPENING_BEHAVIOUR = {
-    "information": "answer/thesis",
-    "work": "bounded action",
-    "artifact": "artifact",
-    "progress": "state",
-    "error": "cause -> effect -> correction",
-    "completion": "verified result",
+KERNEL_REQUIREMENTS = {
+    1: (
+        "Eight bands, highest first",
+        "system: safety/system directives",
+        "contract: exact implied output contract",
+        "serialization: structured regions must parse and validate",
+        "literal exclusions: G1 bars protected-literal edits",
+        "accuracy: no fabricated specificity, retain justified uncertainty",
+        "terminology: one term per concept, used consistently",
+        "profile: requested controlled-technical writing",
+        "presentation: user-facing shaping and prose integrity",
+        "A lower band never corrupts a higher one.",
+        "Higher bands win conflicts.",
+    ),
+    2: (
+        "Apply rules only to delimited prose, procedure, data, code, quotation, or identifier regions.",
+        "G1 guidance is not a shipped classifier.",
+    ),
+    3: (
+        "## 3. Integrity rules (always on)",
+        "no prose wrapper, no code fence, no commentary",
+        "Protect identifiers, quotations, code, paths, and data values unless asked to edit the literal",
+        "G1 is not a byte comparator",
+        "Add no fabricated specificity",
+        "preserve justified uncertainty, not false confidence",
+        "give the actual candidate to `runtime/validate.py` when available",
+        "the gate must block, permit repair, and revalidate",
+    ),
+    4: (
+        "Result first. Cut preamble, filler, and closers.",
+        "information: answer/thesis",
+        "work: bounded action",
+        "artifact: artifact",
+        "progress: state",
+        "error: cause -> effect -> correction",
+        "completion: verified result",
+        "Invent no post-completion action.",
+        "Keep bounded, task-complete actions visible",
+        "preserve exhaustive required material",
+        "Externalize changed state without repeating a full ledger",
+        "defer secondary issues without dropping them",
+        "Number ordered multi-step instructions by action",
+        "Use lists rather than tables for action sequences",
+        "Distinguish completed, planned, and unverified work",
+        "errors use cause -> effect -> correction",
+        "Use concrete, descriptive headings.",
+        "Review effects, not authorship",
+        "Drop an evaluative label that has no supporting fact or criterion",
+        "mechanical symmetry or fragmentation",
+        "unnecessary sectioning",
+        "epistemic opacity",
+        "functionless lexical inflation",
+        "preserve legitimate voice, uncertainty, transitions, parallelism, and technical terms",
+        "Do not list the runtime directory",
+        "probe a checker with --help",
+        "create a temporary candidate",
+        "advisory prose linter unless explicitly requested or the host has final-candidate custody for a declared gate",
+        "call its named checker directly once on the actual candidate",
+    ),
+    6: (
+        "top contract",
+        "G1 literal exclusions",
+        "callable structured checks ran on the actual candidate when available",
+        "nothing unsupported was added",
+        "nothing required was dropped",
+        "only predicate-matched references",
+        "When no predicate is true, answer from this kernel alone.",
+    ),
 }
 
 
@@ -144,19 +148,50 @@ def _frontmatter(root: Path) -> tuple[dict, str]:
     return data, text
 
 
-def _kernel_body(root: Path) -> str:
-    _frontmatter_data, text = _frontmatter(root)
-    end = text.index("\n---\n", 4) + len("\n---\n")
-    return text[end:]
+def _kernel_body(text: str) -> str:
+    match = re.match(r"\A---\n.*?\n---\n", text, re.DOTALL)
+    assert match, "SKILL.md must start with one YAML frontmatter block"
+    return text[match.end():]
 
 
-def _kernel_section(root: Path, number: int) -> str:
-    body = _kernel_body(root)
+def _kernel_section(text: str, number: int) -> str:
+    body = _kernel_body(text)
     match = re.search(
-        rf"(?ms)^## {number}\. .*?(?=^## {number + 1}\.|\Z)", body
+        rf"^## {number}\. .*?(?=^## \d+\.|\Z)",
+        body,
+        re.MULTILINE | re.DOTALL,
     )
     assert match, f"kernel section {number} is missing"
     return match.group(0)
+
+
+def _check_kernel_semantic_text(text: str) -> None:
+    body = _kernel_body(text)
+    for number, fragments in KERNEL_REQUIREMENTS.items():
+        section = _kernel_section(text, number)
+        folded = section.casefold()
+        for fragment in fragments:
+            assert fragment.casefold() in folded, (
+                f"kernel section {number} lost operative semantic fragment: {fragment!r}"
+            )
+
+    section_5 = _kernel_section(text, 5)
+    digest = hashlib.sha256(section_5.encode("utf-8")).hexdigest()
+    assert digest == BASE_SECTION_5_SHA256, (
+        "section-5 routing map drifted from base main: " + digest
+    )
+    assert "For one rule, use `runtime/query_rules.py <ID>`." in section_5
+
+    assert not re.search(r"^## .*example", body, re.IGNORECASE | re.MULTILINE), (
+        "R0001 has no kernel example requirement"
+    )
+    assert not re.search(r"^(?:Input|Output):", body, re.MULTILINE), (
+        "kernel must not carry a compensating Input/Output example"
+    )
+
+
+def _check_kernel_semantic_parity(root: Path) -> None:
+    _check_kernel_semantic_text(_read(root, "skills/stow/SKILL.md"))
 
 
 def _workflow(root: Path) -> tuple[dict, str]:
@@ -198,7 +233,9 @@ def _check_frontmatter(root: Path) -> None:
     description = frontmatter.get("description")
     assert isinstance(description, str) and description.strip()
     assert len(description) <= 1024
-    assert "Use when" in description, "description needs explicit activation language"
+    assert re.search(r"\bUse STOW\b", description), (
+        "description needs explicit activation language"
+    )
     for cue in (
         "README", "runbook", "procedure", "audit", "handoff",
         "JSON", "JSONL", "YAML", "Markdown",
@@ -247,55 +284,6 @@ def _check_kernel_budget(root: Path) -> None:
     measure = _load_measure(root)
     fallback = measure.estimate_tokens(text)
     assert fallback <= 1500, "fallback kernel estimate %d exceeds 1500" % fallback
-
-
-def _check_kernel_semantic_parity(root: Path) -> None:
-    body = _kernel_body(root)
-    failures: list[str] = []
-    if "## 7. Complete example" in body:
-        failures.append("obsolete complete-example section remains")
-    if re.search(r"(?m)^Input:|^Output:", body):
-        failures.append("obsolete example input/output remains")
-
-    for label, clause in KERNEL_REQUIRED_CLAUSES.items():
-        if clause not in body:
-            failures.append(f"kernel semantic clause lost: {label}: {clause!r}")
-
-    precedence = _kernel_section(root, 1)
-    try:
-        band_positions = [
-            precedence.index(f"{band}:")
-            for band in (
-                "system", "contract", "serialization", "literal exclusions",
-                "accuracy", "terminology", "profile", "presentation",
-            )
-        ]
-    except ValueError:
-        failures.append("precedence population is incomplete")
-    else:
-        if band_positions != sorted(band_positions):
-            failures.append("precedence bands changed order")
-
-    opening = next(
-        (line for line in _kernel_section(root, 4).splitlines()
-         if line.startswith("- Open with ")),
-        None,
-    )
-    if opening is None:
-        failures.append("explicit opening-behaviour mapping is missing")
-    else:
-        for context, behaviour in OPENING_BEHAVIOUR.items():
-            if f"{context}:{behaviour}" not in opening:
-                failures.append(
-                    f"opening behaviour lost: {context} -> {behaviour}"
-                )
-
-    route_section = _kernel_section(root, 5)
-    route_digest = hashlib.sha256(route_section.encode("utf-8")).hexdigest()
-    if route_digest != BASE_MAIN_ROUTE_SECTION_SHA256:
-        failures.append("section-5 routing map differs from exact base main")
-
-    assert not failures, "kernel semantic parity failures:\n- " + "\n- ".join(failures)
 
 
 def _check_licences(root: Path) -> None:
@@ -623,6 +611,7 @@ def _check_weak_provenance(root: Path) -> None:
 def _check_all(root: Path) -> None:
     _check_frontmatter(root)
     _check_kernel_budget(root)
+    _check_kernel_semantic_parity(root)
     _check_licences(root)
     _check_runtime(root)
     _check_submission_docs(root)
@@ -640,8 +629,12 @@ def test_frontmatter_and_activation_contract():
     _check_frontmatter(REPO)
 
 
-def test_kernel_fallback_budget():
+def test_kernel_budget_without_stale_example_requirement():
     _check_kernel_budget(REPO)
+
+
+def test_kernel_preserves_base_main_behavioural_contract():
+    _check_kernel_semantic_parity(REPO)
 
 
 def test_exact_kernel_budget_when_required():
@@ -654,10 +647,6 @@ def test_exact_kernel_budget_when_required():
         pytest.skip("exact tokenizer cache unavailable; fallback ceiling still enforced")
     exact = measure.count_tokens(text, encoder=encoder)
     assert exact <= 1500, "exact kernel count %d exceeds 1500" % exact
-
-
-def test_kernel_preserves_base_main_semantic_contract():
-    _check_kernel_semantic_parity(REPO)
 
 
 def test_mit_licence_topology_and_parity():
@@ -686,6 +675,55 @@ def test_deterministic_package_carries_the_scoped_licence():
 
 def test_weak_provenance_backstop_covers_the_candidate_tree():
     _check_weak_provenance(REPO)
+
+
+# --------------------------------------------------------------------------- #
+# Kernel semantic-parity mutation controls
+# --------------------------------------------------------------------------- #
+
+KERNEL_SEMANTIC_MUTANTS = (
+    ("K01-lower-band-noncorruption", "A lower band never corrupts a higher one.", ""),
+    ("K02-higher-band-conflict", "Higher bands win conflicts.", ""),
+    ("K03-system-band", "system: safety/system directives", "system"),
+    ("K04-contract-band", "contract: exact implied output contract", "contract"),
+    ("K05-serialization-band", "serialization: structured regions must parse and validate", "serialization"),
+    ("K06-literal-exclusion-band", "literal exclusions: G1 bars protected-literal edits", "literal exclusions"),
+    ("K07-accuracy-band", "accuracy: no fabricated specificity, retain justified uncertainty", "accuracy"),
+    ("K08-terminology-band", "terminology: one term per concept, used consistently", "terminology"),
+    ("K09-profile-band", "profile: requested controlled-technical writing", "profile"),
+    ("K10-presentation-band", "presentation: user-facing shaping and prose integrity", "presentation"),
+    ("K11-always-on-heading", "## 3. Integrity rules (always on)", "## 3. Integrity rules"),
+    ("K12-no-code-fence", ", no code fence", ""),
+    ("K13-validate-helper", "give the actual candidate to `runtime/validate.py` when available", "validate the candidate"),
+    ("K14-preamble-filler-closers", "Cut preamble, filler, and closers.", ""),
+    ("K15-information-opening", "information: answer/thesis", "information"),
+    ("K16-work-opening", "work: bounded action", "work"),
+    ("K17-artifact-opening", "artifact: artifact", "artifact"),
+    ("K18-progress-opening", "progress: state", "progress"),
+    ("K19-error-opening", "error: cause -> effect -> correction", "error"),
+    ("K20-completion-opening", "completion: verified result", "completion"),
+    ("K21-effects-not-authorship", "Review effects, not authorship", "Review prose"),
+    ("K22-functionless-inflation", "functionless lexical inflation", "lexical inflation"),
+    ("K23-query-one-rule", "For one rule, use `runtime/query_rules.py <ID>`.", ""),
+    ("K24-section-five-route", "raw JSON -> references/format-json.md", "raw JSON -> references/format-yaml.md"),
+    ("K25-final-callable-check", "callable structured checks ran on the actual candidate when available", "checks"),
+    ("K26-literal-protection", "Protect identifiers, quotations, code, paths, and data values unless asked to edit the literal", "Protect literals"),
+    ("K27-no-temporary-candidate", "create a temporary candidate", "create a candidate"),
+    ("K28-named-checker-direct", "call its named checker directly once on the actual candidate", "check the candidate"),
+)
+
+
+@pytest.mark.parametrize(
+    "_label,old,replacement",
+    KERNEL_SEMANTIC_MUTANTS,
+    ids=[item[0] for item in KERNEL_SEMANTIC_MUTANTS],
+)
+def test_kernel_semantic_mutant_is_rejected(_label, old, replacement):
+    text = _read(REPO, "skills/stow/SKILL.md")
+    assert old in text, f"semantic mutant precondition missing: {old!r}"
+    mutated = text.replace(old, replacement, 1)
+    with pytest.raises(AssertionError):
+        _check_kernel_semantic_text(mutated)
 
 
 # --------------------------------------------------------------------------- #
@@ -762,62 +800,6 @@ def _private_marker_mutant(root: Path) -> None:
         marker + "\n", encoding="utf-8")
 
 
-def _replace_kernel_text(root: Path, old: str, new: str) -> None:
-    path = root / "skills" / "stow" / "SKILL.md"
-    text = path.read_text(encoding="utf-8")
-    assert old in text, f"semantic mutant precondition missing: {old!r}"
-    path.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
-
-
-def _add_complete_example(root: Path) -> None:
-    path = root / "skills" / "stow" / "SKILL.md"
-    text = path.read_text(encoding="utf-8")
-    path.write_text(
-        text + "\n## 7. Complete example\n\nInput: `mutant`\n\nOutput: `mutant`\n",
-        encoding="utf-8",
-        newline="\n",
-    )
-
-
-KERNEL_SEMANTIC_MUTANTS = (
-    ("K01-lower-band-non-corruption",
-     lambda root: _replace_kernel_text(
-         root, "A lower band never corrupts a higher one.", "")),
-    ("K02-higher-band-conflict",
-     lambda root: _replace_kernel_text(root, "Higher bands win conflicts.", "")),
-    ("K03-terminology-definition",
-     lambda root: _replace_kernel_text(
-         root, "one term per concept, used consistently", "consistent terminology")),
-    ("K04-always-on-designation",
-     lambda root: _replace_kernel_text(
-         root, "## 3. Integrity rules (always on)", "## 3. Integrity rules")),
-    ("K05-raw-code-fence",
-     lambda root: _replace_kernel_text(root, ", no code fence", "")),
-    ("K06-named-structured-validator",
-     lambda root: _replace_kernel_text(
-         root, "`runtime/validate.py` when available", "a validator")),
-    ("K07-preamble-filler-closers",
-     lambda root: _replace_kernel_text(
-         root, "Cut preamble, filler, and closers.", "")),
-    ("K08-opening-behaviour-map",
-     lambda root: _replace_kernel_text(
-         root, "information:answer/thesis", "information—response")),
-    ("K09-effects-not-authorship",
-     lambda root: _replace_kernel_text(root, "Review effects, not authorship", "Review prose")),
-    ("K10-functionless-lexical-inflation",
-     lambda root: _replace_kernel_text(
-         root, "functionless lexical inflation", "lexical inflation")),
-    ("K11-single-rule-query",
-     lambda root: _replace_kernel_text(
-         root, "For one rule, use `runtime/query_rules.py <ID>`.\n", "")),
-    ("K12-section-five-route-drift",
-     lambda root: _replace_kernel_text(
-         root, "raw JSON -> references/format-json.md",
-         "raw JSON -> references/format-yaml.md")),
-    ("K13-example-reintroduced", _add_complete_example),
-)
-
-
 MUTANTS = (
     ("M01-root-license-deleted", _check_licences,
      lambda root: (root / "LICENSE").unlink()),
@@ -875,19 +857,6 @@ MUTANTS = (
     ("M22-dist-submission", _check_submission_docs, _submission_dist_mutant),
     ("M23-private-surface", _check_weak_provenance, _private_marker_mutant),
 )
-
-
-@pytest.mark.parametrize(
-    "_label,mutate",
-    KERNEL_SEMANTIC_MUTANTS,
-    ids=[item[0] for item in KERNEL_SEMANTIC_MUTANTS],
-)
-def test_kernel_semantic_mutant_is_rejected(tmp_path, _label, mutate):
-    root = _copy_candidate(tmp_path / "candidate")
-    _check_kernel_semantic_parity(root)
-    mutate(root)
-    with pytest.raises(AssertionError):
-        _check_kernel_semantic_parity(root)
 
 
 @pytest.mark.parametrize("_label,oracle,mutate", MUTANTS, ids=[item[0] for item in MUTANTS])

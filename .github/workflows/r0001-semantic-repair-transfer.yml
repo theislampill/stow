@@ -1,0 +1,79 @@
+name: r0001-semantic-repair-transfer
+
+# Temporary transfer-only workflow. The connector removes this surface when it
+# replaces the branch with the verified RED -> repair history.
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    if: >-
+      github.repository == 'theislampill/stow' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'r0001-skillstore-admission'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact transfer head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify and stage semantic-parity repair bytes
+        shell: bash
+        env:
+          EXPECTED_CURRENT_HEAD: ${{ github.event.pull_request.head.sha }}
+          EXPECTED_BASE: 4e4933732bcbdcddaa5f055e564e859d59763338
+          EXPECTED_RED: dec2c81d3837e0100f2fa7dcbd1878f1bf95ed1b
+          EXPECTED_RED_TREE: 728bf4fd9b0099a61c294a80f6e696021708058d
+          EXPECTED_FINAL: a3f9e741658ff17884be6141bf2acd4361582ae2
+          EXPECTED_FINAL_TREE: bc8e600f09f4e8d2b9ef7c3d867159a37183c11d
+          EXPECTED_PACKAGE_SHA256: 2397804182496c28a17c68b05e58fd8715f2f8885c3834bf18e330a45402a190
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_CURRENT_HEAD"
+          echo 'c891c3da15258b14121ca37afb00c8e5372ee91b53db06263399d0a6d872d4b8  .r0001/semantic-repair.bundle.b64' | sha256sum -c -
+          base64 --decode .r0001/semantic-repair.bundle.b64 > /tmp/semantic-repair.bundle
+          echo '5d5fca8d87d10fc12a4ddd2f7d3b102182ed48974369e32249b63d2950ed9e08  /tmp/semantic-repair.bundle' | sha256sum -c -
+          git bundle verify /tmp/semantic-repair.bundle
+          git fetch /tmp/semantic-repair.bundle \
+            refs/heads/r0001-semantic-parity-repair:refs/remotes/r0001/final
+
+          test "$(git rev-parse refs/remotes/r0001/final)" = "$EXPECTED_FINAL"
+          test "$(git show -s --format=%T "$EXPECTED_FINAL")" = "$EXPECTED_FINAL_TREE"
+          test "$(git rev-parse "$EXPECTED_FINAL^")" = "$EXPECTED_RED"
+          test "$(git show -s --format=%T "$EXPECTED_RED")" = "$EXPECTED_RED_TREE"
+          test "$(git rev-parse "$EXPECTED_RED^")" = "$EXPECTED_BASE"
+          test "$(git diff --name-only "$EXPECTED_BASE" "$EXPECTED_RED")" = 'tests/test_skillstore_admission.py'
+          test "$(git diff --name-only "$EXPECTED_RED" "$EXPECTED_FINAL")" = "$(printf '%s\n' \
+            dist/STOW.skill \
+            dist/STOW.skill.sha256 \
+            dist/manifest.json \
+            docs/claim-ledger.json \
+            docs/design.md \
+            skills/stow/SKILL.md \
+            tests/test_skillstore_admission.py)"
+
+          current_head="$(git rev-parse HEAD)"
+          git read-tree --reset -u "$EXPECTED_FINAL"
+          git checkout "$current_head" -- .github/workflows .r0001
+          git add -A
+          if git diff --cached --name-only | grep -Eq '^(\.github/workflows/|\.r0001/)'; then
+            echo 'Refusing staging commit with transfer-surface changes.' >&2
+            exit 1
+          fi
+          test "$(sha256sum dist/STOW.skill | awk '{print $1}')" = "$EXPECTED_PACKAGE_SHA256"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: stage verified R0001 semantic repair'
+          staged_head="$(git rev-parse HEAD)"
+          git push \
+            --force-with-lease=refs/heads/r0001-skillstore-admission:"$EXPECTED_CURRENT_HEAD" \
+            origin "$staged_head":refs/heads/r0001-skillstore-admission

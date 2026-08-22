@@ -23,3 +23,5 @@ verify.yml:actionlint*
 # Hash-locked CI dependencies. Exempt only lines carrying pip's explicit
 # SHA-256 hash option; any other 64-hex value in the lock remains suspicious.
 requirements-ci.lock:--hash=sha256
+# Exact base-main section-5 routing contract used by the semantic-parity test.
+test_skillstore_admission.py:BASE_MAIN_ROUTE_SECTION_SHA256

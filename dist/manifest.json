@@ -1,6 +1,6 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "e93d7982463163b4fea5d3c768d4b6444fc76ef0ff6dd5f0f4fe5fc13054fbea",
+  "artifact_sha256": "d14c4727ef90694f441895ac1e72627a186a534fc0438d48a039a0af9577cfa9",
   "entries": [
     "stow/LICENSE",
     "stow/SKILL.md",

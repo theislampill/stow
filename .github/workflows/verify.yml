@@ -90,6 +90,7 @@ jobs:
           python -m pip freeze --all
           sha256sum requirements-ci.lock
           git rev-parse HEAD
+          python tools/measure_context.py skills/stow/SKILL.md
           printf '%s\n' \
             'actions/checkout=de0fac2e4500dabe0009e67214ff5f5447ce83dd' \
             'actions/setup-python=ece7cb06caefa5fff74198d8649806c4678c61a1' \

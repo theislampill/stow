@@ -39,7 +39,6 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_CURRENT_HEAD"
-          echo 'c891c3da15258b14121ca37afb00c8e5372ee91b53db06263399d0a6d872d4b8  .r0001/semantic-repair.bundle.b64' | sha256sum -c -
           base64 --decode .r0001/semantic-repair.bundle.b64 > /tmp/semantic-repair.bundle
           echo '5d5fca8d87d10fc12a4ddd2f7d3b102182ed48974369e32249b63d2950ed9e08  /tmp/semantic-repair.bundle' | sha256sum -c -
           git bundle verify /tmp/semantic-repair.bundle

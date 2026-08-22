@@ -2,23 +2,28 @@
 
 ## P0 -- environment and anti-leak gate
 
-### Toolchain (recorded at bootstrap)
+### v0.4.2 candidate verification toolchain
 
 | Component | Version |
 | --- | --- |
-| Python | 3.11.9 |
+| CPython | 3.11.15 |
+| pip installer | 26.2.1 (identity-gated; never upgraded in the workflow) |
 | ruamel.yaml | 0.19.1 |
 | tiktoken | 0.13.0 |
 | pytest | 9.1.1 |
 | jsonschema | 4.26.0 |
-| Platform | Windows-10-10.0.26200-SP0 |
-| git `core.autocrlf` | false |
+| Hosted platform | `ubuntu-24.04` |
+| CI dependency lock | `requirements-ci.lock` (exact versions and SHA-256 hashes) |
 
-tiktoken additionally pulls `requests` and `regex` transitively, and on Python
-3.11 `jsonschema` pulls `referencing` and `typing_extensions`. The shipped
-runtime needs only `ruamel.yaml` and `jsonschema` (for `validate.py`);
-`lint_prose.py` and `profiles.py` are standard-library only, and tiktoken never
-ships.
+`requirements-ci.lock` records the complete hosted-test dependency closure and
+its hashes; the workflow installs it with `--require-hashes` and records the
+interpreter, installer, installed set, lock digest, commit, and external-action
+pins. This is a verification lock, not the user-facing runtime floor.
+
+The shipped runtime needs only `ruamel.yaml` and `jsonschema` for
+`runtime/validate.py`. `dictionary_lookup.py`, `lint_prose.py`, `profiles.py`,
+`query_rules.py`, and `validate_terms.py` are standard-library only. `tiktoken`
+is a repository measurement/test dependency and does not ship in the package.
 
 Packaged skill files are pinned to LF via `.gitattributes` (`skills/stow/** text
 eol=lf`) so line endings stay stable regardless of a contributor's autocrlf
@@ -145,8 +150,8 @@ calibration files, but it is not an upper bound for arbitrary text or tokenizers
 
 | Declared file bundle | Exact tokenizer | Character estimate |
 | --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1084 | 1488 |
-| Ordinary prose turn (kernel; no reference read) | 1084 | 1488 |
+| Kernel alone (`SKILL.md`) | 1095 | 1500 |
+| Ordinary prose turn (kernel; no reference read) | 1095 | 1500 |
 
 The test suite pins both rows in both modes: the kernel ceiling and the
 always-on and ordinary-turn caps are asserted under the exact tokenizer and
@@ -155,18 +160,18 @@ A drift gate in `tests/test_cold_budget.py` re-measures the two rows and fails i
 this table falls out of step with a fresh measurement, so the numbers cannot go
 stale unnoticed.
 
-The remaining rows are exact-tokenizer point measurements of named file sets,
-not live read traces or gated invariants. They drift when references grow, so
-regenerate them after a relevant file change.
+The remaining rows are sums of exact-tokenizer measurements for the named file
+sets, not live read traces or gated invariants. They drift when references grow,
+so regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 1638 | the kernel + `references/technical-clarity.md` |
-| Public-documentation turn | 1818 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
-| Raw JSON artifact | 2970 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Technical-clarity turn | 1684 | the kernel + `references/technical-clarity.md` |
+| Public-documentation turn | 1864 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
+| Raw JSON artifact | 3020 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 4209 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
-| Procedure + safety | 4957 | the procedure load path + `references/safety-instructions.md` |
+| Procedure load path | 3999 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 4792 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 

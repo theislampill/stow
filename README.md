@@ -8,7 +8,9 @@ STOW (Standardising Technical Output Writing) is a public writing specification 
 
 STOW is not an AI-authorship detector, a generic “sound human” style randomiser, or a universal final-response enforcement layer. Most of its writing rules are contextual guidance. Its callable tools decide only closed properties at their declared input boundaries.
 
-Current release: **[v0.4.1](https://github.com/theislampill/stow/releases/tag/v0.4.1)**.
+Prepared release candidate: **v0.4.2**. v0.4.2 has not been released, merged, or submitted.
+
+Current published release: **[v0.4.1](https://github.com/theislampill/stow/releases/tag/v0.4.1)**.
 
 ## Why STOW?
 
@@ -183,6 +185,30 @@ These commands write or replace the `stow` directory under the selected skills d
 
 The repository also includes Claude plugin manifests. Hosts that consume compatible skill or plugin packages can install from the repository instead of extracting the archive manually.
 
+### SkillStore source identity
+
+<!-- SKILLSTORE-SUBMISSION:BEGIN -->
+STOW has not yet been submitted to SkillStore. At the pre-merge boundary, the
+canonical scoped source is:
+
+```text
+https://github.com/theislampill/stow/tree/main/skills/stow
+```
+
+After an authorised v0.4.2 tag exists, the preferred release-bound source is:
+
+```text
+https://github.com/theislampill/stow/tree/v0.4.2/skills/stow
+```
+
+Do not submit the repository root. Do not submit `dist/STOW.skill`. The first
+contains development and plugin surfaces outside the canonical skill; the
+second is a generated release artefact for download, deterministic-package
+verification, and installation. A later successful marketplace scan would be
+bounded evidence about the submitted snapshot, not a universal safety
+certificate for every host, model, prompt, or future version.
+<!-- SKILLSTORE-SUBMISSION:END -->
+
 ### Invoke
 
 Invoke STOW explicitly when host selection matters. For example:
@@ -274,17 +300,29 @@ cross-model equivalence, or final-output custody.
 
 ## Callable tools
 
-The tools are optional accelerators with explicit evidence ceilings.
+`runtime/` is STOW's named executable-helper directory. The Agent Skills format
+permits additional directories alongside `SKILL.md`; retaining this directory
+therefore preserves the canonical scoped source without making any helper run on
+install. Every packaged Python file receives the same security treatment and is
+part of one reviewed executable surface. Installation alone runs no helper.
 
-| Tool | What it can establish | What it cannot establish |
-|---|---|---|
-| `runtime/validate.py` | Whether the supplied JSON, JSONL, YAML, or schema instance satisfies its closed parser/schema contract | That the model's final response was the validated candidate, or that a host will block delivery |
-| `runtime/lint_prose.py` | Advisory surface findings under a caller-supplied profile | Contextual writing quality or compliance; findings do not make the command fail |
-| `runtime/validate_terms.py` | Compliance with an explicit closed term map over caller-labelled editable/protected segments | That the segment labels are semantically correct or that an unknown term is authorised |
-| `runtime/dictionary_lookup.py` | Fixed dictionary membership, listed alternatives, and listed forms from the bundled projection | Intended sense, part of speech in context, or project-specific terminology authority |
-| `runtime/query_rules.py` | The public registry record, applicable profiles, conflicts, and corpus anchor for a rule ID | Automatic semantic routing or live host activation |
+No packaged helper opens a network connection, starts a subprocess, reads
+environment variables, or writes files. Each reads only bundled data or a
+caller-supplied path and reports to standard output or standard error.
 
-`validate.py` requires `ruamel.yaml` and `jsonschema`; the other listed runtime helpers are standard-library only.
+| Helper | Inputs | Outputs | Dependencies | Effects | Evidence ceiling |
+|---|---|---|---|---|---|
+| `runtime/dictionary_lookup.py` | A lookup/form/scan command, bundled dictionary, and optional caller authority or segment JSON | Text or JSON membership/form records; stable nonzero status for unknown or malformed input | Python standard library | Reads files and writes stdout/stderr only | Closed membership, listed alternatives, and listed forms; not contextual sense, part of speech, project authority, or conformance |
+| `runtime/lint_prose.py` | Caller prose, a resolved profile, and optional caller lists | Advisory text or JSON findings; findings remain exit 0 | Python standard library and `runtime/profiles.py` | Reads files and writes stdout/stderr only | Surface-pattern evidence; not authorship, contextual harm, quality, compliance, or delivery custody |
+| `runtime/profiles.py` | A profile ID or alias and bundled `rules/profiles.json` | Resolved profile data or a stable unknown/locked result | Python standard library | Reads bundled data and writes stdout/stderr only | Profile resolution and lock state; not host selection or semantic applicability |
+| `runtime/query_rules.py` | One public rule ID and bundled registry/profile/conflict/corpus data | The matching public rule record, profiles, conflicts, and corpus anchor | Python standard library | Reads bundled data and writes stdout/stderr only | Registry retrieval; not semantic routing, live activation, or compliance |
+| `runtime/validate.py` | Caller JSON, JSONL, YAML, or schema instance plus bundled schemas when selected | `VALID` or `INVALID` diagnostics with stable status codes | `ruamel.yaml>=0.19.1`, `jsonschema>=4.26.0` | Reads files and writes stdout/stderr only | Parser/schema validity of the supplied candidate; not final-response identity or host blocking |
+| `runtime/validate_terms.py` | An explicit closed term map and caller-labelled editable/protected segments | JSON `COMPLIANT`, `NONCOMPLIANT`, or `UNKNOWN` result with stable status codes | Python standard library | Reads files and writes stdout/stderr only | Literal term-map compliance over supplied labels; not label correctness, unknown-term authority, or delivery custody |
+
+These helpers are optional accelerators with explicit evidence ceilings. The
+runtime population is a fixed allowlist in `tools/build_skill.py`; an added
+module fails admission until it is documented, audited, tested, and deliberately
+admitted.
 
 ## Evidence
 
@@ -367,7 +405,7 @@ The table is the landing-page summary. Exact rule wording, applicability, except
 |---|---|
 | Full active rule catalogue | Generated appendix below; authoritative navigation in [`skills/stow/references/rule-index.md`](skills/stow/references/rule-index.md) |
 | Rule conflicts and precedence | [`docs/rule-conflicts.md`](docs/rule-conflicts.md) |
-| Current v0.4.1 product/evidence summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
+| Published v0.4.1 and prepared v0.4.2 candidate summary | This README and [`CHANGELOG.md`](CHANGELOG.md) |
 | Architecture and profile model | [`docs/design.md`](docs/design.md) |
 | Earlier enabled-versus-disabled evidence | [`docs/FUNCTIONAL-EVIDENCE.md`](docs/FUNCTIONAL-EVIDENCE.md) |
 | Fixture and detector baseline | [`docs/evaluation-results.md`](docs/evaluation-results.md) |

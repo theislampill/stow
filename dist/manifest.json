@@ -1,7 +1,8 @@
 {
   "artifact": "STOW.skill",
-  "artifact_sha256": "24f1d5619ef67d09ab4052f8dc087f1e513420669122f18b39089e561dd42b92",
+  "artifact_sha256": "2397804182496c28a17c68b05e58fd8715f2f8885c3834bf18e330a45402a190",
   "entries": [
+    "stow/LICENSE",
     "stow/SKILL.md",
     "stow/corpus/action-shaping.md",
     "stow/corpus/descriptions.md",
@@ -81,6 +82,6 @@
     "stow/templates/event-stream.jsonl",
     "stow/templates/task-packet.yaml"
   ],
-  "entry_count": 78,
-  "version": "0.4.1"
+  "entry_count": 79,
+  "version": "0.4.2"
 }

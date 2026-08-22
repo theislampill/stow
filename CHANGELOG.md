@@ -5,7 +5,44 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 ## [Unreleased]
 
-Nothing yet.
+No changes are recorded beyond the separately identified v0.4.2 release candidate below.
+
+## [0.4.2] - Unreleased
+
+Prepared release candidate for licence, metadata, package-topology, executable-helper,
+and hosted-CI integrity required by R0001. This section does not claim a merge,
+release, SkillStore submission, listing, or scan result.
+
+### Added
+
+- Added byte-identical MIT licence files at the repository root and scoped skill
+  root, with `license: LICENSE` in the skill frontmatter and the scoped copy in
+  the deterministic package.
+- Added a trigger-bearing Agent Skills frontmatter contract, candidate-version
+  metadata, compatibility and dependency boundaries, and one compact complete
+  input/output example.
+- Added the hard SkillStore-admission test with material mutation controls for
+  licence, metadata, runtime, package, submission-target, provenance-backstop,
+  dependency-lock, and CI-defusing failures.
+
+### Changed
+
+- Documented the canonical scoped submission source and kept the repository root
+  and generated `dist/STOW.skill` out of the submission identity.
+- Audited and documented all six packaged Python helpers as one executable
+  surface, including inputs, outputs, dependencies, side effects, exit behaviour,
+  and evidence ceilings.
+- Pinned hosted actions by full commit SHA, fixed the runner and Python patch,
+  replaced floating dependency installation with a hash-locked direct/transitive
+  lock, and made the admission suite a named blocking CI gate.
+- Rebuilt the deterministic package and bound the candidate version across the
+  plugin manifest, skill metadata, package manifest, README, and this changelog.
+
+### Pending owner-gated effects
+
+- Merge, tag creation, release publication, SkillStore submission and scan,
+  post-listing badge work, and issue closure remain pending and are not implied
+  by this candidate.
 
 ## [0.4.1] - 2026-08-11
 

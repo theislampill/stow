@@ -175,12 +175,30 @@ def _check_frontmatter(root: Path) -> None:
     assert metadata["version"] == plugin["version"]
 
 
-def _check_kernel_budget(root: Path) -> None:
+def _check_kernel_body_fallback_budget(root: Path) -> None:
     _frontmatter_data, text = _frontmatter(root)
     assert len(text.splitlines()) < 500
     measure = _load_measure(root)
-    fallback = measure.estimate_tokens(text)
-    assert fallback <= 1500, "fallback kernel estimate %d exceeds 1500" % fallback
+    body = _skill_body_bytes(root).decode("utf-8")
+    fallback = measure.estimate_tokens(body)
+    assert fallback <= 1500, (
+        "kernel-body fallback estimate %d exceeds 1500" % fallback
+    )
+
+
+def _check_full_skill_fallback_is_recorded_nonblocking(root: Path) -> None:
+    _frontmatter_data, text = _frontmatter(root)
+    measure = _load_measure(root)
+    measurements = measure.skill_budget_measurements(text, encoder=None)
+    assert measurements["full_fallback_tokens"] == measure.estimate_tokens(text)
+    assert measurements["body_fallback_tokens"] == measure.estimate_tokens(
+        _skill_body_bytes(root).decode("utf-8")
+    )
+    assert measure.run_skill_budget(
+        str(root / "skills" / "stow" / "SKILL.md"),
+        encoder=None,
+        require_exact=False,
+    ) == 0
 
 
 def _check_licences(root: Path) -> None:
@@ -437,6 +455,12 @@ def _check_ci(root: Path) -> None:
     env = admission[0].get("env") or {}
     assert str(env.get("STOW_REQUIRE_EXACT_TOKENS")) == "1"
 
+    budget_receipts = [step for step in steps
+                       if step.get("name") == "STOW budget contract receipt"]
+    assert len(budget_receipts) == 1
+    receipt_body = str(budget_receipts[0].get("run", ""))
+    assert "tools/measure_context.py --skill-budget --require-exact" in receipt_body
+
     lock = _read(root, "requirements-ci.lock")
     for marker in (
         "Generated for CPython 3.11.15 on ubuntu-24.04",
@@ -508,7 +532,8 @@ def _check_weak_provenance(root: Path) -> None:
 def _check_all(root: Path) -> None:
     _check_frontmatter(root)
     _check_skill_body_parity(root)
-    _check_kernel_budget(root)
+    _check_kernel_body_fallback_budget(root)
+    _check_full_skill_fallback_is_recorded_nonblocking(root)
     _check_licences(root)
     _check_runtime(root)
     _check_submission_docs(root)
@@ -530,20 +555,31 @@ def test_skill_body_is_byte_identical_to_base_main():
     _check_skill_body_parity(REPO)
 
 
-def test_kernel_budget():
-    _check_kernel_budget(REPO)
+def test_kernel_body_fallback_budget():
+    _check_kernel_body_fallback_budget(REPO)
 
 
-def test_exact_kernel_budget_when_required():
+def test_full_skill_fallback_is_recorded_nonblocking(capsys):
+    _check_full_skill_fallback_is_recorded_nonblocking(REPO)
+    captured = capsys.readouterr()
+    assert "full skill fallback (recorded, nonblocking):" in captured.out
+    measure = _load_measure(REPO)
+    _frontmatter_data, text = _frontmatter(REPO)
+    assert measure.estimate_tokens(text) > 1500, (
+        "fixture no longer proves whole-file fallback is nonblocking"
+    )
+
+
+def test_full_skill_exact_budget_when_required():
     _frontmatter_data, text = _frontmatter(REPO)
     measure = _load_measure(REPO)
     encoder = measure.get_encoder()
     if encoder is None:
         if os.environ.get("STOW_REQUIRE_EXACT_TOKENS") == "1":
             pytest.fail("exact o200k_base token gate required but cache is unavailable")
-        pytest.skip("exact tokenizer cache unavailable; fallback ceiling still enforced")
+        pytest.skip("exact tokenizer cache unavailable; body fallback ceiling still enforced")
     exact = measure.count_tokens(text, encoder=encoder)
-    assert exact <= 1500, "exact kernel count %d exceeds 1500" % exact
+    assert exact <= 1500, "exact full-SKILL count %d exceeds 1500" % exact
 
 
 def test_mit_licence_topology_and_parity():
@@ -677,7 +713,7 @@ MUTANTS = (
     ("M10-skill-body-drift", _check_skill_body_parity,
      lambda root: (root / "skills" / "stow" / "SKILL.md").write_bytes(
          _bytes(root, "skills/stow/SKILL.md") + b"\n")),
-    ("M11-kernel-over-budget", _check_kernel_budget,
+    ("M11-kernel-body-over-budget", _check_kernel_body_fallback_budget,
      lambda root: (root / "skills" / "stow" / "SKILL.md").write_text(
          _read(root, "skills/stow/SKILL.md") + ("x" * 6000), encoding="utf-8")),
     ("M12-undocumented-runtime", _check_runtime,

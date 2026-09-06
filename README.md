@@ -8,9 +8,7 @@ STOW (Standardising Technical Output Writing) is a public writing specification 
 
 STOW is not an AI-authorship detector, a generic “sound human” style randomiser, or a universal final-response enforcement layer. Most of its writing rules are contextual guidance. Its callable tools decide only closed properties at their declared input boundaries.
 
-Prepared release candidate: **v0.4.2**. v0.4.2 has not been released, merged, or submitted.
-
-Current published release: **[v0.4.1](https://github.com/theislampill/stow/releases/tag/v0.4.1)**.
+Current published release: **[v0.4.2](https://github.com/theislampill/stow/releases/tag/v0.4.2)**.
 
 ## Why STOW?
 

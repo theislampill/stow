@@ -1,7 +1,7 @@
 """R0001 SkillStore admission contract.
 
 This suite binds the public skill metadata, licence topology, executable-helper
-inventory, deterministic package, scoped submission identity, release-candidate
+inventory, deterministic package, scoped submission identity, release
 version, and hosted-CI controls.  The checks are repository-native so a future
 edit cannot silently remove one layer while leaving another apparently green.
 
@@ -33,6 +33,7 @@ SKILL_DIR = REPO / "skills" / "stow"
 SKILL_PATH = SKILL_DIR / "SKILL.md"
 WORKFLOW = REPO / ".github" / "workflows" / "verify.yml"
 EXPECTED_VERSION = "0.4.2"
+EXPECTED_RELEASE_DATE = "2026-09-06"
 EXPECTED_RUNTIME = {
     "dictionary_lookup.py",
     "lint_prose.py",
@@ -345,11 +346,16 @@ def _check_submission_docs(root: Path) -> None:
     assert "not a universal safety certificate" in " ".join(section.split())
 
 
-def _changelog_candidate_version(root: Path) -> str:
+def _changelog_release_version(root: Path) -> str:
     changelog = _read(root, "CHANGELOG.md")
-    match = re.search(r"^## \[((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))\] - Unreleased$",
-                      changelog, re.MULTILINE)
-    assert match, "CHANGELOG needs an unreleased candidate-version heading"
+    match = re.search(
+        r"^## \[((?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*))\] - "
+        + re.escape(EXPECTED_RELEASE_DATE)
+        + r"$",
+        changelog,
+        re.MULTILINE,
+    )
+    assert match, "CHANGELOG needs the dated v0.4.2 release heading"
     return match.group(1)
 
 
@@ -360,11 +366,12 @@ def _check_version(root: Path) -> None:
     assert plugin["version"] == EXPECTED_VERSION
     assert frontmatter["metadata"]["version"] == EXPECTED_VERSION
     assert manifest["version"] == EXPECTED_VERSION
-    assert _changelog_candidate_version(root) == EXPECTED_VERSION
+    assert _changelog_release_version(root) == EXPECTED_VERSION
     readme = _read(root, "README.md")
-    assert "Prepared release candidate: **v%s**" % EXPECTED_VERSION in readme
-    assert "Current published release: **[v0.4.1]" in readme
-    assert "v0.4.2 has not been released" in readme
+    assert ("Current published release: **[v%s]" % EXPECTED_VERSION) in readme
+    assert ("/releases/tag/v%s" % EXPECTED_VERSION) in readme
+    assert "Prepared release candidate:" not in readme
+    assert "has not been released" not in readme
 
 
 def _lock_blocks(text: str) -> list[list[str]]:

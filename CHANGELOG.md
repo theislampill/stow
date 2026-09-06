@@ -5,13 +5,13 @@ Keep a Changelog, and STOW versions follow Semantic Versioning.
 
 ## [Unreleased]
 
-No changes are recorded beyond the separately identified v0.4.2 release candidate below.
+Nothing yet.
 
-## [0.4.2] - Unreleased
+## [0.4.2] - 2026-09-06
 
-Prepared release candidate for licence, metadata, package-topology, executable-helper,
-and hosted-CI integrity required by R0001. This section does not claim a merge,
-release, SkillStore submission, listing, or scan result.
+Patch release for licence, metadata, package-topology, executable-helper,
+and hosted-CI integrity required by R0001. This release does not claim
+SkillStore submission, listing, or scan result.
 
 ### Added
 
@@ -34,14 +34,13 @@ release, SkillStore submission, listing, or scan result.
 - Pinned hosted actions by full commit SHA, fixed the runner and Python patch,
   replaced floating dependency installation with a hash-locked direct/transitive
   lock, and made the admission suite a named blocking CI gate.
-- Rebuilt the deterministic package and bound the candidate version across the
+- Rebuilt the deterministic package and bound the release version across the
   plugin manifest, skill metadata, package manifest, README, and this changelog.
 
 ### Pending owner-gated effects
 
-- Merge, tag creation, release publication, SkillStore submission and scan,
-  post-listing badge work, and issue closure remain pending and are not implied
-  by this candidate.
+- SkillStore submission and scan, post-listing badge work, and issue closure
+  remain pending and are not implied by this release.
 
 ## [0.4.1] - 2026-08-11
 

@@ -43,6 +43,11 @@ EXPECTED_RUNTIME = {
 }
 SCOPED_SOURCE = "https://github.com/theislampill/stow/tree/main/skills/stow"
 RELEASE_SCOPED_SOURCE = "https://github.com/theislampill/stow/tree/v0.4.2/skills/stow"
+BASE_SKILL_BODY_COMMIT = "9f8c1ff02fd5e043da4c939768ad4a6d0ae10ac9"
+BASE_SKILL_BODY_SHA256 = (
+    "ef575c600496e57db05ce66d70ee51b1"
+    "f2bc5f9b87395c284616cc5c89172a4f"
+)
 
 
 # --------------------------------------------------------------------------- #
@@ -72,6 +77,23 @@ def _frontmatter(root: Path) -> tuple[dict, str]:
     data = YAML(typ="safe").load(match.group(1))
     assert isinstance(data, dict), "SKILL.md frontmatter must parse to a mapping"
     return data, text
+
+
+def _skill_body_bytes(root: Path) -> bytes:
+    raw = _bytes(root, "skills/stow/SKILL.md")
+    assert raw.startswith(b"---\n"), "SKILL.md must start with YAML frontmatter"
+    closing = raw.find(b"\n---\n", 4)
+    assert closing >= 0, "SKILL.md frontmatter must have a closing delimiter"
+    return raw[closing + len(b"\n---\n"):]
+
+
+def _check_skill_body_parity(root: Path) -> None:
+    body = _skill_body_bytes(root)
+    digest = hashlib.sha256(body).hexdigest()
+    assert digest == BASE_SKILL_BODY_SHA256, (
+        "SKILL.md body drifted from base main %s: %s"
+        % (BASE_SKILL_BODY_COMMIT, digest)
+    )
 
 
 def _workflow(root: Path) -> tuple[dict, str]:
@@ -159,8 +181,6 @@ def _check_kernel_budget(root: Path) -> None:
     measure = _load_measure(root)
     fallback = measure.estimate_tokens(text)
     assert fallback <= 1500, "fallback kernel estimate %d exceeds 1500" % fallback
-    assert "## 7. Complete example" in text
-    assert "Input:" in text and "Output:" in text
 
 
 def _check_licences(root: Path) -> None:
@@ -487,6 +507,7 @@ def _check_weak_provenance(root: Path) -> None:
 
 def _check_all(root: Path) -> None:
     _check_frontmatter(root)
+    _check_skill_body_parity(root)
     _check_kernel_budget(root)
     _check_licences(root)
     _check_runtime(root)
@@ -505,7 +526,11 @@ def test_frontmatter_and_activation_contract():
     _check_frontmatter(REPO)
 
 
-def test_kernel_budget_and_complete_example():
+def test_skill_body_is_byte_identical_to_base_main():
+    _check_skill_body_parity(REPO)
+
+
+def test_kernel_budget():
     _check_kernel_budget(REPO)
 
 
@@ -649,6 +674,9 @@ MUTANTS = (
      lambda root: (root / ".claude-plugin" / "plugin.json").write_text(
          json.dumps({**json.loads(_read(root, ".claude-plugin/plugin.json")),
                      "version": "9.9.9"}, indent=2) + "\n", encoding="utf-8")),
+    ("M10-skill-body-drift", _check_skill_body_parity,
+     lambda root: (root / "skills" / "stow" / "SKILL.md").write_bytes(
+         _bytes(root, "skills/stow/SKILL.md") + b"\n")),
     ("M11-kernel-over-budget", _check_kernel_budget,
      lambda root: (root / "skills" / "stow" / "SKILL.md").write_text(
          _read(root, "skills/stow/SKILL.md") + ("x" * 6000), encoding="utf-8")),

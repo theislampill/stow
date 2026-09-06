@@ -20,3 +20,6 @@ manifest.json:*_sha256
 # workflow downloads and verifies. Line-scoped to actionlint tokens in the
 # workflow file; the value is still compared against known source hashes.
 verify.yml:actionlint*
+# Hash-locked CI dependencies. Exempt only lines carrying pip's explicit
+# SHA-256 hash option; any other 64-hex value in the lock remains suspicious.
+requirements-ci.lock:--hash=sha256

@@ -239,7 +239,7 @@
     {
       "id": "CLM-022",
       "surface": "README.md",
-      "statement": "| `runtime/query_rules.py` | The public registry record, applicable profiles, conflicts, and corpus anchor for a rule ID | Automatic semantic routing or live host activation |",
+      "statement": "| `runtime/query_rules.py` | One public rule ID and bundled registry/profile/conflict/corpus data | The matching public rule record, profiles, conflicts, and corpus anchor | Python standard library | Reads bundled data and writes stdout/stderr only | Registry retrieval; not semantic routing, live activation, or compliance |",
       "families": ["selection"],
       "layer": "G2"
     },
@@ -423,6 +423,13 @@
       "surface": "docs/SELF-DOGFOOD.md",
       "statement": "The deterministic claim audit covers only the surfaces enumerated in `docs/claim-ledger.json`; it does not establish whole-runtime or whole-guidance closure.",
       "families": ["guarantee", "determinism"],
+      "layer": "G4"
+    },
+    {
+      "id": "CLM-051",
+      "surface": "docs/design.md",
+      "statement": "The deterministic `ceil(chars / 3.5)` fallback remains a hard gate on only the body after the closing YAML frontmatter delimiter, which preserves the already-qualified v0.4.1 operative kernel against bloat.",
+      "families": ["determinism"],
       "layer": "G4"
     }
   ],

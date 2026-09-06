@@ -1,6 +1,23 @@
 ---
 name: stow
-description: "Apply STOW to responses and output contracts: prose, procedures, data, code."
+description: >-
+  Standardising Technical Output Writing (STOW) applies exact output contracts,
+  preserves code, commands, paths, identifiers, quotations, and data values,
+  and reviews editable prose for focus, technical clarity, terminology,
+  evidence strength, and recurrent synthetic-writing pathologies. Use when the
+  user explicitly invokes STOW or asks to write, rewrite, review, or validate a
+  README, runbook, procedure, plan, audit, handoff, public technical document,
+  controlled-technical text, mixed prose with protected literals, or an exact
+  JSON, JSONL, YAML, or Markdown artefact.
+license: LICENSE
+compatibility: >-
+  Agent Skills-compatible hosts. Packaged helpers are qualified on CPython
+  3.11. validate.py requires ruamel.yaml>=0.19.1 and
+  jsonschema>=4.26.0; the other packaged helpers use the Python standard
+  library. Installation alone runs no helper.
+metadata:
+  author: "theislampill"
+  version: "0.4.2"
 ---
 
 # STOW kernel

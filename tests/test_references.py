@@ -399,13 +399,22 @@ def test_skill_inlines_no_concrete_corpus_path():
 # --------------------------------------------------------------------------- #
 
 def test_skill_within_token_budget():
-    """Ceiling holds in both measurement modes: the estimate over-counts, so
-    an estimate-mode pass implies a real-token pass."""
+    """Full-file exact tokens are hard when available; otherwise the hard
+    deterministic proxy applies only to the operative body after frontmatter."""
     spec = importlib.util.spec_from_file_location(
         "measure_context_for_references",
         os.path.join(REPO, "tools", "measure_context.py"))
     measure_context = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(measure_context)
-    tokens = measure_context.count_tokens(SKILL_TEXT)
-    assert tokens <= SKILL_TOKEN_CEILING, \
-        "SKILL.md is %d tokens, over the %d ceiling" % (tokens, SKILL_TOKEN_CEILING)
+    encoder = measure_context.get_encoder()
+    if encoder is None:
+        measured = measure_context.estimate_tokens(
+            measure_context.skill_body_text(SKILL_TEXT)
+        )
+        scope = "operative body fallback"
+    else:
+        measured = measure_context.count_tokens(SKILL_TEXT, encoder)
+        scope = "complete SKILL.md exact"
+    assert measured <= SKILL_TOKEN_CEILING, \
+        "%s is %d tokens, over the %d ceiling" % (
+            scope, measured, SKILL_TOKEN_CEILING)

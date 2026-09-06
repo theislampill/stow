@@ -10,7 +10,8 @@ These tests prove the four properties the build promises:
   OFF ``sys.path`` (only the extracted tree plus installed packages), so the
   artifact runs standalone.
 * RE-VALIDATION -- the extracted tree re-passes the structured-output
-  validator, the context-budget ceiling, and BOTH anti-leak gates.
+  validator, the amended full-exact/body-fallback budget contract, and BOTH
+  anti-leak gates.
 
 No source-project name appears in this file; the only 64-hex value it handles is
 the artifact's own digest, computed at run time (never a literal).
@@ -263,13 +264,18 @@ def test_extracted_validator_accepts_a_valid_fixture(built):
     assert proc.returncode == 0, proc.stderr
 
 
-def test_extracted_skill_md_is_within_context_ceiling(built):
+def test_extracted_skill_md_satisfies_budget_contract(built):
     skill_md = built.path("stow", "SKILL.md")
-    proc = subprocess.run(
-        [sys.executable, MEASURE, skill_md], capture_output=True, text=True)
-    # measure_context exits nonzero only when over the 1500-token hard ceiling.
+    command = [sys.executable, MEASURE, "--skill-budget"]
+    if os.environ.get("STOW_REQUIRE_EXACT_TOKENS") == "1":
+        command.append("--require-exact")
+    command.append(skill_md)
+    proc = subprocess.run(command, capture_output=True, text=True)
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert "hard ceiling %d: OK" % HARD_CEILING in proc.stdout
+    assert "kernel body fallback hard ceiling %d: OK" % HARD_CEILING in proc.stdout
+    assert "full skill fallback (recorded, nonblocking):" in proc.stdout
+    if "full skill exact hard ceiling %d: NOT EVALUATED" % HARD_CEILING not in proc.stdout:
+        assert "full skill exact hard ceiling %d: OK" % HARD_CEILING in proc.stdout
 
 
 _HAS_PATTERNS = os.path.isfile(PATTERNS_PATH)

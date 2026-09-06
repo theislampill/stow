@@ -6,9 +6,10 @@ cache itself and falls back to a deterministic conservative estimate
 (ceil(chars / 3.5)) when the encoding is absent. These gates prove:
 
   * the fallback is deterministic and matches its stated formula;
-  * a run with NO cache available completes, records its method, enforces the
-    ceiling, and never attempts the network (a dead proxy would break any
-    attempt loudly);
+  * a generic run with NO cache available remains offline and enforces its
+    generic whole-file proxy ceiling;
+  * skill-budget mode hard-gates only the operative body fallback, records the
+    complete-file fallback nonblockingly, and can require the exact tokenizer;
   * the measurement method is recorded in the output in both modes.
 
 Self-contained: no source-project name, path, hash, or URL appears here.
@@ -23,6 +24,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 MEASURE = os.path.join(REPO, "tools", "measure_context.py")
+SKILL = os.path.join(REPO, "skills", "stow", "SKILL.md")
 
 
 def _load(name, path):
@@ -106,3 +108,23 @@ def test_method_is_recorded_in_both_modes(tmp_path):
         capture_output=True, text=True, cwd=REPO, timeout=60)
     assert proc.returncode == 0
     assert "measurement: " in proc.stdout
+
+
+def test_skill_budget_mode_records_full_fallback_without_blocking(tmp_path):
+    proc = subprocess.run(
+        [sys.executable, MEASURE, "--skill-budget", SKILL],
+        capture_output=True, text=True, env=_offline_env(tmp_path), cwd=REPO,
+        timeout=60)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "full skill exact hard ceiling 1500: NOT EVALUATED" in proc.stdout
+    assert "kernel body fallback hard ceiling 1500: OK" in proc.stdout
+    assert "full skill fallback (recorded, nonblocking): 1730" in proc.stdout
+
+
+def test_skill_budget_mode_can_fail_closed_when_exact_is_required(tmp_path):
+    proc = subprocess.run(
+        [sys.executable, MEASURE, "--skill-budget", "--require-exact", SKILL],
+        capture_output=True, text=True, env=_offline_env(tmp_path), cwd=REPO,
+        timeout=60)
+    assert proc.returncode != 0
+    assert "exact o200k_base measurement required" in proc.stderr

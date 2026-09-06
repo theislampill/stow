@@ -9,8 +9,8 @@ The gate proves four end-to-end properties of a fresh install:
 
 * SHAPE     -- the artifact extracts to a single top-level ``stow/`` root.
 * FIDELITY  -- the installed bytes equal the source bytes (the build's only text
-               transform is LF normalisation) for SKILL.md, a corpus module, and
-               representative runtime modules.
+               transform is LF normalisation) for the scoped licence, SKILL.md,
+               a corpus module, and representative runtime modules.
 * CLOSURE   -- each shipped ``runtime/*.py`` runs in a subprocess whose
                ``sys.path`` is the extracted tree only (the repo root is asserted
                absent), driving its real CLI to a sane exit.
@@ -135,6 +135,7 @@ def _sample_corpus_arcname(names):
 
 def test_installed_bytes_equal_source_bytes(installed):
     sample_arcnames = [
+        "stow/LICENSE",
         "stow/SKILL.md",
         _sample_corpus_arcname(installed.names),
         "stow/runtime/validate.py",
@@ -152,6 +153,14 @@ def test_installed_bytes_equal_source_bytes(installed):
         # source under that same normalisation is the exact installed==source
         # invariant (and reduces to a raw byte match on an LF checkout).
         assert installed_bytes == build_skill.normalize_lf(source_bytes), arcname
+
+
+def test_installed_licence_matches_root_and_scoped_source(installed):
+    installed_bytes = _read(installed.path("stow", "LICENSE"))
+    scoped_bytes = _read(os.path.join(SRC, "LICENSE"))
+    root_bytes = _read(os.path.join(REPO, "LICENSE"))
+    assert installed_bytes == scoped_bytes == root_bytes
+    assert b"MIT License" in installed_bytes
 
 
 # --------------------------------------------------------------------------- #

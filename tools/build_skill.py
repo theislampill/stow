@@ -28,8 +28,8 @@ plus the product version from the plugin manifest; no build-environment
 strings, so the manifest is reproducible across hosts).
 
 The ``runtime/`` subtree ships an ALLOWLIST -- exactly ``validate.py``,
-``validate_terms.py``, ``lint_prose.py``, ``profiles.py``, and
-``query_rules.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
+``validate_terms.py``, ``lint_prose.py``, ``profiles.py``,
+``query_rules.py``, and ``dictionary_lookup.py``. Byte-compiled caches (``__pycache__``, ``*.pyc``) and other
 incidental files never enter the archive.
 """
 

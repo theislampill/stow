@@ -65,6 +65,9 @@ REQUIRED_GATES = (
     ("count-leak / doc-lint",    r"tests/test_count_leak\.py"),
     ("install-smoke gate",       r"tests/test_install_smoke\.py"),
     ("CI-integrity gate",        r"tests/test_doc_lint\.py"),
+    ("SkillStore admission gate", r"tests/test_skillstore_admission\.py"),
+    ("STOW budget contract receipt",
+     r"tools/measure_context\.py\s+--skill-budget\s+--require-exact"),
 )
 
 
@@ -124,9 +127,29 @@ def test_install_smoke_is_a_real_gate():
         assert "continue-on-error" not in body
 
 
+def test_skillstore_admission_is_a_named_blocking_gate():
+    matches = [step for step in steps()
+               if step.get("name") == "SkillStore admission gate"]
+    assert len(matches) == 1, "SkillStore admission gate must be one named step"
+    body = str(matches[0].get("run", ""))
+    assert "tests/test_skillstore_admission.py" in body
+    assert matches[0].get("continue-on-error") is not True
+
+
 # --------------------------------------------------------------------------- #
 # The leak gate must run in CI mode.
 # --------------------------------------------------------------------------- #
+
+
+
+def test_budget_contract_receipt_is_named_and_exact_required():
+    matches = [step for step in steps()
+               if step.get("name") == "STOW budget contract receipt"]
+    assert len(matches) == 1, "budget contract receipt must be one named step"
+    body = str(matches[0].get("run", ""))
+    assert "tools/measure_context.py --skill-budget --require-exact" in body
+    assert matches[0].get("continue-on-error") is not True
+
 
 def test_leak_gate_runs_in_ci_mode_not_local():
     """`--local` needs a private pattern file absent from CI."""
@@ -147,12 +170,14 @@ def test_leak_gate_runs_in_ci_mode_not_local():
 
 def test_referenced_test_files_exist():
     """A pinned gate that points at a deleted test would pass vacuously."""
-    for name in ("test_count_leak.py", "test_install_smoke.py", "test_doc_lint.py"):
+    for name in ("test_count_leak.py", "test_install_smoke.py", "test_doc_lint.py",
+                 "test_skillstore_admission.py"):
         assert os.path.isfile(os.path.join(HERE, name)), "missing tests/%s" % name
 
 
 def test_referenced_tools_exist():
-    for name in ("gen_rule_index.py", "gen_always_on.py", "check_provenance_leak.py"):
+    for name in ("gen_rule_index.py", "gen_always_on.py",
+                 "check_provenance_leak.py", "measure_context.py"):
         assert os.path.isfile(os.path.join(REPO, "tools", name)), "missing tools/%s" % name
 
 

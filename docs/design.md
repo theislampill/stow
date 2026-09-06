@@ -2,23 +2,28 @@
 
 ## P0 -- environment and anti-leak gate
 
-### Toolchain (recorded at bootstrap)
+### v0.4.2 candidate verification toolchain
 
 | Component | Version |
 | --- | --- |
-| Python | 3.11.9 |
+| CPython | 3.11.15 |
+| pip installer | 26.2.1 (identity-gated; never upgraded in the workflow) |
 | ruamel.yaml | 0.19.1 |
 | tiktoken | 0.13.0 |
 | pytest | 9.1.1 |
 | jsonschema | 4.26.0 |
-| Platform | Windows-10-10.0.26200-SP0 |
-| git `core.autocrlf` | false |
+| Hosted platform | `ubuntu-24.04` |
+| CI dependency lock | `requirements-ci.lock` (exact versions and SHA-256 hashes) |
 
-tiktoken additionally pulls `requests` and `regex` transitively, and on Python
-3.11 `jsonschema` pulls `referencing` and `typing_extensions`. The shipped
-runtime needs only `ruamel.yaml` and `jsonschema` (for `validate.py`);
-`lint_prose.py` and `profiles.py` are standard-library only, and tiktoken never
-ships.
+`requirements-ci.lock` records the complete hosted-test dependency closure and
+its hashes; the workflow installs it with `--require-hashes` and records the
+interpreter, installer, installed set, lock digest, commit, and external-action
+pins. This is a verification lock, not the user-facing runtime floor.
+
+The shipped runtime needs only `ruamel.yaml` and `jsonschema` for
+`runtime/validate.py`. `dictionary_lookup.py`, `lint_prose.py`, `profiles.py`,
+`query_rules.py`, and `validate_terms.py` are standard-library only. `tiktoken`
+is a repository measurement/test dependency and does not ship in the package.
 
 Packaged skill files are pinned to LF via `.gitattributes` (`skills/stow/** text
 eol=lf`) so line endings stay stable regardless of a contributor's autocrlf
@@ -138,35 +143,41 @@ not establish which files a host read, or the resulting latency, tool calls,
 memory, or repair work. Each figure comes from `tools/measure_context.py`; other
 models can tokenize the same bytes differently.
 
-The two common static bundles are measured in both tool modes: the `o200k_base`
-tokenizer when its encoding is cached locally and the deterministic
-`ceil(chars / 3.5)` estimator otherwise. The estimator over-counted the frozen
-calibration files, but it is not an upper bound for arbitrary text or tokenizers.
+R0001 separates marketplace frontmatter overhead from the operative kernel
+budget. The complete `SKILL.md` is release-gated by the real `o200k_base`
+measurement. The deterministic `ceil(chars / 3.5)` fallback remains a hard gate
+on only the body after the closing YAML frontmatter delimiter, which preserves
+the already-qualified v0.4.1 operative kernel against bloat. The complete-file
+fallback remains recorded as drift evidence, but it is not release-blocking.
+The estimator over-counted the frozen calibration files and is not an upper
+bound for arbitrary text or tokenizers.
 
-| Declared file bundle | Exact tokenizer | Character estimate |
-| --- | --- | --- |
-| Kernel alone (`SKILL.md`) | 1084 | 1488 |
-| Ordinary prose turn (kernel; no reference read) | 1084 | 1488 |
+| Budget measurement | Scope | Current value | Acceptance |
+| --- | --- | --- | --- |
+| Complete `SKILL.md` exact `o200k_base` | Complete file, including frontmatter | 1287 | Hard; must be <= 1,500 |
+| Operative kernel body fallback `ceil(chars / 3.5)` | Every character after the closing frontmatter delimiter | 1456 | Hard; must be <= 1,500 |
+| Complete `SKILL.md` fallback `ceil(chars / 3.5)` | Complete file, including frontmatter | 1730 | Recorded, nonblocking drift evidence |
 
-The test suite pins both rows in both modes: the kernel ceiling and the
-always-on and ordinary-turn caps are asserted under the exact tokenizer and
-under the forced fallback (`tests/test_always_on.py`, `tests/test_cold_budget.py`).
-A drift gate in `tests/test_cold_budget.py` re-measures the two rows and fails if
-this table falls out of step with a fresh measurement, so the numbers cannot go
-stale unnoticed.
+The test suite pins all three rows. Hosted CI requires the exact full-file
+measurement, cold-cache tests hard-gate the body fallback, and both modes record
+the complete-file fallback (`tests/test_always_on.py`,
+`tests/test_cold_budget.py`, `tests/test_skillstore_admission.py`). The raw-byte
+body digest separately proves that frontmatter changes cannot be used to alter
+the operative kernel. Drift gates re-measure these rows and fail if the table
+falls out of step with the current files.
 
-The remaining rows are exact-tokenizer point measurements of named file sets,
-not live read traces or gated invariants. They drift when references grow, so
-regenerate them after a relevant file change.
+The remaining rows are sums of exact-tokenizer measurements for the named file
+sets, not live read traces or gated invariants. They drift when references grow,
+so regenerate them after a relevant file change.
 
 | Load path | Tokens (exact) | What is resident |
 | --- | --- | --- |
-| Technical-clarity turn | 1638 | the kernel + `references/technical-clarity.md` |
-| Public-documentation turn | 1818 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
-| Raw JSON artifact | 2970 | kernel + `references/format-json.md` + `references/protected-regions.md` |
+| Technical-clarity turn | 1841 | the kernel + `references/technical-clarity.md` |
+| Public-documentation turn | 2021 | the kernel + one cold read of `references/public-documentation.md`; the reused `technical-clarity` profile does not add `references/technical-clarity.md` |
+| Raw JSON artifact | 3177 | kernel + `references/format-json.md` + `references/protected-regions.md` |
 | Deep single-rule lookup | one grouped module or one anchored section | kernel + the routed grouped corpus module (largest just under fifteen kilobytes) or, via bounded reads, only the rule's anchored section |
-| Procedure load path | 4209 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
-| Procedure + safety | 4957 | the procedure load path + `references/safety-instructions.md` |
+| Procedure load path | 4156 | the ordinary turn + `references/procedures.md` + `references/action-shaping.md` |
+| Procedure + safety | 4949 | the procedure load path + `references/safety-instructions.md` |
 
 The intended load path for each:
 
@@ -312,9 +323,17 @@ and drift-checked in CI.
 `tools/measure_context.py` records its method. When the `o200k_base` encoding is
 already present in the selected local cache it uses that tokenizer; when the
 named cache file is absent it does not call tiktoken and uses
-`ceil(chars / 3.5)`. A corrupt present cache can still trigger behavior inside
+`ceil(chars / 3.5)`. A corrupt present cache can still trigger behaviour inside
 tiktoken and is outside the offline precheck. The estimator is deterministic
 for its formula and was conservative on the historical calibration set, but it
-is not a universal upper bound. Two-sided bands are reported only in tokenizer
-mode; estimate-mode ceilings are repository proxy gates, not claims about live
-host tokens.
+is not a universal upper bound.
+
+Generic single-file mode retains its historical one-file measurement behaviour
+for fixtures and non-skill files. For STOW admission, `--skill-budget` applies
+the amended three-part contract: exact `o200k_base` over the complete
+`SKILL.md` is hard, fallback over the operative body is hard, and fallback over
+the complete file is recorded but nonblocking. Hosted CI also supplies
+`--require-exact`, so missing tokenizer state fails closed rather than silently
+substituting the proxy. Two-sided target bands are reported only in tokenizer
+mode; all proxy figures remain static repository measurements, not claims about
+live host tokens.

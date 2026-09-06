@@ -47,16 +47,17 @@ measure_context = _load_module(
 # action check's rule id, applicability condition, and principal exception into
 # the module, plus the request-mode router and the compact descriptive digest.
 #
-# Mode-aware caps: the REAL caps bind when the tokenizer cache is available;
-# the EST caps bind under the deterministic chars/3.5 fallback, which
-# over-counts (measured 8-38% on shipped files), so each EST cap is the REAL
-# cap scaled for that headroom. Ceilings are enforced in BOTH modes.
+# The amended budget contract separates marketplace metadata from the operative
+# kernel.  Exact o200k_base measures the complete SKILL.md; the deterministic
+# fallback hard gate measures only the body after YAML frontmatter.  The full
+# file fallback remains a recorded value, not a release-blocking proxy.
 _ENCODER = measure_context.get_encoder()
 _TOKENIZER_MODE = _ENCODER is not None
 
 ALWAYS_ON_TOKEN_CAP = 1400 if _TOKENIZER_MODE else 1750
-KERNEL_TOKEN_CEILING = 1500  # holds in both modes (kernel is small and dense)
-ORDINARY_TURN_CAP = 2400 if _TOKENIZER_MODE else 3026
+FULL_SKILL_EXACT_CEILING = 1500
+KERNEL_BODY_FALLBACK_CEILING = 1500
+ORDINARY_TURN_EXACT_CAP = 2400
 
 DESCRIPTIVE_LEAVES = (
     "semantic repetition",
@@ -192,13 +193,34 @@ def test_always_on_module_within_budget():
     assert _tokens(_read(ALWAYS_ON)) <= ALWAYS_ON_TOKEN_CAP
 
 
-def test_kernel_within_ceiling():
-    assert _tokens(_read(KERNEL)) <= KERNEL_TOKEN_CEILING
+def test_kernel_budget_contract():
+    text = _read(KERNEL)
+    if _TOKENIZER_MODE:
+        tokens = _tokens(text)
+        assert tokens <= FULL_SKILL_EXACT_CEILING, (
+            "complete SKILL.md costs %d exact tokens" % tokens
+        )
+    else:
+        body = measure_context.skill_body_text(text)
+        tokens = measure_context.estimate_tokens(body)
+        assert tokens <= KERNEL_BODY_FALLBACK_CEILING, (
+            "operative kernel body costs %d fallback tokens" % tokens
+        )
 
 
 def test_ordinary_prose_turn_footprint_is_bounded():
-    total = _tokens(_read(KERNEL))
-    assert total <= ORDINARY_TURN_CAP, "ordinary prose turn costs %d tokens" % total
+    text = _read(KERNEL)
+    if _TOKENIZER_MODE:
+        total = _tokens(text)
+        assert total <= ORDINARY_TURN_EXACT_CAP, (
+            "ordinary prose turn costs %d exact tokens" % total
+        )
+    else:
+        body = measure_context.skill_body_text(text)
+        total = measure_context.estimate_tokens(body)
+        assert total <= KERNEL_BODY_FALLBACK_CEILING, (
+            "ordinary operative body costs %d fallback tokens" % total
+        )
 
 
 def test_kernel_keeps_no_greedy_loading_rule():

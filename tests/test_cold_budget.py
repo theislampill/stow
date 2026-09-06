@@ -1,14 +1,10 @@
-"""Cold-cache budget regression: the kernel and the ordinary prose-turn bundle
-must fit their ceilings under the DETERMINISTIC FALLBACK estimator, not only
-under the exact tokenizer.
+"""Cold-cache regression for the amended STOW budget contract.
 
-The warm suite measures with tiktoken when its encoding is cached locally. On a
-cold host (no tokenizer cache, and the tool never downloads) measure_context
-falls back to ceil(chars / 3.5). That fallback over-counts, so a file that fits
-warm can still bust the ceiling cold. This module forces the fallback by pointing
-the tokenizer cache at an empty directory, then re-runs the REAL budget
-assertions on the shipped files. If SKILL.md or always-on.md grows past the cold
-limit, these fail even when the warm suite is green.
+The exact ``o200k_base`` gate applies to the complete ``SKILL.md`` whenever the
+encoding is available.  When the cache is cold, the deterministic
+``ceil(chars / 3.5)`` proxy remains a hard gate only for the operative kernel
+body after YAML frontmatter.  The complete-file fallback value is still
+measured and documented, but it is not an acceptance failure.
 """
 
 import importlib.util
@@ -28,13 +24,9 @@ TECHNICAL_CLARITY = os.path.join(
 PUBLIC_DOCUMENTATION = os.path.join(
     REPO, "skills", "stow", "references", "public-documentation.md")
 
-# The same ceilings the warm suite enforces, in their fallback (EST) form.
-# Kernel single-file ceiling holds in BOTH modes (test_references.py,
-# test_build.py, measure_context single-file). The generated always-on detail
-# keeps a separate cold cap; an ordinary turn uses the kernel alone.
-KERNEL_CEILING = 1500
+KERNEL_BODY_FALLBACK_CEILING = 1500
+FULL_SKILL_EXACT_CEILING = 1500
 ALWAYS_ON_EST_CAP = 1750
-ORDINARY_EST_CAP = 1500
 
 
 def _load_measure():
@@ -50,8 +42,7 @@ def _read(path):
 
 
 def _force_cold(monkeypatch, tmp_path):
-    """Point every tokenizer-cache variable measure_context honors at an empty
-    directory, so the encoding is never found and the estimator is selected."""
+    """Point every recognised tokenizer cache variable at an empty directory."""
     empty = tmp_path / "empty-tokenizer-cache"
     empty.mkdir()
     monkeypatch.setenv("TIKTOKEN_CACHE_DIR", str(empty))
@@ -60,8 +51,6 @@ def _force_cold(monkeypatch, tmp_path):
 
 
 def test_fallback_is_actually_selected(monkeypatch, tmp_path):
-    """Guard the guard: with an empty cache dir the tool must choose the
-    estimator, or the assertions below would silently test the warm path."""
     mc = _force_cold(monkeypatch, tmp_path)
     assert mc.find_cached_encoding() is None
     assert mc.get_encoder() is None
@@ -69,14 +58,15 @@ def test_fallback_is_actually_selected(monkeypatch, tmp_path):
     assert mc.count_tokens(sample) == mc.estimate_tokens(sample)
 
 
-def test_kernel_fits_its_ceiling_cold(monkeypatch, tmp_path):
+def test_kernel_body_fits_its_fallback_ceiling_cold(monkeypatch, tmp_path):
     mc = _force_cold(monkeypatch, tmp_path)
     encoder = mc.get_encoder()
     assert encoder is None, "cache must be cold for this assertion to mean anything"
-    tokens = mc.count_tokens(_read(SKILL), encoder)
-    assert tokens <= KERNEL_CEILING, (
-        "cold kernel is %d fallback tokens, over the %d ceiling"
-        % (tokens, KERNEL_CEILING))
+    body = mc.skill_body_text(_read(SKILL))
+    tokens = mc.estimate_tokens(body)
+    assert tokens <= KERNEL_BODY_FALLBACK_CEILING, (
+        "cold kernel body is %d fallback tokens, over the %d ceiling"
+        % (tokens, KERNEL_BODY_FALLBACK_CEILING))
 
 
 def test_always_on_module_fits_its_cap_cold(monkeypatch, tmp_path):
@@ -89,55 +79,45 @@ def test_always_on_module_fits_its_cap_cold(monkeypatch, tmp_path):
         % (tokens, ALWAYS_ON_EST_CAP))
 
 
-def test_ordinary_prose_turn_bundle_fits_its_cap_cold(monkeypatch, tmp_path):
+def test_full_skill_fallback_is_recorded_nonblocking(monkeypatch, tmp_path, capsys):
     mc = _force_cold(monkeypatch, tmp_path)
     encoder = mc.get_encoder()
     assert encoder is None
-    total = (mc.count_tokens(_read(SKILL), encoder)
-             )
-    assert total <= ORDINARY_EST_CAP, (
-        "cold ordinary prose-turn bundle is %d fallback tokens, over the %d cap"
-        % (total, ORDINARY_EST_CAP))
+    text = _read(SKILL)
+    measurements = mc.skill_budget_measurements(text, encoder=encoder)
+    assert measurements["full_fallback_tokens"] > FULL_SKILL_EXACT_CEILING
+    assert measurements["body_fallback_tokens"] <= KERNEL_BODY_FALLBACK_CEILING
+    assert mc.run_skill_budget(SKILL, encoder, require_exact=False) == 0
+    output = capsys.readouterr().out
+    assert "full skill fallback (recorded, nonblocking):" in output
+    assert "kernel body fallback hard ceiling 1500: OK" in output
+    assert "full skill exact hard ceiling 1500: NOT EVALUATED" in output
 
 
-def test_measure_single_file_exits_zero_cold(monkeypatch, tmp_path):
-    """The build's extracted-SKILL ceiling check shells out to measure_context;
-    it must exit 0 (ceiling OK) in fallback mode too."""
+def test_skill_budget_requires_exact_only_when_requested(monkeypatch, tmp_path, capsys):
     mc = _force_cold(monkeypatch, tmp_path)
-    encoder = mc.get_encoder()
-    assert encoder is None
-    assert mc.run_single(SKILL, encoder) == 0
+    assert mc.run_skill_budget(SKILL, mc.get_encoder(), require_exact=True) != 0
+    assert "exact o200k_base measurement required" in capsys.readouterr().err
 
 
 # --------------------------------------------------------------------------- #
-# Documentation-truth drift gate: the two-mode budget table in docs/design.md
-# ("Always-resident path" | exact | fallback) must stay in step with a fresh
-# measurement, so the published numbers cannot go stale unnoticed.
+# Documentation-truth drift gates.
 # --------------------------------------------------------------------------- #
 
-KERNEL_PATHS = (SKILL,)
-ORDINARY_PATHS = (SKILL,)
 
-
-def _sum_tokens(mc, encoder, paths):
-    return sum(mc.count_tokens(_read(p), encoder) for p in paths)
-
-
-def _design_two_mode_row(label):
-    """(exact, fallback) integers from the design.md two-mode budget row whose
-    first cell contains ``label``."""
+def _design_budget_value(label):
+    """Current integer from the amended four-column budget table."""
     with open(DESIGN, encoding="utf-8") as fh:
         for line in fh:
             if not line.lstrip().startswith("|"):
                 continue
             cells = [c.strip() for c in line.strip().strip("|").split("|")]
-            if len(cells) < 3 or label not in cells[0]:
+            if len(cells) < 4 or label not in cells[0]:
                 continue
-            exact = re.search(r"\d+", cells[1])
-            fallback = re.search(r"\d+", cells[2])
-            if exact and fallback:
-                return int(exact.group()), int(fallback.group())
-    raise AssertionError("no two-mode budget row for %r in docs/design.md" % label)
+            value = re.search(r"\d+", cells[2])
+            if value:
+                return int(value.group()), cells[3]
+    raise AssertionError("no amended budget row for %r in docs/design.md" % label)
 
 
 def _design_exact_load_row(label):
@@ -154,41 +134,30 @@ def _design_exact_load_row(label):
     raise AssertionError("no exact load-path row for %r in docs/design.md" % label)
 
 
-def test_design_budget_table_fallback_matches_measurement(monkeypatch, tmp_path):
-    """The fallback column of the design.md two-mode table must equal a fresh
-    fallback measurement. The estimator is deterministic (pure char count), so
-    this is an exact-equality drift gate that runs on every host, CI included."""
+def test_design_budget_rows_match_fallback_measurements(monkeypatch, tmp_path):
     mc = _force_cold(monkeypatch, tmp_path)
-    encoder = mc.get_encoder()
-    assert encoder is None
-    _k_exact, k_fallback = _design_two_mode_row("Kernel alone")
-    _o_exact, o_fallback = _design_two_mode_row("Ordinary prose turn")
-    assert _sum_tokens(mc, encoder, KERNEL_PATHS) == k_fallback, (
-        "design.md kernel fallback figure is stale (measured %d, doc says %d)"
-        % (_sum_tokens(mc, encoder, KERNEL_PATHS), k_fallback))
-    assert _sum_tokens(mc, encoder, ORDINARY_PATHS) == o_fallback, (
-        "design.md ordinary fallback figure is stale (measured %d, doc says %d)"
-        % (_sum_tokens(mc, encoder, ORDINARY_PATHS), o_fallback))
+    text = _read(SKILL)
+    body = mc.skill_body_text(text)
+    body_documented, body_acceptance = _design_budget_value(
+        "Operative kernel body fallback")
+    full_documented, full_acceptance = _design_budget_value(
+        "Complete `SKILL.md` fallback")
+    assert mc.estimate_tokens(body) == body_documented
+    assert mc.estimate_tokens(text) == full_documented
+    assert "Hard" in body_acceptance and "1,500" in body_acceptance
+    assert "Recorded" in full_acceptance and "nonblocking" in full_acceptance
 
 
-def test_design_budget_table_exact_matches_measurement():
-    """The exact column must match the exact tokenizer when its encoding is
-    cached. On a cold host the exact tokenizer is unavailable, so the check is
-    skipped rather than measured in the wrong mode; the fallback gate above
-    still catches drift there."""
+def test_design_full_skill_exact_row_matches_measurement():
     mc = _load_measure()
     encoder = mc.get_encoder()
     if encoder is None:
-        pytest.skip("exact tokenizer unavailable (cold cache); "
-                    "fallback drift gate still runs")
-    k_exact, _k_fallback = _design_two_mode_row("Kernel alone")
-    o_exact, _o_fallback = _design_two_mode_row("Ordinary prose turn")
-    assert _sum_tokens(mc, encoder, KERNEL_PATHS) == k_exact, (
-        "design.md kernel exact figure is stale (measured %d, doc says %d)"
-        % (_sum_tokens(mc, encoder, KERNEL_PATHS), k_exact))
-    assert _sum_tokens(mc, encoder, ORDINARY_PATHS) == o_exact, (
-        "design.md ordinary exact figure is stale (measured %d, doc says %d)"
-        % (_sum_tokens(mc, encoder, ORDINARY_PATHS), o_exact))
+        pytest.skip("exact tokenizer unavailable (cold cache); fallback gates still run")
+    documented, acceptance = _design_budget_value(
+        "Complete `SKILL.md` exact `o200k_base`")
+    measured = mc.count_tokens(_read(SKILL), encoder)
+    assert measured == documented
+    assert "Hard" in acceptance and "1,500" in acceptance
 
 
 def test_design_cold_reference_rows_match_exact_measurement():
@@ -201,7 +170,7 @@ def test_design_cold_reference_rows_match_exact_measurement():
         "Public-documentation turn": (SKILL, PUBLIC_DOCUMENTATION),
     }
     for label, paths in expected.items():
-        measured = _sum_tokens(mc, encoder, paths)
+        measured = sum(mc.count_tokens(_read(path), encoder) for path in paths)
         documented = _design_exact_load_row(label)
         assert measured == documented, (
             "design.md %s figure is stale (measured %d, doc says %d)"

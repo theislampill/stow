@@ -3,7 +3,7 @@
 
 REPO-ONLY dev tool (not packaged into the shipped skill).
 
-Measurement method (recorded in every output):
+Measurement methods (recorded in every output):
     * ``o200k_base (tiktoken, local cache)`` -- exact counts, used when the
       encoding file is ALREADY in a local tiktoken cache directory.
     * ``estimate-chars-3.5`` -- a deterministic character estimator
@@ -17,18 +17,26 @@ ordinary cold-cache path offline.
 (Residual: a cache file that exists but fails tiktoken's own integrity check
 would make tiktoken re-download; that corner is outside the offline contract.)
 
-Single-file mode (default)
-    Prints the file's token count, the target band status (800-1200), and the
-    hard-ceiling status (1500). Exits NONZERO when the file is over the
-    1500-token hard ceiling; otherwise exits 0. In estimate mode the ceiling is
-    still enforced as a repository proxy; the band status is NOT
-    evaluated, because a band has two sides and an over-count could misreport
-    either of them.
+Generic single-file mode (default)
+    Preserves the historical generic-file behaviour: measure the complete file
+    with the available method and fail when that measurement exceeds 1500.
+    This mode remains useful for fixtures and non-SKILL.md files.
+
+STOW skill-budget mode (``--skill-budget``)
+    Applies the owner-amended R0001 contract to a frontmatter-bearing SKILL.md:
+
+    * complete SKILL.md exact ``o200k_base`` <= 1500 is hard;
+    * operative body fallback ``ceil(chars / 3.5)`` <= 1500 is hard;
+    * complete SKILL.md fallback is recorded but nonblocking.
+
+    ``--require-exact`` makes an unavailable exact tokenizer a failure. Without
+    it, a cold-cache run enforces the body fallback, records the complete-file
+    fallback, and marks the exact result NOT EVALUATED.
 
 Bundle mode (``--bundles <manifest>``)
     Reads a YAML manifest that groups files into named bundles, sums the token
-    count of each bundle, and reports every total. This mode is SOFT: it
-    reports but never fails (always exits 0).
+    count of each bundle, and reports every total. This mode is SOFT: it reports
+    but never fails (always exits 0).
 
 Manifest shape::
 
@@ -57,6 +65,8 @@ from ruamel.yaml import YAML
 
 ENCODING_NAME = "o200k_base"
 HARD_CEILING = 1500
+FULL_SKILL_EXACT_CEILING = 1500
+KERNEL_BODY_FALLBACK_CEILING = 1500
 BAND_LOW = 800
 BAND_HIGH = 1200
 
@@ -117,6 +127,36 @@ def measurement_method(encoder):
 def estimate_tokens(text):
     """Deterministic character estimate: ceil(chars / 3.5)."""
     return int(math.ceil(len(text) / ESTIMATE_DIVISOR))
+
+
+def skill_body_text(text):
+    """Return every character after the closing YAML frontmatter delimiter.
+
+    The body is returned without normalisation so character accounting follows
+    the same exact text boundary protected by the repository's SHA-256 gate.
+    """
+    if not text.startswith("---\n"):
+        raise ValueError("SKILL.md must start with YAML frontmatter")
+    closing = text.find("\n---\n", 4)
+    if closing < 0:
+        raise ValueError("SKILL.md frontmatter has no closing delimiter")
+    return text[closing + len("\n---\n"):]
+
+
+def skill_budget_measurements(text, encoder=_UNSET):
+    """Return the three measurements in the amended R0001 budget contract."""
+    if encoder is _UNSET:
+        encoder = get_encoder()
+    body = skill_body_text(text)
+    return {
+        "full_exact_tokens": (
+            None if encoder is None else count_tokens(text, encoder)
+        ),
+        "body_fallback_tokens": estimate_tokens(body),
+        "full_fallback_tokens": estimate_tokens(text),
+        "body_chars": len(body),
+        "full_chars": len(text),
+    }
 
 
 def count_tokens(text, encoder=_UNSET):
@@ -180,6 +220,64 @@ def run_single(path, encoder):
     return 0
 
 
+def run_skill_budget(path, encoder=_UNSET, require_exact=False):
+    """Apply the amended full-exact/body-fallback SKILL.md contract."""
+    text = _read_text(path)
+    if encoder is _UNSET:
+        encoder = get_encoder()
+    try:
+        measurements = skill_budget_measurements(text, encoder)
+    except ValueError as exc:
+        print("FAIL: %s" % exc, file=sys.stderr)
+        return 1
+
+    exact = measurements["full_exact_tokens"]
+    body_fallback = measurements["body_fallback_tokens"]
+    full_fallback = measurements["full_fallback_tokens"]
+    body_over = body_fallback > KERNEL_BODY_FALLBACK_CEILING
+    exact_over = exact is not None and exact > FULL_SKILL_EXACT_CEILING
+    exact_missing = require_exact and exact is None
+
+    _print_header(encoder)
+    print("budget contract: complete-file exact + operative-body fallback")
+    print("file: %s" % path)
+    if exact is None:
+        print("full skill exact o200k_base: NOT EVALUATED "
+              "(tokenizer cache unavailable)")
+        print("full skill exact hard ceiling %d: NOT EVALUATED"
+              % FULL_SKILL_EXACT_CEILING)
+    else:
+        print("full skill exact o200k_base: %d" % exact)
+        print("full skill exact hard ceiling %d: %s"
+              % (FULL_SKILL_EXACT_CEILING,
+                 "EXCEEDED" if exact_over else "OK"))
+    print("kernel body fallback: %d" % body_fallback)
+    print("kernel body fallback hard ceiling %d: %s"
+          % (KERNEL_BODY_FALLBACK_CEILING,
+             "EXCEEDED" if body_over else "OK"))
+    print("full skill fallback (recorded, nonblocking): %d" % full_fallback)
+    print("full skill chars: %d" % measurements["full_chars"])
+    print("kernel body chars: %d" % measurements["body_chars"])
+    print(_PROXY_CAVEAT)
+
+    failed = False
+    if exact_missing:
+        print("FAIL: exact o200k_base measurement required but tokenizer "
+              "cache is unavailable", file=sys.stderr)
+        failed = True
+    if exact_over:
+        print("FAIL: complete SKILL.md exceeds the %d exact-token ceiling "
+              "(%d tokens)" % (FULL_SKILL_EXACT_CEILING, exact),
+              file=sys.stderr)
+        failed = True
+    if body_over:
+        print("FAIL: operative kernel body exceeds the %d fallback ceiling "
+              "(%d tokens)" % (KERNEL_BODY_FALLBACK_CEILING, body_fallback),
+              file=sys.stderr)
+        failed = True
+    return 1 if failed else 0
+
+
 def _load_manifest(path):
     yaml = YAML(typ="safe")
     with open(path, encoding="utf-8") as handle:
@@ -224,12 +322,23 @@ def main(argv=None):
     parser.add_argument("path", help="a file to measure, or a bundle manifest with --bundles")
     parser.add_argument("--bundles", action="store_true",
                         help="treat PATH as a YAML bundle manifest (soft; never fails)")
+    parser.add_argument("--skill-budget", action="store_true",
+                        help="apply the complete-exact/body-fallback SKILL.md contract")
+    parser.add_argument("--require-exact", action="store_true",
+                        help="with --skill-budget, fail if o200k_base is unavailable")
     args = parser.parse_args(argv)
+
+    if args.bundles and args.skill_budget:
+        parser.error("--bundles and --skill-budget are mutually exclusive")
+    if args.require_exact and not args.skill_budget:
+        parser.error("--require-exact requires --skill-budget")
 
     encoder = get_encoder()
 
     if args.bundles:
         return run_bundles(args.path, encoder)
+    if args.skill_budget:
+        return run_skill_budget(args.path, encoder, args.require_exact)
     return run_single(args.path, encoder)
 
 

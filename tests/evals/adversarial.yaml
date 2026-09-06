@@ -46,19 +46,24 @@ entries:
       consumes a large slice of every request's context budget, defeating the
       "small always-on core" design.
     defense: >
-      The kernel is held under a hard token ceiling (o200k_base) and stays in
-      its target band; the deep material lives in references/ and corpus/ that
-      load only on a true predicate, so the resident cost is bounded.
+      The complete SKILL.md is held under a hard 1500-token o200k_base ceiling,
+      while the byte-preserved operative body is independently held under a
+      hard 1500-token ceil(chars / 3.5) fallback ceiling. Deep material remains
+      in predicate-loaded references/ and corpus/. The complete-file fallback
+      is recorded as drift evidence but is not promoted into a tokenizer claim.
     disposition:
       label: already-covered
       rationale: >
-        The kernel token budget is asserted mechanically at 1500 tokens and the
-        repo dev tool enforces the same hard ceiling, so an inflated kernel fails
-        a test rather than silently shipping.
+        The amended budget contract separates marketplace metadata from the
+        operative kernel: hosted CI requires the exact full-file count, cold
+        tests hard-gate the body proxy, and a SHA-256 gate prevents any body
+        rewrite. An inflated operative body or exact-token overflow therefore
+        fails mechanically rather than silently shipping.
       evidence: >
-        tests/test_references.py::test_skill_within_token_budget
-        (SKILL_TOKEN_CEILING = 1500); tools/measure_context.py exits nonzero over
-        the 1500-token hard ceiling.
+        tests/test_references.py::test_skill_within_token_budget;
+        tests/test_cold_budget.py::test_kernel_body_fits_its_fallback_ceiling_cold;
+        tests/test_skillstore_admission.py::test_skill_body_is_byte_identical_to_base_main;
+        tools/measure_context.py --skill-budget --require-exact.
     gate: "tests/test_references.py::test_skill_within_token_budget"
 
   # ---------------------------------------------------------------------- #

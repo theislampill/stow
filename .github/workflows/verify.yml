@@ -81,6 +81,12 @@ jobs:
           set -euo pipefail
           python -c "import tiktoken; tiktoken.get_encoding('o200k_base')"
 
+      - name: STOW budget contract receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/measure_context.py --skill-budget --require-exact skills/stow/SKILL.md
+
       - name: Record verification identities
         shell: bash
         run: |

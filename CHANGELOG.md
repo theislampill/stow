@@ -18,7 +18,7 @@ SkillStore submission, listing, or scan result.
 - Added byte-identical MIT licence files at the repository root and scoped skill
   root, with `license: LICENSE` in the skill frontmatter and the scoped copy in
   the deterministic package.
-- Added a trigger-bearing Agent Skills frontmatter contract, candidate-version
+- Added a trigger-bearing Agent Skills frontmatter contract, release-version
   metadata, and compatibility and dependency boundaries.
 - Added the hard SkillStore-admission test with material mutation controls for
   licence, metadata, runtime, package, submission-target, provenance-backstop,

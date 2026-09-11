@@ -1,6 +1,6 @@
 # STOW
 
-[![skills.sh](https://skills.sh/b/theislampill/stow)](https://skills.sh/theislampill/stow)
+[![skills.sh](https://skills.sh/b/theislampill/stow)](https://skills.sh/theislampill/stow) [![Skillstore security assessment](https://skillstore.io/badges/skills/theislampill-stow/security.svg)](https://skillstore.io/skills/theislampill-stow?utm_source=security_passport_badge)
 
 **Focused writing governance for LLM output: anti-synthetic prose discipline, action-oriented responses, protected literals, and controlled technical writing when the task requires it.**
 
